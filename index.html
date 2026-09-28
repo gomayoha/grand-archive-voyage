@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="description" content="Goma's Grand Archive. One continuous voyage through One Piece, and through the characters, stories and treasures that stayed.">
+<title>Grand Archive — A Voyage</title>
+<link rel="preload" as="image" href="assets/journey/01.jpg" fetchpriority="high">
+<link rel="stylesheet" href="css/site.css">
+<script type="module" src="js/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#characters">Skip the voyage</a>
+
+<header class="bar" id="bar">
+ <a class="brand" href="#voyage" data-jump><span class="brand-mark">G</span><span>Grand Archive</span></a>
+ <nav class="bar-nav" aria-label="Sections">
+  <a href="#voyage" data-jump>Voyage</a><a href="#characters" data-jump>Characters</a><a href="#journey" data-jump>Journey</a><a href="#vault" data-jump>Vault</a><a href="#scenes" data-jump>Scenes</a><a href="#library" data-jump>Library</a>
+ </nav>
+ <button class="motion-toggle" id="motion" aria-pressed="false">Motion <b>On</b></button>
+</header>
+
+<main>
+ <!-- 01 · THE VOYAGE: ten nested artworks, one continuous camera -->
+ <section id="voyage" class="voyage" aria-label="The voyage">
+  <div class="pin">
+   <div class="jl-host" id="voyage-layers"></div>
+   <div class="vignette" aria-hidden="true"></div>
+   <div class="voyage-intro" id="voyage-intro">
+    <p class="eyebrow">Goma's Grand Archive</p>
+    <h1>The Grand<br>Archive.</h1>
+    <p class="lede">One continuous voyage through the story that changed everything.</p>
+    <span class="scroll-cue" aria-hidden="true"><i></i>Scroll</span>
+   </div>
+   <div class="voyage-caption" id="voyage-caption">
+    <span class="vc-index"></span>
+    <span class="vc-kicker"></span>
+    <h2 class="vc-title"></h2>
+    <p class="vc-line"></p>
+   </div>
+   <nav class="rail" id="rail" aria-label="Voyage chapters"></nav>
+   <div class="voyage-end" id="voyage-end">
+    <p class="eyebrow">Current era</p>
+    <h2>The doors<br>stay open.</h2>
+    <a class="pill" href="#characters" data-jump>Enter the archive</a>
+   </div>
+  </div>
+  <ol class="voyage-static" id="voyage-static" hidden></ol>
+ </section>
+
+ <!-- 02 · CHARACTER LOG -->
+ <section id="characters" class="characters" aria-label="Character Log">
+  <div class="reveal-zoom" id="char-reveal">
+   <div class="pin">
+    <h2 class="rz-title" data-split>Nine people.<br>A thousand reasons.</h2>
+    <figure class="rz-frame"><img src="assets/uploads/batch-9.jpg" alt="Luffy beneath his straw hat" loading="lazy" decoding="async"></figure>
+    <div class="rz-after"><p class="eyebrow">01 · The Character Log</p><p class="rz-sub">Not encyclopedia entries. The reasons they stayed.</p></div>
+   </div>
+  </div>
+  <div class="char-list" id="char-list"></div>
+ </section>
+
+ <!-- 03 · ANIME JOURNEY (horizontal) -->
+ <section id="journey" class="hscroll" aria-label="Anime Journey">
+  <div class="pin">
+   <header class="hs-head">
+    <p class="eyebrow rv">02 · The Anime Journey</p>
+    <h2 class="rv" data-split>I used to call them <em>just cartoons.</em></h2>
+   </header>
+   <div class="hs-track" id="journey-track"></div>
+   <div class="hs-progress" aria-hidden="true"><i id="journey-bar"></i></div>
+  </div>
+ </section>
+
+ <section id="records" class="records" aria-label="All anime records">
+  <div class="wrap">
+   <p class="eyebrow rv">Every world. Every opinion.</p>
+   <h2 class="rv" data-split>31 records, preserved as written.</h2>
+   <div class="controls rv">
+    <input id="search" type="search" placeholder="Find a story…" aria-label="Search anime">
+    <div class="chips" role="group" aria-label="Filter">
+     <button data-filter="all" aria-pressed="true">All</button><button data-filter="rated" aria-pressed="false">Rated</button><button data-filter="watching" aria-pressed="false">Watching</button><button data-filter="canon" aria-pressed="false">Top 10</button>
+    </div>
+    <select id="sort" aria-label="Sort"><option value="score">Highest rated</option><option value="title">A → Z</option></select>
+   </div>
+   <p class="count" id="record-count" aria-live="polite"></p>
+   <div class="record-grid" id="record-grid"></div>
+   <details class="rewatches rv"><summary>Some stories gained company. Rewatch memories</summary><div id="rewatches"></div></details>
+  </div>
+ </section>
+
+ <!-- 04 · CARD VAULT -->
+ <section id="vault" class="vault" aria-label="Card Vault">
+  <div class="pin">
+   <header class="vault-head">
+    <p class="eyebrow">03 · The Card Vault</p>
+    <h2>My kind of <em>treasure.</em></h2>
+   </header>
+   <div class="fan" id="fan" role="group" aria-label="Card collection"></div>
+   <div class="fan-info" id="fan-info" aria-live="polite"></div>
+  </div>
+ </section>
+ <div class="wrap vault-foot">
+  <div class="decks" id="decks"></div>
+  <p class="fine">Twelve confirmed entries across eleven card numbers. Regular and Parallel OP14-112 are separate records. Quantity, language, condition and price are not recorded yet, so they are shown as unknown, never zero. Card art is the official catalog reference, not a photo of the owned copy.</p>
+ </div>
+
+ <!-- 05 · SCENES THAT STAY (video zoom) -->
+ <section id="scenes" class="scenes" aria-label="Scenes that stay">
+  <div class="scene-block" data-video="assets/media/luffy_beat_louder.mp4" data-poster="assets/media/luffy_poster.jpg">
+   <div class="pin">
+    <div class="sv-frame"><video muted loop playsinline preload="none" aria-label="Gear 5 Luffy versus Kaido"></video></div>
+    <div class="sv-text"><p class="eyebrow">04 · Scenes that stay</p><h2>“Come on, heartbeat.<br>Beat louder.”</h2><p>Gear 5 vs Kaido. Pure joy and defiance.</p></div>
+    <button class="sound" aria-pressed="false">Sound off</button>
+   </div>
+  </div>
+  <div class="scene-block" data-video="assets/media/zoro_vs_king.mp4" data-poster="assets/media/zoro_poster.jpg">
+   <div class="pin">
+    <div class="sv-frame"><video muted loop playsinline preload="none" aria-label="Zoro versus King"></video></div>
+    <div class="sv-text"><h2>Sometimes the fight<br>is the speech.</h2><p>Zoro vs King. Aura and spectacle.</p></div>
+    <button class="sound" aria-pressed="false">Sound off</button>
+   </div>
+  </div>
+ </section>
+
+ <!-- 06 · OHARA LIBRARY -->
+ <section id="library" class="library" aria-label="Ohara Library">
+  <div class="lib-head wrap">
+   <p class="eyebrow rv">05 · The Ohara Library</p>
+   <h2 class="rv" data-split>Stories leave <em>traces.</em></h2>
+   <div class="lib-doors rv">
+    <button data-list="manga">Between the panels <span id="n-manga"></span></button>
+    <button data-list="tv">The other screen <span id="n-tv"></span></button>
+    <a href="https://gomayoha.github.io/my-grand-archive/" target="_blank" rel="noopener">The original V1 ↗</a>
+   </div>
+  </div>
+  <div class="art-wall" id="art-wall"></div>
+ </section>
+
+ <!-- 07 · OUTRO: the camera pulls back out to where it began -->
+ <section id="outro" class="voyage outro" aria-label="Return to the beginning">
+  <div class="pin">
+   <div class="jl-host" id="outro-layers"></div>
+   <div class="vignette" aria-hidden="true"></div>
+   <div class="outro-text" id="outro-text">
+    <h2>Every adventure<br>leaves a record.</h2>
+    <p>To be continued.</p>
+   </div>
+  </div>
+ </section>
+</main>
+
+<footer class="foot">
+ <span>Grand Archive · Goma</span>
+ <a href="https://gomayoha.github.io/my-grand-archive/" target="_blank" rel="noopener">Original V1 ↗</a>
+ <a href="#voyage" data-jump>Back to the beginning ↑</a>
+</footer>
+
+<dialog id="dialog" aria-labelledby="dialog-title">
+ <button class="dialog-close" id="dialog-close" aria-label="Close">Close ✕</button>
+ <div id="dialog-body"></div>
+</dialog>
+<noscript><p class="noscript">This archive needs JavaScript for its scroll journey. The original <a href="https://gomayoha.github.io/my-grand-archive/">V1</a> works without it.</p></noscript>
+</body>
+</html>

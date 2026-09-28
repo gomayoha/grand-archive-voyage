@@ -1,0 +1,1854 @@
+{
+ "TV": [
+  {
+   "t": "Money Heist",
+   "s": "8",
+   "b": "Iconic heist show — love the characters, but it got weaker every season."
+  },
+  {
+   "t": "Narcos",
+   "s": "8.5",
+   "b": "Loved how they adapted Pablo Escobar's real story — the acting was out of this world."
+  },
+  {
+   "t": "Lupin",
+   "s": "7",
+   "b": "Omar Sy carries this on pure charisma — goated acting, liked the story."
+  },
+  {
+   "t": "Vincenzo",
+   "s": "9",
+   "b": "Doesn't even feel like a typical K-drama, a tier above — so good from start to end."
+  },
+  {
+   "t": "Peaky Blinders",
+   "s": "7",
+   "b": "Badass story with a superb main character, acting on another level."
+  },
+  {
+   "t": "Dexter",
+   "s": "7.5",
+   "b": "Start was so good I was hooked, but it kept going downhill from there."
+  },
+  {
+   "t": "Reacher",
+   "s": "9",
+   "b": "Love this show — cool, engaging stories, glad it keeps getting renewed."
+  },
+  {
+   "t": "Diablero",
+   "s": "8",
+   "b": "Genuinely enjoyed the story — a fresh breath of air."
+  },
+  {
+   "t": "Sisyphus: The Myth",
+   "s": "8.5",
+   "b": "One of the best sci-fi K-dramas ever — too bad it wasn't renewed for a season 2."
+  },
+  {
+   "t": "Taxi Driver",
+   "s": "7",
+   "b": "Love the concept and the story — it was interesting."
+  },
+  {
+   "t": "The Sinner",
+   "s": "5",
+   "b": "It's mid."
+  },
+  {
+   "t": "Spectros",
+   "s": "7",
+   "b": "Enjoyed the spirits and the different concepts."
+  },
+  {
+   "t": "Crash Landing on You",
+   "s": "9.1",
+   "b": "My favorite K-drama of all time — couldn't take my eyes off it from the start. #1 favorite."
+  },
+  {
+   "t": "It's Okay Not to Be Okay",
+   "s": "8",
+   "b": "Really loved the characters and the show. #3 favorite K-drama."
+  },
+  {
+   "t": "Sweet Home",
+   "s": "6",
+   "b": "It's alright."
+  },
+  {
+   "t": "Alchemy of Souls",
+   "s": "9",
+   "b": "Love this from start to end — love Natsu, Jinwoo, everyone. #2 favorite K-drama."
+  },
+  {
+   "t": "Alice in Borderland",
+   "s": "7",
+   "b": "Really enjoyed season one, but from season two on it became mid."
+  },
+  {
+   "t": "Squid Game",
+   "s": "7",
+   "b": "It's alright, but doesn't deserve the hype people gave it."
+  },
+  {
+   "t": "All of Us Are Dead",
+   "s": "6",
+   "b": "It's alright, didn't get the hype everyone was talking about."
+  },
+  {
+   "t": "Move to Heaven",
+   "s": "7",
+   "b": "Genuinely enjoyed the show."
+  },
+  {
+   "t": "Girl from Nowhere",
+   "s": "8.8",
+   "b": "Love this show, Nanno is really cool — hate that it got cancelled and rebooted."
+  },
+  {
+   "t": "Girl from Nowhere Reboot",
+   "s": "5",
+   "b": "Decent story, decent actor, but compared to the original it was nothing."
+  },
+  {
+   "t": "Holo Love",
+   "s": "5",
+   "b": "It's alright."
+  },
+  {
+   "t": "Descendants of the Sun",
+   "s": "8",
+   "b": "Genre-defining hit — military romance with real chemistry, aged into a classic."
+  },
+  {
+   "t": "Dark Desire",
+   "s": "5",
+   "b": "Boring."
+  },
+  {
+   "t": "Blood Ride",
+   "s": "5",
+   "b": "It's alright."
+  },
+  {
+   "t": "Controls",
+   "s": null,
+   "b": "Lesser-known — don't have a strong read on this one yet."
+  },
+  {
+   "t": "Dark",
+   "s": null,
+   "b": "Still in progress — need to get back to it."
+  },
+  {
+   "t": "Umbrella Academy",
+   "s": "6.5",
+   "b": "Became ass over time."
+  },
+  {
+   "t": "The Originals",
+   "s": "8",
+   "b": "One of my favorites — love Elijah, Hayley, and Klaus."
+  },
+  {
+   "t": "The Vampire Diaries",
+   "s": "7.8",
+   "b": "Kept dragging into dumb parts, but genuinely loved the characters — especially Elena, Damon, and Stefan."
+  },
+  {
+   "t": "Locke & Key",
+   "s": "6.5",
+   "b": "It's alright, seems interesting."
+  },
+  {
+   "t": "Sweet Tooth",
+   "s": "6.8",
+   "b": "It's a good show."
+  },
+  {
+   "t": "Wednesday",
+   "s": "5",
+   "b": "Season 2 became worse and wasn't worth watching."
+  },
+  {
+   "t": "Manifest",
+   "s": "7.8",
+   "b": "It's alright, has an interesting story."
+  },
+  {
+   "t": "Lucifer",
+   "s": "8.9",
+   "b": "Genuinely loved this show and Tom Ellis's acting — the ending was decent too."
+  },
+  {
+   "t": "Sherlock",
+   "s": "8.9",
+   "b": "One of the most engaging shows — the acting and cast were incredible."
+  },
+  {
+   "t": "The Irregulars",
+   "s": "5",
+   "b": "It's alright."
+  },
+  {
+   "t": "Behind Her Eyes",
+   "s": "7",
+   "b": "It's alright, the ending is messed up though."
+  },
+  {
+   "t": "Invisible City",
+   "s": "5",
+   "b": "It's alright."
+  },
+  {
+   "t": "Never Have I Ever",
+   "s": "6.5",
+   "b": "First season is good, but it gets more boring after that."
+  },
+  {
+   "t": "13 Reasons Why",
+   "s": "8.8",
+   "b": "Hit me from the start — love the cast and acting, especially Bryce."
+  },
+  {
+   "t": "On My Block",
+   "s": "7.5",
+   "b": "Really enjoyed how they all grow up through an interesting story."
+  },
+  {
+   "t": "Atypical",
+   "s": "5",
+   "b": "For me it's mid."
+  },
+  {
+   "t": "Ginny & Georgia",
+   "s": "6",
+   "b": "It's alright."
+  },
+  {
+   "t": "Teenage Bounty Hunters",
+   "s": "5.5",
+   "b": "The story seems fun."
+  },
+  {
+   "t": "The End of the F**king World",
+   "s": "8",
+   "b": "Genuinely underrated — not boring at all."
+  },
+  {
+   "t": "Sex/Life",
+   "s": "6",
+   "b": "It's alright, but Ruby is super cute though."
+  },
+  {
+   "t": "Outer Banks",
+   "s": "5",
+   "b": "It's alright, just mid."
+  },
+  {
+   "t": "Teen Wolf",
+   "s": null,
+   "b": "Not enough info yet."
+  },
+  {
+   "t": "Ash vs Evil Dead",
+   "s": "8",
+   "b": "One of the best horror/slasher shows — no boring moment."
+  },
+  {
+   "t": "Slasher",
+   "s": "6.5",
+   "b": "Had some scenes that gave me chills for a while."
+  },
+  {
+   "t": "Insatiable",
+   "s": "4.5",
+   "b": "It's alright."
+  },
+  {
+   "t": "Rain",
+   "s": "8.5",
+   "b": "Genuinely good story with a good ending."
+  },
+  {
+   "t": "Biohackers",
+   "s": "4",
+   "b": "Not good — it was boring."
+  },
+  {
+   "t": "Brand New Cherry Flavour",
+   "s": "5",
+   "b": "It's alright, just forgettable."
+  },
+  {
+   "t": "Post Mortem",
+   "s": null,
+   "b": "Not enough info yet."
+  },
+  {
+   "t": "The Walking Dead",
+   "s": "8",
+   "b": "A legend for me — ups and downs, but I love the cast and their connection."
+  },
+  {
+   "t": "The Walking Dead: The Ones Who Live",
+   "s": "7.5",
+   "b": "Rick Grimes the GOAT was back — can't wait for Daryl to see him."
+  },
+  {
+   "t": "The Walking Dead: Dead City",
+   "s": "8",
+   "b": "Love how Negan and Maggie fight every time they meet — kind of hot, I guess."
+  },
+  {
+   "t": "The Walking Dead: Daryl Dixon",
+   "s": "8",
+   "b": "Loved seeing Daryl and Carol again — story's a little weak, but who cares."
+  },
+  {
+   "t": "Gotham",
+   "s": "8",
+   "b": "One of the best TV series DC has produced — engaging story."
+  },
+  {
+   "t": "Daredevil",
+   "s": "9",
+   "b": "Charlie Cox is excellent, the hallway fight set a new bar — one of the best superhero shows made."
+  },
+  {
+   "t": "Daredevil: Born Again",
+   "s": "9",
+   "b": "Everybody knew this would be a masterpiece, and Marvel didn't disappoint — just as good as the OG."
+  },
+  {
+   "t": "Punisher",
+   "s": "9.2",
+   "b": "Even better than Daredevil for me — Frank's sad backstory, badass but kind and broken."
+  },
+  {
+   "t": "Altered Carbon",
+   "s": "8.5",
+   "b": "Great plot and a well-thought-out world — don't know why it was cancelled."
+  },
+  {
+   "t": "How to Sell Drugs Online (Fast)",
+   "s": "7",
+   "b": "Super underrated."
+  },
+  {
+   "t": "Cobra Kai",
+   "s": "6.5",
+   "b": "Alright, decent story."
+  },
+  {
+   "t": "Black Mirror",
+   "s": "7.5",
+   "b": "Some episodes are really good, some are super dumb."
+  },
+  {
+   "t": "Stranger Things",
+   "s": "5",
+   "b": "Dumbass, Disney-fied ending after all that waiting — genuinely embarrassing."
+  },
+  {
+   "t": "The Witcher",
+   "s": "7",
+   "b": "Cavill was superb — once he was replaced, the story went downhill and I stopped watching."
+  },
+  {
+   "t": "Maid",
+   "s": "5",
+   "b": "Heavy but excellent — one of the most grounded portrayals of single-parenthood on this list."
+  },
+  {
+   "t": "The Five Juanas",
+   "s": null,
+   "b": "Soapy mystery with telenovela energy."
+  },
+  {
+   "t": "One Piece (Live Action)",
+   "s": "8.8",
+   "b": "Landed better than expected for a live-action anime adaptation — has its own charm."
+  }
+ ],
+ "ANIME_DONE": [
+  {
+   "t": "One Piece",
+   "s": "10",
+   "tag": "Completed",
+   "b": "The GOAT, no debate. Perfect worldbuilding, and Luffy's one of the best MCs ever. Currently on a 3rd rewatch through Wano."
+  },
+  {
+   "t": "Berserk",
+   "s": "9",
+   "tag": "Completed",
+   "b": "One of the greatest stories ever written. The '97 anime did it justice — everything since has been a visual disaster."
+  },
+  {
+   "t": "Demon Slayer",
+   "s": "7",
+   "tag": "Completed",
+   "b": "Story's bland and straightforward, but the animation is some of the best in anime history."
+  },
+  {
+   "t": "Jujutsu Kaisen",
+   "s": "7.5",
+   "tag": "Completed",
+   "b": "Crazy animation but honestly overrated story with no real emotional depth. Gojo's still iconic though."
+  },
+  {
+   "t": "Attack on Titan",
+   "s": "8",
+   "tag": "Completed",
+   "b": "Incredible build-up, dumb immature ending. Eren never got real character growth beyond hatred."
+  },
+  {
+   "t": "SPY x Family",
+   "s": "6",
+   "tag": "Completed",
+   "b": "Wholesome and fun, a bit slow-paced, perfect for light viewing. Anya is iconic."
+  },
+  {
+   "t": "Solo Leveling",
+   "s": "7",
+   "tag": "Completed",
+   "b": "Simple power-fantasy MC, nothing groundbreaking, but it knows exactly what it is and delivers."
+  },
+  {
+   "t": "Kaiju No. 8",
+   "s": "5",
+   "tag": "Completed",
+   "b": "Unique MC premise sets it apart, but the story hasn't gone deep enough yet."
+  },
+  {
+   "t": "Dan Da Dan",
+   "s": "7.5",
+   "tag": "Completed",
+   "b": "Good and entertaining so far — just hoping the manga's later arcs don't get dragged out."
+  },
+  {
+   "t": "Frieren",
+   "s": "7",
+   "tag": "Completed",
+   "b": "Not the usual cup of tea, but slow, reflective, and genuinely refreshing."
+  },
+  {
+   "t": "Black Clover",
+   "s": "8",
+   "tag": "Completed",
+   "b": "Underrated. Borrows Naruto vibes but builds its own identity well. Watched it twice."
+  },
+  {
+   "t": "Hell's Paradise",
+   "s": "8.5",
+   "tag": "Completed",
+   "b": "Underrated gem — great concept, solid pacing, some of the best animation of its season."
+  },
+  {
+   "t": "Death Note",
+   "s": "9.5*",
+   "tag": "Completed",
+   "b": "Peak until L dies — first half is a 9.5, second half drops to a 5. Yagami's ending was a letdown."
+  },
+  {
+   "t": "Gachiakuta",
+   "s": "7.5",
+   "tag": "Completed",
+   "b": "Solid vibes and a cool concept. Enjoying it."
+  },
+  {
+   "t": "Toughen Up, Takamine-kun",
+   "s": "6.5",
+   "tag": "Completed",
+   "b": "Alright so far but moving too slow — needs to find its direction and commit."
+  },
+  {
+   "t": "Mob Psycho 100",
+   "s": "8",
+   "tag": "Completed",
+   "b": "Solid start to finish. One of the better 'power isn't everything' stories out there."
+  },
+  {
+   "t": "Sentenced to Be a Hero",
+   "s": "7",
+   "tag": "Completed",
+   "b": "Genuinely interesting concept, watching how the Goddess storyline develops."
+  },
+  {
+   "t": "Cyberpunk: Edgerunners",
+   "s": "7",
+   "tag": "Completed",
+   "b": "Short and decent. Sad ending, but it fits the world."
+  },
+  {
+   "t": "RIN: Daughters of Mnemosyne",
+   "s": "6.5",
+   "tag": "Completed",
+   "b": "Dark, unusual premise. Not for everyone, but unique for what it is."
+  },
+  {
+   "t": "Fire Force",
+   "s": "7",
+   "tag": "Completed",
+   "b": "Worldbuilding feels inconsistent, but the core concept is genuinely interesting."
+  },
+  {
+   "t": "Chainsaw Man",
+   "s": "7",
+   "tag": "Completed",
+   "b": "Genuinely good and gorgeously animated — but we all know how disappointing the ending turns out."
+  },
+  {
+   "t": "Fragrant Flower Blooms with Dignity",
+   "s": "9",
+   "tag": "Completed",
+   "b": "Real, mature, slow-burn romance. Feels like actual people falling for each other, no gimmicks."
+  },
+  {
+   "t": "Smoking Behind the Supermarket with You",
+   "s": "9",
+   "tag": "Completed",
+   "b": "One of the best things watched recently — a genuine breath of fresh air."
+  },
+  {
+   "t": "Re:Zero",
+   "s": "9.5",
+   "tag": "Completed",
+   "b": "Boring start, then everything gets wild around ep 6. Subaru's torment makes him one of the most compelling MCs around."
+  },
+  {
+   "t": "Mushoku Tensei",
+   "s": "9.2",
+   "tag": "Completed",
+   "b": "Peak isekai. Weird start, but the worldbuilding and characters are second only to One Piece."
+  },
+  {
+   "t": "Classroom of the Elite",
+   "s": "9.4",
+   "tag": "Completed",
+   "b": "Never expected to love a school anime this much. Ayanokoji is goated — season 5 can't come soon enough."
+  }
+ ],
+ "ANIME_NOW": [
+  {
+   "t": "Bleach",
+   "s": "Ep 25",
+   "tag": "Watching",
+   "b": "Slow start, pushing through to Soul Society before making a real judgment."
+  },
+  {
+   "t": "Witch Hat Atelier",
+   "s": "Ep 6",
+   "tag": "Watching",
+   "b": "Visually superb with an engaging story — can't wait for more episodes."
+  },
+  {
+   "t": "Hunter x Hunter",
+   "s": "Ep 61",
+   "tag": "Watching",
+   "b": "Okay so far, not blown away yet — holding out for the Chimera Ant arc."
+  },
+  {
+   "t": "My Hero Academia",
+   "s": "Ep 92",
+   "tag": "Watching",
+   "b": "Picked it back up and it's peak now. Watching it together with my sister, 7/10 so far."
+  },
+  {
+   "t": "Black Torch",
+   "s": "Ep 3",
+   "tag": "Watching",
+   "b": "Brand new, only a few episodes out — too early to feel anything strong yet."
+  }
+ ],
+ "MANGA_DONE": [
+  {
+   "t": "Chainsaw Man",
+   "g": "Dark / Psych",
+   "b": "The ending was a big letdown and felt rushed — but the devil concepts were genuinely cool."
+  },
+  {
+   "t": "Black Clover",
+   "g": "Shonen",
+   "b": "It's alright. Loved Asta becoming Wizard King, but the ending felt rushed and kind of Disney."
+  },
+  {
+   "t": "Demon Slayer",
+   "g": "Shonen",
+   "b": "Story's alright."
+  },
+  {
+   "t": "The Flowers of Evil",
+   "g": "Dark / Psych",
+   "b": "Masterpiece."
+  },
+  {
+   "t": "Adabana",
+   "g": "Mystery / Thriller",
+   "b": "Solid murder-mystery / crime drama."
+  },
+  {
+   "t": "Harem End",
+   "g": "Dark / Psych",
+   "b": "Harem-genre parody with a horror-comedy twist."
+  },
+  {
+   "t": "My Broken Mariko",
+   "g": "Emotional / Dark",
+   "b": "Another heartbreaking friend story — ended unclearly."
+  }
+ ],
+ "MANGA_NOW": [
+  {
+   "t": "One Piece",
+   "g": "Shonen",
+   "c": "Ch. 1191"
+  },
+  {
+   "t": "Berserk",
+   "g": "Dark / Psych",
+   "c": "Ch. 214"
+  },
+  {
+   "t": "Smoking Behind the Supermarket with You",
+   "g": "Romance",
+   "c": "Ch. 63",
+   "n": "caught up — next ch. Aug 25"
+  },
+  {
+   "t": "The Fragrant Flower Blooms with Dignity",
+   "g": "Romance",
+   "c": "Ch. 138"
+  },
+  {
+   "t": "Your Lie in April",
+   "g": "Emotional",
+   "c": "Ch. 20"
+  },
+  {
+   "t": "Goodnight Punpun",
+   "g": "Dark / Psych",
+   "c": "Ch. 12"
+  },
+  {
+   "t": "After the Rain",
+   "g": "Romance",
+   "c": "Ch. 4"
+  },
+  {
+   "t": "Solo Leveling",
+   "g": "Action / Fantasy",
+   "c": "Ch. 110"
+  },
+  {
+   "t": "Omniscient Reader",
+   "g": "Action / Fantasy",
+   "c": "Ch. 14"
+  },
+  {
+   "t": "Choujin X",
+   "g": "Dark Fantasy",
+   "c": "Ch. 0",
+   "n": "just started"
+  },
+  {
+   "t": "Chi no Wadachi",
+   "g": "Dark / Psych",
+   "c": "Ch. 83"
+  },
+  {
+   "t": "Deadman Wonderland",
+   "g": "Dark / Psych",
+   "c": "Ch. 1",
+   "n": "just started"
+  },
+  {
+   "t": "Murcielago",
+   "g": "Action",
+   "c": "Ch. 1",
+   "n": "just started"
+  },
+  {
+   "t": "BIBLIOMANIA",
+   "g": "Dark / Psych",
+   "c": "Ch. 3"
+  },
+  {
+   "t": "I Want to Eat Your Pancreas",
+   "g": "Emotional",
+   "c": "Ch. 1"
+  },
+  {
+   "t": "Homunculus",
+   "g": "Dark / Psych",
+   "c": "not started"
+  },
+  {
+   "t": "Gantz",
+   "g": "Action",
+   "c": "Ch. 5",
+   "n": "looks superb"
+  },
+  {
+   "t": "20th Century Boys",
+   "g": "Mystery / Thriller",
+   "c": "Ch. 1"
+  },
+  {
+   "t": "Claymore",
+   "g": "Action",
+   "c": "Ch. 1"
+  },
+  {
+   "t": "Manhole",
+   "g": "Mystery / Thriller",
+   "c": "Ch. 3",
+   "n": "biological horror + police thriller"
+  },
+  {
+   "t": "My Broken Mariko",
+   "g": "Emotional / Dark",
+   "c": "Ch. 1"
+  },
+  {
+   "t": "Welcome Back, Alice",
+   "g": "Dark / Psych",
+   "c": "Ch. 0",
+   "n": "new, Oshimi Shuzo"
+  },
+  {
+   "t": "Smother Me",
+   "g": "Action / Thriller",
+   "c": "Ch. 1",
+   "n": "new, Araki-recommended"
+  }
+ ],
+ "CHARACTER_ART": [
+  {
+   "who": "Luffy",
+   "alt": "Luffy artwork 1",
+   "src": "assets/images/archive-20ee3060ce60.jpg"
+  },
+  {
+   "who": "Luffy",
+   "alt": "Luffy artwork 2",
+   "src": "assets/images/archive-b987e089c330.jpg"
+  },
+  {
+   "who": "Luffy",
+   "alt": "Luffy artwork 3",
+   "src": "assets/images/archive-ccb6a9a7bfaa.jpg"
+  },
+  {
+   "who": "Luffy",
+   "alt": "Luffy artwork 4",
+   "src": "assets/images/archive-0a7839339d6c.jpg"
+  },
+  {
+   "who": "Luffy",
+   "alt": "Luffy artwork 5",
+   "src": "assets/images/archive-b4b6e35d0cc3.jpg"
+  },
+  {
+   "who": "Luffy",
+   "alt": "Luffy artwork 6",
+   "src": "assets/images/archive-c0786ca4acfc.jpg"
+  },
+  {
+   "who": "Luffy",
+   "alt": "Luffy artwork 7",
+   "src": "assets/images/archive-98eb96f39223.jpg"
+  },
+  {
+   "who": "Robin",
+   "alt": "Robin artwork 8",
+   "src": "assets/images/archive-2ebc037413f3.jpg"
+  },
+  {
+   "who": "Robin",
+   "alt": "Robin artwork 9",
+   "src": "assets/images/archive-e846c59fdb9f.jpg"
+  },
+  {
+   "who": "Robin",
+   "alt": "Robin artwork 10",
+   "src": "assets/images/archive-dbb4a7ca3d80.jpg"
+  },
+  {
+   "who": "Robin",
+   "alt": "Robin artwork 11",
+   "src": "assets/images/archive-1bbe968701db.jpg"
+  },
+  {
+   "who": "Robin",
+   "alt": "Robin artwork 12",
+   "src": "assets/images/archive-f4b16850d2f3.jpg"
+  },
+  {
+   "who": "Robin",
+   "alt": "Robin artwork 13",
+   "src": "assets/images/archive-4c7c8f972cc4.jpg"
+  },
+  {
+   "who": "Robin",
+   "alt": "Robin artwork 14",
+   "src": "assets/images/archive-9446af0fc6b2.jpg"
+  },
+  {
+   "who": "Robin",
+   "alt": "Robin artwork 15",
+   "src": "assets/images/archive-0afdf51d1ee8.jpg"
+  },
+  {
+   "who": "Robin",
+   "alt": "Robin artwork 16",
+   "src": "assets/images/archive-1f1c076dcf2e.jpg"
+  },
+  {
+   "who": "Robin",
+   "alt": "Robin artwork 17",
+   "src": "assets/images/archive-805e615739bf.jpg"
+  },
+  {
+   "who": "Robin",
+   "alt": "Robin artwork 18",
+   "src": "assets/images/archive-f4c159b213dc.jpg"
+  },
+  {
+   "who": "Robin",
+   "alt": "Robin artwork 19",
+   "src": "assets/images/archive-2e1366c30533.jpg"
+  },
+  {
+   "who": "Robin",
+   "alt": "Robin artwork 20",
+   "src": "assets/images/archive-27e37adb1061.jpg"
+  },
+  {
+   "who": "Imu",
+   "alt": "Imu artwork 1",
+   "src": "assets/images/archive-771f31636a13.jpg"
+  },
+  {
+   "who": "Luffy",
+   "alt": "Luffy action artwork 2",
+   "src": "assets/images/archive-207b4caffb8a.jpg"
+  },
+  {
+   "who": "Shakky",
+   "alt": "Shakky artwork 1",
+   "src": "assets/images/archive-14f2c73a74f0.jpg"
+  },
+  {
+   "who": "Ayanokoji",
+   "alt": "Ayanokoji artwork 4",
+   "src": "assets/images/archive-4d176ee876f9.jpg"
+  },
+  {
+   "who": "Ayanokoji",
+   "alt": "Ayanokoji artwork 5",
+   "src": "assets/images/archive-7d61abe31df3.jpg"
+  },
+  {
+   "who": "Zoro",
+   "alt": "Zoro artwork 6",
+   "src": "assets/images/archive-94d4c536ac7c.jpg"
+  },
+  {
+   "who": "Zoro",
+   "alt": "Zoro artwork 7",
+   "src": "assets/images/archive-effc696bc2bb.jpg"
+  },
+  {
+   "who": "Robin",
+   "alt": "Robin close-up artwork",
+   "src": "assets/images/archive-5d1806dc58db.jpg"
+  },
+  {
+   "who": "One Piece Girls",
+   "alt": "One Piece girls splash artwork",
+   "src": "assets/images/archive-938e6d939f6b.jpg"
+  },
+  {
+   "who": "Luffy",
+   "alt": "Luffy sketch collage artwork",
+   "src": "assets/images/archive-efd539012e8e.jpg"
+  },
+  {
+   "who": "One Piece",
+   "alt": "One Piece logo and crew artwork",
+   "src": "assets/images/archive-eafe5194e541.jpg"
+  },
+  {
+   "who": "Straw Hat Crew",
+   "alt": "Straw Hat crew panel artwork",
+   "src": "assets/images/archive-ca4b2e9308c9.jpg"
+  },
+  {
+   "who": "One Piece 1000 Logs",
+   "alt": "One Piece 1000 logs artwork",
+   "src": "assets/images/archive-9111d7e55849.jpg"
+  },
+  {
+   "who": "Luffy & Nami",
+   "alt": "Luffy and Nami funny artwork",
+   "src": "assets/images/archive-47969f55f43b.jpg"
+  },
+  {
+   "who": "Robin",
+   "alt": "Robin pastel artwork",
+   "src": "assets/images/archive-b6709c9b87c7.jpg"
+  },
+  {
+   "who": "One Piece",
+   "alt": "One Piece dramatic collage artwork",
+   "src": "assets/images/archive-dff41f3c2451.jpg"
+  },
+  {
+   "who": "Shirahoshi",
+   "alt": "Shirahoshi underwater artwork",
+   "src": "assets/images/archive-1e1e3636042f.jpg"
+  },
+  {
+   "who": "Luffy",
+   "alt": "Luffy gear 4 red artwork",
+   "src": "assets/images/archive-52c7fa002259.jpg"
+  },
+  {
+   "who": "Sanji",
+   "alt": "Sanji flame artwork",
+   "src": "assets/images/archive-3e5b993d7a03.jpg"
+  },
+  {
+   "who": "Anime",
+   "alt": "Blue-eyed anime girl flower artwork",
+   "src": "assets/images/archive-3d017f7508b7.jpg"
+  },
+  {
+   "who": "Robin",
+   "alt": "Robin soft watercolor artwork",
+   "src": "assets/images/archive-cd626304354d.jpg"
+  },
+  {
+   "who": "Luffy",
+   "alt": "Luffy intense close-up artwork",
+   "src": "assets/images/archive-e85510a7cc3a.jpg"
+  },
+  {
+   "who": "Robin",
+   "alt": "Robin black dress artwork",
+   "src": "assets/images/archive-cbdeeaf74172.jpg"
+  },
+  {
+   "who": "Robin",
+   "alt": "Robin kimono artwork",
+   "src": "assets/images/archive-240e4c0f69e0.jpg"
+  },
+  {
+   "who": "Luffy",
+   "alt": "Gear 5 Luffy moonlight artwork",
+   "src": "assets/images/archive-b8068b7f81a2.jpg"
+  },
+  {
+   "who": "Ayanokoji",
+   "alt": "Ayanokoji chess piece artwork",
+   "src": "assets/images/archive-0f08fe88568a.jpg"
+  },
+  {
+   "who": "Frieren",
+   "alt": "Frieren group landscape artwork",
+   "src": "assets/images/archive-c6de18f6f1aa.jpg"
+  },
+  {
+   "who": "Guts",
+   "alt": "Guts dark artwork",
+   "src": "assets/images/archive-48a489f4b3e6.jpg"
+  },
+  {
+   "who": "Robin",
+   "alt": "Robin with chibi Straw Hats",
+   "src": "assets/images/archive-495360987552.jpg"
+  },
+  {
+   "who": "All Might",
+   "alt": "All Might manga collage",
+   "src": "assets/images/archive-97a928a1d6c9.jpg"
+  },
+  {
+   "who": "Guts",
+   "alt": "Guts red mark collage",
+   "src": "assets/images/archive-7a44b66f5e0e.jpg"
+  },
+  {
+   "who": "All Might",
+   "alt": "All Might hero poster",
+   "src": "assets/images/archive-66601ea74ecb.jpg"
+  },
+  {
+   "who": "Zoro",
+   "alt": "Zoro green aura attack",
+   "src": "assets/images/archive-780be14600f9.jpg"
+  },
+  {
+   "who": "Straw Hats",
+   "alt": "One Piece crew collage",
+   "src": "assets/images/archive-e423760cf041.jpg"
+  },
+  {
+   "who": "Ayanokoji",
+   "alt": "Ayanokoji puppet master",
+   "src": "assets/images/archive-02099d3c7254.jpg"
+  },
+  {
+   "who": "Robin",
+   "alt": "Robin night poster",
+   "src": "assets/images/archive-86d819d54d05.jpg"
+  },
+  {
+   "who": "Straw Hats",
+   "alt": "One Piece memory collage",
+   "src": "assets/images/archive-0dc6d6e3371b.jpg"
+  },
+  {
+   "who": "Worst Generation",
+   "alt": "Luffy Law and Kid poster",
+   "src": "assets/images/archive-f29993113d5a.jpg"
+  },
+  {
+   "who": "Chopper",
+   "alt": "Chopper Christmas artwork",
+   "src": "assets/images/archive-19b51411e8de.jpg"
+  },
+  {
+   "who": "Kaido",
+   "alt": "Kaido manga dragon sketch",
+   "src": "assets/images/archive-0dd5d3ea7b99.jpg"
+  },
+  {
+   "who": "Robin",
+   "alt": "Robin black dress sketch",
+   "src": "assets/images/archive-9f81191a81f4.jpg"
+  },
+  {
+   "who": "Straw Hats",
+   "alt": "Straw Hats stacked black and white sketch",
+   "src": "assets/images/archive-b5f4d19a0d20.jpg"
+  },
+  {
+   "who": "Straw Hats",
+   "alt": "Straw Hats full crew portrait",
+   "src": "assets/images/archive-ddb422aa2261.jpg"
+  },
+  {
+   "who": "Straw Hats",
+   "alt": "Straw Hats manga collage sketch",
+   "src": "assets/images/archive-85208becf0d3.jpg"
+  },
+  {
+   "who": "Straw Hats",
+   "alt": "Straw Hats New Year picnic",
+   "src": "assets/images/archive-a135c363b8c2.jpg"
+  },
+  {
+   "who": "Robin",
+   "alt": "Robin close up portrait",
+   "src": "assets/images/archive-f78b5977dccb.jpg"
+  },
+  {
+   "who": "Robin",
+   "alt": "Robin with Chopper",
+   "src": "assets/images/archive-cbf06d2a286f.jpg"
+  },
+  {
+   "who": "Luffy",
+   "alt": "Gear 5 Luffy ocean painting",
+   "src": "assets/images/archive-bedcb4908633.jpg"
+  },
+  {
+   "who": "Subaru",
+   "alt": "Subaru Natsuki artwork 1",
+   "src": "assets/images/archive-2a0f4d144730.jpg"
+  },
+  {
+   "who": "Subaru",
+   "alt": "Subaru Natsuki artwork 2",
+   "src": "assets/images/archive-5e5a888f6f6e.jpg"
+  },
+  {
+   "who": "Subaru",
+   "alt": "Subaru Natsuki artwork 3",
+   "src": "assets/images/archive-92c9d2ca4fcb.jpg"
+  }
+ ],
+ "characters": [
+  {
+   "name": "Luffy",
+   "image": "assets/uploads/batch-9.jpg",
+   "kicker": "North star / favorite in all fiction",
+   "body": "The GOAT for me. What makes Luffy special is not just the gears, fights or ridiculous move names. It is the way he stays loyal to his morals, protects his people at any cost, keeps the same dream even when the world laughs, and keeps moving after moments that should have broken him. He also helped me loosen the grip of overthinking and enjoy the part of life that is actually happening now.",
+   "quote": "People’s dreams never end.",
+   "note": "The Wano fits and Gear 2 → Gear 5 hype are absolutely part of the case too.",
+   "lessons": [
+    "Dream loudly",
+    "Protect your people",
+    "Never give up",
+    "Go with the flow"
+   ],
+   "id": "luffy",
+   "gallery": [
+    {
+     "src": "assets/uploads/batch-9.jpg",
+     "alt": "Luffy uploaded artwork",
+     "who": "Luffy"
+    },
+    {
+     "src": "assets/uploads/batch-8.jpg",
+     "alt": "Luffy uploaded artwork",
+     "who": "Luffy"
+    },
+    {
+     "who": "Luffy",
+     "alt": "Luffy artwork 1",
+     "src": "assets/images/archive-20ee3060ce60.jpg"
+    },
+    {
+     "who": "Luffy",
+     "alt": "Luffy artwork 2",
+     "src": "assets/images/archive-b987e089c330.jpg"
+    },
+    {
+     "who": "Luffy",
+     "alt": "Luffy artwork 3",
+     "src": "assets/images/archive-ccb6a9a7bfaa.jpg"
+    },
+    {
+     "who": "Luffy",
+     "alt": "Luffy artwork 4",
+     "src": "assets/images/archive-0a7839339d6c.jpg"
+    },
+    {
+     "who": "Luffy",
+     "alt": "Luffy artwork 5",
+     "src": "assets/images/archive-b4b6e35d0cc3.jpg"
+    },
+    {
+     "who": "Luffy",
+     "alt": "Luffy artwork 6",
+     "src": "assets/images/archive-c0786ca4acfc.jpg"
+    },
+    {
+     "who": "Luffy",
+     "alt": "Luffy artwork 7",
+     "src": "assets/images/archive-98eb96f39223.jpg"
+    },
+    {
+     "who": "Luffy",
+     "alt": "Luffy action artwork 2",
+     "src": "assets/images/archive-207b4caffb8a.jpg"
+    },
+    {
+     "who": "Luffy",
+     "alt": "Luffy sketch collage artwork",
+     "src": "assets/images/archive-efd539012e8e.jpg"
+    },
+    {
+     "who": "Luffy",
+     "alt": "Luffy gear 4 red artwork",
+     "src": "assets/images/archive-52c7fa002259.jpg"
+    },
+    {
+     "who": "Luffy",
+     "alt": "Luffy intense close-up artwork",
+     "src": "assets/images/archive-e85510a7cc3a.jpg"
+    },
+    {
+     "who": "Luffy",
+     "alt": "Gear 5 Luffy moonlight artwork",
+     "src": "assets/images/archive-b8068b7f81a2.jpg"
+    },
+    {
+     "who": "Luffy",
+     "alt": "Gear 5 Luffy ocean painting",
+     "src": "assets/images/archive-bedcb4908633.jpg"
+    }
+   ]
+  },
+  {
+   "name": "Robin",
+   "image": "assets/uploads/batch-3.jpg",
+   "kicker": "Emotional core / crush in all fiction",
+   "body": "Yes, she is my fictional crush. But the story is why she stayed. Robin survives Ohara, years of being hunted and the belief that people will eventually abandon her. Then the Straw Hats show her the opposite: she is worth crossing the world for. Enies Lobby turns that entire life of running into one request to keep living, and that is the moment she completely stole my heart.",
+   "quote": "“I want to live.”",
+   "note": "For me, Robin is proof that finding the right people can change the meaning of everything that came before.",
+   "lessons": [
+    "Belonging",
+    "Survival",
+    "Hope",
+    "Found family"
+   ],
+   "id": "robin",
+   "gallery": [
+    {
+     "src": "assets/uploads/batch-0.jpg",
+     "alt": "Robin uploaded artwork",
+     "who": "Robin"
+    },
+    {
+     "src": "assets/uploads/batch-1.jpg",
+     "alt": "Robin uploaded artwork",
+     "who": "Robin"
+    },
+    {
+     "src": "assets/uploads/batch-2.jpg",
+     "alt": "Robin uploaded artwork",
+     "who": "Robin"
+    },
+    {
+     "src": "assets/uploads/batch-3.jpg",
+     "alt": "Robin uploaded artwork",
+     "who": "Robin"
+    },
+    {
+     "src": "assets/uploads/batch-4.jpg",
+     "alt": "Robin uploaded artwork",
+     "who": "Robin"
+    },
+    {
+     "src": "assets/uploads/batch-5.jpg",
+     "alt": "Robin uploaded artwork",
+     "who": "Robin"
+    },
+    {
+     "src": "assets/uploads/batch-6.jpg",
+     "alt": "Robin uploaded artwork",
+     "who": "Robin"
+    },
+    {
+     "src": "assets/uploads/batch-7.jpg",
+     "alt": "Robin uploaded artwork",
+     "who": "Robin"
+    },
+    {
+     "who": "Robin",
+     "alt": "Robin artwork 8",
+     "src": "assets/images/archive-2ebc037413f3.jpg"
+    },
+    {
+     "who": "Robin",
+     "alt": "Robin artwork 9",
+     "src": "assets/images/archive-e846c59fdb9f.jpg"
+    },
+    {
+     "who": "Robin",
+     "alt": "Robin artwork 10",
+     "src": "assets/images/archive-dbb4a7ca3d80.jpg"
+    },
+    {
+     "who": "Robin",
+     "alt": "Robin artwork 11",
+     "src": "assets/images/archive-1bbe968701db.jpg"
+    },
+    {
+     "who": "Robin",
+     "alt": "Robin artwork 12",
+     "src": "assets/images/archive-f4b16850d2f3.jpg"
+    },
+    {
+     "who": "Robin",
+     "alt": "Robin artwork 13",
+     "src": "assets/images/archive-4c7c8f972cc4.jpg"
+    },
+    {
+     "who": "Robin",
+     "alt": "Robin artwork 14",
+     "src": "assets/images/archive-9446af0fc6b2.jpg"
+    },
+    {
+     "who": "Robin",
+     "alt": "Robin artwork 15",
+     "src": "assets/images/archive-0afdf51d1ee8.jpg"
+    },
+    {
+     "who": "Robin",
+     "alt": "Robin artwork 16",
+     "src": "assets/images/archive-1f1c076dcf2e.jpg"
+    },
+    {
+     "who": "Robin",
+     "alt": "Robin artwork 17",
+     "src": "assets/images/archive-805e615739bf.jpg"
+    },
+    {
+     "who": "Robin",
+     "alt": "Robin artwork 18",
+     "src": "assets/images/archive-f4c159b213dc.jpg"
+    },
+    {
+     "who": "Robin",
+     "alt": "Robin artwork 19",
+     "src": "assets/images/archive-2e1366c30533.jpg"
+    },
+    {
+     "who": "Robin",
+     "alt": "Robin artwork 20",
+     "src": "assets/images/archive-27e37adb1061.jpg"
+    },
+    {
+     "who": "Robin",
+     "alt": "Robin close-up artwork",
+     "src": "assets/images/archive-5d1806dc58db.jpg"
+    },
+    {
+     "who": "Robin",
+     "alt": "Robin pastel artwork",
+     "src": "assets/images/archive-b6709c9b87c7.jpg"
+    },
+    {
+     "who": "Robin",
+     "alt": "Robin soft watercolor artwork",
+     "src": "assets/images/archive-cd626304354d.jpg"
+    },
+    {
+     "who": "Robin",
+     "alt": "Robin black dress artwork",
+     "src": "assets/images/archive-cbdeeaf74172.jpg"
+    },
+    {
+     "who": "Robin",
+     "alt": "Robin kimono artwork",
+     "src": "assets/images/archive-240e4c0f69e0.jpg"
+    },
+    {
+     "who": "Robin",
+     "alt": "Robin with chibi Straw Hats",
+     "src": "assets/images/archive-495360987552.jpg"
+    },
+    {
+     "who": "Robin",
+     "alt": "Robin night poster",
+     "src": "assets/images/archive-86d819d54d05.jpg"
+    },
+    {
+     "who": "Robin",
+     "alt": "Robin black dress sketch",
+     "src": "assets/images/archive-9f81191a81f4.jpg"
+    },
+    {
+     "who": "Robin",
+     "alt": "Robin close up portrait",
+     "src": "assets/images/archive-f78b5977dccb.jpg"
+    },
+    {
+     "who": "Robin",
+     "alt": "Robin with Chopper",
+     "src": "assets/images/archive-cbf06d2a286f.jpg"
+    }
+   ]
+  },
+  {
+   "name": "Zoro",
+   "image": "assets/images/archive-35168e6160f0.jpg",
+   "kicker": "Will without noise",
+   "body": "Zoro does not need a giant speech every episode. His sheer will, refusal to quit and unwavering loyalty to his captain do the talking. The lesson I take from him is simple: keep aiming higher, keep going, and one day you will look back and barely recognize how far you have climbed.",
+   "quote": "",
+   "note": "",
+   "lessons": [
+    "Discipline",
+    "Loyalty",
+    "Aim higher"
+   ],
+   "id": "zoro",
+   "gallery": [
+    {
+     "who": "Zoro",
+     "alt": "Zoro artwork 6",
+     "src": "assets/images/archive-94d4c536ac7c.jpg"
+    },
+    {
+     "who": "Zoro",
+     "alt": "Zoro artwork 7",
+     "src": "assets/images/archive-effc696bc2bb.jpg"
+    },
+    {
+     "who": "Zoro",
+     "alt": "Zoro green aura attack",
+     "src": "assets/images/archive-780be14600f9.jpg"
+    }
+   ]
+  },
+  {
+   "name": "Guts",
+   "image": "assets/images/archive-8fcc529199b3.jpg",
+   "kicker": "Endure",
+   "body": "Emotionally and psychologically, one of the strongest journeys in fiction for me. The amount of trauma and cruelty thrown at Guts is almost absurd, but the point is that suffering never gets the final word. He keeps prevailing. Also, the armor, the presence and that gigantic sword are just ridiculously cool.",
+   "quote": "",
+   "note": "",
+   "lessons": [
+    "Resilience",
+    "Keep moving",
+    "Defy the dark"
+   ],
+   "id": "guts",
+   "gallery": [
+    {
+     "who": "Guts",
+     "alt": "Guts dark artwork",
+     "src": "assets/images/archive-48a489f4b3e6.jpg"
+    },
+    {
+     "who": "Guts",
+     "alt": "Guts red mark collage",
+     "src": "assets/images/archive-7a44b66f5e0e.jpg"
+    }
+   ]
+  },
+  {
+   "name": "Ayanokoji",
+   "image": "assets/images/archive-fbd6867bb0db.jpg",
+   "kicker": "Control before reaction",
+   "body": "I never expected a manipulative high-school character to land this high for me. What I actually admire is his emotional control, awareness, selective self-revelation and ability to handle complex situations without needing attention. I do not admire treating people like tools, but the composure and decision-making are areas I want to sharpen in myself.",
+   "quote": "",
+   "note": "",
+   "lessons": [
+    "Awareness",
+    "Composure",
+    "Read the room",
+    "Know what to reveal"
+   ],
+   "id": "ayanokoji",
+   "gallery": [
+    {
+     "who": "Ayanokoji",
+     "alt": "Ayanokoji artwork 4",
+     "src": "assets/images/archive-4d176ee876f9.jpg"
+    },
+    {
+     "who": "Ayanokoji",
+     "alt": "Ayanokoji artwork 5",
+     "src": "assets/images/archive-7d61abe31df3.jpg"
+    },
+    {
+     "who": "Ayanokoji",
+     "alt": "Ayanokoji chess piece artwork",
+     "src": "assets/images/archive-0f08fe88568a.jpg"
+    },
+    {
+     "who": "Ayanokoji",
+     "alt": "Ayanokoji puppet master",
+     "src": "assets/images/archive-02099d3c7254.jpg"
+    }
+   ]
+  },
+  {
+   "name": "Subaru Natsuki",
+   "image": "assets/images/archive-2a0f4d144730.jpg",
+   "kicker": "Try again, even when nobody remembers",
+   "body": "I completely misjudged him at first. What looked like weakness became the exact reason I respected him: Subaru can be terrified, humiliated, broken and still walk back into a nightmare because the people around him matter more than his pride. Return by Death is not a cool reset button to me anymore. It is loneliness with a checkpoint.",
+   "quote": "Fine. One more try.",
+   "note": "Biggest opinion reversal in the archive. The charges have officially been withdrawn. 😂",
+   "lessons": [
+    "Try again",
+    "Emotional courage",
+    "Carry the unseen",
+    "Stay human"
+   ],
+   "id": "subaru-natsuki",
+   "gallery": [
+    {
+     "who": "Subaru",
+     "alt": "Subaru Natsuki artwork 1",
+     "src": "assets/images/archive-2a0f4d144730.jpg"
+    },
+    {
+     "who": "Subaru",
+     "alt": "Subaru Natsuki artwork 2",
+     "src": "assets/images/archive-5e5a888f6f6e.jpg"
+    },
+    {
+     "who": "Subaru",
+     "alt": "Subaru Natsuki artwork 3",
+     "src": "assets/images/archive-92c9d2ca4fcb.jpg"
+    }
+   ]
+  },
+  {
+   "name": "All Might",
+   "image": "assets/images/archive-bebc9862da2a.jpg",
+   "kicker": "Symbol of hope",
+   "body": "All Might works for me because of what he represents. People see him and believe help has arrived. That final stand and iconic raised fist hit harder than a long personality essay ever could. Sometimes what you symbolize to other people matters just as much as what you say.",
+   "quote": "",
+   "note": "",
+   "lessons": [
+    "Hope",
+    "Presence",
+    "Reassurance"
+   ],
+   "id": "all-might",
+   "gallery": [
+    {
+     "who": "All Might",
+     "alt": "All Might manga collage",
+     "src": "assets/images/archive-97a928a1d6c9.jpg"
+    },
+    {
+     "who": "All Might",
+     "alt": "All Might hero poster",
+     "src": "assets/images/archive-66601ea74ecb.jpg"
+    }
+   ]
+  },
+  {
+   "name": "Rudeus",
+   "image": "assets/images/archive-98ff25101429.jpg",
+   "kicker": "Face reality",
+   "body": "A deeply flawed guy, but the second-chance premise left me with a very real lesson: real life does not hand us a reincarnation button. Eventually we have to stop running from our problems, accept who we are, face reality head-on and try to live without regrets.",
+   "quote": "",
+   "note": "The three wives are not the lesson. That part is just Rudeus winning the lottery. 😭",
+   "lessons": [
+    "Face it",
+    "No reset button",
+    "Live deliberately"
+   ],
+   "id": "rudeus",
+   "gallery": []
+  },
+  {
+   "name": "Sanji",
+   "image": "assets/images/archive-a57a923b161c.jpg",
+   "kicker": "Respect the craft",
+   "body": "Sanji is a hardworking cook who gives his best, carries two backstories and, yes, is still a catastrophic simp. The most practical thing he left with me is respect for food: do not waste what is on the table, because there is real work and value behind every meal.",
+   "quote": "",
+   "note": "",
+   "lessons": [
+    "Hard work",
+    "Respect food",
+    "Give your best"
+   ],
+   "id": "sanji",
+   "gallery": [
+    {
+     "who": "Sanji",
+     "alt": "Sanji flame artwork",
+     "src": "assets/images/archive-3e5b993d7a03.jpg"
+    }
+   ]
+  }
+ ],
+ "journey": [
+  {
+   "title": "Berserk: The Golden Age",
+   "date": "2023",
+   "body": "One of my first proper steps into anime, right after my A/Ls. I did not become an anime fan overnight, but Guts planted one idea that stayed with me: life can be brutally unfair and you can still keep moving.",
+   "quote": "You do not need an easy life to keep moving forward."
+  },
+  {
+   "title": "One Piece",
+   "date": "July 2024",
+   "body": "I finished the available story in roughly three months and immediately regretted speedrunning it. Nothing felt the same afterward. Luffy turned dreaming loudly from something I found ridiculous into something I deeply respect.",
+   "quote": "Dream loudly. Protect your people. Keep moving."
+  },
+  {
+   "title": "AOT → JJK → Demon Slayer",
+   "date": "Nov 2024 → early 2025",
+   "body": "This run helped me discover my personal filter. Beautiful animation can absolutely get my attention, but it cannot make me care by itself. I need the story and characters to leave something behind.",
+   "quote": "Pretty animation can get my attention. Emotion is what makes me stay."
+  },
+  {
+   "title": "One Piece rewatch #2",
+   "date": "Apr → Dec 2025",
+   "body": "This time I watched with my sister. Suddenly I was not just revisiting scenes, I was waiting for somebody else to reach the emotional landmines while pretending to act normal. The story became part of family life too.",
+   "quote": ""
+  },
+  {
+   "title": "Black Clover",
+   "date": "Jan → Mar 2026",
+   "body": "Asta is basically a walking refusal to accept the limit he was given. Loud? Extremely. But underneath it is something I respect: work until the impossible becomes less impossible.",
+   "quote": ""
+  },
+  {
+   "title": "Classroom of the Elite",
+   "date": "2026",
+   "body": "Ayanokoji became one of my favorites because of awareness, composure, observation and control over what he reveals. I want the discipline, not the dehumanization.",
+   "quote": "Take the discipline. Leave the dehumanization."
+  },
+  {
+   "title": "Re:Zero",
+   "date": "June 2026 → present",
+   "body": "I started by calling Subaru a dumb simp and ended up respecting him for exactly the emotions I first mistook for weakness. Return by Death stopped looking like a power and started looking like a curse nobody else can remember.",
+   "quote": "Fine. One more try."
+  },
+  {
+   "title": "The Fragrant Flower Blooms with Dignity",
+   "date": "July 2026",
+   "body": "My first proper romance anime dismantled another assumption. The relationship felt sincere and emotionally mature enough that I went straight into the manga afterward.",
+   "quote": "If the story is good, the genre does not matter."
+  },
+  {
+   "title": "The doors stay open.",
+   "date": "Current era",
+   "body": "Mushoku Tensei, Frieren, Mob Psycho 100, Chainsaw Man, Hell's Paradise, Smoking Behind the Supermarket with You and more kept widening the range. Anime ended up teaching me to try things before judging them, which is hilarious considering how this journey began.",
+   "quote": ""
+  }
+ ],
+ "rewatches": [
+  {
+   "title": "One Piece",
+   "count": "3×",
+   "body": "Second watch with my sister; third with my mother, around Episode 987."
+  },
+  {
+   "title": "Attack on Titan",
+   "count": "2×",
+   "body": "I still love the journey more than the ending."
+  },
+  {
+   "title": "Jujutsu Kaisen",
+   "count": "2×",
+   "body": "The animation remains ridiculous."
+  },
+  {
+   "title": "Black Clover",
+   "count": "2×",
+   "body": "Second watch with my sister."
+  },
+  {
+   "title": "Classroom of the Elite",
+   "count": "2×",
+   "body": "Still one of my favorite surprise discoveries."
+  },
+  {
+   "title": "Re:Zero",
+   "count": "2× / ongoing",
+   "body": "Rewatch started with my sister."
+  }
+ ],
+ "top10": [
+  {
+   "title": "One Piece",
+   "body": "World + emotion + characters + personal impact"
+  },
+  {
+   "title": "Re:Zero",
+   "body": "Brutal emotion and the biggest MC opinion reversal"
+  },
+  {
+   "title": "Classroom of the Elite",
+   "body": "Strategy, psychology and Ayanokoji"
+  },
+  {
+   "title": "Attack on Titan",
+   "body": "Buildup, mystery and scale"
+  },
+  {
+   "title": "Death Note",
+   "body": "Psychological battle, especially the L era"
+  },
+  {
+   "title": "The Fragrant Flower Blooms with Dignity",
+   "body": "Romance that changed my mind about the genre"
+  },
+  {
+   "title": "Black Clover",
+   "body": "Motivating, fun and better on rewatch"
+  },
+  {
+   "title": "Berserk: Golden Age",
+   "body": "Dark fantasy and unforgettable endurance"
+  },
+  {
+   "title": "Smoking Behind the Supermarket with You",
+   "body": "A refreshingly different story"
+  },
+  {
+   "title": "Hunter × Hunter",
+   "body": "Adventure and a power system that earned its place"
+  }
+ ],
+ "cards": [
+  {
+   "entry": 1,
+   "number": "OP13-082",
+   "name": "Five Elders",
+   "rarity": "SR",
+   "variant": null,
+   "image": null,
+   "quantity": null,
+   "language": null,
+   "condition": null,
+   "purchasePrice": null,
+   "currency": null,
+   "imageNote": null
+  },
+  {
+   "entry": 2,
+   "number": "OP14-112",
+   "name": "Boa Hancock",
+   "rarity": "SR",
+   "variant": "Regular",
+   "image": "assets/cards/OP14-112.png",
+   "quantity": null,
+   "language": null,
+   "condition": null,
+   "purchasePrice": null,
+   "currency": null,
+   "imageNote": "Official catalog reference artwork, not a photo of the owned copy."
+  },
+  {
+   "entry": 3,
+   "number": "OP09-009",
+   "name": "Benn Beckman",
+   "rarity": "SR",
+   "variant": null,
+   "image": "assets/cards/OP09-009.png",
+   "quantity": null,
+   "language": null,
+   "condition": null,
+   "purchasePrice": null,
+   "currency": null,
+   "imageNote": "Official catalog reference artwork, not a photo of the owned copy."
+  },
+  {
+   "entry": 4,
+   "number": "OP14-015",
+   "name": "Roronoa Zoro",
+   "rarity": "R",
+   "variant": null,
+   "image": null,
+   "quantity": null,
+   "language": null,
+   "condition": null,
+   "purchasePrice": null,
+   "currency": null,
+   "imageNote": null
+  },
+  {
+   "entry": 5,
+   "number": "OP13-002",
+   "name": "Portgas.D.Ace",
+   "rarity": "Leader",
+   "variant": null,
+   "image": null,
+   "quantity": null,
+   "language": null,
+   "condition": null,
+   "purchasePrice": null,
+   "currency": null,
+   "imageNote": null
+  },
+  {
+   "entry": 6,
+   "number": "OP09-069",
+   "name": "Trafalgar Law",
+   "rarity": "R",
+   "variant": null,
+   "image": null,
+   "quantity": null,
+   "language": null,
+   "condition": null,
+   "purchasePrice": null,
+   "currency": null,
+   "imageNote": null
+  },
+  {
+   "entry": 7,
+   "number": "OP04-060",
+   "name": "Crocodile",
+   "rarity": "SR",
+   "variant": null,
+   "image": null,
+   "quantity": null,
+   "language": null,
+   "condition": null,
+   "purchasePrice": null,
+   "currency": null,
+   "imageNote": null
+  },
+  {
+   "entry": 8,
+   "number": "OP14-041",
+   "name": "Boa Hancock",
+   "rarity": "Leader",
+   "variant": null,
+   "image": "assets/cards/OP14-041.png",
+   "quantity": null,
+   "language": null,
+   "condition": null,
+   "purchasePrice": null,
+   "currency": null,
+   "imageNote": "Official catalog reference artwork, not a photo of the owned copy."
+  },
+  {
+   "entry": 9,
+   "number": "OP14-112",
+   "name": "Boa Hancock",
+   "rarity": "SR",
+   "variant": "Alternate Art / Parallel",
+   "image": null,
+   "quantity": null,
+   "language": null,
+   "condition": null,
+   "purchasePrice": null,
+   "currency": null,
+   "imageNote": null
+  },
+  {
+   "entry": 10,
+   "number": "OP07-051",
+   "name": "Boa Hancock",
+   "rarity": "SR",
+   "variant": null,
+   "image": null,
+   "quantity": null,
+   "language": null,
+   "condition": null,
+   "purchasePrice": null,
+   "currency": null,
+   "imageNote": null
+  },
+  {
+   "entry": 11,
+   "number": "OP14-031",
+   "name": "Nami",
+   "rarity": "SR",
+   "variant": null,
+   "image": "assets/cards/OP14-031.png",
+   "quantity": null,
+   "language": null,
+   "condition": null,
+   "purchasePrice": null,
+   "currency": null,
+   "imageNote": "Official catalog reference artwork, not a photo of the owned copy."
+  },
+  {
+   "entry": 12,
+   "number": "EB03-031",
+   "name": "Vinsmoke Reiju",
+   "rarity": "SR",
+   "variant": null,
+   "image": null,
+   "quantity": null,
+   "language": null,
+   "condition": null,
+   "purchasePrice": null,
+   "currency": null,
+   "imageNote": null
+  }
+ ],
+ "decks": [
+  {
+   "id": "shanks-red",
+   "name": "Shanks",
+   "color": "Red",
+   "quantity": 1,
+   "productCode": null
+  },
+  {
+   "id": "luffy-purple",
+   "name": "Luffy",
+   "color": "Purple",
+   "quantity": 1,
+   "productCode": null
+  }
+ ],
+ "cardsSource": "Confirmed twelve-entry list from the 28 Sep 2026 transfer pack (section 9). Replaces the old eight-card seed."
+}

@@ -1,0 +1,195 @@
+{
+ "svhPerDoubling": 46,
+ "tailVh": 90,
+ "layers": [
+  {
+   "id": "journey-01",
+   "image": "assets/journey/01.jpg",
+   "width": 1604,
+   "height": 2000,
+   "kicker": "PROLOGUE",
+   "title": "Every adventure leaves a record.",
+   "line": "The Great Pirate Era begins here. Mine began in July 2024.",
+   "match": {
+    "focalX": 0.4963,
+    "focalY": 0.476,
+    "scale": 5.65,
+    "offsetX": 0,
+    "offsetY": 0,
+    "blendStart": 0.215,
+    "blendEnd": 0.529,
+    "feather": 0.08,
+    "measuredNcc": 0.86
+   }
+  },
+  {
+   "id": "journey-02",
+   "image": "assets/journey/02.jpg",
+   "width": 1604,
+   "height": 2000,
+   "kicker": "EAST BLUE",
+   "title": "Where it all started.",
+   "line": "A rubber boy, a small boat, and a crew gathered one island at a time.",
+   "match": {
+    "focalX": 0.5318,
+    "focalY": 0.4885,
+    "scale": 5.65,
+    "offsetX": 0,
+    "offsetY": 0,
+    "blendStart": 0.215,
+    "blendEnd": 0.529,
+    "feather": 0.08,
+    "measuredNcc": 0.843
+   }
+  },
+  {
+   "id": "journey-03",
+   "image": "assets/journey/03.jpg",
+   "width": 1604,
+   "height": 2000,
+   "kicker": "ALABASTA SAGA",
+   "title": "Into the Grand Line.",
+   "line": "Laboon, Drum, Alabasta. The sea stops making sense.",
+   "match": {
+    "focalX": 0.4947,
+    "focalY": 0.5417,
+    "scale": 6.7,
+    "offsetX": 0,
+    "offsetY": 0,
+    "blendStart": 0.195,
+    "blendEnd": 0.482,
+    "feather": 0.08,
+    "measuredNcc": 0.912
+   }
+  },
+  {
+   "id": "journey-04",
+   "image": "assets/journey/04.jpg",
+   "width": 1604,
+   "height": 2000,
+   "kicker": "SKY ISLAND",
+   "title": "Skypiea.",
+   "line": "Proof that a dream can point straight up.",
+   "match": {
+    "focalX": 0.4832,
+    "focalY": 0.5,
+    "scale": 5.85,
+    "offsetX": 0,
+    "offsetY": 0,
+    "blendStart": 0.21,
+    "blendEnd": 0.519,
+    "feather": 0.08,
+    "measuredNcc": 0.843
+   }
+  },
+  {
+   "id": "journey-05",
+   "image": "assets/journey/05.jpg",
+   "width": 1604,
+   "height": 2000,
+   "kicker": "WATER 7 · ENIES LOBBY",
+   "title": "“I want to live.”",
+   "line": "A whole life of running, turned into one request. The moment Robin stole this archive's heart.",
+   "match": {
+    "focalX": 0.4919,
+    "focalY": 0.543,
+    "scale": 5.65,
+    "offsetX": 0,
+    "offsetY": 0,
+    "blendStart": 0.215,
+    "blendEnd": 0.529,
+    "feather": 0.08,
+    "measuredNcc": 0.867
+   }
+  },
+  {
+   "id": "journey-06",
+   "image": "assets/journey/06.jpg",
+   "width": 1604,
+   "height": 2000,
+   "kicker": "SUMMIT WAR",
+   "title": "Sabaody to Marineford.",
+   "line": "Being broken is not the same as being finished.",
+   "match": {
+    "focalX": 0.5084,
+    "focalY": 0.5012,
+    "scale": 6.3,
+    "offsetX": 0,
+    "offsetY": 0,
+    "blendStart": 0.202,
+    "blendEnd": 0.498,
+    "feather": 0.08,
+    "measuredNcc": 0.901
+   }
+  },
+  {
+   "id": "journey-07",
+   "image": "assets/journey/07.jpg",
+   "width": 1604,
+   "height": 2000,
+   "kicker": "FISH-MAN ISLAND",
+   "title": "Ten thousand metres down.",
+   "line": "Two years later. The New World begins below the sea.",
+   "match": {
+    "focalX": 0.48,
+    "focalY": 0.4778,
+    "scale": 8.25,
+    "offsetX": 0,
+    "offsetY": 0,
+    "blendStart": 0.176,
+    "blendEnd": 0.434,
+    "feather": 0.08,
+    "measuredNcc": 0.799
+   }
+  },
+  {
+   "id": "journey-08",
+   "image": "assets/journey/08.jpg",
+   "width": 1202,
+   "height": 1500,
+   "kicker": "DRESSROSA",
+   "title": "A birdcage over everything.",
+   "line": "Punk Hazard, the toy kingdom, and a promise kept to a friend.",
+   "match": {
+    "focalX": 0.4888,
+    "focalY": 0.5377,
+    "scale": 7.3,
+    "offsetX": 0,
+    "offsetY": 0,
+    "blendStart": 0.187,
+    "blendEnd": 0.461,
+    "feather": 0.08,
+    "measuredNcc": 0.873
+   }
+  },
+  {
+   "id": "journey-09",
+   "image": "assets/journey/09.jpg",
+   "width": 1203,
+   "height": 1500,
+   "kicker": "WHOLE CAKE ISLAND",
+   "title": "Two backstories, finally told.",
+   "line": "Sanji, a wedding, and the sweetest, cruellest island on the sea.",
+   "match": {
+    "focalX": 0.4667,
+    "focalY": 0.5313,
+    "scale": 5.25,
+    "offsetX": 0,
+    "offsetY": 0,
+    "blendStart": 0.224,
+    "blendEnd": 0.553,
+    "feather": 0.08,
+    "measuredNcc": 0.899
+   }
+  },
+  {
+   "id": "journey-10",
+   "image": "assets/journey/10.jpg",
+   "width": 1604,
+   "height": 2000,
+   "kicker": "WANO COUNTRY",
+   "title": "Come on, heartbeat. Beat louder.",
+   "line": "The Wano fits and the Gear 5 hype are absolutely part of the case."
+  }
+ ]
+}
