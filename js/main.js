@@ -77,26 +77,41 @@ const charImage=i=>{const c=CHAR_COPY[i];return c.upload!==undefined?`assets/upl
 $('#char-list').innerHTML=archive.characters.map((c,i)=>{const p=CHAR_COPY[i]||{};return `<article class="char">
  <figure class="char-media"><img src="${esc(charImage(i))}" alt="${esc(c.name)} artwork" loading="lazy" decoding="async"></figure>
  <div class="char-text">
-  <span class="char-no">No. ${String(i+1).padStart(3,'0')}</span>
-  <p class="role rv">${esc(p.role||c.kicker)}</p>
-  <h3 class="rv" style="--d:.06s">${esc(c.name)}</h3>
-  <p class="hook rv" style="--d:.12s">${esc(p.headline)} ${esc(p.line)}</p>
+  <span class="char-no rv">${String(i+1).padStart(3,'0')} / ${String(archive.characters.length).padStart(3,'0')}</span>
+  <p class="role rv" style="--d:.04s">${esc(p.role||c.kicker)}</p>
+  <h3 class="rv" style="--d:.08s">${esc(c.name)}</h3>
+  <p class="headline rv" style="--d:.14s">${esc(p.headline)}</p>
+  <p class="line rv" style="--d:.18s">${esc(p.line)}</p>
   <p class="body rv" style="--d:.18s">${esc(c.body.split(/(?<=\.)\s/).slice(0,2).join(' '))}</p>
   ${c.quote?`<blockquote class="rv" style="--d:.24s">${esc(c.quote)}</blockquote>`:''}
   <div class="tags rv" style="--d:.3s">${c.lessons.map(t=>`<span>${esc(t)}</span>`).join('')}</div>
   <button class="link rv" style="--d:.36s" data-char="${i}">Read the full record →</button>
  </div></article>`;}).join('');
-const rzSec=$('#char-reveal'),rzFrame=rzSec.querySelector('.rz-frame'),rzImg=rzFrame.querySelector('img'),rzTitle=rzSec.querySelector('.rz-title'),rzAfter=rzSec.querySelector('.rz-after');
+const rzSec=$('#char-reveal'),rzFrame=rzSec.querySelector('.rz-frame'),rzImg=rzFrame.querySelector('img'),rzHead=rzSec.querySelector('.rz-head'),rzScrim=rzSec.querySelector('.rz-scrim'),rzAfter=rzSec.querySelector('.rz-after');
+// The headline owns the top of the screen and leaves before the photo's edge can reach it;
+// the photo opens from a card below it to full bleed; the caption only arrives over a scrim.
 parts.push({top:0,h:1,measure(){this.top=absTop(rzSec);this.h=rzSec.offsetHeight;},
  update(s){
-  const p=reduced?1:pinned(this,s),z=smooth(clamp(p/0.62));
-  const portrait=vw<vh,iy=(portrait?24:28)*(1-z),ix=(portrait?16:33)*(1-z);
-  rzFrame.style.clipPath=`inset(${iy.toFixed(2)}% ${ix.toFixed(2)}% round ${(28*(1-z)).toFixed(1)}px)`;
-  rzImg.style.transform=`scale(${(1.25-0.25*z).toFixed(4)})`;
-  rzTitle.style.opacity=(1-smooth(clamp((p-0.08)/0.3))).toFixed(3);
-  rzTitle.style.transform=`scale(${(1-z*0.08).toFixed(4)})`;
-  rzAfter.style.opacity=smooth(clamp((p-0.66)/0.18)).toFixed(3);
+  const p=reduced?1:pinned(this,s),portrait=vw<vh;
+  const out=smooth(clamp((p-0.1)/0.26)),z=smooth(clamp((p-0.1)/0.56)),k=1-z;
+  rzHead.style.opacity=(1-out).toFixed(3);
+  rzHead.style.transform=`translate3d(0,${(-out*16).toFixed(2)}vh,0) scale(${(1-out*0.06).toFixed(4)})`;
+  rzHead.style.visibility=out>0.99?'hidden':'';
+  rzFrame.style.clipPath=`inset(${((portrait?52:54)*k).toFixed(2)}% ${((portrait?9:31)*k).toFixed(2)}% ${((portrait?6:7)*k).toFixed(2)}% round ${(28*k).toFixed(1)}px)`;
+  // While it is still a card, slide the art so the subject (rose, hat) is framed in it, not just a hand.
+  const cardMid=portrait?0.73:0.735,shift=(cardMid-0.4)*vh*k;
+  rzImg.style.transform=`translate3d(0,${shift.toFixed(1)}px,0) scale(${(1.3-0.26*z-0.04*smooth(clamp((p-0.66)/0.34))).toFixed(4)})`;
+  rzScrim.style.opacity=smooth(clamp((p-0.55)/0.2)).toFixed(3);
+  const a=smooth(clamp((p-0.68)/0.16));rzAfter.style.opacity=a.toFixed(3);rzAfter.style.transform=`translate3d(0,${((1-a)*30).toFixed(1)}px,0)`;
  }});
+// Each character's photo opens and settles as it scrolls in, with a slow parallax inside the frame.
+$$('.char-media').forEach(fig=>{const img=fig.querySelector('img');parts.push({top:0,h:1,measure(){this.top=absTop(fig);this.h=fig.offsetHeight;},
+ update(s){
+  if(reduced){fig.style.clipPath='none';img.style.transform='none';return;}
+  const q=smooth(clamp((s+vh-this.top)/(vh*0.85))),c=clamp((s+vh/2-(this.top+this.h/2))/vh,-1,1);
+  fig.style.clipPath=`inset(${(14*(1-q)).toFixed(2)}% ${(14*(1-q)).toFixed(2)}% round 28px)`;
+  img.style.transform=`translate3d(0,${(c*-5).toFixed(2)}%,0) scale(${(1.3-0.24*q).toFixed(4)})`;
+ }});});
 
 /* ------------------------------------------------------------------ 03 journey (horizontal) */
 const JOURNEY_ART=[47,2,25,62,51,54,68,14,46];
