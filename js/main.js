@@ -11,11 +11,16 @@ const coarse=matchMedia('(pointer: coarse)').matches;
 let reduced=systemReduced.matches;
 try{const saved=localStorage.getItem(PREF);if(saved!==null)reduced=saved==='1'||systemReduced.matches;}catch{}
 
-const [journeyCfg,archive]=await Promise.all([
+const [journeyCfg,archive,media]=await Promise.all([
  fetch('data/journey.json').then(r=>r.json()),
- fetch('data/archive.json').then(r=>r.json())
+ fetch('data/archive.json').then(r=>r.json()),
+ fetch('data/media.json').then(r=>r.json())
 ]);
-const ART=archive.CHARACTER_ART;
+// Every photo exists as a full-size WebP (assets/img/f) and a light thumbnail (assets/img/t).
+// data/media.json assigns each one to exactly one place on the page, so nothing repeats.
+const TH=id=>`assets/img/t/${id}.webp`,FU=id=>`assets/img/f/${id}.webp`;
+const wh=id=>{const d=media.img[id]||[4,5];return `width="${d[0]}" height="${d[1]}"`;};
+const pic=(id,alt='',full=false,extra='')=>`<img src="${full?FU(id):TH(id)}" ${wh(id)} alt="${esc(alt)}" loading="lazy" decoding="async"${extra}>`;
 
 /* ------------------------------------------------------------------ scroll engine
  Every section reads one smoothed scroll value (sy). It eases toward the real scroll position,
@@ -63,30 +68,34 @@ parts.push({top:0,h:1,measure(){this.top=absTop(voyageSec);this.h=voyageSec.offs
 /* ------------------------------------------------------------------ 02 characters */
 // Presentation lines from New World; the full personal writing lives in archive.json.
 const CHAR_COPY=[
- {headline:'Dream without permission.',role:'The north star',line:'The man who made freedom feel practical.',art:2},
- {headline:'A place to belong.',role:'The heart of the archive',line:'An entire life of running. Then one reason to stay.',upload:3},
- {headline:'Let your will speak.',role:'Will without noise',line:'Loyalty that never needed an explanation.',art:25},
- {headline:'Keep moving. Anyway.',role:'Defy the dark',line:'Suffering never gets the final word.',art:47},
- {headline:'Read the room.',role:'Control before reaction',line:'Take the discipline. Leave the dehumanization.',art:54},
- {headline:'Fine. One more try.',role:'The biggest opinion reversal',line:'Afraid. Exhausted. Still choosing another attempt.',art:68},
- {headline:'Be their reassurance.',role:'A symbol of hope',line:'One person can change what hope looks like.',art:51},
+ {headline:'Dream without permission.',role:'The north star',line:'The man who made freedom feel practical.'},
+ {headline:'A place to belong.',role:'The heart of the archive',line:'An entire life of running. Then one reason to stay.'},
+ {headline:'Let your will speak.',role:'Will without noise',line:'Loyalty that never needed an explanation.'},
+ {headline:'Keep moving. Anyway.',role:'Defy the dark',line:'Suffering never gets the final word.'},
+ {headline:'Read the room.',role:'Control before reaction',line:'Take the discipline. Leave the dehumanization.'},
+ {headline:'Fine. One more try.',role:'The biggest opinion reversal',line:'Afraid. Exhausted. Still choosing another attempt.'},
+ {headline:'Be their reassurance.',role:'A symbol of hope',line:'One person can change what hope looks like.'},
  {headline:'No reset button.',role:'Face reality',line:'A second chance is a reason to live this one.'},
- {headline:'Respect the craft.',role:'Give your best',line:'There is real work and value behind every meal.',art:38},
+ {headline:'Respect the craft.',role:'Give your best',line:'There is real work and value behind every meal.'},
 ];
-const charImage=i=>{const c=CHAR_COPY[i];return c.upload!==undefined?`assets/uploads/batch-${c.upload}.jpg`:c.art!==undefined?ART[c.art].src:archive.characters[i].image;};
-$('#char-list').innerHTML=archive.characters.map((c,i)=>{const p=CHAR_COPY[i]||{};return `<article class="char">
- <figure class="char-media"><img src="${esc(charImage(i))}" alt="${esc(c.name)} artwork" loading="lazy" decoding="async"></figure>
- <div class="char-text">
-  <span class="char-no rv">${String(i+1).padStart(3,'0')} / ${String(archive.characters.length).padStart(3,'0')}</span>
-  <p class="role rv" style="--d:.04s">${esc(p.role||c.kicker)}</p>
-  <h3 class="rv" style="--d:.08s">${esc(c.name)}</h3>
-  <p class="headline rv" style="--d:.14s">${esc(p.headline)}</p>
-  <p class="line rv" style="--d:.18s">${esc(p.line)}</p>
-  <p class="body rv" style="--d:.18s">${esc(c.body.split(/(?<=\.)\s/).slice(0,2).join(' '))}</p>
-  ${c.quote?`<blockquote class="rv" style="--d:.24s">${esc(c.quote)}</blockquote>`:''}
-  <div class="tags rv" style="--d:.3s">${c.lessons.map(t=>`<span>${esc(t)}</span>`).join('')}</div>
-  <button class="link rv" style="--d:.36s" data-char="${i}">Read the full record →</button>
- </div></article>`;}).join('');
+const MC=media.characters;
+$('#char-list').innerHTML=archive.characters.map((c,i)=>{const p=CHAR_COPY[i]||{},m=MC[i],n=m.all.length;return `<article class="char">
+ <div class="char-main">
+  <figure class="char-media">${pic(m.portrait,c.name+' artwork',true)}</figure>
+  <div class="char-text">
+   <span class="char-no rv">${String(i+1).padStart(3,'0')} / ${String(archive.characters.length).padStart(3,'0')}</span>
+   <p class="role rv" style="--d:.04s">${esc(p.role||c.kicker)}</p>
+   <h3 class="rv" style="--d:.08s">${esc(c.name)}</h3>
+   <p class="headline rv" style="--d:.14s">${esc(p.headline)}</p>
+   <p class="line rv" style="--d:.18s">${esc(p.line)}</p>
+   <p class="body rv" style="--d:.18s">${esc(c.body.split(/(?<=\.)\s/).slice(0,2).join(' '))}</p>
+   ${c.quote?`<blockquote class="rv" style="--d:.24s">${esc(c.quote)}</blockquote>`:''}
+   <div class="tags rv" style="--d:.3s">${c.lessons.map(t=>`<span>${esc(t)}</span>`).join('')}</div>
+   <div class="char-actions rv" style="--d:.36s"><button class="link" data-char="${i}">Read the full record →</button>${n>1?`<button class="link quiet" data-collection="char:${i}">${n} photos</button>`:''}</div>
+  </div>
+ </div>
+ ${m.strip.length?`<div class="strip" data-dir="${i%2?1:-1}"><div class="strip-track">${m.strip.map(id=>`<button class="shot" data-view="char:${i}" data-id="${id}" aria-label="Open ${esc(c.name)} artwork">${pic(id,'')}</button>`).join('')}${n>m.strip.length+1?`<button class="strip-more" data-collection="char:${i}"><b>${n}</b><span>View all of ${esc(c.name.split(' ')[0])}</span></button>`:''}</div></div>`:''}
+</article>`;}).join('');
 const rzSec=$('#char-reveal'),rzFrame=rzSec.querySelector('.rz-frame'),rzImg=rzFrame.querySelector('img'),rzHead=rzSec.querySelector('.rz-head'),rzScrim=rzSec.querySelector('.rz-scrim'),rzAfter=rzSec.querySelector('.rz-after');
 // The headline owns the top of the screen and leaves before the photo's edge can reach it;
 // the photo opens from a card below it to full bleed; the caption only arrives over a scrim.
@@ -105,6 +114,9 @@ parts.push({top:0,h:1,measure(){this.top=absTop(rzSec);this.h=rzSec.offsetHeight
   const a=smooth(clamp((p-0.68)/0.16));rzAfter.style.opacity=a.toFixed(3);rzAfter.style.transform=`translate3d(0,${((1-a)*30).toFixed(1)}px,0)`;
  }});
 // Each character's photo opens and settles as it scrolls in, with a slow parallax inside the frame.
+// Filmstrips drift sideways as they pass, alternating direction.
+$$('.strip').forEach(st=>{const tr=st.querySelector('.strip-track'),dir=+st.dataset.dir;parts.push({top:0,h:1,measure(){this.top=absTop(st);this.h=st.offsetHeight;this.room=Math.max(0,tr.scrollWidth-st.clientWidth);},
+ update(s){if(reduced){tr.style.transform='';return;}const q=clamp((s+vh-this.top)/(this.h+vh));const span=this.room+vw*0.08;const x=dir>0?-q*span:-(1-q)*span;tr.style.transform=`translate3d(${(x+vw*0.04).toFixed(1)}px,0,0)`;}});});
 $$('.char-media').forEach(fig=>{const img=fig.querySelector('img');parts.push({top:0,h:1,measure(){this.top=absTop(fig);this.h=fig.offsetHeight;},
  update(s){
   if(reduced){fig.style.clipPath='none';img.style.transform='none';return;}
@@ -113,10 +125,33 @@ $$('.char-media').forEach(fig=>{const img=fig.querySelector('img');parts.push({t
   img.style.transform=`translate3d(0,${(c*-5).toFixed(2)}%,0) scale(${(1.3-0.24*q).toFixed(4)})`;
  }});});
 
+/* ------------------------------------------------------------------ crew (bento) */
+const CREW_SIZE={0:'xl',1:'tall',8:'xl'};
+$('#crew-grid').innerHTML=media.crew.map((c,i)=>`<button class="tile ${CREW_SIZE[i]||''} rv" style="--d:${(i%4)*0.06}s" data-collection="crew:${i}">${pic(c.cover,c.name,CREW_SIZE[i]==='xl')}<span class="tile-copy"><small>${c.all.length} ${c.all.length===1?'photo':'photos'}</small><b>${esc(c.name)}</b><span>${esc(c.line)}</span></span></button>`).join('');
+
+/* ------------------------------------------------------------------ colour spreads (zoom-out wall) */
+// Starts on one spread filling the screen, then pulls back to reveal the wall around it.
+const spSec=$('#spreads'),spWall=$('#spread-wall'),spCopy=$('#spread-copy'),spShade=spSec.querySelector('.spread-shade');
+const SPW=media.spreads.wall;
+spWall.innerHTML=SPW.map((id,i)=>`<button class="sp" data-view="spreads" data-id="${id}" tabindex="-1" aria-hidden="true">${pic(id,'',i===12)}</button>`).join('');
+$('#spreads-all').textContent=`View all ${media.spreads.all.length} spreads`;
+const spTiles=[...spWall.children];
+parts.push({top:0,h:1,measure(){this.top=absTop(spSec);this.h=spSec.offsetHeight;
+  const portrait=vw<vh,T=portrait?vw*0.52:vw*0.3,G=portrait?10:16;this.T=T;
+  spWall.style.setProperty('--t',T+'px');spWall.style.setProperty('--g',G+'px');
+  this.S0=Math.max(vw/T,vh/(T*0.625))*1.02;},
+ update(s){
+  const p=reduced?1:pinned(this,s),z=smooth(clamp(p/0.7)),sc=Math.pow(this.S0,1-z);
+  spWall.style.transform=`translate(-50%,-50%) scale(${sc.toFixed(4)})`;
+  const o=0.25+0.75*smooth(clamp((z-0.15)/0.5));spTiles.forEach((t,i)=>{if(i!==12)t.style.opacity=o.toFixed(3);});
+  spShade.style.opacity=smooth(clamp((p-0.55)/0.2)).toFixed(3);
+  const c=smooth(clamp((p-0.62)/0.18));spCopy.style.opacity=c.toFixed(3);spCopy.style.transform=`translate(-50%,calc(-50% + ${((1-c)*30).toFixed(1)}px))`;
+  spCopy.style.pointerEvents=c>0.5?'auto':'none';
+ }});
+
 /* ------------------------------------------------------------------ 03 journey (horizontal) */
-const JOURNEY_ART=[47,2,25,62,51,54,68,14,46];
 const track=$('#journey-track'),jSec=$('#journey'),jBar=$('#journey-bar');
-track.innerHTML=archive.journey.map((j,i)=>`<button class="jcard" data-chapter="${i}"><figure><img src="${esc(ART[JOURNEY_ART[i]].src)}" alt="" loading="lazy" decoding="async"></figure><div class="jc-body"><span class="jc-date">${esc(j.date)}</span><h3>${esc(j.title)}</h3><p>${esc(j.body.length>150?j.body.slice(0,150).replace(/\s+\S*$/,'')+'…':j.body)}</p>${j.quote?`<q>${esc(j.quote)}</q>`:''}</div></button>`).join('');
+track.innerHTML=archive.journey.map((j,i)=>`<button class="jcard" data-chapter="${i}"><figure>${pic(media.journey[i],'')}</figure><div class="jc-body"><span class="jc-date">${esc(j.date)}</span><h3>${esc(j.title)}</h3><p>${esc(j.body.length>150?j.body.slice(0,150).replace(/\s+\S*$/,'')+'…':j.body)}</p>${j.quote?`<q>${esc(j.quote)}</q>`:''}</div></button>`).join('');
 const jImgs=[...track.querySelectorAll('img')],jCards=[...track.children];
 parts.push({top:0,h:1,shift:0,measure(){const lead=parseFloat(getComputedStyle(track).paddingLeft)||0;this.shift=Math.max(0,track.scrollWidth-vw+lead);jSec.style.height=reduced?'auto':`${Math.round(vh+this.shift*1.1)}px`;this.top=absTop(jSec);this.h=jSec.offsetHeight;},
  update(s){
@@ -140,6 +175,9 @@ $('#search').addEventListener('input',renderRecords);$('#sort').addEventListener
 $$('[data-filter]').forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.filter;$$('[data-filter]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));renderRecords();}));
 $('#rewatches').innerHTML=archive.rewatches.map(r=>`<article><h3>${esc(r.title)} · ${esc(r.count)}</h3><p>${esc(r.body)}</p></article>`).join('');
 renderRecords();
+
+/* ------------------------------------------------------------------ other worlds */
+$('#world-row').innerHTML=media.worlds.map((w,i)=>`<button class="world rv" style="--d:${i*0.08}s" data-collection="world:${i}">${pic(w.cover,w.name)}<span class="world-copy"><small>${esc(w.series)}</small><b>${esc(w.name)}</b><span>${w.all.length} photos →</span></span></button>`).join('');
 
 /* ------------------------------------------------------------------ 04 vault */
 const vSec=$('#vault'),fan=$('#fan'),fanInfo=$('#fan-info'),cards=archive.cards;
@@ -175,7 +213,7 @@ $$('.scene-block').forEach(block=>{
 const wall=$('#art-wall'),libSec=$('#library');
 function buildWall(){
  const n=vw<=820?2:4,cols=Array.from({length:n},()=>[]);
- ART.forEach((a,i)=>cols[i%n].push(`<button data-art="${i}" aria-label="Enlarge ${esc(a.alt)}"><img src="${esc(a.src)}" alt="${esc(a.alt)}" loading="lazy" decoding="async"></button>`));
+ media.wall.forEach((id,i)=>cols[i%n].push(`<button data-view="wall" data-id="${id}" aria-label="Open artwork">${pic(id,'')}</button>`));
  wall.innerHTML=cols.map(c=>`<div class="art-col">${c.join('')}</div>`).join('');wall.dataset.cols=n;
 }
 buildWall();
@@ -195,7 +233,7 @@ const bar=$('#bar'),navLinks=$$('.bar-nav a');
 parts.push({always:true,top:0,h:1,measure(){this.v=voyageSec.offsetTop+voyageSec.offsetHeight-vh*0.6;this.o=outroSec.offsetTop-vh*0.4;},
  update(s){bar.classList.toggle('solid',s>this.v&&s<this.o);}});
 new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)navLinks.forEach(a=>a.getAttribute('href')==='#'+e.target.id?a.setAttribute('aria-current','true'):a.removeAttribute('aria-current'));}),{rootMargin:'-45% 0px -50% 0px'}).observe(voyageSec);
-['characters','journey','vault','scenes','library'].forEach(id=>document.getElementById(id)&&[...navLinks].length&&new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)navLinks.forEach(a=>a.getAttribute('href')==='#'+id?a.setAttribute('aria-current','true'):a.removeAttribute('aria-current'));}),{rootMargin:'-45% 0px -50% 0px'}).observe(document.getElementById(id)));
+['characters','crew','spreads','journey','vault','scenes','library'].forEach(id=>document.getElementById(id)&&[...navLinks].length&&new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)navLinks.forEach(a=>a.getAttribute('href')==='#'+id?a.setAttribute('aria-current','true'):a.removeAttribute('aria-current'));}),{rootMargin:'-45% 0px -50% 0px'}).observe(document.getElementById(id)));
 
 // Split marked headlines into words so they rise in sequence.
 $$('[data-split]').forEach(el=>{let wi=0;const walk=node=>{[...node.childNodes].forEach(ch=>{if(ch.nodeType===3){const frag=document.createDocumentFragment();ch.textContent.split(/(\s+)/).forEach(t=>{if(!t)return;if(/^\s+$/.test(t))frag.append(t);else{const s=document.createElement('span');s.className='w';s.style.setProperty('--wi',wi++);s.textContent=t;frag.append(s);}});ch.replaceWith(frag);}else if(ch.nodeName!=='BR')walk(ch);});};walk(el);});
@@ -203,26 +241,46 @@ const revealer=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){
 $$('.rv,[data-split],.char').forEach(el=>revealer.observe(el));
 
 const dialog=$('#dialog'),dBody=$('#dialog-body');let lastFocus=null;
-function openDialog(html){if(!dialog.open){lastFocus=document.activeElement;dialog.showModal();document.documentElement.style.overflow='hidden';}dBody.innerHTML=html;dialog.scrollTop=0;$('#dialog-close').focus();}
+function openDialog(html){dialog.classList.remove('is-viewer');if(!dialog.open){lastFocus=document.activeElement;dialog.showModal();document.documentElement.style.overflow='hidden';}dBody.innerHTML=html;dialog.scrollTop=0;$('#dialog-close').focus();}
 $('#dialog-close').addEventListener('click',()=>dialog.close());
-dialog.addEventListener('close',()=>{document.documentElement.style.overflow='';dBody.innerHTML='';lastFocus?.focus();});
+dialog.addEventListener('close',()=>{if(dialog.open)return;viewer=null;dialog.classList.remove('is-viewer');document.documentElement.style.overflow='';dBody.innerHTML='';lastFocus?.focus();});
 dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});
-let back=null;
-function charRecord(i){const c=archive.characters[i];back=()=>charRecord(i);openDialog(`<div class="rec-layout"><img src="${esc(charImage(i))}" alt="${esc(c.name)}"><div><p class="eyebrow">Character Log · ${esc(c.kicker)}</p><h2 id="dialog-title">${esc(c.name)}</h2><p>${esc(c.body)}</p>${c.quote?`<p><em>${esc(c.quote)}</em></p>`:''}<div class="tags">${c.lessons.map(t=>`<span>${esc(t)}</span>`).join('')}</div>${c.note?`<p style="margin-top:22px">${esc(c.note)}</p>`:''}<p class="subtle">Goma's personal record, preserved from the original archive.</p></div></div><div class="gallery">${c.gallery.map((a,j)=>`<button data-gallery="${i}:${j}" aria-label="Enlarge ${esc(a.alt)}"><img src="${esc(a.src)}" alt="${esc(a.alt)}" loading="lazy"></button>`).join('')}</div>`);}
-function lightbox(a,backLabel){openDialog(`<div class="lightbox">${backLabel?`<button class="link" data-back style="margin:0 0 18px">← ${esc(backLabel)}</button>`:''}<img src="${esc(a.src)}" alt="${esc(a.alt)}"><p class="subtle" id="dialog-title" style="margin-top:14px">${esc(a.alt)}</p></div>`);}
+// Collections: every "View all" opens one of these; the viewer steps through the same list.
+function collection(key){
+ const [k,i]=key.split(':');
+ if(k==='char'){const c=archive.characters[+i];return{title:c.name,eyebrow:'Character Log',ids:MC[+i].all};}
+ if(k==='crew'){const c=media.crew[+i];return{title:c.name,eyebrow:'The Crew',ids:c.all};}
+ if(k==='world'){const w=media.worlds[+i];return{title:w.name,eyebrow:w.series,ids:w.all};}
+ if(k==='spreads')return{title:'Colour spreads',eyebrow:'Eiichiro Oda',ids:media.spreads.all};
+ return{title:'Stories leave traces.',eyebrow:'Ohara Library',ids:media.wall};
+}
+const masonry=(key,ids)=>`<div class="masonry">${ids.map(id=>`<button data-view="${key}" data-id="${id}" aria-label="Open image">${pic(id,'')}</button>`).join('')}</div>`;
+function openCollection(key){const c=collection(key);openDialog(`<p class="eyebrow">${esc(c.eyebrow)}</p><h2 id="dialog-title">${esc(c.title)}</h2><p class="subtle">${c.ids.length} ${c.ids.length===1?'image':'images'}. Tap one to view it full size.</p>${masonry(key,c.ids)}`);}
+let viewer=null;
+function openViewer(key,id){
+ const c=collection(key),n=c.ids.length;let i=Math.max(0,c.ids.indexOf(id));viewer={key,c,i};
+ openDialog(`<div class="viewer"><div class="viewer-top"><button class="link" data-collection="${key}">← ${esc(c.title)}</button><span class="viewer-count" id="viewer-count"></span></div><div class="viewer-stage"><img id="viewer-img" alt="${esc(c.title)} artwork"></div>${n>1?'<button class="viewer-nav prev" data-step="-1" aria-label="Previous image">‹</button><button class="viewer-nav next" data-step="1" aria-label="Next image">›</button>':''}</div>`);
+ dialog.classList.add('is-viewer');showView();
+}
+function showView(){if(!viewer)return;const{c,i}=viewer,id=c.ids[i],img=$('#viewer-img');img.classList.remove('in');img.onload=()=>img.classList.add('in');img.src=FU(id);if(img.complete)img.classList.add('in');$('#viewer-count').textContent=`${i+1} / ${c.ids.length}`;[1,-1].forEach(d=>{const j=(i+d+c.ids.length)%c.ids.length;new Image().src=FU(c.ids[j]);});}
+function step(d){if(!viewer)return;viewer.i=(viewer.i+d+viewer.c.ids.length)%viewer.c.ids.length;showView();}
+addEventListener('keydown',e=>{if(!dialog.open||!viewer||!dialog.classList.contains('is-viewer'))return;if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1);});
+let tx=null;dialog.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});dialog.addEventListener('touchend',e=>{if(tx===null||!viewer||!dialog.classList.contains('is-viewer'))return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)step(dx<0?1:-1);tx=null;},{passive:true});
+function charRecord(i){const c=archive.characters[i],m=MC[i];openDialog(`<div class="rec-layout">${pic(m.portrait,c.name,true)}<div><p class="eyebrow">Character Log · ${esc(c.kicker)}</p><h2 id="dialog-title">${esc(c.name)}</h2><p>${esc(c.body)}</p>${c.quote?`<p><em>${esc(c.quote)}</em></p>`:''}<div class="tags">${c.lessons.map(t=>`<span>${esc(t)}</span>`).join('')}</div>${c.note?`<p style="margin-top:22px">${esc(c.note)}</p>`:''}<p class="subtle">Goma's personal record, preserved from the original archive.</p></div></div>${m.all.length>1?`<h3 class="rec-sub">${m.all.length} images</h3>${masonry('char:'+i,m.all)}`:''}`);}
 function listDialog(type){const list=type==='tv'?archive.TV.map(a=>({t:a.t,s:a.s,n:a.b})):[...archive.MANGA_DONE.map(a=>({t:a.t,s:'Read · '+a.g,n:a.b})),...archive.MANGA_NOW.map(a=>({t:a.t,s:(a.c||'Reading')+' · '+a.g,n:a.b||a.n}))];
  openDialog(`<p class="eyebrow">Ohara Library</p><h2 id="dialog-title">${type==='tv'?'The other screen.':'Between the panels.'}</h2><p class="subtle">${list.length} imported records. Historical notes, not live release data.</p><div class="list">${list.map(a=>`<div><strong>${esc(a.t)}</strong><span>${esc(a.s||'')}</span>${a.n?`<p>${esc(a.n)}</p>`:''}</div>`).join('')}</div>`);}
 document.addEventListener('click',e=>{
  const b=e.target.closest('button,[data-jump]');if(!b)return;
  if(b.matches('[data-jump]')){e.preventDefault();const id=b.getAttribute('href').slice(1);if(dialog.open)dialog.close();jumpTo(id==='voyage'?0:absTop(document.getElementById(id)));return;}
  if(b.dataset.char!==undefined)charRecord(+b.dataset.char);
- if(b.dataset.gallery){const[i,j]=b.dataset.gallery.split(':').map(Number);back=()=>charRecord(i);lightbox(archive.characters[i].gallery[j],'Back to '+archive.characters[i].name);}
- if(b.dataset.back!==undefined&&back)back();
- if(b.dataset.art!==undefined){back=null;lightbox(ART[+b.dataset.art]);}
+ if(b.dataset.collection)openCollection(b.dataset.collection);
+ if(b.dataset.view)openViewer(b.dataset.view,b.dataset.id);
+ if(b.dataset.step)step(+b.dataset.step);
+ if(b.id==='spreads-all')openCollection('spreads');
  if(b.dataset.list)listDialog(b.dataset.list);
  if(b.dataset.chapter!==undefined){const j=archive.journey[+b.dataset.chapter];openDialog(`<p class="eyebrow">Anime Journey · ${esc(j.date)}</p><h2 id="dialog-title">${esc(j.title)}</h2><p>${esc(j.body)}</p>${j.quote?`<p><em>${esc(j.quote)}</em></p>`:''}`);}
  if(b.dataset.anime){const t=b.dataset.anime,a=[...archive.ANIME_DONE,...archive.ANIME_NOW].find(x=>x.t===t),top=archive.top10.find(x=>x.title===t);openDialog(`<p class="eyebrow">Anime Journey · Personal record</p><h2 id="dialog-title">${esc(t)}</h2>${a?`<p style="font-size:34px;font-weight:700;color:var(--fg)">${esc(a.s)}${a.tag==='Completed'?' / 10':''}</p><p>${esc(a.b)}</p>`:`<p>${esc(top?.body)}</p>`}${t==='Re:Zero'?'<p class="subtle">V1 records 9.5 on the shelf and 9.7 in the old timeline. The shelf score is kept until you choose.</p>':''}${t==='Death Note'?'<p class="subtle">The asterisk is deliberate: first half 9.5, second half 5.</p>':''}<p class="subtle">Goma's original note and progress, preserved as recorded.</p>`);}
- if(b.dataset.card!==undefined){const c=cards[+b.dataset.card],u='<em>Not recorded</em>';openDialog(`<div class="rec-layout">${c.image?`<img src="${esc(c.image)}" alt="${esc(c.number)} catalog artwork" style="aspect-ratio:5/7">`:'<div class="vcard" style="position:relative;left:0;top:0;width:100%"><span class="ph"><small>'+esc(c.rarity)+'</small><b>'+esc(c.name)+'</b><span>'+esc(c.number)+'<br>Artwork not yet recorded</span></span></div>'}<div><p class="eyebrow">Card Vault · Entry ${c.entry} of ${cards.length}</p><h2 id="dialog-title">${esc(c.name)}</h2><div class="list"><div><strong>Card number</strong><span>${esc(c.number)}</span></div><div><strong>Rarity / type</strong><span>${esc(c.rarity)}</span></div><div><strong>Variant</strong><span>${esc(c.variant||'Not specified')}</span></div><div><strong>Quantity</strong><span>${u}</span></div><div><strong>Language · Condition</strong><span>${u}</span></div><div><strong>Purchase · Value</strong><span>${u}</span></div></div>${c.imageNote?`<p class="subtle" style="margin-top:18px">${esc(c.imageNote)}</p>`:''}${c.variant==='Alternate Art / Parallel'?'<p class="subtle">The regular OP14-112 artwork is deliberately not reused here. Add a verified Parallel image when you have one.</p>':''}</div></div>`);}
+ if(b.dataset.card!==undefined){const c=cards[+b.dataset.card],u='<em>Not recorded</em>';openDialog(`<div class="rec-layout">${c.image?`<img src="${esc(c.image)}" alt="${esc(c.number)} catalog artwork" style="aspect-ratio:5/7">`:'<div class="vcard" style="position:relative;left:0;top:0;width:100%"><span class="ph"><small>'+esc(c.rarity)+'</small><b>'+esc(c.name)+'</b><span>'+esc(c.number)+'<br>Artwork not yet recorded</span></span></div>'}<div><p class="eyebrow">Card Vault · Entry ${c.entry} of ${cards.length}</p><h2 id="dialog-title">${esc(c.name)}</h2><div class="list"><div><strong>Card number</strong><span>${esc(c.number)}</span></div><div><strong>Rarity / type</strong><span>${esc(c.rarity)}</span></div><div><strong>Variant</strong><span>${esc(c.variant||'Not specified')}</span></div><div><strong>Quantity</strong><span>${u}</span></div><div><strong>Language · Condition</strong><span>${u}</span></div><div><strong>Purchase · Value</strong><span>${u}</span></div></div>${c.imageNote?`<p class="subtle" style="margin-top:18px">${esc(c.imageNote)}</p>`:''}${c.variant==='Alternate Art / Parallel'?'<p class="subtle">This is the Parallel (alternate art) printing of OP14-112, shown separately from the regular one.</p>':''}</div></div>`);}
 });
 
 /* ------------------------------------------------------------------ motion toggle */

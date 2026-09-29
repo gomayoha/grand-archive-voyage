@@ -7,6 +7,7 @@
 <meta name="description" content="Goma's Grand Archive. One continuous voyage through One Piece, and through the characters, stories and treasures that stayed.">
 <title>Grand Archive — A Voyage</title>
 <link rel="preload" as="image" href="assets/journey/01.jpg" fetchpriority="high">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="css/site.css">
 <script type="module" src="js/main.js"></script>
 </head>
@@ -16,7 +17,7 @@
 <header class="bar" id="bar">
  <a class="brand" href="#voyage" data-jump><span class="brand-mark">G</span><span>Grand Archive</span></a>
  <nav class="bar-nav" aria-label="Sections">
-  <a href="#voyage" data-jump>Voyage</a><a href="#characters" data-jump>Characters</a><a href="#journey" data-jump>Journey</a><a href="#vault" data-jump>Vault</a><a href="#scenes" data-jump>Scenes</a><a href="#library" data-jump>Library</a>
+  <a href="#voyage" data-jump>Voyage</a><a href="#characters" data-jump>Characters</a><a href="#crew" data-jump>Crew</a><a href="#spreads" data-jump>Spreads</a><a href="#journey" data-jump>Journey</a><a href="#vault" data-jump>Vault</a><a href="#library" data-jump>Library</a>
  </nav>
  <button class="motion-toggle" id="motion" aria-pressed="false">Motion <b>On</b></button>
 </header>
@@ -57,18 +58,41 @@
      <p class="eyebrow rv">01 · The Character Log</p>
      <h2 class="rz-title" data-split>Nine people.<br>A thousand <em>reasons.</em></h2>
     </div>
-    <figure class="rz-frame"><img src="assets/uploads/batch-9.jpg" alt="Luffy beneath his straw hat, holding a rose" loading="lazy" decoding="async"><span class="rz-scrim" aria-hidden="true"></span></figure>
+    <figure class="rz-frame"><img src="assets/img/f/ae63ac66187a.webp" alt="Luffy beneath his straw hat, holding a rose" loading="lazy" decoding="async"><span class="rz-scrim" aria-hidden="true"></span></figure>
     <div class="rz-after"><p class="rz-count">Nine records · 001 — 009</p><p class="rz-sub">Not encyclopedia entries.<br>The reasons they <em>stayed.</em></p></div>
    </div>
   </div>
   <div class="char-list" id="char-list"></div>
  </section>
 
+ <!-- 02b · THE CREW -->
+ <section id="crew" class="crew" aria-label="The crew and the wider world">
+  <div class="wrap">
+   <p class="eyebrow rv">02 · The Crew</p>
+   <h2 class="rv" data-split>The people <em>around them.</em></h2>
+   <p class="section-lede rv">Every face on a ship, a throne or a wanted poster. Tap any of them to open their collection.</p>
+   <div class="bento" id="crew-grid"></div>
+  </div>
+ </section>
+
+ <!-- 02c · COLOR SPREADS (zoom-out wall) -->
+ <section id="spreads" class="spreads" aria-label="Oda's colour spreads">
+  <div class="pin">
+   <div class="wall-grid" id="spread-wall"></div>
+   <div class="spread-shade" aria-hidden="true"></div>
+   <div class="spread-copy" id="spread-copy">
+    <p class="eyebrow">03 · Colour spreads</p>
+    <h2>A world in<br>full <em>colour.</em></h2>
+    <button class="pill" id="spreads-all">View all spreads</button>
+   </div>
+  </div>
+ </section>
+
  <!-- 03 · ANIME JOURNEY (horizontal) -->
  <section id="journey" class="hscroll" aria-label="Anime Journey">
   <div class="pin">
    <header class="hs-head">
-    <p class="eyebrow rv">02 · The Anime Journey</p>
+    <p class="eyebrow rv">04 · The Anime Journey</p>
     <h2 class="rv" data-split>I used to call them <em>just cartoons.</em></h2>
    </header>
    <div class="hs-track" id="journey-track"></div>
@@ -93,11 +117,20 @@
   </div>
  </section>
 
+ <!-- 04b · OTHER WORLDS -->
+ <section id="worlds" class="worlds" aria-label="Beyond One Piece">
+  <div class="wrap">
+   <p class="eyebrow rv">Beyond the Grand Line</p>
+   <h2 class="rv" data-split>Other worlds <em>that stayed.</em></h2>
+   <div class="world-row" id="world-row"></div>
+  </div>
+ </section>
+
  <!-- 04 · CARD VAULT -->
  <section id="vault" class="vault" aria-label="Card Vault">
   <div class="pin">
    <header class="vault-head">
-    <p class="eyebrow">03 · The Card Vault</p>
+    <p class="eyebrow">05 · The Card Vault</p>
     <h2>My kind of <em>treasure.</em></h2>
    </header>
    <div class="fan" id="fan" role="group" aria-label="Card collection"></div>
@@ -114,14 +147,7 @@
   <div class="scene-block" data-video="assets/media/luffy_beat_louder.mp4" data-poster="assets/media/luffy_poster.jpg">
    <div class="pin">
     <div class="sv-frame"><video muted loop playsinline preload="none" aria-label="Gear 5 Luffy versus Kaido"></video></div>
-    <div class="sv-text"><p class="eyebrow">04 · Scenes that stay</p><h2>“Come on, heartbeat.<br>Beat louder.”</h2><p>Gear 5 vs Kaido. Pure joy and defiance.</p></div>
-    <button class="sound" aria-pressed="false">Sound off</button>
-   </div>
-  </div>
-  <div class="scene-block" data-video="assets/media/zoro_vs_king.mp4" data-poster="assets/media/zoro_poster.jpg">
-   <div class="pin">
-    <div class="sv-frame"><video muted loop playsinline preload="none" aria-label="Zoro versus King"></video></div>
-    <div class="sv-text"><h2>Sometimes the fight<br>is the speech.</h2><p>Zoro vs King. Aura and spectacle.</p></div>
+    <div class="sv-text"><p class="eyebrow">06 · Scenes that stay</p><h2>“Come on, heartbeat.<br>Beat louder.”</h2><p>Gear 5 vs Kaido. Pure joy and defiance.</p></div>
     <button class="sound" aria-pressed="false">Sound off</button>
    </div>
   </div>
@@ -130,8 +156,9 @@
  <!-- 06 · OHARA LIBRARY -->
  <section id="library" class="library" aria-label="Ohara Library">
   <div class="lib-head wrap">
-   <p class="eyebrow rv">05 · The Ohara Library</p>
+   <p class="eyebrow rv">07 · The Ohara Library</p>
    <h2 class="rv" data-split>Stories leave <em>traces.</em></h2>
+   <p class="section-lede rv">Everything else I saved along the way.</p>
    <div class="lib-doors rv">
     <button data-list="manga">Between the panels <span id="n-manga"></span></button>
     <button data-list="tv">The other screen <span id="n-tv"></span></button>

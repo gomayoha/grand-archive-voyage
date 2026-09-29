@@ -723,367 +723,9 @@
    "n": "new, Araki-recommended"
   }
  ],
- "CHARACTER_ART": [
-  {
-   "who": "Luffy",
-   "alt": "Luffy artwork 1",
-   "src": "assets/images/archive-20ee3060ce60.jpg"
-  },
-  {
-   "who": "Luffy",
-   "alt": "Luffy artwork 2",
-   "src": "assets/images/archive-b987e089c330.jpg"
-  },
-  {
-   "who": "Luffy",
-   "alt": "Luffy artwork 3",
-   "src": "assets/images/archive-ccb6a9a7bfaa.jpg"
-  },
-  {
-   "who": "Luffy",
-   "alt": "Luffy artwork 4",
-   "src": "assets/images/archive-0a7839339d6c.jpg"
-  },
-  {
-   "who": "Luffy",
-   "alt": "Luffy artwork 5",
-   "src": "assets/images/archive-b4b6e35d0cc3.jpg"
-  },
-  {
-   "who": "Luffy",
-   "alt": "Luffy artwork 6",
-   "src": "assets/images/archive-c0786ca4acfc.jpg"
-  },
-  {
-   "who": "Luffy",
-   "alt": "Luffy artwork 7",
-   "src": "assets/images/archive-98eb96f39223.jpg"
-  },
-  {
-   "who": "Robin",
-   "alt": "Robin artwork 8",
-   "src": "assets/images/archive-2ebc037413f3.jpg"
-  },
-  {
-   "who": "Robin",
-   "alt": "Robin artwork 9",
-   "src": "assets/images/archive-e846c59fdb9f.jpg"
-  },
-  {
-   "who": "Robin",
-   "alt": "Robin artwork 10",
-   "src": "assets/images/archive-dbb4a7ca3d80.jpg"
-  },
-  {
-   "who": "Robin",
-   "alt": "Robin artwork 11",
-   "src": "assets/images/archive-1bbe968701db.jpg"
-  },
-  {
-   "who": "Robin",
-   "alt": "Robin artwork 12",
-   "src": "assets/images/archive-f4b16850d2f3.jpg"
-  },
-  {
-   "who": "Robin",
-   "alt": "Robin artwork 13",
-   "src": "assets/images/archive-4c7c8f972cc4.jpg"
-  },
-  {
-   "who": "Robin",
-   "alt": "Robin artwork 14",
-   "src": "assets/images/archive-9446af0fc6b2.jpg"
-  },
-  {
-   "who": "Robin",
-   "alt": "Robin artwork 15",
-   "src": "assets/images/archive-0afdf51d1ee8.jpg"
-  },
-  {
-   "who": "Robin",
-   "alt": "Robin artwork 16",
-   "src": "assets/images/archive-1f1c076dcf2e.jpg"
-  },
-  {
-   "who": "Robin",
-   "alt": "Robin artwork 17",
-   "src": "assets/images/archive-805e615739bf.jpg"
-  },
-  {
-   "who": "Robin",
-   "alt": "Robin artwork 18",
-   "src": "assets/images/archive-f4c159b213dc.jpg"
-  },
-  {
-   "who": "Robin",
-   "alt": "Robin artwork 19",
-   "src": "assets/images/archive-2e1366c30533.jpg"
-  },
-  {
-   "who": "Robin",
-   "alt": "Robin artwork 20",
-   "src": "assets/images/archive-27e37adb1061.jpg"
-  },
-  {
-   "who": "Imu",
-   "alt": "Imu artwork 1",
-   "src": "assets/images/archive-771f31636a13.jpg"
-  },
-  {
-   "who": "Luffy",
-   "alt": "Luffy action artwork 2",
-   "src": "assets/images/archive-207b4caffb8a.jpg"
-  },
-  {
-   "who": "Shakky",
-   "alt": "Shakky artwork 1",
-   "src": "assets/images/archive-14f2c73a74f0.jpg"
-  },
-  {
-   "who": "Ayanokoji",
-   "alt": "Ayanokoji artwork 4",
-   "src": "assets/images/archive-4d176ee876f9.jpg"
-  },
-  {
-   "who": "Ayanokoji",
-   "alt": "Ayanokoji artwork 5",
-   "src": "assets/images/archive-7d61abe31df3.jpg"
-  },
-  {
-   "who": "Zoro",
-   "alt": "Zoro artwork 6",
-   "src": "assets/images/archive-94d4c536ac7c.jpg"
-  },
-  {
-   "who": "Zoro",
-   "alt": "Zoro artwork 7",
-   "src": "assets/images/archive-effc696bc2bb.jpg"
-  },
-  {
-   "who": "Robin",
-   "alt": "Robin close-up artwork",
-   "src": "assets/images/archive-5d1806dc58db.jpg"
-  },
-  {
-   "who": "One Piece Girls",
-   "alt": "One Piece girls splash artwork",
-   "src": "assets/images/archive-938e6d939f6b.jpg"
-  },
-  {
-   "who": "Luffy",
-   "alt": "Luffy sketch collage artwork",
-   "src": "assets/images/archive-efd539012e8e.jpg"
-  },
-  {
-   "who": "One Piece",
-   "alt": "One Piece logo and crew artwork",
-   "src": "assets/images/archive-eafe5194e541.jpg"
-  },
-  {
-   "who": "Straw Hat Crew",
-   "alt": "Straw Hat crew panel artwork",
-   "src": "assets/images/archive-ca4b2e9308c9.jpg"
-  },
-  {
-   "who": "One Piece 1000 Logs",
-   "alt": "One Piece 1000 logs artwork",
-   "src": "assets/images/archive-9111d7e55849.jpg"
-  },
-  {
-   "who": "Luffy & Nami",
-   "alt": "Luffy and Nami funny artwork",
-   "src": "assets/images/archive-47969f55f43b.jpg"
-  },
-  {
-   "who": "Robin",
-   "alt": "Robin pastel artwork",
-   "src": "assets/images/archive-b6709c9b87c7.jpg"
-  },
-  {
-   "who": "One Piece",
-   "alt": "One Piece dramatic collage artwork",
-   "src": "assets/images/archive-dff41f3c2451.jpg"
-  },
-  {
-   "who": "Shirahoshi",
-   "alt": "Shirahoshi underwater artwork",
-   "src": "assets/images/archive-1e1e3636042f.jpg"
-  },
-  {
-   "who": "Luffy",
-   "alt": "Luffy gear 4 red artwork",
-   "src": "assets/images/archive-52c7fa002259.jpg"
-  },
-  {
-   "who": "Sanji",
-   "alt": "Sanji flame artwork",
-   "src": "assets/images/archive-3e5b993d7a03.jpg"
-  },
-  {
-   "who": "Anime",
-   "alt": "Blue-eyed anime girl flower artwork",
-   "src": "assets/images/archive-3d017f7508b7.jpg"
-  },
-  {
-   "who": "Robin",
-   "alt": "Robin soft watercolor artwork",
-   "src": "assets/images/archive-cd626304354d.jpg"
-  },
-  {
-   "who": "Luffy",
-   "alt": "Luffy intense close-up artwork",
-   "src": "assets/images/archive-e85510a7cc3a.jpg"
-  },
-  {
-   "who": "Robin",
-   "alt": "Robin black dress artwork",
-   "src": "assets/images/archive-cbdeeaf74172.jpg"
-  },
-  {
-   "who": "Robin",
-   "alt": "Robin kimono artwork",
-   "src": "assets/images/archive-240e4c0f69e0.jpg"
-  },
-  {
-   "who": "Luffy",
-   "alt": "Gear 5 Luffy moonlight artwork",
-   "src": "assets/images/archive-b8068b7f81a2.jpg"
-  },
-  {
-   "who": "Ayanokoji",
-   "alt": "Ayanokoji chess piece artwork",
-   "src": "assets/images/archive-0f08fe88568a.jpg"
-  },
-  {
-   "who": "Frieren",
-   "alt": "Frieren group landscape artwork",
-   "src": "assets/images/archive-c6de18f6f1aa.jpg"
-  },
-  {
-   "who": "Guts",
-   "alt": "Guts dark artwork",
-   "src": "assets/images/archive-48a489f4b3e6.jpg"
-  },
-  {
-   "who": "Robin",
-   "alt": "Robin with chibi Straw Hats",
-   "src": "assets/images/archive-495360987552.jpg"
-  },
-  {
-   "who": "All Might",
-   "alt": "All Might manga collage",
-   "src": "assets/images/archive-97a928a1d6c9.jpg"
-  },
-  {
-   "who": "Guts",
-   "alt": "Guts red mark collage",
-   "src": "assets/images/archive-7a44b66f5e0e.jpg"
-  },
-  {
-   "who": "All Might",
-   "alt": "All Might hero poster",
-   "src": "assets/images/archive-66601ea74ecb.jpg"
-  },
-  {
-   "who": "Zoro",
-   "alt": "Zoro green aura attack",
-   "src": "assets/images/archive-780be14600f9.jpg"
-  },
-  {
-   "who": "Straw Hats",
-   "alt": "One Piece crew collage",
-   "src": "assets/images/archive-e423760cf041.jpg"
-  },
-  {
-   "who": "Ayanokoji",
-   "alt": "Ayanokoji puppet master",
-   "src": "assets/images/archive-02099d3c7254.jpg"
-  },
-  {
-   "who": "Robin",
-   "alt": "Robin night poster",
-   "src": "assets/images/archive-86d819d54d05.jpg"
-  },
-  {
-   "who": "Straw Hats",
-   "alt": "One Piece memory collage",
-   "src": "assets/images/archive-0dc6d6e3371b.jpg"
-  },
-  {
-   "who": "Worst Generation",
-   "alt": "Luffy Law and Kid poster",
-   "src": "assets/images/archive-f29993113d5a.jpg"
-  },
-  {
-   "who": "Chopper",
-   "alt": "Chopper Christmas artwork",
-   "src": "assets/images/archive-19b51411e8de.jpg"
-  },
-  {
-   "who": "Kaido",
-   "alt": "Kaido manga dragon sketch",
-   "src": "assets/images/archive-0dd5d3ea7b99.jpg"
-  },
-  {
-   "who": "Robin",
-   "alt": "Robin black dress sketch",
-   "src": "assets/images/archive-9f81191a81f4.jpg"
-  },
-  {
-   "who": "Straw Hats",
-   "alt": "Straw Hats stacked black and white sketch",
-   "src": "assets/images/archive-b5f4d19a0d20.jpg"
-  },
-  {
-   "who": "Straw Hats",
-   "alt": "Straw Hats full crew portrait",
-   "src": "assets/images/archive-ddb422aa2261.jpg"
-  },
-  {
-   "who": "Straw Hats",
-   "alt": "Straw Hats manga collage sketch",
-   "src": "assets/images/archive-85208becf0d3.jpg"
-  },
-  {
-   "who": "Straw Hats",
-   "alt": "Straw Hats New Year picnic",
-   "src": "assets/images/archive-a135c363b8c2.jpg"
-  },
-  {
-   "who": "Robin",
-   "alt": "Robin close up portrait",
-   "src": "assets/images/archive-f78b5977dccb.jpg"
-  },
-  {
-   "who": "Robin",
-   "alt": "Robin with Chopper",
-   "src": "assets/images/archive-cbf06d2a286f.jpg"
-  },
-  {
-   "who": "Luffy",
-   "alt": "Gear 5 Luffy ocean painting",
-   "src": "assets/images/archive-bedcb4908633.jpg"
-  },
-  {
-   "who": "Subaru",
-   "alt": "Subaru Natsuki artwork 1",
-   "src": "assets/images/archive-2a0f4d144730.jpg"
-  },
-  {
-   "who": "Subaru",
-   "alt": "Subaru Natsuki artwork 2",
-   "src": "assets/images/archive-5e5a888f6f6e.jpg"
-  },
-  {
-   "who": "Subaru",
-   "alt": "Subaru Natsuki artwork 3",
-   "src": "assets/images/archive-92c9d2ca4fcb.jpg"
-  }
- ],
  "characters": [
   {
    "name": "Luffy",
-   "image": "assets/uploads/batch-9.jpg",
    "kicker": "North star / favorite in all fiction",
    "body": "The GOAT for me. What makes Luffy special is not just the gears, fights or ridiculous move names. It is the way he stays loyal to his morals, protects his people at any cost, keeps the same dream even when the world laughs, and keeps moving after moments that should have broken him. He also helped me loosen the grip of overthinking and enjoy the part of life that is actually happening now.",
    "quote": "People’s dreams never end.",
@@ -1094,88 +736,10 @@
     "Never give up",
     "Go with the flow"
    ],
-   "id": "luffy",
-   "gallery": [
-    {
-     "src": "assets/uploads/batch-9.jpg",
-     "alt": "Luffy uploaded artwork",
-     "who": "Luffy"
-    },
-    {
-     "src": "assets/uploads/batch-8.jpg",
-     "alt": "Luffy uploaded artwork",
-     "who": "Luffy"
-    },
-    {
-     "who": "Luffy",
-     "alt": "Luffy artwork 1",
-     "src": "assets/images/archive-20ee3060ce60.jpg"
-    },
-    {
-     "who": "Luffy",
-     "alt": "Luffy artwork 2",
-     "src": "assets/images/archive-b987e089c330.jpg"
-    },
-    {
-     "who": "Luffy",
-     "alt": "Luffy artwork 3",
-     "src": "assets/images/archive-ccb6a9a7bfaa.jpg"
-    },
-    {
-     "who": "Luffy",
-     "alt": "Luffy artwork 4",
-     "src": "assets/images/archive-0a7839339d6c.jpg"
-    },
-    {
-     "who": "Luffy",
-     "alt": "Luffy artwork 5",
-     "src": "assets/images/archive-b4b6e35d0cc3.jpg"
-    },
-    {
-     "who": "Luffy",
-     "alt": "Luffy artwork 6",
-     "src": "assets/images/archive-c0786ca4acfc.jpg"
-    },
-    {
-     "who": "Luffy",
-     "alt": "Luffy artwork 7",
-     "src": "assets/images/archive-98eb96f39223.jpg"
-    },
-    {
-     "who": "Luffy",
-     "alt": "Luffy action artwork 2",
-     "src": "assets/images/archive-207b4caffb8a.jpg"
-    },
-    {
-     "who": "Luffy",
-     "alt": "Luffy sketch collage artwork",
-     "src": "assets/images/archive-efd539012e8e.jpg"
-    },
-    {
-     "who": "Luffy",
-     "alt": "Luffy gear 4 red artwork",
-     "src": "assets/images/archive-52c7fa002259.jpg"
-    },
-    {
-     "who": "Luffy",
-     "alt": "Luffy intense close-up artwork",
-     "src": "assets/images/archive-e85510a7cc3a.jpg"
-    },
-    {
-     "who": "Luffy",
-     "alt": "Gear 5 Luffy moonlight artwork",
-     "src": "assets/images/archive-b8068b7f81a2.jpg"
-    },
-    {
-     "who": "Luffy",
-     "alt": "Gear 5 Luffy ocean painting",
-     "src": "assets/images/archive-bedcb4908633.jpg"
-    }
-   ]
+   "id": "luffy"
   },
   {
    "name": "Robin",
-   "image": "assets/uploads/batch-3.jpg",
    "kicker": "Emotional core / crush in all fiction",
    "body": "Yes, she is my fictional crush. But the story is why she stayed. Robin survives Ohara, years of being hunted and the belief that people will eventually abandon her. Then the Straw Hats show her the opposite: she is worth crossing the world for. Enies Lobby turns that entire life of running into one request to keep living, and that is the moment she completely stole my heart.",
    "quote": "“I want to live.”",
@@ -1186,168 +750,10 @@
     "Hope",
     "Found family"
    ],
-   "id": "robin",
-   "gallery": [
-    {
-     "src": "assets/uploads/batch-0.jpg",
-     "alt": "Robin uploaded artwork",
-     "who": "Robin"
-    },
-    {
-     "src": "assets/uploads/batch-1.jpg",
-     "alt": "Robin uploaded artwork",
-     "who": "Robin"
-    },
-    {
-     "src": "assets/uploads/batch-2.jpg",
-     "alt": "Robin uploaded artwork",
-     "who": "Robin"
-    },
-    {
-     "src": "assets/uploads/batch-3.jpg",
-     "alt": "Robin uploaded artwork",
-     "who": "Robin"
-    },
-    {
-     "src": "assets/uploads/batch-4.jpg",
-     "alt": "Robin uploaded artwork",
-     "who": "Robin"
-    },
-    {
-     "src": "assets/uploads/batch-5.jpg",
-     "alt": "Robin uploaded artwork",
-     "who": "Robin"
-    },
-    {
-     "src": "assets/uploads/batch-6.jpg",
-     "alt": "Robin uploaded artwork",
-     "who": "Robin"
-    },
-    {
-     "src": "assets/uploads/batch-7.jpg",
-     "alt": "Robin uploaded artwork",
-     "who": "Robin"
-    },
-    {
-     "who": "Robin",
-     "alt": "Robin artwork 8",
-     "src": "assets/images/archive-2ebc037413f3.jpg"
-    },
-    {
-     "who": "Robin",
-     "alt": "Robin artwork 9",
-     "src": "assets/images/archive-e846c59fdb9f.jpg"
-    },
-    {
-     "who": "Robin",
-     "alt": "Robin artwork 10",
-     "src": "assets/images/archive-dbb4a7ca3d80.jpg"
-    },
-    {
-     "who": "Robin",
-     "alt": "Robin artwork 11",
-     "src": "assets/images/archive-1bbe968701db.jpg"
-    },
-    {
-     "who": "Robin",
-     "alt": "Robin artwork 12",
-     "src": "assets/images/archive-f4b16850d2f3.jpg"
-    },
-    {
-     "who": "Robin",
-     "alt": "Robin artwork 13",
-     "src": "assets/images/archive-4c7c8f972cc4.jpg"
-    },
-    {
-     "who": "Robin",
-     "alt": "Robin artwork 14",
-     "src": "assets/images/archive-9446af0fc6b2.jpg"
-    },
-    {
-     "who": "Robin",
-     "alt": "Robin artwork 15",
-     "src": "assets/images/archive-0afdf51d1ee8.jpg"
-    },
-    {
-     "who": "Robin",
-     "alt": "Robin artwork 16",
-     "src": "assets/images/archive-1f1c076dcf2e.jpg"
-    },
-    {
-     "who": "Robin",
-     "alt": "Robin artwork 17",
-     "src": "assets/images/archive-805e615739bf.jpg"
-    },
-    {
-     "who": "Robin",
-     "alt": "Robin artwork 18",
-     "src": "assets/images/archive-f4c159b213dc.jpg"
-    },
-    {
-     "who": "Robin",
-     "alt": "Robin artwork 19",
-     "src": "assets/images/archive-2e1366c30533.jpg"
-    },
-    {
-     "who": "Robin",
-     "alt": "Robin artwork 20",
-     "src": "assets/images/archive-27e37adb1061.jpg"
-    },
-    {
-     "who": "Robin",
-     "alt": "Robin close-up artwork",
-     "src": "assets/images/archive-5d1806dc58db.jpg"
-    },
-    {
-     "who": "Robin",
-     "alt": "Robin pastel artwork",
-     "src": "assets/images/archive-b6709c9b87c7.jpg"
-    },
-    {
-     "who": "Robin",
-     "alt": "Robin soft watercolor artwork",
-     "src": "assets/images/archive-cd626304354d.jpg"
-    },
-    {
-     "who": "Robin",
-     "alt": "Robin black dress artwork",
-     "src": "assets/images/archive-cbdeeaf74172.jpg"
-    },
-    {
-     "who": "Robin",
-     "alt": "Robin kimono artwork",
-     "src": "assets/images/archive-240e4c0f69e0.jpg"
-    },
-    {
-     "who": "Robin",
-     "alt": "Robin with chibi Straw Hats",
-     "src": "assets/images/archive-495360987552.jpg"
-    },
-    {
-     "who": "Robin",
-     "alt": "Robin night poster",
-     "src": "assets/images/archive-86d819d54d05.jpg"
-    },
-    {
-     "who": "Robin",
-     "alt": "Robin black dress sketch",
-     "src": "assets/images/archive-9f81191a81f4.jpg"
-    },
-    {
-     "who": "Robin",
-     "alt": "Robin close up portrait",
-     "src": "assets/images/archive-f78b5977dccb.jpg"
-    },
-    {
-     "who": "Robin",
-     "alt": "Robin with Chopper",
-     "src": "assets/images/archive-cbf06d2a286f.jpg"
-    }
-   ]
+   "id": "robin"
   },
   {
    "name": "Zoro",
-   "image": "assets/images/archive-35168e6160f0.jpg",
    "kicker": "Will without noise",
    "body": "Zoro does not need a giant speech every episode. His sheer will, refusal to quit and unwavering loyalty to his captain do the talking. The lesson I take from him is simple: keep aiming higher, keep going, and one day you will look back and barely recognize how far you have climbed.",
    "quote": "",
@@ -1357,28 +763,10 @@
     "Loyalty",
     "Aim higher"
    ],
-   "id": "zoro",
-   "gallery": [
-    {
-     "who": "Zoro",
-     "alt": "Zoro artwork 6",
-     "src": "assets/images/archive-94d4c536ac7c.jpg"
-    },
-    {
-     "who": "Zoro",
-     "alt": "Zoro artwork 7",
-     "src": "assets/images/archive-effc696bc2bb.jpg"
-    },
-    {
-     "who": "Zoro",
-     "alt": "Zoro green aura attack",
-     "src": "assets/images/archive-780be14600f9.jpg"
-    }
-   ]
+   "id": "zoro"
   },
   {
    "name": "Guts",
-   "image": "assets/images/archive-8fcc529199b3.jpg",
    "kicker": "Endure",
    "body": "Emotionally and psychologically, one of the strongest journeys in fiction for me. The amount of trauma and cruelty thrown at Guts is almost absurd, but the point is that suffering never gets the final word. He keeps prevailing. Also, the armor, the presence and that gigantic sword are just ridiculously cool.",
    "quote": "",
@@ -1388,23 +776,10 @@
     "Keep moving",
     "Defy the dark"
    ],
-   "id": "guts",
-   "gallery": [
-    {
-     "who": "Guts",
-     "alt": "Guts dark artwork",
-     "src": "assets/images/archive-48a489f4b3e6.jpg"
-    },
-    {
-     "who": "Guts",
-     "alt": "Guts red mark collage",
-     "src": "assets/images/archive-7a44b66f5e0e.jpg"
-    }
-   ]
+   "id": "guts"
   },
   {
    "name": "Ayanokoji",
-   "image": "assets/images/archive-fbd6867bb0db.jpg",
    "kicker": "Control before reaction",
    "body": "I never expected a manipulative high-school character to land this high for me. What I actually admire is his emotional control, awareness, selective self-revelation and ability to handle complex situations without needing attention. I do not admire treating people like tools, but the composure and decision-making are areas I want to sharpen in myself.",
    "quote": "",
@@ -1415,33 +790,10 @@
     "Read the room",
     "Know what to reveal"
    ],
-   "id": "ayanokoji",
-   "gallery": [
-    {
-     "who": "Ayanokoji",
-     "alt": "Ayanokoji artwork 4",
-     "src": "assets/images/archive-4d176ee876f9.jpg"
-    },
-    {
-     "who": "Ayanokoji",
-     "alt": "Ayanokoji artwork 5",
-     "src": "assets/images/archive-7d61abe31df3.jpg"
-    },
-    {
-     "who": "Ayanokoji",
-     "alt": "Ayanokoji chess piece artwork",
-     "src": "assets/images/archive-0f08fe88568a.jpg"
-    },
-    {
-     "who": "Ayanokoji",
-     "alt": "Ayanokoji puppet master",
-     "src": "assets/images/archive-02099d3c7254.jpg"
-    }
-   ]
+   "id": "ayanokoji"
   },
   {
    "name": "Subaru Natsuki",
-   "image": "assets/images/archive-2a0f4d144730.jpg",
    "kicker": "Try again, even when nobody remembers",
    "body": "I completely misjudged him at first. What looked like weakness became the exact reason I respected him: Subaru can be terrified, humiliated, broken and still walk back into a nightmare because the people around him matter more than his pride. Return by Death is not a cool reset button to me anymore. It is loneliness with a checkpoint.",
    "quote": "Fine. One more try.",
@@ -1452,28 +804,10 @@
     "Carry the unseen",
     "Stay human"
    ],
-   "id": "subaru-natsuki",
-   "gallery": [
-    {
-     "who": "Subaru",
-     "alt": "Subaru Natsuki artwork 1",
-     "src": "assets/images/archive-2a0f4d144730.jpg"
-    },
-    {
-     "who": "Subaru",
-     "alt": "Subaru Natsuki artwork 2",
-     "src": "assets/images/archive-5e5a888f6f6e.jpg"
-    },
-    {
-     "who": "Subaru",
-     "alt": "Subaru Natsuki artwork 3",
-     "src": "assets/images/archive-92c9d2ca4fcb.jpg"
-    }
-   ]
+   "id": "subaru-natsuki"
   },
   {
    "name": "All Might",
-   "image": "assets/images/archive-bebc9862da2a.jpg",
    "kicker": "Symbol of hope",
    "body": "All Might works for me because of what he represents. People see him and believe help has arrived. That final stand and iconic raised fist hit harder than a long personality essay ever could. Sometimes what you symbolize to other people matters just as much as what you say.",
    "quote": "",
@@ -1483,23 +817,10 @@
     "Presence",
     "Reassurance"
    ],
-   "id": "all-might",
-   "gallery": [
-    {
-     "who": "All Might",
-     "alt": "All Might manga collage",
-     "src": "assets/images/archive-97a928a1d6c9.jpg"
-    },
-    {
-     "who": "All Might",
-     "alt": "All Might hero poster",
-     "src": "assets/images/archive-66601ea74ecb.jpg"
-    }
-   ]
+   "id": "all-might"
   },
   {
    "name": "Rudeus",
-   "image": "assets/images/archive-98ff25101429.jpg",
    "kicker": "Face reality",
    "body": "A deeply flawed guy, but the second-chance premise left me with a very real lesson: real life does not hand us a reincarnation button. Eventually we have to stop running from our problems, accept who we are, face reality head-on and try to live without regrets.",
    "quote": "",
@@ -1509,12 +830,10 @@
     "No reset button",
     "Live deliberately"
    ],
-   "id": "rudeus",
-   "gallery": []
+   "id": "rudeus"
   },
   {
    "name": "Sanji",
-   "image": "assets/images/archive-a57a923b161c.jpg",
    "kicker": "Respect the craft",
    "body": "Sanji is a hardworking cook who gives his best, carries two backstories and, yes, is still a catastrophic simp. The most practical thing he left with me is respect for food: do not waste what is on the table, because there is real work and value behind every meal.",
    "quote": "",
@@ -1524,14 +843,7 @@
     "Respect food",
     "Give your best"
    ],
-   "id": "sanji",
-   "gallery": [
-    {
-     "who": "Sanji",
-     "alt": "Sanji flame artwork",
-     "src": "assets/images/archive-3e5b993d7a03.jpg"
-    }
-   ]
+   "id": "sanji"
   }
  ],
  "journey": [
@@ -1671,13 +983,13 @@
    "name": "Five Elders",
    "rarity": "SR",
    "variant": null,
-   "image": null,
+   "image": "assets/cards/OP13-082.png",
    "quantity": null,
    "language": null,
    "condition": null,
    "purchasePrice": null,
    "currency": null,
-   "imageNote": null
+   "imageNote": "Official Bandai catalog image (marked SAMPLE), not a photo of the owned copy."
   },
   {
    "entry": 2,
@@ -1691,7 +1003,7 @@
    "condition": null,
    "purchasePrice": null,
    "currency": null,
-   "imageNote": "Official catalog reference artwork, not a photo of the owned copy."
+   "imageNote": "Official Bandai catalog image (marked SAMPLE), not a photo of the owned copy."
   },
   {
    "entry": 3,
@@ -1705,7 +1017,7 @@
    "condition": null,
    "purchasePrice": null,
    "currency": null,
-   "imageNote": "Official catalog reference artwork, not a photo of the owned copy."
+   "imageNote": "Official Bandai catalog image (marked SAMPLE), not a photo of the owned copy."
   },
   {
    "entry": 4,
@@ -1713,13 +1025,13 @@
    "name": "Roronoa Zoro",
    "rarity": "R",
    "variant": null,
-   "image": null,
+   "image": "assets/cards/OP14-015.png",
    "quantity": null,
    "language": null,
    "condition": null,
    "purchasePrice": null,
    "currency": null,
-   "imageNote": null
+   "imageNote": "Official Bandai catalog image (marked SAMPLE), not a photo of the owned copy."
   },
   {
    "entry": 5,
@@ -1727,13 +1039,13 @@
    "name": "Portgas.D.Ace",
    "rarity": "Leader",
    "variant": null,
-   "image": null,
+   "image": "assets/cards/OP13-002.png",
    "quantity": null,
    "language": null,
    "condition": null,
    "purchasePrice": null,
    "currency": null,
-   "imageNote": null
+   "imageNote": "Official Bandai catalog image (marked SAMPLE), not a photo of the owned copy."
   },
   {
    "entry": 6,
@@ -1741,13 +1053,13 @@
    "name": "Trafalgar Law",
    "rarity": "R",
    "variant": null,
-   "image": null,
+   "image": "assets/cards/OP09-069.png",
    "quantity": null,
    "language": null,
    "condition": null,
    "purchasePrice": null,
    "currency": null,
-   "imageNote": null
+   "imageNote": "Official Bandai catalog image (marked SAMPLE), not a photo of the owned copy."
   },
   {
    "entry": 7,
@@ -1755,13 +1067,13 @@
    "name": "Crocodile",
    "rarity": "SR",
    "variant": null,
-   "image": null,
+   "image": "assets/cards/OP04-060.png",
    "quantity": null,
    "language": null,
    "condition": null,
    "purchasePrice": null,
    "currency": null,
-   "imageNote": null
+   "imageNote": "Official Bandai catalog image (marked SAMPLE), not a photo of the owned copy."
   },
   {
    "entry": 8,
@@ -1775,7 +1087,7 @@
    "condition": null,
    "purchasePrice": null,
    "currency": null,
-   "imageNote": "Official catalog reference artwork, not a photo of the owned copy."
+   "imageNote": "Official Bandai catalog image (marked SAMPLE), not a photo of the owned copy."
   },
   {
    "entry": 9,
@@ -1783,13 +1095,13 @@
    "name": "Boa Hancock",
    "rarity": "SR",
    "variant": "Alternate Art / Parallel",
-   "image": null,
+   "image": "assets/cards/OP14-112_p1.png",
    "quantity": null,
    "language": null,
    "condition": null,
    "purchasePrice": null,
    "currency": null,
-   "imageNote": null
+   "imageNote": "Official Bandai catalog image (marked SAMPLE), not a photo of the owned copy."
   },
   {
    "entry": 10,
@@ -1797,13 +1109,13 @@
    "name": "Boa Hancock",
    "rarity": "SR",
    "variant": null,
-   "image": null,
+   "image": "assets/cards/OP07-051.png",
    "quantity": null,
    "language": null,
    "condition": null,
    "purchasePrice": null,
    "currency": null,
-   "imageNote": null
+   "imageNote": "Official Bandai catalog image (marked SAMPLE), not a photo of the owned copy."
   },
   {
    "entry": 11,
@@ -1817,7 +1129,7 @@
    "condition": null,
    "purchasePrice": null,
    "currency": null,
-   "imageNote": "Official catalog reference artwork, not a photo of the owned copy."
+   "imageNote": "Official Bandai catalog image (marked SAMPLE), not a photo of the owned copy."
   },
   {
    "entry": 12,
@@ -1825,13 +1137,13 @@
    "name": "Vinsmoke Reiju",
    "rarity": "SR",
    "variant": null,
-   "image": null,
+   "image": "assets/cards/EB03-031.png",
    "quantity": null,
    "language": null,
    "condition": null,
    "purchasePrice": null,
    "currency": null,
-   "imageNote": null
+   "imageNote": "Official Bandai catalog image (marked SAMPLE), not a photo of the owned copy."
   }
  ],
  "decks": [
