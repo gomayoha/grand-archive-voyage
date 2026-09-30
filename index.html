@@ -17,7 +17,7 @@
 <header class="bar" id="bar">
  <a class="brand" href="#voyage" data-jump><span class="brand-mark">G</span><span>Grand Archive</span></a>
  <nav class="bar-nav" aria-label="Sections">
-  <a href="#voyage" data-jump>Voyage</a><a href="#characters" data-jump>Characters</a><a href="#crew" data-jump>Crew</a><a href="#spreads" data-jump>Spreads</a><a href="#journey" data-jump>Journey</a><a href="#vault" data-jump>Vault</a><a href="#library" data-jump>Library</a>
+  <a href="#voyage" data-jump>Voyage</a><a href="#characters" data-jump>Characters</a><a href="#crew" data-jump>Crew</a><a href="#spreads" data-jump>Spreads</a><a href="#panels" data-jump>Panels</a><a href="#journey" data-jump>Journey</a><a href="#vault" data-jump>Vault</a><a href="#library" data-jump>Library</a>
  </nav>
  <button class="motion-toggle" id="motion" aria-pressed="false">Motion <b>On</b></button>
 </header>
@@ -88,11 +88,43 @@
   </div>
  </section>
 
+ <!-- 03b · BETWEEN THE PANELS (manga panels from Goma's notes) -->
+ <section id="panels" class="ink" aria-label="Favourite manga panels">
+  <div class="ink-iris" id="ink-iris">
+   <div class="pin">
+    <div class="iris-paper" id="iris-paper">
+     <div class="iris-copy">
+      <p class="ink-kicker">04 · Favourite panels</p>
+      <h2>Between<br>the <em>panels.</em></h2>
+      <p class="ink-lede">No colour, no music, no voice acting. Just ink, and the pages that stopped me mid-read.</p>
+     </div>
+     <span class="iris-jp" aria-hidden="true">名場面</span>
+    </div>
+   </div>
+  </div>
+  <div class="ink-body">
+   <div class="op-wrap" id="op-wrap">
+    <div class="ch-ruler" id="ch-ruler" aria-hidden="true"><span class="ch-now" id="ch-now">CH. 1</span><div class="ch-track" id="ch-track"><i class="ch-fill" id="ch-fill"></i></div><span class="ch-end">CH. 1044</span></div>
+    <header class="ink-part wrap">
+     <p class="ink-kicker">Part one</p>
+     <h3>One Piece <span>— Eiichiro Oda</span></h3>
+     <p class="ink-spoil" id="op-spoil"></p>
+    </header>
+    <div id="op-panels"></div>
+   </div>
+   <header class="ink-part wrap">
+    <p class="ink-kicker">Part two</p>
+    <h3>Beyond <em>One Piece.</em></h3>
+   </header>
+   <div id="other-panels"></div>
+  </div>
+ </section>
+
  <!-- 03 · ANIME JOURNEY (horizontal) -->
  <section id="journey" class="hscroll" aria-label="Anime Journey">
   <div class="pin">
    <header class="hs-head">
-    <p class="eyebrow rv">04 · The Anime Journey</p>
+    <p class="eyebrow rv">05 · The Anime Journey</p>
     <h2 class="rv" data-split>I used to call them <em>just cartoons.</em></h2>
    </header>
    <div class="hs-track" id="journey-track"></div>
@@ -100,15 +132,16 @@
   </div>
  </section>
 
- <section id="records" class="records" aria-label="All anime records">
+ <section id="records" class="records" aria-label="The shelf: every anime, manga and live-action record">
   <div class="wrap">
-   <p class="eyebrow rv">Every world. Every opinion.</p>
-   <h2 class="rv" data-split>31 records, preserved as written.</h2>
+   <p class="eyebrow rv">The Shelf · Every world, every opinion</p>
+   <h2 class="rv" data-split>Rated, <em>preserved as written.</em></h2>
+   <div class="shelf-tabs rv" role="tablist" aria-label="Shelf">
+    <button role="tab" data-tab="anime" aria-selected="true">Anime <span id="n-anime"></span></button><button role="tab" data-tab="manga" aria-selected="false">Manga <span id="n-manga"></span></button><button role="tab" data-tab="tv" aria-selected="false">Live action <span id="n-tv"></span></button>
+   </div>
    <div class="controls rv">
-    <input id="search" type="search" placeholder="Find a story…" aria-label="Search anime">
-    <div class="chips" role="group" aria-label="Filter">
-     <button data-filter="all" aria-pressed="true">All</button><button data-filter="rated" aria-pressed="false">Rated</button><button data-filter="watching" aria-pressed="false">Watching</button><button data-filter="canon" aria-pressed="false">Top 10</button>
-    </div>
+    <input id="search" type="search" placeholder="Find a story…" aria-label="Search the shelf">
+    <div class="chips" id="chips" role="group" aria-label="Filter"></div>
     <select id="sort" aria-label="Sort"><option value="score">Highest rated</option><option value="title">A → Z</option></select>
    </div>
    <p class="count" id="record-count" aria-live="polite"></p>
@@ -130,7 +163,7 @@
  <section id="vault" class="vault" aria-label="Card Vault">
   <div class="pin">
    <header class="vault-head">
-    <p class="eyebrow">05 · The Card Vault</p>
+    <p class="eyebrow">06 · The Card Vault</p>
     <h2>My kind of <em>treasure.</em></h2>
    </header>
    <div class="fan" id="fan" role="group" aria-label="Card collection"></div>
@@ -147,7 +180,7 @@
   <div class="scene-block" data-video="assets/media/luffy_beat_louder.mp4" data-poster="assets/media/luffy_poster.jpg">
    <div class="pin">
     <div class="sv-frame"><video muted loop playsinline preload="none" aria-label="Gear 5 Luffy versus Kaido"></video></div>
-    <div class="sv-text"><p class="eyebrow">06 · Scenes that stay</p><h2>“Come on, heartbeat.<br>Beat louder.”</h2><p>Gear 5 vs Kaido. Pure joy and defiance.</p></div>
+    <div class="sv-text"><p class="eyebrow">07 · Scenes that stay</p><h2>“Come on, heartbeat.<br>Beat louder.”</h2><p>Gear 5 vs Kaido. Pure joy and defiance.</p></div>
     <button class="sound" aria-pressed="false">Sound off</button>
    </div>
   </div>
@@ -156,12 +189,12 @@
  <!-- 06 · OHARA LIBRARY -->
  <section id="library" class="library" aria-label="Ohara Library">
   <div class="lib-head wrap">
-   <p class="eyebrow rv">07 · The Ohara Library</p>
+   <p class="eyebrow rv">08 · The Ohara Library</p>
    <h2 class="rv" data-split>Stories leave <em>traces.</em></h2>
    <p class="section-lede rv">Everything else I saved along the way.</p>
    <div class="lib-doors rv">
-    <button data-list="manga">Between the panels <span id="n-manga"></span></button>
-    <button data-list="tv">The other screen <span id="n-tv"></span></button>
+    <button data-shelf="manga">The manga shelf ↑</button>
+    <button data-shelf="tv">Live action shelf ↑</button>
     <a href="https://gomayoha.github.io/my-grand-archive/" target="_blank" rel="noopener">The original V1 ↗</a>
    </div>
   </div>

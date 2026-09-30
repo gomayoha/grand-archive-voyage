@@ -1,0 +1,942 @@
+{
+ "onepiece": [
+  {
+   "title": "ONE PIECE",
+   "author": "EIICHIRO ODA",
+   "cover": {
+    "id": "9033370678b6",
+    "w": 1000,
+    "h": 1500,
+    "srcw": 1000,
+    "srch": 1500
+   },
+   "panels": [
+    {
+     "images": [
+      {
+       "id": "797c3cacfd4d",
+       "w": 600,
+       "h": 400,
+       "srcw": 600,
+       "srch": 400
+      }
+     ],
+     "note": "A simple promise carrying the whole story. Man, this hat means so much more every time we see what Luffy goes through.",
+     "title": "Shanks gives Luffy his straw hat",
+     "chapter": 1,
+     "group": "Monkey D. Luffy"
+    },
+    {
+     "images": [
+      {
+       "id": "e693ab1c4fec",
+       "w": 1000,
+       "h": 789,
+       "srcw": 1000,
+       "srch": 789
+      }
+     ],
+     "note": "One of the most satisfying punches in manga. The second he sees his friend get hurt, all those warnings about the Celestial Dragons mean nothing.",
+     "title": "Luffy punches Saint Charlos",
+     "chapter": 502,
+     "group": "Monkey D. Luffy"
+    },
+    {
+     "images": [
+      {
+       "id": "4dd0f44b61ce",
+       "w": 1200,
+       "h": 906,
+       "srcw": 1200,
+       "srch": 906
+      }
+     ],
+     "note": "This one hurts. He cannot bring Ace back, but remembering the people still waiting for him gives him a reason to keep going.",
+     "title": "Luffy remembers he still has his crew",
+     "chapter": 590,
+     "group": "Monkey D. Luffy"
+    },
+    {
+     "images": [
+      {
+       "id": "265bdb2df0cb",
+       "w": 774,
+       "h": 1156,
+       "srcw": 774,
+       "srch": 1156
+      }
+     ],
+     "note": "I love how his biggest transformation feels so completely like him. That ridiculous joy after everything he has been through is beautiful.",
+     "title": "Gear 5 / Warrior of Liberation",
+     "chapter": 1044,
+     "group": "Monkey D. Luffy"
+    },
+    {
+     "images": [
+      {
+       "id": "98fbc3aa3c70",
+       "w": 459,
+       "h": 574,
+       "srcw": 459,
+       "srch": 574
+      }
+     ],
+     "note": "He is completely outmatched and still turns to face the blade. Crazy how a defeat can make someone look this incredible.",
+     "title": "Zoro faces Mihawk and refuses a wound on his back",
+     "chapter": 51,
+     "group": "Roronoa Zoro"
+    },
+    {
+     "images": [
+      {
+       "id": "4df3b6553048",
+       "w": 1080,
+       "h": 1081,
+       "srcw": 1080,
+       "srch": 1081
+      }
+     ],
+     "note": "Pure Aura and Goosbumps not even words.",
+     "title": "I'll become the king of the hell",
+     "group": "Roronoa Zoro"
+    },
+    {
+     "images": [
+      {
+       "id": "e7b62f443ffe",
+       "w": 984,
+       "h": 1598,
+       "srcw": 984,
+       "srch": 1598
+      }
+     ],
+     "note": "The blood, the silence, the fact that he asks for absolutely no credit. This is one of those panels that says everything about a character.",
+     "title": "Nothing happened",
+     "chapter": 485,
+     "group": "Roronoa Zoro"
+    },
+    {
+     "images": [
+      {
+       "id": "146c40c0006f",
+       "w": 800,
+       "h": 420,
+       "srcw": 800,
+       "srch": 420
+      }
+     ],
+     "note": "The scale of this attack is insane. Such a satisfying payoff after watching him figure out how to get through King’s defense.",
+     "title": "Zoro cuts through King’s final attack",
+     "chapter": 1035,
+     "group": "Roronoa Zoro"
+    },
+    {
+     "images": [
+      {
+       "id": "719806c64fa4",
+       "w": 762,
+       "h": 1200,
+       "srcw": 762,
+       "srch": 1200
+      }
+     ],
+     "note": "She has been carrying everything alone for so long. The moment she finally asks for help, and he gives her the hat, gets me every time.",
+     "title": "Nami asks Luffy for help / the hat moment",
+     "chapter": 81,
+     "group": "Nami"
+    },
+    {
+     "images": [
+      {
+       "id": "3c54a31a9eae",
+       "w": 1067,
+       "h": 1600,
+       "srcw": 1067,
+       "srch": 1600
+      }
+     ],
+     "note": "She is terrified and badly hurt, but she still cannot say he will fail. I love this kind of courage from Nami.",
+     "title": "Nami refuses to deny Luffy’s dream",
+     "chapter": 995,
+     "group": "Nami"
+    },
+    {
+     "images": [
+      {
+       "id": "39a47c49dc77",
+       "w": 669,
+       "h": 998,
+       "srcw": 669,
+       "srch": 998
+      }
+     ],
+     "note": "He can be scared for his own life and still stand up for his captain. This is why Usopp’s brave moments hit so hard.",
+     "title": "Usopp defends Luffy’s dream",
+     "chapter": 186,
+     "group": "Usopp / Sogeking"
+    },
+    {
+     "images": [
+      {
+       "id": "1232dfebc59c",
+       "w": 945,
+       "h": 1500,
+       "srcw": 945,
+       "srch": 1500
+      }
+     ],
+     "note": "Luffy gives the order and he takes the shot. The whole world on the other side, and their friend matters more.",
+     "title": "Sogeking burns the World Government flag",
+     "chapter": 398,
+     "group": "Usopp / Sogeking"
+    },
+    {
+     "images": [
+      {
+       "id": "0d6e7d7accc5",
+       "w": 850,
+       "h": 1230,
+       "srcw": 850,
+       "srch": 1230
+      }
+     ],
+     "note": "Only Usopp could end up looking like a divine savior in the middle of this much chaos. Absolutely ridiculous. I love it.",
+     "title": "The liberated toys hail God Usopp",
+     "chapter": 744,
+     "group": "Usopp / Sogeking"
+    },
+    {
+     "images": [
+      {
+       "id": "7074bd4361c6",
+       "w": 908,
+       "h": 1400,
+       "srcw": 908,
+       "srch": 1400
+      }
+     ],
+     "note": "Man takes a lightning strike and still finds time to be this cool. One of my favorite Sanji panels, easily.",
+     "title": "Sanji’s cigarette taunt after Enel’s lightning",
+     "chapter": 284,
+     "group": "Sanji"
+    },
+    {
+     "images": [
+      {
+       "id": "660b02614ff5",
+       "w": 899,
+       "h": 1300,
+       "srcw": 899,
+       "srch": 1300
+      }
+     ],
+     "note": "Under all that guilt, he just wants to come home. Seeing him finally say it makes this so much more emotional than any fight.",
+     "title": "Sanji admits he wants to return to the Sunny",
+     "chapter": 856,
+     "group": "Sanji"
+    },
+    {
+     "images": [
+      {
+       "id": "0a982390dc21",
+       "w": 735,
+       "h": 722,
+       "srcw": 735,
+       "srch": 722
+      }
+     ],
+     "note": "The speed and impact here are crazy. Love seeing Sanji put everything together and finally turn the fight around.",
+     "title": "Ifrit Jambe / finishing Boeuf Burst against Queen",
+     "chapter": 1034,
+     "group": "Sanji"
+    },
+    {
+     "images": [
+      {
+       "id": "f0a451744e7f",
+       "w": 1530,
+       "h": 1200,
+       "srcw": 1530,
+       "srch": 1200
+      }
+     ],
+     "note": "The whole mountain blooming as he leaves. Such a beautiful way to let someone’s dream live on. This one deserves a full spread.",
+     "title": "Chopper’s farewell beneath Hiriluk’s cherry blossoms",
+     "chapter": 153,
+     "group": "Tony Tony Chopper"
+    },
+    {
+     "images": [
+      {
+       "id": "80c4dbc030cd",
+       "w": 600,
+       "h": 450,
+       "srcw": 600,
+       "srch": 450
+      }
+     ],
+     "note": "This form was genuinely terrifying. Seeing the sweetest member of the crew lose himself like this makes the panel so unsettling.",
+     "title": "Monster Point’s first on-page transformation",
+     "chapter": 407,
+     "group": "Tony Tony Chopper"
+    },
+    {
+     "images": [
+      {
+       "id": "86c48c2e387e",
+       "w": 613,
+       "h": 567,
+       "srcw": 613,
+       "srch": 567
+      }
+     ],
+     "note": "After being made to feel like her existence was a crime, she finally asks for a future. One of the most powerful moments in the whole story.",
+     "title": "I want to live",
+     "chapter": 398,
+     "group": "Nico Robin"
+    },
+    {
+     "images": [
+      {
+       "id": "2ba7bb4313ee",
+       "w": 2000,
+       "h": 1500,
+       "srcw": 2133,
+       "srch": 1600
+      }
+     ],
+     "note": "I love how she takes that demon image people forced onto her and uses it to protect the people who love her.",
+     "title": "Demonio Fleur reveal",
+     "chapter": 1021,
+     "group": "Nico Robin"
+    },
+    {
+     "images": [
+      {
+       "id": "99392c0e3fb4",
+       "w": 945,
+       "h": 1500,
+       "srcw": 945,
+       "srch": 1500
+      }
+     ],
+     "note": "Destroying the thing everyone has been chasing right in front of them. Such a bold moment, and such a huge act of trust.",
+     "title": "Franky burns the Pluton blueprints",
+     "chapter": 399,
+     "group": "Franky"
+    },
+    {
+     "images": [
+      {
+       "id": "802a5ff5bd7f",
+       "w": 750,
+       "h": 856,
+       "srcw": 750,
+       "srch": 856
+      }
+     ],
+     "note": "This fight looks so absurd until it suddenly breaks your heart. The respect between these two is what makes the ending stay with me.",
+     "title": "Franky defeats Señor Pink",
+     "chapter": 775,
+     "group": "Franky"
+    },
+    {
+     "images": [
+      {
+       "id": "7a88c0f981be",
+       "w": 763,
+       "h": 1200,
+       "srcw": 763,
+       "srch": 1200
+      }
+     ],
+     "note": "Fifty years of loneliness, and he finally has people to laugh with again. A skeleton saying he is happy to be alive should not hurt this much.",
+     "title": "Brook is glad to be alive and joins the crew",
+     "chapter": 489,
+     "group": "Brook"
+    },
+    {
+     "images": [
+      {
+       "id": "b46d95d50a27",
+       "w": 1200,
+       "h": 877,
+       "srcw": 1200,
+       "srch": 877
+      }
+     ],
+     "note": "Calling an Emperor a young lady while standing right in front of her is insane. Brook’s calm confidence here is so good.",
+     "title": "Brook stands against Big Mom",
+     "chapter": 851,
+     "group": "Brook"
+    },
+    {
+     "images": [
+      {
+       "id": "746098641579",
+       "w": 1066,
+       "h": 1600,
+       "srcw": 1066,
+       "srch": 1600
+      }
+     ],
+     "note": "After an entire arc about prejudice, sharing blood says so much without needing another battle. One of the most beautiful Jinbe moments.",
+     "title": "Jinbe gives his blood to Luffy",
+     "chapter": 648,
+     "group": "Jinbe"
+    },
+    {
+     "images": [
+      {
+       "id": "2b65175bf9d2",
+       "w": 820,
+       "h": 604,
+       "srcw": 820,
+       "srch": 604
+      }
+     ],
+     "note": "He knows exactly who he wants to sail with. Standing this calmly in front of Big Mom makes his faith in Luffy feel unshakable.",
+     "title": "Jinbe faces Big Mom without fear",
+     "chapter": 863,
+     "group": "Jinbe"
+    },
+    {
+     "images": [
+      {
+       "id": "d24870492d95",
+       "w": 468,
+       "h": 800,
+       "srcw": 468,
+       "srch": 800
+      }
+     ],
+     "note": "Five feet on a barrel, five dreams, and the whole sea ahead of them. This is the feeling of adventure I love about One Piece.",
+     "title": "The East Blue five share their dreams / Usopp’s vow",
+     "chapter": 100,
+     "group": "The Crew — Promises And Goodbyes"
+    },
+    {
+     "images": [
+      {
+       "id": "1d5957ea0903",
+       "w": 1000,
+       "h": 500,
+       "srcw": 1000,
+       "srch": 500
+      }
+     ],
+     "note": "They cannot call out to her, so they answer with their arms raised. No speech needed. Such a beautiful goodbye.",
+     "title": "The raised X marks / farewell to Vivi",
+     "chapter": 216,
+     "group": "The Crew — Promises And Goodbyes"
+    },
+    {
+     "images": [
+      {
+       "id": "8217c9f78eff",
+       "w": 1010,
+       "h": 750,
+       "srcw": 1010,
+       "srch": 750
+      }
+     ],
+     "note": "Everyone standing there together is enough. I love how this panel makes their promise to bring her back feel real before the fight even begins.",
+     "title": "The Straw Hats line up across from Robin",
+     "chapter": 390,
+     "group": "The Crew — Promises And Goodbyes"
+    },
+    {
+     "images": [
+      {
+       "id": "bcd6a762c3dc",
+       "w": 976,
+       "h": 1432,
+       "srcw": 976,
+       "srch": 1432
+      }
+     ],
+     "note": "Oda really made a ship feel like a friend we were losing. The apology, the snow, everyone crying. This one destroys me.",
+     "title": "Going Merry’s funeral",
+     "chapter": 430,
+     "group": "The Crew — Promises And Goodbyes"
+    },
+    {
+     "images": [
+      {
+       "id": "9c41b1f383c0",
+       "w": 800,
+       "h": 1200,
+       "srcw": 800,
+       "srch": 1200
+      }
+     ],
+     "note": "The story opens with an ending that sends the whole world out to sea. Such a perfect beginning for an adventure this huge.",
+     "title": "Roger’s execution opens the Great Pirate Era",
+     "chapter": 1,
+     "group": "Moments That Define One Piece"
+    },
+    {
+     "images": [
+      {
+       "id": "05f6434eeb9b",
+       "w": 2000,
+       "h": 1481,
+       "srcw": 2133,
+       "srch": 1580
+      }
+     ],
+     "note": "A dream dismissed as a lie finally reaches the people waiting below. That giant shadow in the sky is such a beautiful payoff.",
+     "title": "Shandora’s bell rings / Luffy’s shadow over Jaya",
+     "chapter": 299,
+     "group": "Moments That Define One Piece"
+    },
+    {
+     "images": [
+      {
+       "id": "ee7035465154",
+       "w": 522,
+       "h": 480,
+       "srcw": 522,
+       "srch": 480
+      }
+     ],
+     "note": "After all that fighting to save him, this quiet goodbye is unbearable. The relief on his face makes it hurt even more.",
+     "title": "Ace’s final goodbye",
+     "chapter": 574,
+     "group": "Moments That Define One Piece"
+    },
+    {
+     "images": [
+      {
+       "id": "b555f61dc8f6",
+       "w": 1200,
+       "h": 1156,
+       "srcw": 1200,
+       "srch": 1156
+      }
+     ],
+     "note": "Even at the end, he makes sure the world has to listen. The scale of this moment feels bigger than the battlefield.",
+     "title": "Whitebeard confirms that the One Piece exists",
+     "chapter": 576,
+     "group": "Moments That Define One Piece"
+    },
+    {
+     "images": [
+      {
+       "id": "ae9b8fe1c889",
+       "w": 1640,
+       "h": 1200,
+       "srcw": 1640,
+       "srch": 1200
+      }
+     ],
+     "note": "That final image is unreal. His body tells you what the battle cost, and his stance tells you who he was.",
+     "title": "Whitebeard dies standing",
+     "chapter": 576,
+     "group": "Moments That Define One Piece"
+    },
+    {
+     "images": [
+      {
+       "id": "9fed15cec4cc",
+       "w": 1073,
+       "h": 800,
+       "srcw": 1073,
+       "srch": 800
+      }
+     ],
+     "note": "After all the mystery around the final island, the answer we get is laughter. This panel somehow makes me even more desperate to reach the end.",
+     "title": "Roger laughs at Laugh Tale",
+     "chapter": 967,
+     "group": "Moments That Define One Piece"
+    },
+    {
+     "images": [
+      {
+       "id": "a0f608c5d84a",
+       "w": 1560,
+       "h": 1144,
+       "srcw": 1560,
+       "srch": 1144
+      }
+     ],
+     "note": "He walks past the Emperors to check on his friends first. Then comes that punch. Such a perfect chapter 1000 moment for Luffy.",
+     "title": "Rooftop arrival / Red Roc hits Kaido",
+     "chapter": 1000,
+     "group": "Moments That Define One Piece"
+    },
+    {
+     "images": [
+      {
+       "id": "ead6f7dcab4c",
+       "w": 1500,
+       "h": 1100,
+       "srcw": 1500,
+       "srch": 1100
+      }
+     ],
+     "note": "The lore behind this is speechless. 30 years of all the Hard work oda managed to put here and deliver us this master piece.",
+     "title": "Elbaf Mural",
+     "group": "Moments That Define One Piece"
+    }
+   ],
+   "spoiler": "Spoilers through Chapter 1044."
+  }
+ ],
+ "other": [
+  {
+   "title": "THE FLOWERS OF EVIL",
+   "author": "SHUZU OSHIMI",
+   "cover": {
+    "id": "9b12100751cd",
+    "w": 1429,
+    "h": 2000,
+    "srcw": 1600,
+    "srch": 2240
+   },
+   "panels": [
+    {
+     "images": [
+      {
+       "id": "072cb4b9a787",
+       "w": 2000,
+       "h": 1400,
+       "srcw": 3572,
+       "srch": 2500
+      }
+     ],
+     "note": "Kasuga Realizing no matter what he does his past always haunts him and there’s no escaping."
+    },
+    {
+     "images": [
+      {
+       "id": "dd54e8be35a9",
+       "w": 2000,
+       "h": 1400,
+       "srcw": 3200,
+       "srch": 2240
+      }
+     ],
+     "note": "Kasuga confessing and coming out clean for Tokawa about his life and all the trauma he went through and what he actually feels about nakamura."
+    },
+    {
+     "images": [
+      {
+       "id": "7073e1eb748e",
+       "w": 2000,
+       "h": 1400,
+       "srcw": 3572,
+       "srch": 2500
+      }
+     ],
+     "note": "Love the character the development of both Nakamura and Kasuga. This is the moment they confronted each other and went on separated ways of them happily. I love how she calls him a normal man at the end"
+    }
+   ]
+  },
+  {
+   "title": "ADABANA",
+   "author": "NANA",
+   "cover": {
+    "id": "c7e91240e13c",
+    "w": 1200,
+    "h": 1698,
+    "srcw": 1200,
+    "srch": 1698
+   },
+   "panels": [
+    {
+     "images": [
+      {
+       "id": "dfb961638916",
+       "w": 1700,
+       "h": 1200,
+       "srcw": 1700,
+       "srch": 1200
+      }
+     ],
+     "note": "The moment Mizuki seeks revenge after witnessing the body of Mako"
+    },
+    {
+     "images": [
+      {
+       "id": "9fc75e702802",
+       "w": 850,
+       "h": 1200,
+       "srcw": 850,
+       "srch": 1200
+      }
+     ],
+     "note": "One of the Saddest thing a best friend had to do."
+    },
+    {
+     "images": [
+      {
+       "id": "3b58f4d648dc",
+       "w": 850,
+       "h": 1200,
+       "srcw": 850,
+       "srch": 1200
+      }
+     ],
+     "note": "Mizuki comforting Mako’s head while crying"
+    }
+   ]
+  },
+  {
+   "title": "BLACK CLOVER",
+   "author": "YUKI TABATA",
+   "cover": {
+    "id": "4078e20d4616",
+    "w": 764,
+    "h": 1200,
+    "srcw": 764,
+    "srch": 1200
+   },
+   "panels": [
+    {
+     "images": [
+      {
+       "id": "04c525a28527",
+       "w": 1568,
+       "h": 1145,
+       "srcw": 1568,
+       "srch": 1145
+      }
+     ],
+     "note": "Asta becoming the wizard king in the final panel of the series"
+    }
+   ]
+  },
+  {
+   "title": "BLOOD ON TRACKS",
+   "author": "SHUZU OSHIMI",
+   "cover": {
+    "id": "cb9534910f74",
+    "w": 1467,
+    "h": 2000,
+    "srcw": 1502,
+    "srch": 2048
+   },
+   "panels": [
+    {
+     "images": [
+      {
+       "id": "35812b3ee77a",
+       "w": 1692,
+       "h": 1200,
+       "srcw": 1692,
+       "srch": 1200
+      }
+     ],
+     "note": "Mother SEIKO is pushing shige the cousin"
+    },
+    {
+     "images": [
+      {
+       "id": "ca460bfb5e22",
+       "w": 1467,
+       "h": 2000,
+       "srcw": 1502,
+       "srch": 2048
+      }
+     ],
+     "note": "Sei and the girl get caught"
+    },
+    {
+     "images": [
+      {
+       "id": "de11d145f834",
+       "w": 2000,
+       "h": 1364,
+       "srcw": 3004,
+       "srch": 2048
+      }
+     ],
+     "note": "Convincing himself that his mother did nothing wrong"
+    },
+    {
+     "images": [
+      {
+       "id": "dba9df890a14",
+       "w": 1467,
+       "h": 2000,
+       "srcw": 1502,
+       "srch": 2048
+      }
+     ],
+     "note": "This panel is crazy it’s way crazy it shows how much of an affect can a person have when he’s victim of mental manipulation. Imagine doing nothing wrong and feeling guilty. This is insane this panels shows how much of a control Sei’s mother have over him. This write is insane."
+    },
+    {
+     "images": [
+      {
+       "id": "795c30e910a0",
+       "w": 1467,
+       "h": 2000,
+       "srcw": 1502,
+       "srch": 2048
+      }
+     ],
+     "note": "I don’t even have words creepy as fuck"
+    },
+    {
+     "images": [
+      {
+       "id": "a088df3b0b0b",
+       "w": 1467,
+       "h": 2000,
+       "srcw": 1502,
+       "srch": 2048
+      }
+     ],
+     "note": "This panel shows how much terrifying can a panel become it’s even scarier than lively one. So much talent and crazy detail."
+    },
+    {
+     "images": [
+      {
+       "id": "d242caeaeb7e",
+       "w": 2000,
+       "h": 1364,
+       "srcw": 3004,
+       "srch": 2048
+      }
+     ],
+     "note": "After many years, this is how Sei encounters his mother following her abandonment of him in court long ago. He feels fear, and although she has aged, he still perceives her as the younger woman he once feared."
+    },
+    {
+     "images": [
+      {
+       "id": "a86ab39794fd",
+       "w": 2000,
+       "h": 1364,
+       "srcw": 3004,
+       "srch": 2048
+      }
+     ],
+     "note": "His mom’s backstory and after all of that evil stuff she did writer still made me sad for her and hoping that Sei take care of her."
+    },
+    {
+     "images": [
+      {
+       "id": "626efd809324",
+       "w": 1467,
+       "h": 2000,
+       "srcw": 1502,
+       "srch": 2048
+      }
+     ],
+     "note": "This is the final panel. Grudges may endure for years, yet even the harshest ones tend to fade as time passes. Sei arrived too late for healing; his trauma resolved only after he grew much older, much like his mother. The man who once enjoyed her was dead, having spent his life hating her for what she did; now the story ends with Sei unable to recall the face of the mother he once despised and wasted his life on. If you fail to move on while carrying trauma, time shifts, emotions alter, and everything changes—you remain the only person unchanged or unmoved, trapped in a time paradox. Once you exit the bubble, you wonder why you were ever like this in the first place."
+    }
+   ]
+  },
+  {
+   "title": "Flagrant Flower Blooms with Dignity",
+   "author": "",
+   "cover": {
+    "id": "66c76d3eb18e",
+    "w": 1200,
+    "h": 1709,
+    "srcw": 1200,
+    "srch": 1709
+   },
+   "panels": [
+    {
+     "images": [
+      {
+       "id": "33c2c8b35204",
+       "w": 1920,
+       "h": 1378,
+       "srcw": 1920,
+       "srch": 1378
+      }
+     ],
+     "note": "One of the most beautiful single person panels I’ve seen. Man waguri is such a lovely character."
+    },
+    {
+     "images": [
+      {
+       "id": "818ae9376237",
+       "w": 960,
+       "h": 1378,
+       "srcw": 960,
+       "srch": 1378
+      }
+     ],
+     "note": "Such a cute panel💖 😊"
+    },
+    {
+     "images": [
+      {
+       "id": "4fd19615b3ab",
+       "w": 960,
+       "h": 1378,
+       "srcw": 960,
+       "srch": 1378
+      }
+     ],
+     "note": "Subaru’s smile is so cute 🥰"
+    }
+   ]
+  },
+  {
+   "title": "Smoking Behind the Supermarket with you",
+   "author": "",
+   "cover": {
+    "id": "83abffafd23a",
+    "w": 736,
+    "h": 1073,
+    "srcw": 736,
+    "srch": 1073
+   },
+   "panels": [
+    {
+     "images": [
+      {
+       "id": "50d92c806c3d",
+       "w": 1320,
+       "h": 1785,
+       "srcw": 1320,
+       "srch": 1785
+      }
+     ],
+     "note": "I love their dynamic one of my favorites."
+    },
+    {
+     "images": [
+      {
+       "id": "2af29ff1fb9a",
+       "w": 1391,
+       "h": 990,
+       "srcw": 1391,
+       "srch": 990
+      }
+     ],
+     "note": "When everyone couldn’t find Tayama Sasaki manages find her in the end leaving her speechless and surprised and filled with lots emotions."
+    },
+    {
+     "images": [
+      {
+       "id": "1698700c71d5",
+       "w": 1320,
+       "h": 1866,
+       "srcw": 1320,
+       "srch": 1866
+      }
+     ],
+     "note": "How Sasaki have imagined Tayama in his mind"
+    },
+    {
+     "images": [
+      {
+       "id": "2fe0ec2d3477",
+       "w": 1536,
+       "h": 1586,
+       "srcw": 1536,
+       "srch": 1586
+      }
+     ],
+     "note": "Tayama’s smile"
+    }
+   ]
+  }
+ ]
+}

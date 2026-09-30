@@ -1,0 +1,806 @@
+{
+ "anime:One Piece": {
+  "img": "assets/posters/d65b39ee0a.webp",
+  "color": "#e49335",
+  "title": "ONE PIECE",
+  "url": "https://anilist.co/anime/21"
+ },
+ "anime:Berserk": {
+  "img": "assets/posters/1e1dff6987.webp",
+  "color": "#e49350",
+  "title": "Berserk",
+  "url": "https://anilist.co/anime/33"
+ },
+ "anime:Demon Slayer": {
+  "img": "assets/posters/34574e7bcb.webp",
+  "color": "#f1c9ae",
+  "title": "Demon Slayer: Kimetsu no Yaiba",
+  "url": "https://anilist.co/anime/101922"
+ },
+ "anime:Jujutsu Kaisen": {
+  "img": "assets/posters/a8e36e3852.webp",
+  "color": "#e45d5d",
+  "title": "JUJUTSU KAISEN",
+  "url": "https://anilist.co/anime/113415"
+ },
+ "anime:Attack on Titan": {
+  "img": "assets/posters/97400d3e06.webp",
+  "color": "#f1a143",
+  "title": "Attack on Titan",
+  "url": "https://anilist.co/anime/16498"
+ },
+ "anime:SPY x Family": {
+  "img": "assets/posters/b25b6ccb5d.webp",
+  "color": "#c9f1f1",
+  "title": "SPY x FAMILY",
+  "url": "https://anilist.co/anime/140960"
+ },
+ "anime:Solo Leveling": {
+  "img": "assets/posters/bdc75cb193.webp",
+  "color": "#35bbf1",
+  "title": "Solo Leveling",
+  "url": "https://anilist.co/anime/151807"
+ },
+ "anime:Kaiju No. 8": {
+  "img": "assets/posters/9a19bd8893.webp",
+  "color": "#f1e4ae",
+  "title": "Kaiju No. 8",
+  "url": "https://anilist.co/anime/153288"
+ },
+ "anime:Dan Da Dan": {
+  "img": "assets/posters/0b7ec23a3e.webp",
+  "color": "#e47850",
+  "title": "DAN DA DAN",
+  "url": "https://anilist.co/anime/171018"
+ },
+ "anime:Frieren": {
+  "img": "assets/posters/d366fa9141.webp",
+  "color": "#bbf1a1",
+  "title": "Frieren: Beyond Journey’s End",
+  "url": "https://anilist.co/anime/154587"
+ },
+ "anime:Black Clover": {
+  "img": "assets/posters/631b12aebb.webp",
+  "color": "#d6c96b",
+  "title": "Black Clover",
+  "url": "https://anilist.co/anime/97940"
+ },
+ "anime:Hell's Paradise": {
+  "img": "assets/posters/9b7736a7f8.webp",
+  "color": "#e4bb35",
+  "title": "Hell’s Paradise",
+  "url": "https://anilist.co/anime/128893"
+ },
+ "anime:Death Note": {
+  "img": "assets/posters/b702a7e6c0.webp",
+  "color": "#bb2a1a",
+  "title": "Death Note",
+  "url": "https://anilist.co/anime/1535"
+ },
+ "anime:Gachiakuta": {
+  "img": "assets/posters/41b09661b2.webp",
+  "color": "#e4a150",
+  "title": "Gachiakuta",
+  "url": "https://anilist.co/anime/178025"
+ },
+ "anime:Toughen Up, Takamine-kun": {
+  "img": "assets/posters/b6a6b74ddd.webp",
+  "color": "#ad2835",
+  "title": "Please Put Them On, Takamine-san",
+  "url": "https://anilist.co/anime/179965"
+ },
+ "anime:Mob Psycho 100": {
+  "img": "assets/posters/e78ca9324c.webp",
+  "color": "#d65d1a",
+  "title": "Mob Psycho 100",
+  "url": "https://anilist.co/anime/21507"
+ },
+ "anime:Sentenced to Be a Hero": {
+  "img": "assets/posters/c7745c5a73.webp",
+  "color": "#f1a15d",
+  "title": "Sentenced to Be a Hero",
+  "url": "https://anilist.co/anime/167152"
+ },
+ "anime:Cyberpunk: Edgerunners": {
+  "img": "assets/posters/4725a3628f.webp",
+  "color": "#78f150",
+  "title": "Cyberpunk: Edgerunners",
+  "url": "https://anilist.co/anime/120377"
+ },
+ "anime:RIN: Daughters of Mnemosyne": {
+  "img": "assets/posters/f86f1f3c72.webp",
+  "color": "#a13528",
+  "title": "RIN ~Daughters of Mnemosyne~",
+  "url": "https://anilist.co/anime/3342"
+ },
+ "anime:Fire Force": {
+  "img": "assets/posters/4afdbd3ace.webp",
+  "color": "#f1bb28",
+  "title": "Fire Force",
+  "url": "https://anilist.co/anime/105310"
+ },
+ "anime:Chainsaw Man": {
+  "img": "assets/posters/86bc2bf4b9.webp",
+  "color": "#6b1a1a",
+  "title": "Chainsaw Man",
+  "url": "https://anilist.co/anime/127230"
+ },
+ "anime:Fragrant Flower Blooms with Dignity": {
+  "img": "assets/posters/8bf1494096.webp",
+  "color": "#6baed6",
+  "title": "The Fragrant Flower Blooms With Dignity",
+  "url": "https://anilist.co/anime/181444"
+ },
+ "anime:Smoking Behind the Supermarket with You": {
+  "img": "assets/posters/4e16b59e9a.webp",
+  "color": "#f1c9bb",
+  "title": "Smoking Behind the Supermarket with You",
+  "url": "https://anilist.co/anime/196187"
+ },
+ "anime:Re:Zero": {
+  "img": "assets/posters/60b1926288.webp",
+  "color": "#f150ae",
+  "title": "Re:ZERO -Starting Life in Another World-",
+  "url": "https://anilist.co/anime/21355"
+ },
+ "anime:Mushoku Tensei": {
+  "img": "assets/posters/754fe4973e.webp",
+  "color": "#43a1e4",
+  "title": "Mushoku Tensei: Jobless Reincarnation",
+  "url": "https://anilist.co/anime/108465"
+ },
+ "anime:Classroom of the Elite": {
+  "img": "assets/posters/e428673638.webp",
+  "color": "#bbf1a1",
+  "title": "Classroom of the Elite",
+  "url": "https://anilist.co/anime/98659"
+ },
+ "anime:Bleach": {
+  "img": "assets/posters/fb4349cde2.webp",
+  "color": "#f1a150",
+  "title": "Bleach",
+  "url": "https://anilist.co/anime/269"
+ },
+ "anime:Witch Hat Atelier": {
+  "img": "assets/posters/c277463501.webp",
+  "color": "#0d8693",
+  "title": "Witch Hat Atelier",
+  "url": "https://anilist.co/anime/147105"
+ },
+ "anime:Hunter x Hunter": {
+  "img": "assets/posters/e32552a210.webp",
+  "color": "#f1d65d",
+  "title": "Hunter x Hunter (2011)",
+  "url": "https://anilist.co/anime/11061"
+ },
+ "anime:My Hero Academia": {
+  "img": "assets/posters/d3f9d57d73.webp",
+  "color": "#f1d643",
+  "title": "My Hero Academia",
+  "url": "https://anilist.co/anime/21459"
+ },
+ "anime:Black Torch": {
+  "img": "assets/posters/13fba344f3.webp",
+  "color": "#435dff",
+  "title": "BLACK TORCH",
+  "url": "https://anilist.co/anime/187538"
+ },
+ "manga:Chainsaw Man": {
+  "img": "assets/posters/c2199bc928.webp",
+  "color": "#f1c90d",
+  "title": "Chainsaw Man",
+  "url": "https://anilist.co/manga/105778"
+ },
+ "manga:Black Clover": {
+  "img": "assets/posters/aaaed82522.webp",
+  "color": "#e47828",
+  "title": "Black Clover",
+  "url": "https://anilist.co/manga/86123"
+ },
+ "manga:The Flowers of Evil": {
+  "img": "assets/posters/af1df32c24.webp",
+  "color": "#eb46be",
+  "title": "The Flowers of Evil",
+  "url": "https://anilist.co/manga/54705"
+ },
+ "manga:Adabana": {
+  "img": "assets/posters/afc7478408.webp",
+  "color": "#862835",
+  "title": "Adabana",
+  "url": "https://anilist.co/manga/115790"
+ },
+ "manga:Harem End": {
+  "img": "assets/posters/ee2d42838f.webp",
+  "color": "#f1e486",
+  "title": "Harem End",
+  "url": "https://anilist.co/manga/80725"
+ },
+ "manga:One Piece": {
+  "img": "assets/posters/1ab5feefd2.webp",
+  "color": "#f1935d",
+  "title": "One Piece",
+  "url": "https://anilist.co/manga/30013"
+ },
+ "manga:Berserk": {
+  "img": "assets/posters/1ff9d3157d.webp",
+  "color": "#d6861a",
+  "title": "Berserk",
+  "url": "https://anilist.co/manga/30002"
+ },
+ "manga:Smoking Behind the Supermarket with You": {
+  "img": "assets/posters/cc3c2af8ab.webp",
+  "color": "#f16b50",
+  "title": "Smoking Behind the Supermarket with You",
+  "url": "https://anilist.co/manga/147149"
+ },
+ "manga:The Fragrant Flower Blooms with Dignity": {
+  "img": "assets/posters/bcb2784f6a.webp",
+  "color": "#6ac7c5",
+  "title": "The Fragrant Flower Blooms With Dignity",
+  "url": "https://anilist.co/manga/140475"
+ },
+ "manga:Your Lie in April": {
+  "img": "assets/posters/a28de1f6e8.webp",
+  "color": "#f150a1",
+  "title": "Your Lie in April",
+  "url": "https://anilist.co/manga/67707"
+ },
+ "manga:Goodnight Punpun": {
+  "img": "assets/posters/8f32309258.webp",
+  "color": "#e4c943",
+  "title": "Goodnight Punpun",
+  "url": "https://anilist.co/manga/34632"
+ },
+ "manga:After the Rain": {
+  "img": "assets/posters/5d8f20666b.webp",
+  "color": "#bbd6f1",
+  "title": "After the Rain",
+  "url": "https://anilist.co/manga/86639"
+ },
+ "manga:Solo Leveling": {
+  "img": "assets/posters/f5065b701d.webp",
+  "color": "#f6a73b",
+  "title": "Solo Leveling",
+  "url": "https://anilist.co/manga/105398"
+ },
+ "manga:Omniscient Reader": {
+  "img": "assets/posters/b5fd87952c.webp",
+  "color": "#ff8232",
+  "title": "Omniscient Reader",
+  "url": "https://anilist.co/manga/119257"
+ },
+ "manga:Choujin X": {
+  "img": "assets/posters/c02ddb0bb3.webp",
+  "color": "#e11106",
+  "title": "Choujin X",
+  "url": "https://anilist.co/manga/126693"
+ },
+ "manga:Chi no Wadachi": {
+  "img": "assets/posters/5348c84795.webp",
+  "color": "#e45d50",
+  "title": "Blood on the Tracks",
+  "url": "https://anilist.co/manga/98397"
+ },
+ "manga:Deadman Wonderland": {
+  "img": "assets/posters/8c7ec0ed55.webp",
+  "color": "#e4865d",
+  "title": "Deadman Wonderland",
+  "url": "https://anilist.co/manga/33986"
+ },
+ "manga:Murcielago": {
+  "img": "assets/posters/d4e13b4686.webp",
+  "color": "#e4281a",
+  "title": "MURCIÉLAGO",
+  "url": "https://anilist.co/manga/85281"
+ },
+ "manga:BIBLIOMANIA": {
+  "img": "assets/posters/aa9854f8aa.webp",
+  "color": "#00d6d6",
+  "title": "Bibliomania",
+  "url": "https://anilist.co/manga/126135"
+ },
+ "manga:I Want to Eat Your Pancreas": {
+  "img": "assets/posters/960aa300b5.webp",
+  "color": "#ef429c",
+  "title": "I Want to Eat Your Pancreas",
+  "url": "https://anilist.co/manga/99609"
+ },
+ "manga:Homunculus": {
+  "img": "assets/posters/8710434273.webp",
+  "color": "#b03132",
+  "title": "Homunculus",
+  "url": "https://anilist.co/manga/30936"
+ },
+ "manga:Gantz": {
+  "img": "assets/posters/b415b02d69.webp",
+  "color": "#6b1a1a",
+  "title": "Gantz",
+  "url": "https://anilist.co/manga/30564"
+ },
+ "manga:20th Century Boys": {
+  "img": "assets/posters/5b25bc3608.webp",
+  "color": "#e4c943",
+  "title": "20th Century Boys",
+  "url": "https://anilist.co/manga/30003"
+ },
+ "manga:Claymore": {
+  "img": "assets/posters/0f719c802d.webp",
+  "color": "#e4935d",
+  "title": "Claymore",
+  "url": "https://anilist.co/manga/30583"
+ },
+ "manga:Manhole": {
+  "img": "assets/posters/8aab21d535.webp",
+  "color": "#861a1a",
+  "title": "Manhole",
+  "url": "https://anilist.co/manga/31415"
+ },
+ "manga:Welcome Back, Alice": {
+  "img": "assets/posters/d5a7446fc2.webp",
+  "color": "#f1bb86",
+  "title": "Welcome Back, Alice",
+  "url": "https://anilist.co/manga/116534"
+ },
+ "manga:Smother Me": {
+  "img": "assets/posters/e12f4907ed.webp",
+  "color": "#e4785d",
+  "title": "SMOTHER ME",
+  "url": "https://anilist.co/manga/182515"
+ },
+ "tv:Narcos": {
+  "img": "assets/posters/cefe257240.webp",
+  "color": "#b37026",
+  "title": "Narcos",
+  "url": "https://www.tvmaze.com/shows/2705/narcos"
+ },
+ "tv:Lupin": {
+  "img": "assets/posters/7cef880a10.webp",
+  "color": "#f05d24",
+  "title": "Lupin",
+  "url": "https://www.tvmaze.com/shows/50701/lupin"
+ },
+ "tv:Vincenzo": {
+  "img": "assets/posters/c359161643.webp",
+  "color": "#d22305",
+  "title": "Vincenzo",
+  "url": "https://www.tvmaze.com/shows/52656/vincenzo"
+ },
+ "tv:Peaky Blinders": {
+  "img": "assets/posters/730293c216.webp",
+  "color": "#3fff32",
+  "title": "Peaky Blinders",
+  "url": "https://www.tvmaze.com/shows/269/peaky-blinders"
+ },
+ "tv:Dexter": {
+  "img": "assets/posters/345c420bfc.webp",
+  "color": "#c12024",
+  "title": "Dexter",
+  "url": "https://www.tvmaze.com/shows/161/dexter"
+ },
+ "tv:Reacher": {
+  "img": "assets/posters/1d2191640d.webp",
+  "color": "#f1222f",
+  "title": "Reacher",
+  "url": "https://www.tvmaze.com/shows/43031/reacher"
+ },
+ "tv:Diablero": {
+  "img": "assets/posters/77ed81ef8c.webp",
+  "color": "#ba3e2e",
+  "title": "Diablero",
+  "url": "https://www.tvmaze.com/shows/30958/diablero"
+ },
+ "tv:Sisyphus: The Myth": {
+  "img": "assets/posters/18841bf58b.webp",
+  "color": "#b5603d",
+  "title": "Sisyphus: The Myth",
+  "url": "https://www.tvmaze.com/shows/52769/sisyphus-the-myth"
+ },
+ "tv:Taxi Driver": {
+  "img": "assets/posters/d47749685d.webp",
+  "color": "#fc6b00",
+  "title": "Taxi Driver",
+  "url": "https://www.tvmaze.com/shows/52770/taxi-driver"
+ },
+ "tv:The Sinner": {
+  "img": "assets/posters/3cd92fe484.webp",
+  "color": "#235db2",
+  "title": "The Sinner",
+  "url": "https://www.tvmaze.com/shows/20895/the-sinner"
+ },
+ "tv:Spectros": {
+  "img": "assets/posters/d669857a50.webp",
+  "color": "#b52521",
+  "title": "Spectros",
+  "url": "https://www.tvmaze.com/shows/38805/spectros"
+ },
+ "tv:Crash Landing on You": {
+  "img": "assets/posters/5632fdeee1.webp",
+  "color": "#d3895e",
+  "title": "Crash Landing on You",
+  "url": "https://www.tvmaze.com/shows/42756/crash-landing-on-you"
+ },
+ "tv:It's Okay Not to Be Okay": {
+  "img": "assets/posters/dbfe6152fc.webp",
+  "color": "#c59a66",
+  "title": "It's Okay to Not Be Okay",
+  "url": "https://www.tvmaze.com/shows/48104/its-okay-to-not-be-okay"
+ },
+ "tv:Sweet Home": {
+  "img": "assets/posters/29753f7784.webp",
+  "color": "#f20806",
+  "title": "Sweet Home",
+  "url": "https://www.tvmaze.com/shows/46570/sweet-home"
+ },
+ "tv:Alchemy of Souls": {
+  "img": "assets/posters/743c5ab758.webp",
+  "color": "#c6896b",
+  "title": "Alchemy of Souls",
+  "url": "https://www.tvmaze.com/shows/62248/alchemy-of-souls"
+ },
+ "tv:Alice in Borderland": {
+  "img": "assets/posters/6682f907a2.webp",
+  "color": "#bb1b1d",
+  "title": "Alice in Borderland",
+  "url": "https://www.tvmaze.com/shows/50036/alice-in-borderland"
+ },
+ "tv:Squid Game": {
+  "img": "assets/posters/01d1f556bd.webp",
+  "color": "#2063b6",
+  "title": "Squid Game",
+  "url": "https://www.tvmaze.com/shows/43687/squid-game"
+ },
+ "tv:All of Us Are Dead": {
+  "img": "assets/posters/8290d91b1a.webp",
+  "color": "#9b7d3a",
+  "title": "All of Us Are Dead",
+  "url": "https://www.tvmaze.com/shows/47199/all-of-us-are-dead"
+ },
+ "tv:Move to Heaven": {
+  "img": "assets/posters/a273711e06.webp",
+  "color": "#ba4a50",
+  "title": "Move to Heaven",
+  "url": "https://www.tvmaze.com/shows/54771/move-to-heaven"
+ },
+ "tv:Girl from Nowhere": {
+  "img": "assets/posters/347c8b5735.webp",
+  "color": "#ce0808",
+  "title": "Girl from Nowhere",
+  "url": "https://www.tvmaze.com/shows/39998/girl-from-nowhere"
+ },
+ "tv:Holo Love": {
+  "img": "assets/posters/47a31c3c8e.webp",
+  "color": "#3f58a8",
+  "title": "My Holo Love",
+  "url": "https://www.tvmaze.com/shows/45472/my-holo-love"
+ },
+ "tv:Descendants of the Sun": {
+  "img": "assets/posters/09007b94b8.webp",
+  "color": "#d0805f",
+  "title": "Descendants of the Sun",
+  "url": "https://www.tvmaze.com/shows/9426/descendants-of-the-sun"
+ },
+ "tv:Dark Desire": {
+  "img": "assets/posters/5aec487b99.webp",
+  "color": "#6841ac",
+  "title": "Obsession: Dark Desires",
+  "url": "https://www.tvmaze.com/shows/1346/obsession-dark-desires"
+ },
+ "tv:Controls": {
+  "img": "assets/posters/89d42ada43.webp",
+  "color": "#0483d2",
+  "title": "Control Z",
+  "url": "https://www.tvmaze.com/shows/47415/control-z"
+ },
+ "tv:Dark": {
+  "img": "assets/posters/614b35544c.webp",
+  "color": "#a38132",
+  "title": "Dark",
+  "url": "https://www.tvmaze.com/shows/17861/dark"
+ },
+ "tv:Umbrella Academy": {
+  "img": "assets/posters/390e8e3145.webp",
+  "color": "#ab7330",
+  "title": "The Umbrella Academy",
+  "url": "https://www.tvmaze.com/shows/30386/the-umbrella-academy"
+ },
+ "tv:The Originals": {
+  "img": "assets/posters/7aefd72cc0.webp",
+  "color": "#d60002",
+  "title": "The Originals",
+  "url": "https://www.tvmaze.com/shows/62/the-originals"
+ },
+ "tv:The Vampire Diaries": {
+  "img": "assets/posters/61be8da691.webp",
+  "color": "#ca8d5c",
+  "title": "The Vampire Diaries",
+  "url": "https://www.tvmaze.com/shows/63/the-vampire-diaries"
+ },
+ "tv:Locke & Key": {
+  "img": "assets/posters/d81b9d16dc.webp",
+  "color": "#02b2df",
+  "title": "Locke & Key",
+  "url": "https://www.tvmaze.com/shows/37883/locke-key"
+ },
+ "tv:Sweet Tooth": {
+  "img": "assets/posters/b1d1962755.webp",
+  "color": "#b2232d",
+  "title": "Sweet Tooth",
+  "url": "https://www.tvmaze.com/shows/39764/sweet-tooth"
+ },
+ "tv:Wednesday": {
+  "img": "assets/posters/c022c893ba.webp",
+  "color": "#c6866b",
+  "title": "Wednesday",
+  "url": "https://www.tvmaze.com/shows/53647/wednesday"
+ },
+ "tv:Manifest": {
+  "img": "assets/posters/22998c67f8.webp",
+  "color": "#bb1b27",
+  "title": "Manifest",
+  "url": "https://www.tvmaze.com/shows/31365/manifest"
+ },
+ "tv:Lucifer": {
+  "img": "assets/posters/241bba3e2e.webp",
+  "color": "#e77128",
+  "title": "Lucifer",
+  "url": "https://www.tvmaze.com/shows/1859/lucifer"
+ },
+ "tv:Sherlock": {
+  "img": "assets/posters/be9e869ced.webp",
+  "color": "#00a5d6",
+  "title": "Sherlock",
+  "url": "https://www.tvmaze.com/shows/335/sherlock"
+ },
+ "tv:The Irregulars": {
+  "img": "assets/posters/50a1a7ac31.webp",
+  "color": "#d06011",
+  "title": "The Irregulars",
+  "url": "https://www.tvmaze.com/shows/40442/the-irregulars"
+ },
+ "tv:Behind Her Eyes": {
+  "img": "assets/posters/4a7a82e702.webp",
+  "color": "#21b4a4",
+  "title": "Behind Her Eyes",
+  "url": "https://www.tvmaze.com/shows/40610/behind-her-eyes"
+ },
+ "tv:Never Have I Ever": {
+  "img": "assets/posters/c92f1b4510.webp",
+  "color": "#fe5814",
+  "title": "Never Have I Ever",
+  "url": "https://www.tvmaze.com/shows/44592/never-have-i-ever"
+ },
+ "tv:13 Reasons Why": {
+  "img": "assets/posters/906b98555f.webp",
+  "color": "#9b593a",
+  "title": "13 Reasons Why",
+  "url": "https://www.tvmaze.com/shows/7194/13-reasons-why"
+ },
+ "tv:On My Block": {
+  "img": "assets/posters/3a98ce2d8e.webp",
+  "color": "#ce3807",
+  "title": "On My Block",
+  "url": "https://www.tvmaze.com/shows/34607/on-my-block"
+ },
+ "tv:Atypical": {
+  "img": "assets/posters/bce2fb25de.webp",
+  "color": "#01d5d0",
+  "title": "Atypical",
+  "url": "https://www.tvmaze.com/shows/22127/atypical"
+ },
+ "tv:Ginny & Georgia": {
+  "img": "assets/posters/885ccc411b.webp",
+  "color": "#a96940",
+  "title": "Ginny & Georgia",
+  "url": "https://www.tvmaze.com/shows/47549/ginny-georgia"
+ },
+ "tv:Teenage Bounty Hunters": {
+  "img": "assets/posters/cd85efb0ce.webp",
+  "color": "#25dde3",
+  "title": "Teenage Bounty Hunters",
+  "url": "https://www.tvmaze.com/shows/49414/teenage-bounty-hunters"
+ },
+ "tv:The End of the F**king World": {
+  "img": "assets/posters/ac7e6b69f0.webp",
+  "color": "#f00002",
+  "title": "The End of the F***ing World",
+  "url": "https://www.tvmaze.com/shows/28866/the-end-of-the-fing-world"
+ },
+ "tv:Sex/Life": {
+  "img": "assets/posters/ad7b5db29b.webp",
+  "color": "#d40294",
+  "title": "Sex/Life",
+  "url": "https://www.tvmaze.com/shows/46073/sexlife"
+ },
+ "tv:Outer Banks": {
+  "img": "assets/posters/3aa8a499a4.webp",
+  "color": "#fe9e2d",
+  "title": "Outer Banks",
+  "url": "https://www.tvmaze.com/shows/42062/outer-banks"
+ },
+ "tv:Teen Wolf": {
+  "img": "assets/posters/dc89b72132.webp",
+  "color": "#0791ce",
+  "title": "Teen Wolf",
+  "url": "https://www.tvmaze.com/shows/176/teen-wolf"
+ },
+ "tv:Ash vs Evil Dead": {
+  "img": "assets/posters/d6cea44be8.webp",
+  "color": "#c93627",
+  "title": "Ash vs Evil Dead",
+  "url": "https://www.tvmaze.com/shows/2427/ash-vs-evil-dead"
+ },
+ "tv:Slasher": {
+  "img": "assets/posters/405a7c0a75.webp",
+  "color": "#c31214",
+  "title": "Slasher",
+  "url": "https://www.tvmaze.com/shows/7019/slasher"
+ },
+ "tv:Insatiable": {
+  "img": "assets/posters/9b2ea1a963.webp",
+  "color": "#20b2c7",
+  "title": "Insatiable",
+  "url": "https://www.tvmaze.com/shows/29120/insatiable"
+ },
+ "tv:Rain": {
+  "img": "assets/posters/d63ee70a86.webp",
+  "color": "#bc1a20",
+  "title": "The Rain",
+  "url": "https://www.tvmaze.com/shows/22371/the-rain"
+ },
+ "tv:Biohackers": {
+  "img": "assets/posters/d5e8112b64.webp",
+  "color": "#0eadc8",
+  "title": "Biohackers",
+  "url": "https://www.tvmaze.com/shows/41027/biohackers"
+ },
+ "tv:Brand New Cherry Flavour": {
+  "img": "assets/posters/0bd1e3deed.webp",
+  "color": "#ddba0d",
+  "title": "Brand New Cherry Flavor",
+  "url": "https://www.tvmaze.com/shows/45060/brand-new-cherry-flavor"
+ },
+ "tv:The Walking Dead": {
+  "img": "assets/posters/7af443f792.webp",
+  "color": "#c5c315",
+  "title": "The Walking Dead",
+  "url": "https://www.tvmaze.com/shows/73/the-walking-dead"
+ },
+ "tv:The Walking Dead: The Ones Who Live": {
+  "img": "assets/posters/de8e309ce2.webp",
+  "color": "#f29d08",
+  "title": "The Walking Dead: The Ones Who Live",
+  "url": "https://www.tvmaze.com/shows/64504/the-walking-dead-the-ones-who-live"
+ },
+ "tv:The Walking Dead: Dead City": {
+  "img": "assets/posters/68222748a8.webp",
+  "color": "#f19208",
+  "title": "The Walking Dead: Dead City",
+  "url": "https://www.tvmaze.com/shows/60879/the-walking-dead-dead-city"
+ },
+ "tv:The Walking Dead: Daryl Dixon": {
+  "img": "assets/posters/ed7abb3a70.webp",
+  "color": "#dca843",
+  "title": "The Walking Dead: Daryl Dixon",
+  "url": "https://www.tvmaze.com/shows/64501/the-walking-dead-daryl-dixon"
+ },
+ "tv:Gotham": {
+  "img": "assets/posters/13cfdfd53c.webp",
+  "color": "#9b713a",
+  "title": "Gotham",
+  "url": "https://www.tvmaze.com/shows/11/gotham"
+ },
+ "tv:Daredevil": {
+  "img": "assets/posters/8a2001885d.webp",
+  "color": "#bb1b1f",
+  "title": "Marvel's Daredevil",
+  "url": "https://www.tvmaze.com/shows/1369/marvels-daredevil"
+ },
+ "tv:Daredevil: Born Again": {
+  "img": "assets/posters/965cc749a9.webp",
+  "color": "#cd090b",
+  "title": "Daredevil: Born Again",
+  "url": "https://www.tvmaze.com/shows/63234/daredevil-born-again"
+ },
+ "tv:Altered Carbon": {
+  "img": "assets/posters/1653c350ec.webp",
+  "color": "#03d3b7",
+  "title": "Altered Carbon",
+  "url": "https://www.tvmaze.com/shows/12036/altered-carbon"
+ },
+ "tv:How to Sell Drugs Online (Fast)": {
+  "img": "assets/posters/3d8de937d3.webp",
+  "color": "#022ffd",
+  "title": "How to Sell Drugs Online (Fast)",
+  "url": "https://www.tvmaze.com/shows/39319/how-to-sell-drugs-online-fast"
+ },
+ "tv:Cobra Kai": {
+  "img": "assets/posters/648d382a4b.webp",
+  "color": "#ecb83e",
+  "title": "Cobra Kai",
+  "url": "https://www.tvmaze.com/shows/30960/cobra-kai"
+ },
+ "tv:Black Mirror": {
+  "img": "assets/posters/0e785e4220.webp",
+  "color": "#4eb8bb",
+  "title": "Black Mirror",
+  "url": "https://www.tvmaze.com/shows/305/black-mirror"
+ },
+ "tv:Stranger Things": {
+  "img": "assets/posters/a3858e5941.webp",
+  "color": "#d51a08",
+  "title": "Stranger Things",
+  "url": "https://www.tvmaze.com/shows/2993/stranger-things"
+ },
+ "tv:The Witcher": {
+  "img": "assets/posters/172e7486b6.webp",
+  "color": "#b84e1d",
+  "title": "The Witcher",
+  "url": "https://www.tvmaze.com/shows/28276/the-witcher"
+ },
+ "tv:Maid": {
+  "img": "assets/posters/fd36fd18d0.webp",
+  "color": "#d3b11c",
+  "title": "MAID",
+  "url": "https://www.tvmaze.com/shows/49945/maid"
+ },
+ "tv:The Five Juanas": {
+  "img": "assets/posters/0d7a496b86.webp",
+  "color": "#cb0a10",
+  "title": "La Venganza de las Juanas",
+  "url": "https://www.tvmaze.com/shows/57418/la-venganza-de-las-juanas"
+ },
+ "tv:One Piece (Live Action)": {
+  "img": "assets/posters/f98c1a13a7.webp",
+  "color": "#d80602",
+  "title": "One Piece",
+  "url": "https://www.tvmaze.com/shows/46065/one-piece"
+ },
+ "manga:Demon Slayer": {
+  "img": "assets/posters/30f1db453b.webp",
+  "color": "#f1d628",
+  "title": "Demon Slayer: Kimetsu no Yaiba",
+  "url": "https://anilist.co/manga/87216"
+ },
+ "manga:My Broken Mariko": {
+  "img": "assets/posters/dffe437160.webp",
+  "color": "#f1e450",
+  "title": "My Broken Mariko",
+  "url": "https://anilist.co/manga/112579"
+ },
+ "tv:Money Heist": {
+  "img": "assets/posters/b0bdf8c5eb.webp",
+  "color": "#cf060b",
+  "title": "La Casa de Papel",
+  "url": "https://www.tvmaze.com/shows/27436/la-casa-de-papel"
+ },
+ "tv:Girl from Nowhere Reboot": {
+  "img": "assets/posters/140f468017.webp",
+  "color": "#ca0b0d",
+  "title": "Girl from Nowhere: The Reset",
+  "url": "https://www.tvmaze.com/shows/90258/girl-from-nowhere-the-reset"
+ },
+ "tv:Blood Ride": {
+  "img": "assets/posters/6307469a4b.webp",
+  "color": "#c51710",
+  "title": "Bloodride",
+  "url": "https://www.tvmaze.com/shows/41065/bloodride"
+ },
+ "tv:Invisible City": {
+  "img": "assets/posters/688cd76fab.webp",
+  "color": "#c6a569",
+  "title": "Cidade Invisível",
+  "url": "https://www.tvmaze.com/shows/53040/cidade-invisivel"
+ },
+ "tv:Post Mortem": {
+  "img": "assets/posters/1b0e0bd0f5.webp",
+  "color": "#cf0f0d",
+  "title": "Post Mortem: Ingen dør på Skarnes",
+  "url": "https://www.tvmaze.com/shows/56568/post-mortem-ingen-dor-pa-skarnes"
+ },
+ "tv:Punisher": {
+  "img": "assets/posters/a2e0a828cd.webp",
+  "color": "#d6002a",
+  "title": "Marvel's The Punisher",
+  "url": "https://www.tvmaze.com/shows/16544/marvels-the-punisher"
+ }
+}
