@@ -1,4 +1,5 @@
 import {createJourney} from './zoom-journey.js';
+import {initGear5} from './gear5.js';
 
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -565,6 +566,7 @@ let crossing=false;try{crossing=sessionStorage.getItem('grand-archive:cross')===
 if(crossing&&$('#life')&&!$('#life').hidden){requestAnimationFrame(()=>{measureAll();jumpTo(absTop($('#life')));});}
 else if(location.hash&&location.hash!=='#voyage'){const t=document.getElementById(location.hash.slice(1));if(t)jumpTo(absTop(t));}
 document.body.classList.add('ready');
+initGear5({button:$('#gear5'),isReduced:()=>reduced});
 // Test hook (?debug): render an exact scroll position synchronously, without smoothing.
 if(new URLSearchParams(location.search).has('debug')){
  window.__ga={at(y){scrollTo({top:y,behavior:'instant'});sy=scrollY;for(const p of parts)p.update(sy);return sy;},parts,voyage,measureAll};
