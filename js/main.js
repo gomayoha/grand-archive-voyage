@@ -52,21 +52,29 @@ const caption={el:capEl,set(L,i,n){capEl.querySelector('.vc-index').textContent=
 // Private life chapters: read only from the copy on this Mac. The private/ folder never reaches GitHub.
 const LOCAL=!/github\.io$/i.test(location.hostname);
 const LIFE=LOCAL?await fetch('private/life.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null):null;
+let ANIME_N=0;
 const LF=id=>`private/built/f/${id}.webp`,LT=id=>`private/built/t/${id}.webp`;
 if(LIFE&&LIFE.chapters.length){
  // Photos aren't nested like the spiral art, so each hop is a picture-in-picture dive: the next
  // chapter appears small at the centre, softly feathered, and grows to fill the screen.
  const hop={focalX:.5,focalY:.5,scale:3.4,offsetX:0,offsetY:0,blendStart:.28,blendEnd:.68,feather:.2};
- const life=LIFE.chapters.map((c,i)=>{const p=c.photos[0];return{id:'life-'+i,image:LF(p.id),width:p.w,height:p.h,kicker:'LIFE · '+c.name.toUpperCase(),title:c.title,line:c.line,...(i<LIFE.chapters.length-1?{match:{...hop}}:{})};});
- journeyCfg.layers[journeyCfg.layers.length-1].match={...hop};
+ const life=LIFE.chapters.map((c,i)=>{const p=c.photos[0];return{id:'life-'+i,image:LF(p.id),width:p.w,height:p.h,kicker:`Chapter ${pad(i+1)} · ${c.name}`,title:c.title,line:c.line,life:true,...(i<LIFE.chapters.length-1?{match:{...hop}}:{})};});
+ // The first personal chapter holds still longer: the rift light clears, "My world." lands,
+ // then its caption, and only then does the next chapter start to appear.
+ life[0].captionIn=0.36;life[0].captionOut=0.56;if(life[0].match)Object.assign(life[0].match,{blendStart:.62,blendEnd:.9});
+ ANIME_N=journeyCfg.layers.length;
+ // The crossing: a longer dive into Wano's centre while the rift light swells over it.
+ journeyCfg.layers[ANIME_N-1].match={...hop,scale:5,blendStart:.5,blendEnd:.85,feather:.3};
  journeyCfg.layers.push(...life);
 }
-rail.innerHTML=journeyCfg.layers.map((l,i)=>`<button data-seg="${i}" aria-label="Chapter ${i+1}: ${esc(l.kicker)}"><span>${esc(l.kicker)}</span></button>`).join('');
+rail.innerHTML=journeyCfg.layers.map((l,i)=>`<button data-seg="${i}"${l.life?` class="life${i===ANIME_N?' first':''}"`:''} aria-label="Chapter ${i+1}: ${esc(l.kicker)}"><span>${esc(l.kicker)}</span></button>`).join('');
 const voyage=createJourney({section:voyageSec,layerHost:$('#voyage-layers'),config:journeyCfg,caption,
  onChange:i=>$$('#rail button').forEach((b,k)=>k===i?b.setAttribute('aria-current','step'):b.removeAttribute('aria-current'))});
 rail.addEventListener('click',e=>{const b=e.target.closest('button');if(b)jumpTo(voyage.scrollYFor(+b.dataset.seg));});
 $('#voyage-static').innerHTML=journeyCfg.layers.map((l,i)=>`<li><img src="${esc(l.image)}" alt="" loading="lazy" decoding="async"><p class="eyebrow">${pad(i+1)} · ${esc(l.kicker)}</p><h3>${esc(l.title)}</h3><p>${esc(l.line)}</p></li>`).join('');
 const intro=$('#voyage-intro'),vEnd=$('#voyage-end');
+const rift=$('#rift'),riftLight=rift.querySelector('.rift-light'),riftRings=rift.querySelector('.rift-rings'),riftOut=rift.querySelector('.rift-out'),riftIn=rift.querySelector('.rift-in'),film=$('#film');
+if(ANIME_N){vEnd.querySelector('.eyebrow').textContent='To be continued';vEnd.querySelector('h2').innerHTML='Still sailing.<br>Still becoming.';}
 parts.push({top:0,h:1,measure(){this.top=absTop(voyageSec);this.h=voyageSec.offsetHeight;voyage.measure();},
  update(s){
   if(reduced)return;
@@ -76,6 +84,17 @@ parts.push({top:0,h:1,measure(){this.top=absTop(voyageSec);this.h=voyageSec.offs
   intro.style.transform=`translate3d(0,${(-st.p*120).toFixed(1)}px,0) scale(${(1+st.p*0.15).toFixed(4)})`;
   const e=st.seg===journeyCfg.layers.length-1?smooth(clamp((st.p-0.62)/0.3)):0;vEnd.style.opacity=e.toFixed(3);vEnd.classList.toggle('live',e>0.5);
   rail.style.opacity=(1-e).toFixed(3);
+  if(ANIME_N){ // Crossing from the One Piece world into the personal chapters.
+   const W=ANIME_N-1;let light=0,out=0,into=0,f=0;
+   if(st.seg===W){light=smooth(clamp((st.p-0.5)/0.46));out=smooth(clamp((st.p-0.47)/0.1))*(1-smooth(clamp((st.p-0.72)/0.1)));f=smooth(clamp((st.p-0.86)/0.14));}
+   else if(st.seg>W){f=1;if(st.seg===W+1){light=1-smooth(clamp(st.p/0.3));into=smooth(clamp((st.p-0.06)/0.1))*(1-smooth(clamp((st.p-0.26)/0.1)));}}
+   rift.style.visibility=light+out+into>0.001?'visible':'hidden';
+   riftLight.style.opacity=light.toFixed(3);riftLight.style.transform=`scale(${(0.15+light*2.6).toFixed(3)})`;
+   riftRings.style.opacity=(st.seg===W?smooth(clamp((st.p-0.35)/0.3))*(1-light):0).toFixed(3);riftRings.style.transform=`scale(${(0.6+(st.seg===W?st.p:1)*1.4).toFixed(3)}) rotate(${((st.seg===W?st.p:1)*40).toFixed(1)}deg)`;
+   riftOut.style.opacity=out.toFixed(3);riftOut.style.transform=`translate3d(0,${((1-out)*20).toFixed(1)}px,0) scale(${(0.96+out*0.04).toFixed(3)})`;
+   riftIn.style.opacity=into.toFixed(3);riftIn.style.transform=`translate3d(0,${((1-into)*24).toFixed(1)}px,0)`;
+   film.style.opacity=f.toFixed(3);voyageSec.classList.toggle('is-life',st.seg>W);
+  }
  }});
 
 const bar=$('#bar');
