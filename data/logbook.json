@@ -1,0 +1,224 @@
+{
+ "entries": [
+  {
+   "date": "2026-09-30",
+   "since": "2026-09-22",
+   "events": [
+    {
+     "kind": "anime",
+     "type": "rerated",
+     "t": "Re:Zero",
+     "frm": "9.5",
+     "to": "9.7"
+    },
+    {
+     "kind": "anime",
+     "type": "rerated",
+     "t": "Mushoku Tensei",
+     "frm": "9.2",
+     "to": "9"
+    },
+    {
+     "kind": "anime",
+     "type": "rated",
+     "t": "My Hero Academia",
+     "frm": null,
+     "to": "7"
+    },
+    {
+     "kind": "anime",
+     "type": "want",
+     "t": "Vinland Saga",
+     "to": null
+    },
+    {
+     "kind": "anime",
+     "type": "want",
+     "t": "Fullmetal Alchemist: Brotherhood",
+     "to": null
+    },
+    {
+     "kind": "anime",
+     "type": "want",
+     "t": "Your Lie in April",
+     "to": null
+    },
+    {
+     "kind": "anime",
+     "type": "want",
+     "t": "Naruto / Naruto Shippuden",
+     "to": null
+    },
+    {
+     "kind": "anime",
+     "type": "want",
+     "t": "Oshi no Ko",
+     "to": null
+    },
+    {
+     "kind": "anime",
+     "type": "want",
+     "t": "Clannad + Clannad: After Story",
+     "to": null
+    },
+    {
+     "kind": "anime",
+     "type": "want",
+     "t": "Violet Evergarden",
+     "to": null
+    },
+    {
+     "kind": "anime",
+     "type": "want",
+     "t": "Anohana",
+     "to": null
+    },
+    {
+     "kind": "anime",
+     "type": "want",
+     "t": "86 Eighty-Six",
+     "to": null
+    },
+    {
+     "kind": "anime",
+     "type": "want",
+     "t": "Made in Abyss",
+     "to": null
+    },
+    {
+     "kind": "anime",
+     "type": "want",
+     "t": "Kaguya-sama: Love is War",
+     "to": null
+    },
+    {
+     "kind": "anime",
+     "type": "want",
+     "t": "Horimiya",
+     "to": null
+    },
+    {
+     "kind": "anime",
+     "type": "want",
+     "t": "Nana",
+     "to": null
+    },
+    {
+     "kind": "anime",
+     "type": "want",
+     "t": "Toradora",
+     "to": null
+    },
+    {
+     "kind": "anime",
+     "type": "want",
+     "t": "Akame ga Kill!",
+     "to": null
+    },
+    {
+     "kind": "anime",
+     "type": "want",
+     "t": "Monster",
+     "to": null
+    },
+    {
+     "kind": "manga",
+     "type": "progress",
+     "t": "The Fragrant Flower Blooms with Dignity",
+     "frm": "Ch. 138",
+     "to": "Ch. 140"
+    },
+    {
+     "kind": "manga",
+     "type": "progress",
+     "t": "Your Lie in April",
+     "frm": "Ch. 20",
+     "to": "Ch. 23"
+    },
+    {
+     "kind": "manga",
+     "type": "progress",
+     "t": "Solo Leveling",
+     "frm": "Ch. 110",
+     "to": "Ch. 114"
+    },
+    {
+     "kind": "manga",
+     "type": "finished",
+     "t": "Chi no Wadachi",
+     "to": null
+    },
+    {
+     "kind": "manga",
+     "type": "finished",
+     "t": "Welcome Back, Alice",
+     "to": null
+    },
+    {
+     "kind": "manga",
+     "type": "queued",
+     "t": "Telework Yotabanashi",
+     "to": null
+    },
+    {
+     "kind": "manga",
+     "type": "queued",
+     "t": "A Silent Voice",
+     "to": null
+    },
+    {
+     "kind": "manga",
+     "type": "queued",
+     "t": "Insomniacs After School",
+     "to": null
+    },
+    {
+     "kind": "manga",
+     "type": "queued",
+     "t": "My Love Story with Yamada-kun at Lv999",
+     "to": null
+    },
+    {
+     "kind": "manga",
+     "type": "queued",
+     "t": "Oregairu",
+     "to": null
+    },
+    {
+     "kind": "manga",
+     "type": "queued",
+     "t": "Skip and Loafer",
+     "to": null
+    },
+    {
+     "kind": "manga",
+     "type": "queued",
+     "t": "Wotakoi: Love is Hard for Otaku",
+     "to": null
+    },
+    {
+     "kind": "manga",
+     "type": "queued",
+     "t": "March Comes in Like a Lion",
+     "to": null
+    },
+    {
+     "kind": "manga",
+     "type": "dropped",
+     "t": "Juujika no Rokunin",
+     "to": null
+    }
+   ]
+  },
+  {
+   "date": "2026-09-22",
+   "baseline": true,
+   "label": "Archive imported from V1",
+   "counts": {
+    "anime": 31,
+    "manga": 29,
+    "tv": 74
+   }
+  }
+ ]
+}

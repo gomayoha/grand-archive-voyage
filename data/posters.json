@@ -765,7 +765,11 @@
   "img": "assets/posters/dffe437160.webp",
   "color": "#f1e450",
   "title": "My Broken Mariko",
-  "url": "https://anilist.co/manga/112579"
+  "url": "https://anilist.co/manga/112579",
+  "added": "2026-09-30",
+  "override": {
+   "anilist": 112579
+  }
  },
  "tv:Money Heist": {
   "img": "assets/posters/b0bdf8c5eb.webp",
@@ -802,5 +806,183 @@
   "color": "#d6002a",
   "title": "Marvel's The Punisher",
   "url": "https://www.tvmaze.com/shows/16544/marvels-the-punisher"
+ },
+ "anime:Vinland Saga": {
+  "img": "assets/posters/4b78b2fcc3.webp",
+  "color": "#f16b5d",
+  "title": "Vinland Saga",
+  "url": "https://anilist.co/anime/101348",
+  "added": "2026-09-30"
+ },
+ "anime:Fullmetal Alchemist: Brotherhood": {
+  "img": "assets/posters/692393701a.webp",
+  "color": "#e4c993",
+  "title": "Fullmetal Alchemist: Brotherhood",
+  "url": "https://anilist.co/anime/5114",
+  "added": "2026-09-30"
+ },
+ "anime:Your Lie in April": {
+  "img": "assets/posters/85a9f23159.webp",
+  "color": "#e4bb50",
+  "title": "Your lie in April",
+  "url": "https://anilist.co/anime/20665",
+  "added": "2026-09-30"
+ },
+ "anime:Naruto / Naruto Shippuden": {
+  "img": "assets/posters/412d204f4a.webp",
+  "color": "#e4865d",
+  "title": "Naruto: Shippuden",
+  "url": "https://anilist.co/anime/1735",
+  "added": "2026-09-30"
+ },
+ "anime:Oshi no Ko": {
+  "img": "assets/posters/3b22916fb0.webp",
+  "color": "#ff35c9",
+  "title": "OSHI NO KO",
+  "url": "https://anilist.co/anime/150672",
+  "added": "2026-09-30"
+ },
+ "anime:Clannad + Clannad: After Story": {
+  "img": "assets/posters/00d9ecdc61.webp",
+  "color": "#f1e450",
+  "title": "Clannad: After Story",
+  "url": "https://anilist.co/anime/4181",
+  "added": "2026-09-30"
+ },
+ "anime:Violet Evergarden": {
+  "img": "assets/posters/b9f477c365.webp",
+  "color": "#3586e4",
+  "title": "Violet Evergarden",
+  "url": "https://anilist.co/anime/21827",
+  "added": "2026-09-30"
+ },
+ "anime:Anohana": {
+  "img": "assets/posters/47ed9304c3.webp",
+  "color": "#0d78e4",
+  "title": "Anohana: The Flower We Saw That Day",
+  "url": "https://anilist.co/anime/9989",
+  "added": "2026-09-30"
+ },
+ "anime:86 Eighty-Six": {
+  "img": "assets/posters/43b23e96e7.webp",
+  "color": "#bbd6f1",
+  "title": "86 EIGHTY-SIX",
+  "url": "https://anilist.co/anime/116589",
+  "added": "2026-09-30"
+ },
+ "anime:Made in Abyss": {
+  "img": "assets/posters/c732279fca.webp",
+  "color": "#e4c9ae",
+  "title": "Made in Abyss",
+  "url": "https://anilist.co/anime/97986",
+  "added": "2026-09-30"
+ },
+ "anime:Kaguya-sama: Love is War": {
+  "img": "assets/posters/e443b0e088.webp",
+  "color": "#e45086",
+  "title": "Kaguya-sama: Love is War",
+  "url": "https://anilist.co/anime/101921",
+  "added": "2026-09-30"
+ },
+ "anime:Horimiya": {
+  "img": "assets/posters/7ad1cde5ed.webp",
+  "color": "#5dc9f1",
+  "title": "Horimiya",
+  "url": "https://anilist.co/anime/124080",
+  "added": "2026-09-30"
+ },
+ "anime:Nana": {
+  "img": "assets/posters/caae13e5be.webp",
+  "color": "#f14386",
+  "title": "NANA",
+  "url": "https://anilist.co/anime/877",
+  "added": "2026-09-30"
+ },
+ "anime:Toradora": {
+  "img": "assets/posters/4a37d1c689.webp",
+  "color": "#e45d78",
+  "title": "Toradora!",
+  "url": "https://anilist.co/anime/4224",
+  "added": "2026-09-30"
+ },
+ "anime:Akame ga Kill!": {
+  "img": "assets/posters/f33976506e.webp",
+  "color": "#e45d43",
+  "title": "Akame ga Kill!",
+  "url": "https://anilist.co/anime/20613",
+  "added": "2026-09-30"
+ },
+ "manga:Telework Yotabanashi": {
+  "img": "assets/posters/3d2ebcbc34.webp",
+  "color": "#f1a135",
+  "title": "Home Office Romance",
+  "url": "https://anilist.co/manga/156303",
+  "added": "2026-09-30"
+ },
+ "manga:A Silent Voice": {
+  "img": "assets/posters/8c061f4163.webp",
+  "color": "#e49343",
+  "title": "A Silent Voice",
+  "url": "https://anilist.co/manga/85135",
+  "added": "2026-09-30"
+ },
+ "manga:Insomniacs After School": {
+  "img": "assets/posters/ae2f6e4a45.webp",
+  "color": "#e45d50",
+  "title": "Insomniacs After School",
+  "url": "https://anilist.co/manga/110473",
+  "added": "2026-09-30"
+ },
+ "manga:My Love Story with Yamada-kun at Lv999": {
+  "img": "assets/posters/60cdc292d5.webp",
+  "color": "#f1506b",
+  "title": "My Love Story with Yamada-kun at Lv999",
+  "url": "https://anilist.co/manga/109501",
+  "added": "2026-09-30"
+ },
+ "manga:Oregairu": {
+  "img": "assets/posters/1f8dfa4885.webp",
+  "color": "#b7313f",
+  "title": "My Youth Romantic Comedy Is Wrong, As I Expected",
+  "url": "https://anilist.co/manga/70171",
+  "added": "2026-09-30"
+ },
+ "manga:Skip and Loafer": {
+  "img": "assets/posters/8ff224551c.webp",
+  "color": "#4d95c9",
+  "title": "Skip and Loafer",
+  "url": "https://anilist.co/manga/109285",
+  "added": "2026-09-30"
+ },
+ "manga:Wotakoi: Love is Hard for Otaku": {
+  "img": "assets/posters/16ecd9c1cd.webp",
+  "color": "#f1935d",
+  "title": "Wotakoi: Love is Hard for Otaku",
+  "url": "https://anilist.co/manga/86717",
+  "added": "2026-09-30"
+ },
+ "manga:March Comes in Like a Lion": {
+  "img": "assets/posters/a00ec73b73.webp",
+  "color": "#f1c95d",
+  "title": "March Comes in Like a Lion",
+  "url": "https://anilist.co/manga/31224",
+  "added": "2026-09-30"
+ },
+ "manga:Juujika no Rokunin": {
+  "img": "assets/posters/bdcad57754.webp",
+  "color": "#ff435d",
+  "title": "Juujika no Rokunin",
+  "url": "https://anilist.co/manga/116671",
+  "added": "2026-09-30"
+ },
+ "anime:Monster": {
+  "img": "assets/posters/d96534e933.webp",
+  "color": "#d29b5f",
+  "title": "Monster",
+  "url": "https://anilist.co/anime/19",
+  "added": "2026-09-30",
+  "override": {
+   "anilist": 19
+  }
  }
 }

@@ -1,0 +1,630 @@
+{
+ "date": "2026-09-30",
+ "anime": {
+  "One Piece": {
+   "s": "10",
+   "status": "completed",
+   "progress": null
+  },
+  "Berserk": {
+   "s": "9",
+   "status": "completed",
+   "progress": null
+  },
+  "Demon Slayer": {
+   "s": "7",
+   "status": "completed",
+   "progress": null
+  },
+  "Jujutsu Kaisen": {
+   "s": "7.5",
+   "status": "completed",
+   "progress": null
+  },
+  "Attack on Titan": {
+   "s": "8",
+   "status": "completed",
+   "progress": null
+  },
+  "SPY x Family": {
+   "s": "6",
+   "status": "completed",
+   "progress": null
+  },
+  "Solo Leveling": {
+   "s": "7",
+   "status": "completed",
+   "progress": null
+  },
+  "Kaiju No. 8": {
+   "s": "5",
+   "status": "completed",
+   "progress": null
+  },
+  "Dan Da Dan": {
+   "s": "7.5",
+   "status": "completed",
+   "progress": null
+  },
+  "Frieren": {
+   "s": "7",
+   "status": "completed",
+   "progress": null
+  },
+  "Black Clover": {
+   "s": "8",
+   "status": "completed",
+   "progress": null
+  },
+  "Hell's Paradise": {
+   "s": "8.5",
+   "status": "completed",
+   "progress": null
+  },
+  "Death Note": {
+   "s": "9.5*",
+   "status": "completed",
+   "progress": null
+  },
+  "Gachiakuta": {
+   "s": "7.5",
+   "status": "completed",
+   "progress": null
+  },
+  "Toughen Up, Takamine-kun": {
+   "s": "6.5",
+   "status": "completed",
+   "progress": null
+  },
+  "Mob Psycho 100": {
+   "s": "8",
+   "status": "completed",
+   "progress": null
+  },
+  "Sentenced to Be a Hero": {
+   "s": "7",
+   "status": "completed",
+   "progress": null
+  },
+  "Cyberpunk: Edgerunners": {
+   "s": "7",
+   "status": "completed",
+   "progress": null
+  },
+  "RIN: Daughters of Mnemosyne": {
+   "s": "6.5",
+   "status": "completed",
+   "progress": null
+  },
+  "Fire Force": {
+   "s": "7",
+   "status": "completed",
+   "progress": null
+  },
+  "Chainsaw Man": {
+   "s": "7",
+   "status": "completed",
+   "progress": null
+  },
+  "Fragrant Flower Blooms with Dignity": {
+   "s": "9",
+   "status": "completed",
+   "progress": null
+  },
+  "Smoking Behind the Supermarket with You": {
+   "s": "9",
+   "status": "completed",
+   "progress": null
+  },
+  "Re:Zero": {
+   "s": "9.7",
+   "status": "completed",
+   "progress": null
+  },
+  "Mushoku Tensei": {
+   "s": "9",
+   "status": "completed",
+   "progress": "Currently at: S3 Episode 8"
+  },
+  "Classroom of the Elite": {
+   "s": "9.4",
+   "status": "completed",
+   "progress": "Season 4 Finished (waiting for Season 5)"
+  },
+  "Bleach": {
+   "s": null,
+   "status": "watching",
+   "progress": "Ep 25"
+  },
+  "Witch Hat Atelier": {
+   "s": null,
+   "status": "watching",
+   "progress": "Ep 6"
+  },
+  "Hunter x Hunter": {
+   "s": null,
+   "status": "watching",
+   "progress": "Ep 61"
+  },
+  "My Hero Academia": {
+   "s": "7",
+   "status": "watching",
+   "progress": "Ep 92"
+  },
+  "Black Torch": {
+   "s": null,
+   "status": "watching",
+   "progress": "Ep 3"
+  },
+  "Vinland Saga": {
+   "s": null,
+   "status": "want",
+   "progress": null
+  },
+  "Fullmetal Alchemist: Brotherhood": {
+   "s": null,
+   "status": "want",
+   "progress": null
+  },
+  "Your Lie in April": {
+   "s": null,
+   "status": "want",
+   "progress": null
+  },
+  "Naruto / Naruto Shippuden": {
+   "s": null,
+   "status": "want",
+   "progress": null
+  },
+  "Oshi no Ko": {
+   "s": null,
+   "status": "want",
+   "progress": null
+  },
+  "Clannad + Clannad: After Story": {
+   "s": null,
+   "status": "want",
+   "progress": null
+  },
+  "Violet Evergarden": {
+   "s": null,
+   "status": "want",
+   "progress": null
+  },
+  "Anohana": {
+   "s": null,
+   "status": "want",
+   "progress": null
+  },
+  "86 Eighty-Six": {
+   "s": null,
+   "status": "want",
+   "progress": null
+  },
+  "Made in Abyss": {
+   "s": null,
+   "status": "want",
+   "progress": null
+  },
+  "Kaguya-sama: Love is War": {
+   "s": null,
+   "status": "want",
+   "progress": null
+  },
+  "Horimiya": {
+   "s": null,
+   "status": "want",
+   "progress": null
+  },
+  "Nana": {
+   "s": null,
+   "status": "want",
+   "progress": null
+  },
+  "Toradora": {
+   "s": null,
+   "status": "want",
+   "progress": null
+  },
+  "Akame ga Kill!": {
+   "s": null,
+   "status": "want",
+   "progress": null
+  },
+  "Monster": {
+   "s": null,
+   "status": "want",
+   "progress": null
+  }
+ },
+ "manga": {
+  "One Piece": {
+   "status": "reading",
+   "chapter": "Ch. 1191"
+  },
+  "Berserk": {
+   "status": "reading",
+   "chapter": "Ch. 214"
+  },
+  "Smoking Behind the Supermarket with You": {
+   "status": "reading",
+   "chapter": "Ch. 63"
+  },
+  "The Fragrant Flower Blooms with Dignity": {
+   "status": "reading",
+   "chapter": "Ch. 140"
+  },
+  "Your Lie in April": {
+   "status": "reading",
+   "chapter": "Ch. 23"
+  },
+  "Goodnight Punpun": {
+   "status": "reading",
+   "chapter": "Ch. 12"
+  },
+  "After the Rain": {
+   "status": "reading",
+   "chapter": "Ch. 4"
+  },
+  "Solo Leveling": {
+   "status": "reading",
+   "chapter": "Ch. 114"
+  },
+  "Omniscient Reader": {
+   "status": "reading",
+   "chapter": "Ch. 14"
+  },
+  "Choujin X": {
+   "status": "reading",
+   "chapter": "Ch. 0"
+  },
+  "Chi no Wadachi": {
+   "status": "finished",
+   "chapter": null
+  },
+  "Deadman Wonderland": {
+   "status": "reading",
+   "chapter": "Ch. 1"
+  },
+  "Murcielago": {
+   "status": "reading",
+   "chapter": "Ch. 1"
+  },
+  "BIBLIOMANIA": {
+   "status": "reading",
+   "chapter": "Ch. 3"
+  },
+  "I Want to Eat Your Pancreas": {
+   "status": "reading",
+   "chapter": "Ch. 1"
+  },
+  "Homunculus": {
+   "status": "reading",
+   "chapter": null
+  },
+  "Gantz": {
+   "status": "reading",
+   "chapter": "Ch. 5"
+  },
+  "20th Century Boys": {
+   "status": "reading",
+   "chapter": "Ch. 1"
+  },
+  "Claymore": {
+   "status": "reading",
+   "chapter": "Ch. 1"
+  },
+  "Manhole": {
+   "status": "reading",
+   "chapter": "Ch. 3"
+  },
+  "My Broken Mariko": {
+   "status": "finished",
+   "chapter": null
+  },
+  "Welcome Back, Alice": {
+   "status": "finished",
+   "chapter": null
+  },
+  "Smother Me": {
+   "status": "reading",
+   "chapter": "Ch. 1"
+  },
+  "Telework Yotabanashi": {
+   "status": "next",
+   "chapter": null
+  },
+  "A Silent Voice": {
+   "status": "next",
+   "chapter": null
+  },
+  "Insomniacs After School": {
+   "status": "next",
+   "chapter": null
+  },
+  "My Love Story with Yamada-kun at Lv999": {
+   "status": "next",
+   "chapter": null
+  },
+  "Oregairu": {
+   "status": "next",
+   "chapter": null
+  },
+  "Skip and Loafer": {
+   "status": "next",
+   "chapter": null
+  },
+  "Wotakoi: Love is Hard for Otaku": {
+   "status": "next",
+   "chapter": null
+  },
+  "March Comes in Like a Lion": {
+   "status": "next",
+   "chapter": null
+  },
+  "Chainsaw Man": {
+   "status": "finished",
+   "chapter": null
+  },
+  "Black Clover": {
+   "status": "finished",
+   "chapter": null
+  },
+  "Demon Slayer": {
+   "status": "finished",
+   "chapter": null
+  },
+  "The Flowers of Evil": {
+   "status": "finished",
+   "chapter": null
+  },
+  "Adabana": {
+   "status": "finished",
+   "chapter": null
+  },
+  "Harem End": {
+   "status": "finished",
+   "chapter": null
+  },
+  "Juujika no Rokunin": {
+   "status": "dropped",
+   "chapter": null
+  }
+ },
+ "tv": {
+  "Money Heist": {
+   "s": "8"
+  },
+  "Narcos": {
+   "s": "8.5"
+  },
+  "Lupin": {
+   "s": "7"
+  },
+  "Vincenzo": {
+   "s": "9"
+  },
+  "Peaky Blinders": {
+   "s": "7"
+  },
+  "Dexter": {
+   "s": "7.5"
+  },
+  "Reacher": {
+   "s": "9"
+  },
+  "Diablero": {
+   "s": "8"
+  },
+  "Sisyphus: The Myth": {
+   "s": "8.5"
+  },
+  "Taxi Driver": {
+   "s": "7"
+  },
+  "The Sinner": {
+   "s": "5"
+  },
+  "Spectros": {
+   "s": "7"
+  },
+  "Crash Landing on You": {
+   "s": "9.1"
+  },
+  "It's Okay Not to Be Okay": {
+   "s": "8"
+  },
+  "Sweet Home": {
+   "s": "6"
+  },
+  "Alchemy of Souls": {
+   "s": "9"
+  },
+  "Alice in Borderland": {
+   "s": "7"
+  },
+  "Squid Game": {
+   "s": "7"
+  },
+  "All of Us Are Dead": {
+   "s": "6"
+  },
+  "Move to Heaven": {
+   "s": "7"
+  },
+  "Girl from Nowhere": {
+   "s": "8.8"
+  },
+  "Girl from Nowhere Reboot": {
+   "s": "5"
+  },
+  "Holo Love": {
+   "s": "5"
+  },
+  "Descendants of the Sun": {
+   "s": "8"
+  },
+  "Dark Desire": {
+   "s": "5"
+  },
+  "Blood Ride": {
+   "s": "5"
+  },
+  "Controls": {
+   "s": null
+  },
+  "Dark": {
+   "s": null
+  },
+  "Umbrella Academy": {
+   "s": "6.5"
+  },
+  "The Originals": {
+   "s": "8"
+  },
+  "The Vampire Diaries": {
+   "s": "7.8"
+  },
+  "Locke & Key": {
+   "s": "6.5"
+  },
+  "Sweet Tooth": {
+   "s": "6.8"
+  },
+  "Wednesday": {
+   "s": "5"
+  },
+  "Manifest": {
+   "s": "7.8"
+  },
+  "Lucifer": {
+   "s": "8.9"
+  },
+  "Sherlock": {
+   "s": "8.9"
+  },
+  "The Irregulars": {
+   "s": "5"
+  },
+  "Behind Her Eyes": {
+   "s": "7"
+  },
+  "Invisible City": {
+   "s": "5"
+  },
+  "Never Have I Ever": {
+   "s": "6.5"
+  },
+  "13 Reasons Why": {
+   "s": "8.8"
+  },
+  "On My Block": {
+   "s": "7.5"
+  },
+  "Atypical": {
+   "s": "5"
+  },
+  "Ginny & Georgia": {
+   "s": "6"
+  },
+  "Teenage Bounty Hunters": {
+   "s": "5.5"
+  },
+  "The End of the F**king World": {
+   "s": "8"
+  },
+  "Sex/Life": {
+   "s": "6"
+  },
+  "Outer Banks": {
+   "s": "5"
+  },
+  "Teen Wolf": {
+   "s": null
+  },
+  "Ash vs Evil Dead": {
+   "s": "8"
+  },
+  "Slasher": {
+   "s": "6.5"
+  },
+  "Insatiable": {
+   "s": "4.5"
+  },
+  "Rain": {
+   "s": "8.5"
+  },
+  "Biohackers": {
+   "s": "4"
+  },
+  "Brand New Cherry Flavour": {
+   "s": "5"
+  },
+  "Post Mortem": {
+   "s": null
+  },
+  "The Walking Dead": {
+   "s": "8"
+  },
+  "The Walking Dead: The Ones Who Live": {
+   "s": "7.5"
+  },
+  "The Walking Dead: Dead City": {
+   "s": "8"
+  },
+  "The Walking Dead: Daryl Dixon": {
+   "s": "8"
+  },
+  "Gotham": {
+   "s": "8"
+  },
+  "Daredevil": {
+   "s": "9"
+  },
+  "Daredevil: Born Again": {
+   "s": "9"
+  },
+  "Punisher": {
+   "s": "9.2"
+  },
+  "Altered Carbon": {
+   "s": "8.5"
+  },
+  "How to Sell Drugs Online (Fast)": {
+   "s": "7"
+  },
+  "Cobra Kai": {
+   "s": "6.5"
+  },
+  "Black Mirror": {
+   "s": "7.5"
+  },
+  "Stranger Things": {
+   "s": "5"
+  },
+  "The Witcher": {
+   "s": "7"
+  },
+  "Maid": {
+   "s": "5"
+  },
+  "The Five Juanas": {
+   "s": null
+  },
+  "One Piece (Live Action)": {
+   "s": "8.8"
+  }
+ },
+ "top10": [
+  "One Piece",
+  "Re:Zero",
+  "Classroom of the Elite",
+  "Attack on Titan",
+  "Death Note",
+  "The Fragrant Flower Blooms with Dignity",
+  "Black Clover",
+  "Berserk: Golden Age",
+  "Smoking Behind the Supermarket with You",
+  "Hunter × Hunter"
+ ]
+}

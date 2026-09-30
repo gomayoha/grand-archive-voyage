@@ -49,6 +49,18 @@ const pinned=(p,s)=>clamp((s-p.top)/Math.max(1,p.h-vh));
 /* ------------------------------------------------------------------ 01 voyage */
 const voyageSec=$('#voyage'),capEl=$('#voyage-caption'),rail=$('#rail');
 const caption={el:capEl,set(L,i,n){capEl.querySelector('.vc-index').textContent=`${pad(i+1)} / ${pad(n)}`;capEl.querySelector('.vc-kicker').textContent=L.kicker;capEl.querySelector('.vc-title').textContent=L.title;capEl.querySelector('.vc-line').textContent=L.line;}};
+// Private life chapters: read only from the copy on this Mac. The private/ folder never reaches GitHub.
+const LOCAL=!/github\.io$/i.test(location.hostname);
+const LIFE=LOCAL?await fetch('private/life.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null):null;
+const LF=id=>`private/built/f/${id}.webp`,LT=id=>`private/built/t/${id}.webp`;
+if(LIFE&&LIFE.chapters.length){
+ // Photos aren't nested like the spiral art, so each hop is a picture-in-picture dive: the next
+ // chapter appears small at the centre, softly feathered, and grows to fill the screen.
+ const hop={focalX:.5,focalY:.5,scale:3.4,offsetX:0,offsetY:0,blendStart:.28,blendEnd:.68,feather:.2};
+ const life=LIFE.chapters.map((c,i)=>{const p=c.photos[0];return{id:'life-'+i,image:LF(p.id),width:p.w,height:p.h,kicker:'LIFE · '+c.name.toUpperCase(),title:c.title,line:c.line,...(i<LIFE.chapters.length-1?{match:{...hop}}:{})};});
+ journeyCfg.layers[journeyCfg.layers.length-1].match={...hop};
+ journeyCfg.layers.push(...life);
+}
 rail.innerHTML=journeyCfg.layers.map((l,i)=>`<button data-seg="${i}" aria-label="Chapter ${i+1}: ${esc(l.kicker)}"><span>${esc(l.kicker)}</span></button>`).join('');
 const voyage=createJourney({section:voyageSec,layerHost:$('#voyage-layers'),config:journeyCfg,caption,
  onChange:i=>$$('#rail button').forEach((b,k)=>k===i?b.setAttribute('aria-current','step'):b.removeAttribute('aria-current'))});
@@ -62,7 +74,7 @@ parts.push({top:0,h:1,measure(){this.top=absTop(voyageSec);this.h=voyageSec.offs
   const st=voyage.state;
   intro.style.opacity=st.seg===0?(1-smooth(clamp(st.p/0.08))).toFixed(3):'0';
   intro.style.transform=`translate3d(0,${(-st.p*120).toFixed(1)}px,0) scale(${(1+st.p*0.15).toFixed(4)})`;
-  const e=smooth(clamp((g-0.935)/0.045));vEnd.style.opacity=e.toFixed(3);vEnd.classList.toggle('live',e>0.5);
+  const e=st.seg===journeyCfg.layers.length-1?smooth(clamp((st.p-0.62)/0.3)):0;vEnd.style.opacity=e.toFixed(3);vEnd.classList.toggle('live',e>0.5);
   rail.style.opacity=(1-e).toFixed(3);
  }});
 
@@ -222,23 +234,25 @@ parts.push({top:0,h:1,shift:0,measure(){const lead=parseFloat(getComputedStyle(t
 
 /* ------------------------------------------------------------------ the shelf (anime · manga · live action) */
 // Every record gets its cover art (data/posters.json) and a big score; colour glow comes from the cover.
-const POSTERS=await fetch('data/posters.json').then(r=>r.ok?r.json():{}).catch(()=>({}));
+const [POSTERS,SH,LOG]=await Promise.all(['data/posters.json','data/shelf.json','data/logbook.json'].map(u=>fetch(u).then(r=>r.ok?r.json():null).catch(()=>null)));
+// data/shelf.json is generated from Goma's Obsidian trackers by tools/sync.py.
 const normT=t=>String(t).toLowerCase().replace(/×/g,'x').replace(/[^a-z0-9]/g,'');
-const manga=[];[...archive.MANGA_DONE.map(a=>({...a,status:'Read'})),...archive.MANGA_NOW.map(a=>({...a,status:'Reading'}))].forEach(a=>{const m=manga.find(x=>normT(x.t)===normT(a.t));if(m){m.also=a.status==='Reading'?`Also reading: ${a.c||'in progress'}`:'Also finished';}else manga.push(a);});
+const cap=s=>s?s[0].toUpperCase()+s.slice(1):'';
+const ANIME_TAG={completed:'Completed',watching:'Watching',paused:'On pause',want:'Want to watch'},MANGA_TAG={reading:'Reading',finished:'Finished',next:'Up next',dropped:'Dropped'};
 const SHELF={
- anime:{items:[...archive.ANIME_DONE.map(a=>({...a,k:'anime'})),...archive.ANIME_NOW.map(a=>({...a,k:'anime'}))],filters:[['all','All'],['rated','Rated'],['watching','Watching'],['canon','Top 10']]},
- manga:{items:manga.map(a=>({t:a.t,s:a.c||'',tag:a.status+(a.g?' · '+a.g:''),b:a.b||(a.n&&a.n!=='Not recorded'?a.n:''),also:a.also,status:a.status,k:'manga'})),filters:[['all','All'],['read','Read'],['reading','Reading']]},
- tv:{items:archive.TV.map(a=>({t:a.t,s:a.s,tag:'Live action',b:a.b,k:'tv'})),filters:[['all','All'],['rated','Rated']]}
+ anime:{items:SH.anime.map(a=>({...a,tag:[ANIME_TAG[a.status],a.status==='watching'&&a.progress,a.pick&&"Claude's pick"].filter(Boolean).join(' · ')})),filters:[['all','All'],['rated','Rated'],['watching','Watching'],['want','Want to watch'],['canon','Top 10']],main:a=>a.status!=='want'},
+ manga:{items:SH.manga.map(a=>({...a,s:a.status==='reading'?a.chapter:null,tag:[MANGA_TAG[a.status],a.genre].filter(Boolean).join(' · ')})),filters:[['all','All'],['reading','Reading'],['finished','Finished'],['next','Up next'],['dropped','Dropped']],main:a=>a.status==='reading'||a.status==='finished'},
+ tv:{items:SH.tv.map(a=>({...a,tag:a.genre||'Live action'})),filters:[['all','All'],['rated','Rated']],main:()=>true}
 };
-const posterOf=it=>POSTERS[`${it.k}:${it.t}`];
+const posterOf=it=>POSTERS&&POSTERS[`${it.k}:${it.t}`];
 let tab='anime',filter='all';
 const scoreNum=s=>{const n=parseFloat(s);return /^\d/.test(String(s))&&!isNaN(n)?n:null;};
 function shelfList(){
  const q=$('#search').value.toLowerCase().trim(),T=SHELF[tab];let list=T.items;
- if(tab==='anime'&&filter==='canon')list=archive.top10.map((a,i)=>{const it=T.items.find(x=>normT(x.t)===normT(a.title))||T.items.find(x=>normT(a.title).includes(normT(x.t)))||{t:a.title,k:'anime'};return{...it,rank:i+1,why:a.body};});
+ if(tab==='anime'&&filter==='canon')list=SH.top10.map((a,i)=>{const it=T.items.find(x=>normT(x.t)===normT(a.title))||T.items.find(x=>normT(a.title).includes(normT(x.t)))||{t:a.title,k:'anime'};return{...it,rank:i+1,why:a.body};});
+ else if(filter==='all')list=list.filter(T.main);
  else if(filter==='rated')list=list.filter(x=>scoreNum(x.s)!==null);
- else if(filter==='watching')list=list.filter(x=>x.tag==='Watching');
- else if(filter==='read'||filter==='reading')list=list.filter(x=>x.status.toLowerCase()===filter);
+ else list=list.filter(x=>x.status===filter);
  list=list.filter(a=>a.t.toLowerCase().includes(q));
  if(filter!=='canon')list=[...list].sort($('#sort').value==='title'?(a,b)=>a.t.localeCompare(b.t):(a,b)=>(scoreNum(b.s)??-1)-(scoreNum(a.s)??-1));
  return list;
@@ -247,8 +261,9 @@ let shown=[];
 function renderShelf(){
  shown=shelfList();
  $('#record-count').textContent=`${shown.length} record${shown.length===1?'':'s'}`;
- $('#record-grid').innerHTML=shown.length?shown.map((a,i)=>{const p=posterOf(a),n=scoreNum(a.s),big=a.rank?'#'+a.rank:n!==null?String(a.s).replace('*',''):(a.s||a.status||'—');
-  return `<button class="pc" style="--i:${Math.min(i,30)};${p&&p.color?`--c:${p.color}`:''}" data-rec="${i}">
+ $('#record-grid').innerHTML=shown.length?shown.map((a,i)=>{const p=posterOf(a),n=scoreNum(a.s);
+  const big=a.rank?'#'+a.rank:n!==null?String(a.s).replace('*',''):a.status==='watching'&&a.progress?a.progress:a.s||({want:'Soon',next:'Next',dropped:'Dropped',finished:'Read',paused:'Paused'}[a.status]||'—');
+  return `<button class="pc${a.status==='want'||a.status==='next'?' is-want':''}" style="--i:${Math.min(i,30)};${p&&p.color?`--c:${p.color}`:''}" data-rec="${i}">
    <figure>${p?`<img src="${esc(p.img)}" alt="" loading="lazy" decoding="async">`:`<span class="pc-ph">${esc(a.t)}</span>`}<span class="pc-score${n===null&&!a.rank?' small':''}">${esc(big)}${String(a.s).includes('*')?'<sup>*</sup>':''}${n!==null&&!a.rank?'<small>/10</small>':''}</span></figure>
    <span class="pc-meta"><strong>${esc(a.t)}</strong><small>${esc(a.rank?'Personal top ten':a.tag||'')}</small></span>
   </button>`;}).join(''):'<p class="count">No records match that search.</p>';
@@ -258,12 +273,46 @@ function setTab(t){tab=t;filter='all';$$('[data-tab]').forEach(b=>b.setAttribute
 $('#search').addEventListener('input',renderShelf);$('#sort').addEventListener('change',renderShelf);
 $('#chips').addEventListener('click',e=>{const b=e.target.closest('[data-filter]');if(!b)return;filter=b.dataset.filter;$$('#chips [data-filter]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));renderShelf();});
 $$('[data-tab]').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tab)));
-$('#n-anime').textContent=SHELF.anime.items.length;$('#n-manga').textContent=SHELF.manga.items.length;$('#n-tv').textContent=SHELF.tv.items.length;
-$('#rewatches').innerHTML=archive.rewatches.map(r=>`<article><h3>${esc(r.title)} · ${esc(r.count)}</h3><p>${esc(r.body)}</p></article>`).join('');
+['anime','manga','tv'].forEach(k=>$('#n-'+k).textContent=SHELF[k].items.filter(SHELF[k].main).length);
+$('#rewatches').innerHTML=SH.rewatches.map(r=>`<article><h3>${esc(r.title)} · ${esc(r.count)}</h3><p>${esc(r.body)}</p></article>`).join('');
 setTab('anime');
 function openRecord(i){const a=shown[i];if(!a)return;const p=posterOf(a),n=scoreNum(a.s);
  const kind={anime:'Anime',manga:'Manga',tv:'Live action'}[a.k]||'Record';
- openDialog(`<div class="rec-layout rec-poster">${p?`<img src="${esc(p.img)}" alt="${esc(a.t)} cover" style="aspect-ratio:auto">`:''}<div><p class="eyebrow">${kind} · ${esc(a.rank?'Personal top ten #'+a.rank:a.tag||'Personal record')}</p><h2 id="dialog-title">${esc(a.t)}</h2>${a.s?`<p class="big-score">${esc(a.s)}${n!==null?' <small>/ 10</small>':''}</p>`:''}${a.why?`<p><strong>${esc(a.why)}</strong></p>`:''}${a.b?`<p>${esc(a.b)}</p>`:''}${a.also?`<p class="subtle">${esc(a.also)}</p>`:''}${a.t==='Re:Zero'?'<p class="subtle">V1 records 9.5 on the shelf and 9.7 in the old timeline. The shelf score is kept until you choose.</p>':''}${a.t==='Death Note'?'<p class="subtle">The asterisk is deliberate: first half 9.5, second half 5.</p>':''}<p class="subtle">Goma's original note, preserved as recorded.${p?' Cover art: AniList / TVmaze.':''}</p></div></div>`);}
+ const extra=(a.extra||[]).map(t=>`<span>${esc(t)}</span>`).join('');
+ openDialog(`<div class="rec-layout rec-poster">${p?`<img src="${esc(p.img)}" alt="${esc(a.t)} cover" style="aspect-ratio:auto">`:''}<div><p class="eyebrow">${kind} · ${esc(a.rank?'Personal top ten #'+a.rank:a.tag||'Personal record')}</p><h2 id="dialog-title">${esc(a.t)}</h2>${a.s?`<p class="big-score">${esc(a.s)}${n!==null?' <small>/ 10</small>':''}</p>`:''}${a.tagline?`<p class="rec-tagline">“${esc(a.tagline)}”</p>`:''}${a.why?`<p><strong>${esc(a.why)}</strong></p>`:''}${a.b?`<p>${esc(a.b)}</p>`:''}${a.ratingNote?`<p class="subtle">${esc(a.ratingNote)}</p>`:''}${extra?`<div class="tags">${extra}</div>`:''}<p class="subtle">From my notes${SH.updated?', last synced '+new Date(SH.updated).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}):''}.${p?' Cover art: AniList / TVmaze.':''}</p></div></div>`);}
+
+/* ------------------------------------------------------------------ the logbook */
+const fmtDate=d=>new Date(d+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+const posterFor=(k,t)=>posterOf({k,t});
+const thumb=(k,t)=>{const p=posterFor(k,t);return p?`<img src="${esc(p.img)}" alt="" loading="lazy" decoding="async">`:`<span class="lt-ph"></span>`;};
+const KIND={anime:'anime',manga:'manga',tv:'show'};
+function logEntry(e){
+ if(e.baseline)return `<li class="log-entry base"><time>${fmtDate(e.date)}</time><div><h3>${esc(e.label)}</h3><p>${e.counts.anime} anime · ${e.counts.manga} manga · ${e.counts.tv} shows. Where the record starts.</p></div></li>`;
+ const g=t=>e.events.filter(x=>x.type===t);const parts=[];
+ const rated=[...g('rerated'),...g('rated')];
+ if(rated.length)parts.push(`<div class="lg"><h4>Ratings</h4>${rated.map(x=>{const up=parseFloat(x.to)>parseFloat(x.frm);return `<div class="lr">${thumb(x.kind,x.t)}<span><b>${esc(x.t)}</b><small>${x.frm?`${esc(x.frm)} → `:'First rating: '}<em class="${x.frm?(up?'up':'down'):''}">${esc(x.to)}</em></small></span></div>`;}).join('')}</div>`);
+ if(g('finished').length)parts.push(`<div class="lg"><h4>Finished</h4>${g('finished').map(x=>`<div class="lr">${thumb(x.kind,x.t)}<span><b>${esc(x.t)}</b><small>${cap(KIND[x.kind])}${x.to?' · '+esc(x.to)+'/10':''}</small></span></div>`).join('')}</div>`);
+ if(g('started').length)parts.push(`<div class="lg"><h4>Started</h4>${g('started').map(x=>`<div class="lr">${thumb(x.kind,x.t)}<span><b>${esc(x.t)}</b><small>${cap(KIND[x.kind])}${x.to?' · '+esc(x.to):''}</small></span></div>`).join('')}</div>`);
+ if(g('progress').length)parts.push(`<div class="lg"><h4>Kept going</h4>${g('progress').map(x=>`<div class="lr">${thumb(x.kind,x.t)}<span><b>${esc(x.t)}</b><small>${esc(x.frm||'—')} → <em class="up">${esc(x.to)}</em></small></span></div>`).join('')}</div>`);
+ [['want','Added to the watch list'],['queued','Added to the reading queue']].forEach(([t,l])=>{if(g(t).length)parts.push(`<div class="lg"><h4>${l} · ${g(t).length}</h4><div class="lstrip">${g(t).map(x=>`<span title="${esc(x.t)}">${thumb(x.kind,x.t)}<small>${esc(x.t)}</small></span>`).join('')}</div></div>`);});
+ if(g('dropped').length)parts.push(`<div class="lg"><h4>Dropped</h4>${g('dropped').map(x=>`<div class="lr">${thumb(x.kind,x.t)}<span><b>${esc(x.t)}</b><small>${cap(KIND[x.kind])}</small></span></div>`).join('')}</div>`);
+ if(g('top10').length){const x=g('top10')[0];parts.push(`<div class="lg"><h4>Top 10 reshuffled</h4><ol class="ltop">${x.to.map((t,i)=>{const was=x.frm.findIndex(y=>normT(y)===normT(t));return `<li><b>${esc(t)}</b>${was<0?'<em class="up">new</em>':was!==i?`<em class="${was>i?'up':'down'}">${was>i?'▲':'▼'}${Math.abs(was-i)}</em>`:''}</li>`;}).join('')}</ol></div>`);}
+ if(g('removed').length)parts.push(`<div class="lg"><h4>No longer in my notes</h4><p class="subtle">${g('removed').map(x=>esc(x.t)).join(', ')}</p></div>`);
+ return `<li class="log-entry"><time>${fmtDate(e.date)}</time><div><h3>${e.events.length} change${e.events.length===1?'':'s'}${e.since?` since ${fmtDate(e.since)}`:''}</h3>${parts.join('')}</div></li>`;
+}
+if(LOG&&LOG.entries.length){
+ $('#log').innerHTML=LOG.entries.map(logEntry).join('');
+ const done=SH.anime.filter(a=>a.status==='completed'),rated=SH.anime.filter(a=>scoreNum(a.s)!==null&&a.status!=='want');
+ const avg=rated.reduce((s,a)=>s+scoreNum(a.s),0)/(rated.length||1);
+ const stats=[[done.length,'anime completed'],[SH.anime.filter(a=>a.status==='watching').length,'watching now'],[SH.manga.filter(a=>a.status==='finished').length,'manga finished'],[SH.manga.filter(a=>a.status==='reading').length,'manga in progress'],[SH.tv.length,'shows'],[avg.toFixed(1),'average anime rating']];
+ $('#log-stats').innerHTML=stats.map(([n,l])=>`<div><b>${n}</b><span>${l}</span></div>`).join('');
+}else $('#logbook').hidden=true;
+
+/* ------------------------------------------------------------------ life (private, this Mac only) */
+if(LIFE&&LIFE.chapters.length){
+ const sec=$('#life');sec.hidden=false;
+ $('#life-row').innerHTML=LIFE.chapters.map((c,i)=>`<button class="world rv" style="--d:${i*0.08}s" data-collection="life:${i}"><img src="${LT(c.photos[0].id)}" alt="${esc(c.title)}" loading="lazy" decoding="async"><span class="world-copy"><small>Chapter ${pad(i+1)}</small><b>${esc(c.title)}</b><span>${c.photos.length} photo${c.photos.length===1?'':'s'} →</span></span></button>`).join('');
+}
 
 /* ------------------------------------------------------------------ other worlds */
 $('#world-row').innerHTML=media.worlds.map((w,i)=>`<button class="world rv" style="--d:${i*0.08}s" data-collection="world:${i}">${pic(w.cover,w.name)}<span class="world-copy"><small>${esc(w.series)}</small><b>${esc(w.name)}</b><span>${w.all.length} photos →</span></span></button>`).join('');
@@ -340,11 +389,12 @@ function collection(key){
  if(k==='crew'){const c=media.crew[+i];return{title:c.name,eyebrow:'The Crew',ids:c.all};}
  if(k==='world'){const w=media.worlds[+i];return{title:w.name,eyebrow:w.series,ids:w.all};}
  if(k==='spreads')return{title:'Colour spreads',eyebrow:'Eiichiro Oda',ids:media.spreads.all};
+ if(k==='life'){const c=LIFE.chapters[+i];return{title:c.title,eyebrow:'Life · '+c.name,ids:c.photos.map(p=>p.id),src:LF,thumb:LT};}
  if(k==='panels'){const set=PANEL_SETS[i];return{title:set.title,eyebrow:set.eyebrow,ids:set.list.map(x=>x.id),src:PF,caps:Object.fromEntries(set.list.map(x=>[x.id,x.cap]))};}
  return{title:'Stories leave traces.',eyebrow:'Ohara Library',ids:media.wall};
 }
-const masonry=(key,ids)=>`<div class="masonry">${ids.map(id=>`<button data-view="${key}" data-id="${id}" aria-label="Open image">${pic(id,'')}</button>`).join('')}</div>`;
-function openCollection(key){const c=collection(key);openDialog(`<p class="eyebrow">${esc(c.eyebrow)}</p><h2 id="dialog-title">${esc(c.title)}</h2><p class="subtle">${c.ids.length} ${c.ids.length===1?'image':'images'}. Tap one to view it full size.</p>${masonry(key,c.ids)}`);}
+const masonry=(key,ids,thumb)=>`<div class="masonry">${ids.map(id=>`<button data-view="${key}" data-id="${id}" aria-label="Open image">${thumb?`<img src="${thumb(id)}" alt="" loading="lazy" decoding="async">`:pic(id,'')}</button>`).join('')}</div>`;
+function openCollection(key){const c=collection(key);openDialog(`<p class="eyebrow">${esc(c.eyebrow)}</p><h2 id="dialog-title">${esc(c.title)}</h2><p class="subtle">${c.ids.length} ${c.ids.length===1?'image':'images'}. Tap one to view it full size.</p>${masonry(key,c.ids,c.thumb)}`);}
 let viewer=null;
 function openViewer(key,id){
  const c=collection(key),n=c.ids.length;let i=Math.max(0,c.ids.indexOf(id));viewer={key,c,i};

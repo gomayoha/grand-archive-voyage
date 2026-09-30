@@ -17,7 +17,7 @@
 <header class="bar" id="bar">
  <a class="brand" href="#voyage" data-jump><span class="brand-mark">G</span><span>Grand Archive</span></a>
  <nav class="bar-nav" aria-label="Sections">
-  <a href="#voyage" data-jump>Voyage</a><a href="#characters" data-jump>Characters</a><a href="#crew" data-jump>Crew</a><a href="#spreads" data-jump>Spreads</a><a href="#panels" data-jump>Panels</a><a href="#journey" data-jump>Journey</a><a href="#vault" data-jump>Vault</a><a href="#library" data-jump>Library</a>
+  <a href="#voyage" data-jump>Voyage</a><a href="#characters" data-jump>Characters</a><a href="#crew" data-jump>Crew</a><a href="#spreads" data-jump>Spreads</a><a href="#panels" data-jump>Panels</a><a href="#journey" data-jump>Journey</a><a href="#logbook" data-jump>Logbook</a><a href="#vault" data-jump>Vault</a><a href="#library" data-jump>Library</a>
  </nav>
  <button class="motion-toggle" id="motion" aria-pressed="false">Motion <b>On</b></button>
 </header>
@@ -150,6 +150,17 @@
   </div>
  </section>
 
+ <!-- 05b · THE LOGBOOK (history of every sync from Obsidian) -->
+ <section id="logbook" class="logbook" aria-label="The Logbook">
+  <div class="wrap">
+   <p class="eyebrow rv">The Logbook</p>
+   <h2 class="rv" data-split>How far <em>I've come.</em></h2>
+   <p class="section-lede rv">Every time my notes change, the archive remembers. Ratings that moved, stories finished, chapters read, and everything still waiting.</p>
+   <div class="log-stats rv" id="log-stats"></div>
+   <ol class="log" id="log"></ol>
+  </div>
+ </section>
+
  <!-- 04b · OTHER WORLDS -->
  <section id="worlds" class="worlds" aria-label="Beyond One Piece">
   <div class="wrap">
@@ -199,6 +210,15 @@
    </div>
   </div>
   <div class="art-wall" id="art-wall"></div>
+ </section>
+
+ <!-- LIFE: private chapters, rendered only from the copy on this Mac -->
+ <section id="life" class="worlds life" aria-label="Life beyond the screen" hidden>
+  <div class="wrap">
+   <p class="eyebrow rv">Private · only on this Mac</p>
+   <h2 class="rv" data-split>Life beyond <em>the screen.</em></h2>
+   <div class="world-row" id="life-row"></div>
+  </div>
  </section>
 
  <!-- 07 · OUTRO: the camera pulls back out to where it began -->

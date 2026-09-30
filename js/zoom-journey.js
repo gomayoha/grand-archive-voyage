@@ -68,7 +68,8 @@ export function createJourney({section,layerHost,config,reverse=false,caption=nu
   if(caption){
    const inAt=i===0?0.1:0.03,outAt=m?0.42:0.5;
    const o=smooth(clamp((p-inAt)/0.12,0,1))*(1-smooth(clamp((p-outAt)/0.1,0,1)));
-   if(i!==lastCaption&&o<0.02){caption.set(L,i,layers.length);lastCaption=i;}
+   // Text only swaps while invisible on a normal scroll (opacity is 0 at every segment start); after a rail jump it swaps straight away.
+   if(i!==lastCaption){caption.set(L,i,layers.length);lastCaption=i;}
    caption.el.style.opacity=(i===lastCaption?o:0).toFixed(3);
    caption.el.style.transform=`translate3d(0,${((1-o)*24).toFixed(1)}px,0)`;
   }
