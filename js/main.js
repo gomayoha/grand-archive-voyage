@@ -49,16 +49,38 @@ const pinned=(p,s)=>clamp((s-p.top)/Math.max(1,p.h-vh));
 /* ------------------------------------------------------------------ 01 voyage */
 const voyageSec=$('#voyage'),capEl=$('#voyage-caption'),rail=$('#rail');
 const caption={el:capEl,set(L,i,n){capEl.querySelector('.vc-index').textContent=`${pad(i+1)} / ${pad(n)}`;capEl.querySelector('.vc-kicker').textContent=L.kicker;capEl.querySelector('.vc-title').textContent=L.title;capEl.querySelector('.vc-line').textContent=L.line;}};
-// Private life chapters: read only from the copy on this Mac. The private/ folder never reaches GitHub.
-const LOCAL=!/github\.io$/i.test(location.hostname);
-const LIFE=LOCAL?await fetch('private/life.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null):null;
+// Personal chapters live in an encrypted vault (assets/vault, AES-256-GCM; key from PBKDF2 of the
+// magic words). The words are never stored; once unlocked, this device remembers the derived key.
+// Fallback: on the home-Wi-Fi preview (plain http, no WebCrypto) the Mac's private/ copy is used.
+const VKEY_STORE='grand-archive:vault-key';
+const VAULT=await fetch('data/vault.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
+const CRYPTO=!!(window.crypto&&crypto.subtle);
+const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+let VKEY=null,LIFE=null,VF={};
+async function vdecrypt(file,key=VKEY){const b=await fetch('assets/vault/'+file,{cache:file==='manifest.bin'?'no-store':'default'}).then(r=>{if(!r.ok)throw new Error('vault file missing');return r.arrayBuffer();});return crypto.subtle.decrypt({name:'AES-GCM',iv:b.slice(0,12)},key,b.slice(12));}
+async function deriveKey(words){const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(words.trim()),'PBKDF2',false,['deriveKey']);return crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(VAULT.salt),iterations:VAULT.iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},true,['decrypt']);}
+async function openVault(key){const m=JSON.parse(new TextDecoder().decode(await vdecrypt('manifest.bin',key)));return m;}
+if(VAULT&&CRYPTO){try{const raw=localStorage.getItem(VKEY_STORE);if(raw){VKEY=await crypto.subtle.importKey('raw',b64(raw),'AES-GCM',false,['decrypt']);LIFE=await openVault(VKEY);}}catch{VKEY=null;LIFE=null;try{localStorage.removeItem(VKEY_STORE);}catch{}}}
+if(!LIFE&&!CRYPTO&&!/github\.io$/i.test(location.hostname))LIFE=await fetch('private/life.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
+const VAULT_MODE=!!(LIFE&&VKEY);
+if(VAULT_MODE)LIFE.chapters.forEach(c=>c.photos.forEach(p=>VF[p.id]=p));
+const vcache=new Map();
+// At most 6 vault downloads at once (a gallery can ask for ~80), with retries; failures aren't cached.
+let vActive=0;const vQueue=[];
+const vRun=()=>{while(vActive<6&&vQueue.length){const job=vQueue.shift();vActive++;job().finally(()=>{vActive--;vRun();});}};
+const vLimited=fn=>new Promise((res,rej)=>{vQueue.push(()=>fn().then(res,rej));vRun();});
+const vFetch=async(file,tries=3)=>{try{return await vLimited(()=>vdecrypt(file));}catch(e){if(tries>1){await new Promise(r=>setTimeout(r,600));return vFetch(file,tries-1);}throw e;}};
+const vurl=file=>{if(!vcache.has(file)){const p=vFetch(file).then(b=>URL.createObjectURL(new Blob([b],{type:'image/webp'})));p.catch(()=>vcache.delete(file));vcache.set(file,p);}return vcache.get(file);};
 let ANIME_N=0;
-const LF=id=>`private/built/f/${id}.webp`,LT=id=>`private/built/t/${id}.webp`;
+const LF=id=>VAULT_MODE?vurl(VF[id].f):`private/built/f/${id}.webp`,LT=id=>VAULT_MODE?vurl(VF[id].t):`private/built/t/${id}.webp`;
+const setSrc=(img,u)=>{if(u&&u.then)u.then(x=>{img.src=x;},()=>{});else img.src=u;};
+// The voyage needs real URLs for the chapter openers, so decrypt those few up front.
+if(VAULT_MODE)await Promise.all(LIFE.chapters.map(async c=>{c.coverUrl=await LF(c.photos[0].id);}));
 if(LIFE&&LIFE.chapters.length){
  // Photos aren't nested like the spiral art, so each hop is a picture-in-picture dive: the next
  // chapter appears small at the centre, softly feathered, and grows to fill the screen.
  const hop={focalX:.5,focalY:.5,scale:3.4,offsetX:0,offsetY:0,blendStart:.28,blendEnd:.68,feather:.2};
- const life=LIFE.chapters.map((c,i)=>{const p=c.photos[0];return{id:'life-'+i,image:LF(p.id),width:p.w,height:p.h,kicker:`Chapter ${pad(i+1)} · ${c.name}`,title:c.title,line:c.line,life:true,...(i<LIFE.chapters.length-1?{match:{...hop}}:{})};});
+ const life=LIFE.chapters.map((c,i)=>{const p=c.photos[0];return{id:'life-'+i,image:c.coverUrl||LF(p.id),width:p.w,height:p.h,kicker:`Chapter ${pad(i+1)} · ${c.name}`,title:c.title,line:c.line,life:true,...(i<LIFE.chapters.length-1?{match:{...hop}}:{})};});
  // The first personal chapter holds still longer: the rift light clears, "My world." lands,
  // then its caption, and only then does the next chapter start to appear.
  life[0].captionIn=0.36;life[0].captionOut=0.56;if(life[0].match)Object.assign(life[0].match,{blendStart:.62,blendEnd:.9});
@@ -330,8 +352,13 @@ if(LOG&&LOG.entries.length){
 /* ------------------------------------------------------------------ life (private, this Mac only) */
 if(LIFE&&LIFE.chapters.length){
  const sec=$('#life');sec.hidden=false;
- $('#life-row').innerHTML=LIFE.chapters.map((c,i)=>`<button class="world rv" style="--d:${i*0.08}s" data-collection="life:${i}"><img src="${LT(c.photos[0].id)}" alt="${esc(c.title)}" loading="lazy" decoding="async"><span class="world-copy"><small>Chapter ${pad(i+1)}</small><b>${esc(c.title)}</b><span>${c.photos.length} photo${c.photos.length===1?'':'s'} →</span></span></button>`).join('');
+ sec.querySelector('.eyebrow').textContent=VAULT_MODE?'Unlocked on this device':'Private · only on this Mac';
+ $('#life-row').innerHTML=LIFE.chapters.map((c,i)=>`<button class="world rv" style="--d:${i*0.08}s" data-collection="life:${i}"><img data-life="${c.photos[0].id}" alt="${esc(c.title)}" decoding="async"><span class="world-copy"><small>Chapter ${pad(i+1)}</small><b>${esc(c.title)}</b><span>${c.photos.length} photo${c.photos.length===1?'':'s'} →</span></span></button>`).join('');
 }
+
+$$('#life-row img[data-life]').forEach(i=>setSrc(i,LT(i.dataset.life)));
+if(VAULT_MODE)$('#life-lock').hidden=false;
+else if(VAULT&&!LIFE){const sec=$('#life');sec.hidden=false;sec.classList.add('sealed');sec.querySelector('.eyebrow').textContent='Sealed · beyond the Grand Line';$('#life-row').innerHTML=`<button class="sealed-card" data-gate><span class="sealed-rings" aria-hidden="true"><i></i><i></i><i></i></span><small>Sealed</small><b>Some chapters aren't anime.</b><span>Say the magic words →</span></button>`;}
 
 /* ------------------------------------------------------------------ other worlds */
 $('#world-row').innerHTML=media.worlds.map((w,i)=>`<button class="world rv" style="--d:${i*0.08}s" data-collection="world:${i}">${pic(w.cover,w.name)}<span class="world-copy"><small>${esc(w.series)}</small><b>${esc(w.name)}</b><span>${w.all.length} photos →</span></span></button>`).join('');
@@ -412,15 +439,15 @@ function collection(key){
  if(k==='panels'){const set=PANEL_SETS[i];return{title:set.title,eyebrow:set.eyebrow,ids:set.list.map(x=>x.id),src:PF,caps:Object.fromEntries(set.list.map(x=>[x.id,x.cap]))};}
  return{title:'Stories leave traces.',eyebrow:'Ohara Library',ids:media.wall};
 }
-const masonry=(key,ids,thumb)=>`<div class="masonry">${ids.map(id=>`<button data-view="${key}" data-id="${id}" aria-label="Open image">${thumb?`<img src="${thumb(id)}" alt="" loading="lazy" decoding="async">`:pic(id,'')}</button>`).join('')}</div>`;
-function openCollection(key){const c=collection(key);openDialog(`<p class="eyebrow">${esc(c.eyebrow)}</p><h2 id="dialog-title">${esc(c.title)}</h2><p class="subtle">${c.ids.length} ${c.ids.length===1?'image':'images'}. Tap one to view it full size.</p>${masonry(key,c.ids,c.thumb)}`);}
+const masonry=(key,ids,thumb)=>`<div class="masonry">${ids.map(id=>`<button data-view="${key}" data-id="${id}" aria-label="Open image">${thumb?`<img data-life="${id}" alt="" decoding="async">`:pic(id,'')}</button>`).join('')}</div>`;
+function openCollection(key){const c=collection(key);openDialog(`<p class="eyebrow">${esc(c.eyebrow)}</p><h2 id="dialog-title">${esc(c.title)}</h2><p class="subtle">${c.ids.length} ${c.ids.length===1?'image':'images'}. Tap one to view it full size.</p>${masonry(key,c.ids,c.thumb)}`);if(c.thumb)dBody.querySelectorAll('img[data-life]').forEach(i=>setSrc(i,c.thumb(i.dataset.life)));}
 let viewer=null;
 function openViewer(key,id){
  const c=collection(key),n=c.ids.length;let i=Math.max(0,c.ids.indexOf(id));viewer={key,c,i};
  openDialog(`<div class="viewer"><div class="viewer-top"><button class="link" data-collection="${key}">← ${esc(c.title)}</button><span class="viewer-count" id="viewer-count"></span></div><div class="viewer-stage"><img id="viewer-img" alt="${esc(c.title)} artwork"></div>${c.caps?'<p class="viewer-cap" id="viewer-cap"></p>':''}${n>1?'<button class="viewer-nav prev" data-step="-1" aria-label="Previous image">‹</button><button class="viewer-nav next" data-step="1" aria-label="Next image">›</button>':''}</div>`);
  dialog.classList.add('is-viewer');showView();
 }
-function showView(){if(!viewer)return;const{c,i}=viewer,id=c.ids[i],img=$('#viewer-img');img.classList.remove('in');img.onload=()=>img.classList.add('in');img.src=(c.src||FU)(id);if(img.complete)img.classList.add('in');if(c.caps)$('#viewer-cap').textContent=c.caps[id]||'';$('#viewer-count').textContent=`${i+1} / ${c.ids.length}`;[1,-1].forEach(d=>{const j=(i+d+c.ids.length)%c.ids.length;new Image().src=(c.src||FU)(c.ids[j]);});}
+function showView(){if(!viewer)return;const{c,i}=viewer,id=c.ids[i],img=$('#viewer-img');img.classList.remove('in');img.onload=()=>img.classList.add('in');setSrc(img,(c.src||FU)(id));if(img.complete&&img.src)img.classList.add('in');if(c.caps)$('#viewer-cap').textContent=c.caps[id]||'';$('#viewer-count').textContent=`${i+1} / ${c.ids.length}`;[1,-1].forEach(d=>{const j=(i+d+c.ids.length)%c.ids.length;setSrc(new Image(),(c.src||FU)(c.ids[j]));});}
 function step(d){if(!viewer)return;viewer.i=(viewer.i+d+viewer.c.ids.length)%viewer.c.ids.length;showView();}
 addEventListener('keydown',e=>{if(!dialog.open||!viewer||!dialog.classList.contains('is-viewer'))return;if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1);});
 let tx=null;dialog.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});dialog.addEventListener('touchend',e=>{if(tx===null||!viewer||!dialog.classList.contains('is-viewer'))return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)step(dx<0?1:-1);tx=null;},{passive:true});
@@ -439,6 +466,26 @@ document.addEventListener('click',e=>{
  if(b.dataset.card!==undefined){const c=cards[+b.dataset.card],u='<em>Not recorded</em>';openDialog(`<div class="rec-layout">${c.image?`<img src="${esc(c.image)}" alt="${esc(c.number)} catalog artwork" style="aspect-ratio:5/7">`:'<div class="vcard" style="position:relative;left:0;top:0;width:100%"><span class="ph"><small>'+esc(c.rarity)+'</small><b>'+esc(c.name)+'</b><span>'+esc(c.number)+'<br>Artwork not yet recorded</span></span></div>'}<div><p class="eyebrow">Card Vault · Entry ${c.entry} of ${cards.length}</p><h2 id="dialog-title">${esc(c.name)}</h2><div class="list"><div><strong>Card number</strong><span>${esc(c.number)}</span></div><div><strong>Rarity / type</strong><span>${esc(c.rarity)}</span></div><div><strong>Variant</strong><span>${esc(c.variant||'Not specified')}</span></div><div><strong>Quantity</strong><span>${u}</span></div><div><strong>Language · Condition</strong><span>${u}</span></div><div><strong>Purchase · Value</strong><span>${u}</span></div></div>${c.imageNote?`<p class="subtle" style="margin-top:18px">${esc(c.imageNote)}</p>`:''}${c.variant==='Alternate Art / Parallel'?'<p class="subtle">This is the Parallel (alternate art) printing of OP14-112, shown separately from the regular one.</p>':''}</div></div>`);}
 });
 
+/* ------------------------------------------------------------------ the magic words */
+const gate=$('#gate'),gForm=$('#gate-form'),gIn=$('#gate-input'),gMsg=$('#gate-msg'),gGo=$('#gate-go');
+const MISSES=["That's not it.","The sea didn't answer.","Not quite. Think like the crew.","The door stays shut.","Close your eyes. Try again."];let misses=0,gateLast=null;
+if(VAULT&&!VAULT_MODE&&CRYPTO)$('#end-gate').hidden=false;
+function openGate(){if(!VAULT)return;gateLast=document.activeElement;gate.hidden=false;gate.classList.remove('open','granted','wrong');void gate.offsetWidth;gate.classList.add('open');document.documentElement.style.overflow='hidden';gMsg.textContent=CRYPTO?'':'Open the site through its https:// link to use the magic words.';setTimeout(()=>gIn.focus(),350);}
+function closeGate(){gate.classList.remove('open');document.documentElement.style.overflow='';setTimeout(()=>{gate.hidden=true;gIn.value='';gMsg.textContent='';},500);gateLast?.focus?.();}
+$('#gate-close').addEventListener('click',closeGate);
+gate.addEventListener('keydown',e=>{if(e.key==='Escape')closeGate();});
+gForm.addEventListener('submit',async e=>{e.preventDefault();if(!CRYPTO||!gIn.value.trim())return;
+ gGo.disabled=true;gMsg.textContent='Listening…';gate.classList.remove('wrong');
+ try{const key=await deriveKey(gIn.value);await openVault(key);
+  const raw=new Uint8Array(await crypto.subtle.exportKey('raw',key));let bin='';raw.forEach(b=>bin+=String.fromCharCode(b));
+  try{localStorage.setItem(VKEY_STORE,btoa(bin));}catch{}
+  try{sessionStorage.setItem('grand-archive:cross','1');}catch{}
+  gMsg.textContent='';gate.classList.add('granted');setTimeout(()=>location.reload(),reduced?300:2300);
+ }catch{gGo.disabled=false;gMsg.textContent=MISSES[misses++%MISSES.length];void gate.offsetWidth;gate.classList.add('wrong');gIn.select();}
+});
+document.addEventListener('click',e=>{if(e.target.closest('[data-gate]')){e.preventDefault();openGate();}});
+$('#life-lock').addEventListener('click',()=>{try{localStorage.removeItem(VKEY_STORE);}catch{}location.reload();});
+
 /* ------------------------------------------------------------------ motion toggle */
 const motionBtn=$('#motion');
 function applyMotion(){
@@ -453,7 +500,9 @@ motionBtn.addEventListener('click',()=>{reduced=!reduced;try{localStorage.setIte
 systemReduced.addEventListener('change',e=>{reduced=e.matches;applyMotion();});
 
 applyMotion();
-if(location.hash&&location.hash!=='#voyage'){const t=document.getElementById(location.hash.slice(1));if(t)jumpTo(absTop(t));}
+let crossing=false;try{crossing=sessionStorage.getItem('grand-archive:cross')==='1';sessionStorage.removeItem('grand-archive:cross');}catch{}
+if(crossing&&ANIME_N&&!reduced){requestAnimationFrame(()=>{measureAll();jumpTo(voyage.scrollYFor(ANIME_N-1,0.38));});}
+else if(location.hash&&location.hash!=='#voyage'){const t=document.getElementById(location.hash.slice(1));if(t)jumpTo(absTop(t));}
 document.body.classList.add('ready');
 // Test hook (?debug): render an exact scroll position synchronously, without smoothing.
 if(new URLSearchParams(location.search).has('debug')){

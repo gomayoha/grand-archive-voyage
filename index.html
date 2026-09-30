@@ -52,6 +52,7 @@
     <p class="eyebrow">Current era</p>
     <h2>The doors<br>stay open.</h2>
     <a class="pill" href="#characters" data-jump>Enter the archive</a>
+    <button class="gate-link" id="end-gate" data-gate hidden>✦ There's more beyond this</button>
    </div>
   </div>
   <ol class="voyage-static" id="voyage-static" hidden></ol>
@@ -225,6 +226,7 @@
    <p class="eyebrow rv">Private · only on this Mac</p>
    <h2 class="rv" data-split>Life beyond <em>the screen.</em></h2>
    <div class="world-row" id="life-row"></div>
+   <button class="link quiet" id="life-lock" hidden>Lock this device again</button>
   </div>
  </section>
 
@@ -246,6 +248,21 @@
  <a href="https://gomayoha.github.io/my-grand-archive/" target="_blank" rel="noopener">Original V1 ↗</a>
  <a href="#voyage" data-jump>Back to the beginning ↑</a>
 </footer>
+
+<div class="gate" id="gate" hidden role="dialog" aria-modal="true" aria-labelledby="gate-title">
+ <span class="gate-rings" aria-hidden="true"><i></i><i></i><i></i></span>
+ <span class="gate-flash" aria-hidden="true"></span>
+ <form class="gate-box" id="gate-form" autocomplete="off">
+  <p class="gate-kicker">Beyond the Grand Line</p>
+  <h2 id="gate-title">Say the<br><em>magic words.</em></h2>
+  <p class="gate-sub">This door only opens for the crew.</p>
+  <input id="gate-input" type="password" autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" aria-label="The magic words" placeholder="· · · · · · · · · · · ·">
+  <button type="submit" class="pill" id="gate-go">Open</button>
+  <p class="gate-msg" id="gate-msg" aria-live="polite"></p>
+  <button type="button" class="gate-close" id="gate-close">Not now</button>
+ </form>
+ <p class="gate-welcome" id="gate-welcome">Welcome home.</p>
+</div>
 
 <dialog id="dialog" aria-labelledby="dialog-title">
  <button class="dialog-close" id="dialog-close" aria-label="Close">Close ✕</button>
