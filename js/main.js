@@ -71,32 +71,14 @@ const vRun=()=>{while(vActive<6&&vQueue.length){const job=vQueue.shift();vActive
 const vLimited=fn=>new Promise((res,rej)=>{vQueue.push(()=>fn().then(res,rej));vRun();});
 const vFetch=async(file,tries=3)=>{try{return await vLimited(()=>vdecrypt(file));}catch(e){if(tries>1){await new Promise(r=>setTimeout(r,600));return vFetch(file,tries-1);}throw e;}};
 const vurl=file=>{if(!vcache.has(file)){const p=vFetch(file).then(b=>URL.createObjectURL(new Blob([b],{type:'image/webp'})));p.catch(()=>vcache.delete(file));vcache.set(file,p);}return vcache.get(file);};
-let ANIME_N=0;
 const LF=id=>VAULT_MODE?vurl(VF[id].f):`private/built/f/${id}.webp`,LT=id=>VAULT_MODE?vurl(VF[id].t):`private/built/t/${id}.webp`;
 const setSrc=(img,u)=>{if(u&&u.then)u.then(x=>{img.src=x;},()=>{});else img.src=u;};
-// The voyage needs real URLs for the chapter openers, so decrypt those few up front.
-if(VAULT_MODE)await Promise.all(LIFE.chapters.map(async c=>{c.coverUrl=await LF(c.photos[0].id);}));
-if(LIFE&&LIFE.chapters.length){
- // Photos aren't nested like the spiral art, so each hop is a picture-in-picture dive: the next
- // chapter appears small at the centre, softly feathered, and grows to fill the screen.
- const hop={focalX:.5,focalY:.5,scale:3.4,offsetX:0,offsetY:0,blendStart:.28,blendEnd:.68,feather:.2};
- const life=LIFE.chapters.map((c,i)=>{const p=c.photos[0];return{id:'life-'+i,image:c.coverUrl||LF(p.id),width:p.w,height:p.h,kicker:`Chapter ${pad(i+1)} · ${c.name}`,title:c.title,line:c.line,life:true,...(i<LIFE.chapters.length-1?{match:{...hop}}:{})};});
- // The first personal chapter holds still longer: the rift light clears, "My world." lands,
- // then its caption, and only then does the next chapter start to appear.
- life[0].captionIn=0.36;life[0].captionOut=0.56;if(life[0].match)Object.assign(life[0].match,{blendStart:.62,blendEnd:.9});
- ANIME_N=journeyCfg.layers.length;
- // The crossing: a longer dive into Wano's centre while the rift light swells over it.
- journeyCfg.layers[ANIME_N-1].match={...hop,scale:5,blendStart:.5,blendEnd:.85,feather:.3};
- journeyCfg.layers.push(...life);
-}
-rail.innerHTML=journeyCfg.layers.map((l,i)=>`<button data-seg="${i}"${l.life?` class="life${i===ANIME_N?' first':''}"`:''} aria-label="Chapter ${i+1}: ${esc(l.kicker)}"><span>${esc(l.kicker)}</span></button>`).join('');
+rail.innerHTML=journeyCfg.layers.map((l,i)=>`<button data-seg="${i}" aria-label="Chapter ${i+1}: ${esc(l.kicker)}"><span>${esc(l.kicker)}</span></button>`).join('');
 const voyage=createJourney({section:voyageSec,layerHost:$('#voyage-layers'),config:journeyCfg,caption,
  onChange:i=>$$('#rail button').forEach((b,k)=>k===i?b.setAttribute('aria-current','step'):b.removeAttribute('aria-current'))});
 rail.addEventListener('click',e=>{const b=e.target.closest('button');if(b)jumpTo(voyage.scrollYFor(+b.dataset.seg));});
 $('#voyage-static').innerHTML=journeyCfg.layers.map((l,i)=>`<li><img src="${esc(l.image)}" alt="" loading="lazy" decoding="async"><p class="eyebrow">${pad(i+1)} · ${esc(l.kicker)}</p><h3>${esc(l.title)}</h3><p>${esc(l.line)}</p></li>`).join('');
 const intro=$('#voyage-intro'),vEnd=$('#voyage-end');
-const rift=$('#rift'),riftLight=rift.querySelector('.rift-light'),riftRings=rift.querySelector('.rift-rings'),riftOut=rift.querySelector('.rift-out'),riftIn=rift.querySelector('.rift-in'),film=$('#film');
-if(ANIME_N){vEnd.querySelector('.eyebrow').textContent='To be continued';vEnd.querySelector('h2').innerHTML='Still sailing.<br>Still becoming.';}
 parts.push({top:0,h:1,measure(){this.top=absTop(voyageSec);this.h=voyageSec.offsetHeight;voyage.measure();},
  update(s){
   if(reduced)return;
@@ -106,17 +88,6 @@ parts.push({top:0,h:1,measure(){this.top=absTop(voyageSec);this.h=voyageSec.offs
   intro.style.transform=`translate3d(0,${(-st.p*120).toFixed(1)}px,0) scale(${(1+st.p*0.15).toFixed(4)})`;
   const e=st.seg===journeyCfg.layers.length-1?smooth(clamp((st.p-0.62)/0.3)):0;vEnd.style.opacity=e.toFixed(3);vEnd.classList.toggle('live',e>0.5);
   rail.style.opacity=(1-e).toFixed(3);
-  if(ANIME_N){ // Crossing from the One Piece world into the personal chapters.
-   const W=ANIME_N-1;let light=0,out=0,into=0,f=0;
-   if(st.seg===W){light=smooth(clamp((st.p-0.5)/0.46));out=smooth(clamp((st.p-0.47)/0.1))*(1-smooth(clamp((st.p-0.72)/0.1)));f=smooth(clamp((st.p-0.86)/0.14));}
-   else if(st.seg>W){f=1;if(st.seg===W+1){light=1-smooth(clamp(st.p/0.3));into=smooth(clamp((st.p-0.06)/0.1))*(1-smooth(clamp((st.p-0.26)/0.1)));}}
-   rift.style.visibility=light+out+into>0.001?'visible':'hidden';
-   riftLight.style.opacity=light.toFixed(3);riftLight.style.transform=`scale(${(0.15+light*2.6).toFixed(3)})`;
-   riftRings.style.opacity=(st.seg===W?smooth(clamp((st.p-0.35)/0.3))*(1-light):0).toFixed(3);riftRings.style.transform=`scale(${(0.6+(st.seg===W?st.p:1)*1.4).toFixed(3)}) rotate(${((st.seg===W?st.p:1)*40).toFixed(1)}deg)`;
-   riftOut.style.opacity=out.toFixed(3);riftOut.style.transform=`translate3d(0,${((1-out)*20).toFixed(1)}px,0) scale(${(0.96+out*0.04).toFixed(3)})`;
-   riftIn.style.opacity=into.toFixed(3);riftIn.style.transform=`translate3d(0,${((1-into)*24).toFixed(1)}px,0)`;
-   film.style.opacity=f.toFixed(3);voyageSec.classList.toggle('is-life',st.seg>W);
-  }
  }});
 
 const bar=$('#bar');
@@ -269,7 +240,7 @@ parts.push({top:0,h:1,shift:0,measure(){const lead=parseFloat(getComputedStyle(t
  update(s){
   if(reduced){track.style.transform='';track.style.overflowX='auto';return;}
   track.style.overflowX='';
-  const p=pinned(this,s),x=-p*this.shift;track.style.transform=`translate3d(${x.toFixed(1)}px,0,0)`;jBar.style.transform=`scaleX(${p.toFixed(4)})`;
+  const p=pinned(this,s),x=-smooth(clamp(p/0.86))*this.shift;track.style.transform=`translate3d(${x.toFixed(1)}px,0,0)`;jBar.style.transform=`scaleX(${p.toFixed(4)})`;
   jCards.forEach((c,i)=>{const r=c.offsetLeft+x+c.offsetWidth/2,o=clamp((r-vw/2)/vw,-1,1);jImgs[i].style.transform=`translate3d(${(o*-9).toFixed(2)}%,0,0) scale(1.18)`;});
  }});
 
@@ -349,16 +320,106 @@ if(LOG&&LOG.entries.length){
  $('#log-stats').innerHTML=stats.map(([n,l])=>`<div><b>${n}</b><span>${l}</span></div>`).join('');
 }else $('#logbook').hidden=true;
 
-/* ------------------------------------------------------------------ life (private, this Mac only) */
+/* ------------------------------------------------------------------ book II: the man behind the archive */
+// Its own world, not part of the anime voyage. Four acts from Goma's journal, each with its own
+// scroll language: a mask that cracks open, a rosary that turns verse by verse, the word "Perfect."
+// held up by family photos, and a film reel that ends on a promise. All words + photos come from the
+// encrypted vault (private/life/story.json + the chapter folders).
+const lifeSec=$('#life'),book=$('#life-book');
+const CH=LIFE?Object.fromEntries(LIFE.chapters.map((c,i)=>[c.name.toLowerCase().replace(/[^a-z]/g,''),{...c,i}])):{};
+const ST=(LIFE&&LIFE.story)||{};
+const sget=path=>path.split('.').reduce((o,k)=>o&&o[k],ST);
+const lines=(el,arr,cls)=>{el.innerHTML=(arr||[]).map(t=>`<p class="${cls}">${esc(t)}</p>`).join('');return[...el.children];};
+const fade=(p,a,b,f=0.08)=>smooth(clamp((p-a)/f))*(1-smooth(clamp((p-b)/f)));
+const loadOnApproach=(el,fn)=>{const io=new IntersectionObserver(([e])=>{if(e.isIntersecting){fn();io.disconnect();}},{rootMargin:'200% 0px'});io.observe(el);};
+const pickShow=(c,n)=>c?c.photos.filter(p=>!p.dup).slice(0,n):[];
 if(LIFE&&LIFE.chapters.length){
- const sec=$('#life');sec.hidden=false;
- sec.querySelector('.eyebrow').textContent=VAULT_MODE?'Unlocked on this device':'Private · only on this Mac';
- $('#life-row').innerHTML=LIFE.chapters.map((c,i)=>`<button class="world rv" style="--d:${i*0.08}s" data-collection="life:${i}"><img data-life="${c.photos[0].id}" alt="${esc(c.title)}" decoding="async"><span class="world-copy"><small>Chapter ${pad(i+1)}</small><b>${esc(c.title)}</b><span>${c.photos.length} photo${c.photos.length===1?'':'s'} →</span></span></button>`).join('');
-}
+ lifeSec.hidden=false;book.hidden=false;$('#nav-life').hidden=false;
+ $$('#life-book [data-s]').forEach(el=>{const v=sget(el.dataset.s);if(v)el.innerHTML=esc(v).replace(/\n/g,'<br>');});
 
-$$('#life-row img[data-life]').forEach(i=>setSrc(i,LT(i.dataset.life)));
-if(VAULT_MODE)$('#life-lock').hidden=false;
-else if(VAULT&&!LIFE){const sec=$('#life');sec.hidden=false;sec.classList.add('sealed');sec.querySelector('.eyebrow').textContent='Sealed · beyond the Grand Line';$('#life-row').innerHTML=`<button class="sealed-card" data-gate><span class="sealed-rings" aria-hidden="true"><i></i><i></i><i></i></span><small>Sealed</small><b>Some chapters aren't anime.</b><span>Say the magic words →</span></button>`;}
+ /* Act 1 · the mask */
+ const mAct=$('#mask-act'),mOpen=mAct.querySelector('.mask-open'),mSvg=mAct.querySelector('.mask-svg'),mL=mAct.querySelector('.mask-half.l'),mR=mAct.querySelector('.mask-half.r'),mCr=[...mAct.querySelectorAll('.mask-cracks polyline')],mLight=mAct.querySelector('.mask-light'),mAfter=mAct.querySelector('.mask-after');
+ const mLines=lines($('#mask-lines'),sget('mask.lines'),'mask-line');
+ parts.push({top:0,h:1,measure(){this.top=absTop(mAct);this.h=mAct.offsetHeight;},update(s){
+  const p=reduced?1:pinned(this,s);
+  mOpen.style.opacity=(1-smooth(clamp((p-0.06)/0.08))).toFixed(3);mOpen.style.transform=`translate3d(0,${(-p*160).toFixed(1)}px,0)`;
+  const inM=smooth(clamp((p-0.08)/0.1));
+  mLines.forEach((el,i)=>{const a=0.16+i*0.1;const o=fade(p,a,a+0.05,0.04);el.style.opacity=o.toFixed(3);el.style.transform=`translate3d(0,${((1-o)*14).toFixed(1)}px,0)`;});
+  mCr.forEach((c,i)=>{const t=smooth(clamp((p-0.44-i*0.015)/0.1));c.style.strokeDashoffset=(1-t).toFixed(3);c.style.opacity=t>0?'1':'0';});
+  const sp=smooth(clamp((p-0.6)/0.16));
+  mSvg.style.opacity=(inM*(1-smooth(clamp((p-0.7)/0.08)))).toFixed(3);mSvg.style.transform=`scale(${(0.9+inM*0.1+sp*0.06).toFixed(3)})`;
+  mL.style.transform=`translate(${(-sp*130).toFixed(1)}px,${(sp*40).toFixed(1)}px) rotate(${(-sp*16).toFixed(2)}deg)`;mR.style.transform=`translate(${(sp*130).toFixed(1)}px,${(sp*52).toFixed(1)}px) rotate(${(sp*14).toFixed(2)}deg)`;
+  const li=smooth(clamp((p-0.5)/0.3));mLight.style.opacity=li.toFixed(3);mLight.style.transform=`scale(${(0.2+li*1.6).toFixed(3)})`;
+  mAct.style.setProperty('--dawn',smooth(clamp((p-0.66)/0.14)).toFixed(3));
+  const af=smooth(clamp((p-0.74)/0.1));mAfter.style.opacity=af.toFixed(3);mAfter.style.transform=`translate3d(0,${((1-af)*30).toFixed(1)}px,0)`;
+  mAfter.querySelector('blockquote').style.opacity=smooth(clamp((p-0.86)/0.08)).toFixed(3);
+ }});
+
+ /* Act 2 · the rosary */
+ const faith=CH.faith,rAct=$('#rosary-act');
+ if(faith){
+  const N=faith.photos.length,R=78,beads=$('#ro-beads'),card=$('#ro-card'),count=$('#ro-count');
+  beads.innerHTML=faith.photos.map((p,i)=>{const a=i/N*Math.PI*2-Math.PI/2;return `<circle class="bead" cx="${(Math.cos(a)*R).toFixed(2)}" cy="${(Math.sin(a)*R).toFixed(2)}" r="3.6"/>`;}).join('')+`<circle class="ro-thread" r="${R}" cx="0" cy="0"/>`;
+  card.innerHTML=faith.photos.map(p=>`<button class="ro-img" data-view="life:${faith.i}" data-id="${p.id}" aria-label="Open verse"><img alt="" decoding="async"></button>`).join('');
+  const bEls=[...beads.querySelectorAll('.bead')],iEls=[...card.children];
+  loadOnApproach(rAct,()=>iEls.forEach((b,i)=>setSrc(b.querySelector('img'),LF(faith.photos[i].id))));
+  rAct.style.height=`${Math.round(120+N*16)}svh`;
+  let last=-1;
+  parts.push({top:0,h:1,measure(){this.top=absTop(rAct);this.h=rAct.offsetHeight;},update(s){
+   const p=reduced?0:pinned(this,s),x=clamp(p*1.06-0.02)*(N-1);
+   beads.setAttribute('transform',`rotate(${(-x*360/N).toFixed(2)})`);
+   const k=Math.round(x);
+   iEls.forEach((el,i)=>{const d=Math.abs(i-x);if(d>1.2){if(el._v){el._v=0;el.style.opacity='0';el.style.visibility='hidden';}return;}el._v=1;el.style.visibility='visible';const o=clamp(1-d*1.6);el.style.opacity=o.toFixed(3);el.style.transform=`scale(${(0.94+o*0.06).toFixed(4)}) rotate(${((i-x)*4).toFixed(2)}deg)`;el.tabIndex=i===k?0:-1;});
+   if(k!==last){last=k;bEls.forEach((b,i)=>b.classList.toggle('on',i===k));bEls.forEach((b,i)=>b.classList.toggle('past',i<k));count.textContent=`${pad(k+1)} / ${pad(N)}`;}
+  }});
+ }else rAct.hidden=true;
+
+ /* Act 3 · "Perfect." */
+ const fam=CH.family,pAct=$('#perfect-act');
+ if(fam){
+  const shots=pickShow(fam,10),wrap=$('#pf-photos');
+  // resting spots around the word (x%, y%, tilt), and the direction each one flies in from
+  // The centre (the word) and the bottom-centre band (the lines) are kept clear.
+  // Phones (tall screens): photos in bands above and below the word instead of around it.
+  const SPOTS_M=[[-33,-36,-6],[0,-38,4],[33,-35,6],[-17,-22,-3],[17,-21,5],[-33,18,5],[0,19,-4],[33,17,6]];
+  const SPOTS=[[-40,-33,-6],[-14,-38,4],[14,-37,-3],[40,-31,7],[-46,-1,-4],[46,1,5],[-39,31,5],[39,31,-6],[-23,36,3],[23,36,-4]];
+  wrap.innerHTML=shots.map((p,i)=>`<button class="polaroid" data-view="life:${fam.i}" data-id="${p.id}" aria-label="Open family photo"><img alt="" decoding="async"></button>`).join('');
+  const pol=[...wrap.children];
+  loadOnApproach(pAct,()=>pol.forEach((b,i)=>setSrc(b.querySelector('img'),LT(shots[i].id))));
+  const pfLines=lines($('#pf-lines'),[...(sget('family.lines')||[]),sget('family.sister'),sget('family.close')].filter(Boolean),'pf-line');
+  const word=pAct.querySelector('.pf-word');
+  parts.push({top:0,h:1,measure(){this.top=absTop(pAct);this.h=pAct.offsetHeight;this.mob=vw<vh;},update(s){
+   const p=reduced?0.6:pinned(this,s);
+   pol.forEach((el,i)=>{const SP=this.mob?SPOTS_M:SPOTS;if(i>=SP.length){el.style.opacity='0';return;}const [x,y,r]=SP[i];const t=smooth(clamp((p-0.04-i*0.03)/0.28));const fx=x*2.4,fy=y*2.6+(i%2?60:-60);
+    const X=x*t+fx*(1-t),Y=y*t+fy*(1-t);
+    el.style.transform=`translate(-50%,-50%) translate(${X.toFixed(2)}vw,${Y.toFixed(2)}vh) rotate(${(r*t+(i%2?40:-40)*(1-t)).toFixed(2)}deg) scale(${(0.9+0.1*t).toFixed(3)})`;el.style.opacity=t.toFixed(3);});
+   const w=smooth(clamp((p-0.14)/0.14));word.style.opacity=(w*(1-smooth(clamp((p-0.9)/0.08)))).toFixed(3);word.style.transform=`scale(${(0.86+w*0.14).toFixed(3)})`;
+   const n=pfLines.length,span=0.52/n;
+   pfLines.forEach((el,i)=>{const a=0.32+i*span,last=i===n-1;const o=last?smooth(clamp((p-a)/0.05)):fade(p,a,a+span-0.05,0.04);el.style.opacity=o.toFixed(3);el.style.transform=`translate3d(0,${((1-o)*16).toFixed(1)}px,0)`;});
+  }});
+ }else pAct.hidden=true;
+
+ /* Act 4 · still becoming */
+ const me=CH.me,eAct=$('#me-act');
+ if(me){
+  const reel=pickShow(me,18),track=$('#me-track');
+  track.innerHTML=reel.map((p,i)=>`<button class="reel ${i%3===1?'lo':i%3===2?'hi':''}" data-view="life:${me.i}" data-id="${p.id}" aria-label="Open photo"><img alt="" decoding="async"></button>`).join('')+`<div class="reel-end"><p class="lb-kicker">A promise</p><p class="reel-promise">${esc(sget('me.promise')||'')}</p></div>`;
+  const cards=[...track.querySelectorAll('.reel')];
+  loadOnApproach(eAct,()=>cards.forEach((b,i)=>setSrc(b.querySelector('img'),LF(reel[i].id))));
+  const meLines=lines($('#me-lines'),sget('me.lines'),'me-line');
+  parts.push({top:0,h:1,measure(){const lead=parseFloat(getComputedStyle(track).paddingLeft)||0;this.shift=Math.max(0,track.scrollWidth-vw+lead);eAct.style.height=reduced?'auto':`${Math.round(vh+this.shift*1.2)}px`;this.top=absTop(eAct);this.h=eAct.offsetHeight;},update(s){
+   if(reduced){track.style.transform='';return;}
+   const p=pinned(this,s),x=-smooth(clamp(p/0.86))*this.shift;track.style.transform=`translate3d(${x.toFixed(1)}px,0,0)`;
+   cards.forEach(c=>{const r=c.offsetLeft+x+c.offsetWidth/2,o=clamp((r-vw/2)/vw,-1,1);c.firstElementChild.style.transform=`translate3d(${(o*-8).toFixed(2)}%,0,0) scale(1.14)`;});
+   const n=meLines.length;meLines.forEach((el,i)=>{const a=0.08+i*(0.62/n);const o=fade(p,a,a+0.62/n-0.04,0.04);el.style.opacity=o.toFixed(3);el.style.transform=`translate3d(0,${((1-o)*14).toFixed(1)}px,0)`;});
+  }});
+ }else eAct.hidden=true;
+
+ /* Ending: every chapter's full collection */
+ $('#life-row').innerHTML=LIFE.chapters.map((c,i)=>`<button class="world rv" style="--d:${i*0.08}s" data-collection="life:${i}"><img data-life="${(c.photos.find(p=>!p.dup)||c.photos[0]).id}" alt="${esc(c.title)}" decoding="async"><span class="world-copy"><small>${esc(c.name)}</small><b>${esc(c.title)}</b><span>${c.photos.length} photos →</span></span></button>`).join('');
+ $$('#life-row img[data-life]').forEach(i=>setSrc(i,LT(i.dataset.life)));
+ if(!VAULT_MODE)$('#life-lock').hidden=true;
+}else if(VAULT){lifeSec.hidden=false;$('#life-sealed').hidden=false;}
 
 /* ------------------------------------------------------------------ other worlds */
 $('#world-row').innerHTML=media.worlds.map((w,i)=>`<button class="world rv" style="--d:${i*0.08}s" data-collection="world:${i}">${pic(w.cover,w.name)}<span class="world-copy"><small>${esc(w.series)}</small><b>${esc(w.name)}</b><span>${w.all.length} photos →</span></span></button>`).join('');
@@ -501,7 +562,7 @@ systemReduced.addEventListener('change',e=>{reduced=e.matches;applyMotion();});
 
 applyMotion();
 let crossing=false;try{crossing=sessionStorage.getItem('grand-archive:cross')==='1';sessionStorage.removeItem('grand-archive:cross');}catch{}
-if(crossing&&ANIME_N&&!reduced){requestAnimationFrame(()=>{measureAll();jumpTo(voyage.scrollYFor(ANIME_N-1,0.38));});}
+if(crossing&&$('#life')&&!$('#life').hidden){requestAnimationFrame(()=>{measureAll();jumpTo(absTop($('#life')));});}
 else if(location.hash&&location.hash!=='#voyage'){const t=document.getElementById(location.hash.slice(1));if(t)jumpTo(absTop(t));}
 document.body.classList.add('ready');
 // Test hook (?debug): render an exact scroll position synchronously, without smoothing.

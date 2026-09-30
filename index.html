@@ -17,7 +17,7 @@
 <header class="bar" id="bar">
  <a class="brand" href="#voyage" data-jump><span class="brand-mark">G</span><span>Grand Archive</span></a>
  <nav class="bar-nav" aria-label="Sections">
-  <a href="#voyage" data-jump>Voyage</a><a href="#characters" data-jump>Characters</a><a href="#crew" data-jump>Crew</a><a href="#spreads" data-jump>Spreads</a><a href="#panels" data-jump>Panels</a><a href="#journey" data-jump>Journey</a><a href="#logbook" data-jump>Logbook</a><a href="#vault" data-jump>Vault</a><a href="#library" data-jump>Library</a>
+  <a href="#voyage" data-jump>Voyage</a><a href="#characters" data-jump>Characters</a><a href="#crew" data-jump>Crew</a><a href="#spreads" data-jump>Spreads</a><a href="#panels" data-jump>Panels</a><a href="#journey" data-jump>Journey</a><a href="#logbook" data-jump>Logbook</a><a href="#vault" data-jump>Vault</a><a href="#library" data-jump>Library</a><a href="#life" data-jump id="nav-life" hidden>Book II</a>
  </nav>
  <button class="motion-toggle" id="motion" aria-pressed="false">Motion <b>On</b></button>
 </header>
@@ -28,13 +28,6 @@
   <div class="pin">
    <div class="jl-host" id="voyage-layers"></div>
    <div class="vignette" aria-hidden="true"></div>
-   <div class="film" id="film" aria-hidden="true"><span class="film-grade"></span><span class="film-grain"></span><i class="film-bar top"></i><i class="film-bar bot"></i></div>
-   <div class="rift" id="rift" aria-hidden="true">
-    <span class="rift-rings"><i></i><i></i><i></i></span>
-    <span class="rift-light"></span>
-    <p class="rift-out">End of the<br>Grand Line.</p>
-    <p class="rift-in"><small>Crossing over</small>My world.</p>
-   </div>
    <div class="voyage-intro" id="voyage-intro">
     <p class="eyebrow">Goma's Grand Archive</p>
     <h1>The Grand<br>Archive.</h1>
@@ -220,13 +213,74 @@
   <div class="art-wall" id="art-wall"></div>
  </section>
 
- <!-- LIFE: private chapters, rendered only from the copy on this Mac -->
- <section id="life" class="worlds life" aria-label="Life beyond the screen" hidden>
-  <div class="wrap">
-   <p class="eyebrow rv">Private · only on this Mac</p>
-   <h2 class="rv" data-split>Life beyond <em>the screen.</em></h2>
-   <div class="world-row" id="life-row"></div>
-   <button class="link quiet" id="life-lock" hidden>Lock this device again</button>
+ <!-- BOOK II: the man behind the archive. Content decrypts only after the magic words. -->
+ <section id="life" class="life" aria-label="Book II" hidden>
+  <div class="wrap life-sealed" id="life-sealed" hidden>
+   <p class="eyebrow">Sealed · beyond the Grand Line</p>
+   <button class="sealed-card" data-gate><span class="sealed-rings" aria-hidden="true"><i></i><i></i><i></i></span><small>Book II</small><b>Some chapters aren't anime.</b><span>Say the magic words →</span></button>
+  </div>
+  <div id="life-book" hidden>
+   <div class="act mask-act" id="mask-act">
+    <div class="pin">
+     <div class="mask-light" aria-hidden="true"></div>
+     <div class="mask-open"><p class="lb-kicker" data-s="opening.kicker"></p><h2 data-s="opening.title"></h2><p class="lb-line" data-s="opening.line"></p></div>
+     <svg class="mask-svg" viewBox="0 0 300 400" aria-hidden="true">
+      <defs>
+       <linearGradient id="mk-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6b5436"/><stop offset=".5" stop-color="#3a2b18"/><stop offset="1" stop-color="#1c140b"/></linearGradient>
+       <clipPath id="mk-l"><polygon points="0,0 150,0 158,60 144,120 160,185 142,250 156,320 148,400 0,400"/></clipPath>
+       <clipPath id="mk-r"><polygon points="150,0 300,0 300,400 148,400 156,320 142,250 160,185 144,120 158,60"/></clipPath>
+       <g id="mk-face">
+        <path fill="url(#mk-g)" fill-rule="evenodd" d="M150 18C235 18 272 80 270 170C268 270 215 372 150 384C85 372 32 270 30 170C28 80 65 18 150 18ZM72 166C80 145 128 143 138 162C128 182 84 186 72 166ZM162 162C172 143 220 145 228 166C216 186 172 182 162 162Z"/>
+        <path d="M150 196C145 232 146 262 150 280M118 312C136 322 164 322 182 312" fill="none" stroke="rgba(255,236,200,.18)" stroke-width="3" stroke-linecap="round"/>
+        <path d="M60 110C80 60 130 40 170 44" fill="none" stroke="rgba(255,236,200,.22)" stroke-width="4" stroke-linecap="round"/>
+       </g>
+      </defs>
+      <g class="mask-half l"><use href="#mk-face" clip-path="url(#mk-l)"/></g>
+      <g class="mask-half r"><use href="#mk-face" clip-path="url(#mk-r)"/></g>
+      <g class="mask-cracks" fill="none" stroke="#ffe7b8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+       <polyline pathLength="1" points="150,0 158,60 144,120 160,185 142,250 156,320 148,400"/>
+       <polyline pathLength="1" points="158,60 190,38 214,44"/><polyline pathLength="1" points="144,120 112,104 92,110"/>
+       <polyline pathLength="1" points="160,185 204,208 226,204"/><polyline pathLength="1" points="142,250 104,272 84,266"/>
+       <polyline pathLength="1" points="156,320 188,346"/>
+      </g>
+     </svg>
+     <div class="mask-lines" id="mask-lines"></div>
+     <div class="mask-after"><p class="mask-date" data-s="mask.date"></p><p class="mask-sub" data-s="mask.after"></p><blockquote data-s="mask.quote"></blockquote></div>
+    </div>
+   </div>
+   <div class="act rosary-act" id="rosary-act">
+    <div class="pin">
+     <header class="ro-head"><p class="lb-kicker" data-s="faith.kicker"></p><h2 data-s="faith.title"></h2></header>
+     <div class="ro-stage">
+      <svg class="ro-ring" viewBox="-100 -100 200 200" aria-hidden="true"><g id="ro-beads"></g></svg>
+      <div class="ro-card" id="ro-card"></div>
+      <span class="ro-cross" aria-hidden="true"></span>
+     </div>
+     <p class="ro-line" data-s="faith.line"></p>
+     <p class="ro-count" id="ro-count"></p>
+    </div>
+   </div>
+   <div class="act perfect-act" id="perfect-act">
+    <div class="pin">
+     <p class="lb-kicker pf-kicker" data-s="family.kicker"></p>
+     <div class="pf-photos" id="pf-photos"></div>
+     <h2 class="pf-word" data-s="family.word"></h2>
+     <div class="pf-lines" id="pf-lines"></div>
+    </div>
+   </div>
+   <div class="act me-act" id="me-act">
+    <div class="pin">
+     <header class="me-head"><p class="lb-kicker" data-s="me.kicker"></p><h2 data-s="me.title"></h2></header>
+     <div class="me-track" id="me-track"></div>
+     <div class="me-lines" id="me-lines"></div>
+    </div>
+   </div>
+   <div class="life-end wrap">
+    <h2 class="rv" data-s="ending.title"></h2>
+    <p class="lb-line rv" data-s="ending.line"></p>
+    <div class="world-row" id="life-row"></div>
+    <button class="link quiet" id="life-lock">Lock this device again</button>
+   </div>
   </div>
  </section>
 
