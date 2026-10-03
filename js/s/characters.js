@@ -29,9 +29,10 @@ export function initCharacters(){
     <h3 class="role-name k">${esc(c.name)}</h3>
     ${word(c)?`<p class="role-word k"><small>Left behind</small><span>${esc(word(c))}</span></p>`:''}
     ${c.left?`<p class="role-left k">${esc(c.left)}</p>`:''}
+    <div class="role-actions k"><button class="pill small" data-read="${i}">Read everything I wrote</button>${ph&&ph.all.length>1?`<button class="link" data-collection="char:${i}">${ph.all.length} photos →</button>`:''}</div>
     <blockquote class="role-quote k">“${esc(lineFor(c))}”</blockquote>
     ${c.first?`<button class="judge k" aria-pressed="false" aria-label="First impression versus current opinion"><span class="judge-face judge-f"><small>First impression</small><b>“${esc(c.first)}”</b><i>Tap for the verdict</i></span><span class="judge-face judge-b"><small>Current opinion</small><b>${esc(c.now.slice(0,3).join(' '))}</b></span></button>`:''}
-    <div class="role-actions k"><button class="pill small" data-read="${i}">Read everything I wrote</button>${ph&&ph.all.length>1?`<button class="link" data-collection="char:${i}">${ph.all.length} photos →</button>`:''}</div>
+
    </div>
   </div>
   <i class="role-shade" aria-hidden="true"></i>

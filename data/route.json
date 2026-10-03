@@ -352,5 +352,211 @@
   "ROMANCE GENRE: Unexpectedly unlocked",
   "ISEKAI DAMAGE: Re:Zero happened",
   "NEXT ARC: Unknown"
+ ],
+ "moments": [
+  {
+   "series": "One Piece",
+   "n": "01",
+   "title": "Luffy puts the straw hat on Nami",
+   "text": [
+    {
+     "p": "That feeling was crazy. This was one of the early moments where One Piece showed me what kind of protagonist Luffy really is. He does not need a giant speech. He understands what Nami is asking for, gives her his most precious possession, and walks toward the fight."
+    }
+   ],
+   "emotion": "HYPE + TRUST"
+  },
+  {
+   "series": "One Piece",
+   "n": "02",
+   "title": "Sanji's backstories",
+   "text": [
+    {
+     "p": "Sanji somehow managed to get hit by the backstory truck twice. His relationship with food, hunger, Zeff, rejection, and family made his personality hit very differently afterward."
+    }
+   ],
+   "emotion": "PAIN + RESPECT"
+  },
+  {
+   "series": "One Piece",
+   "n": "03",
+   "title": "Laboon and Brook",
+   "text": [
+    {
+     "p": "A promise surviving across decades is exactly the kind of One Piece idea that sounds almost silly until the story absolutely destroys you with it."
+    }
+   ],
+   "emotion": "LONGING"
+  },
+  {
+   "series": "One Piece",
+   "n": "04",
+   "title": "Robin says she wants to live",
+   "text": [
+    {
+     "p": "This is one of the scenes that affected me the most in all of anime."
+    },
+    {
+     "p": "Robin spent years believing her existence itself was a problem. She ran, hid, lost people, and eventually became so afraid of hurting the Straw Hats that she was willing to disappear for them."
+    },
+    {
+     "p": "Then Luffy basically tells the entire World Government: No. She is ours. We are coming to get her."
+    },
+    {
+     "p": "And Robin finally allows herself to want something again."
+    },
+    {
+     "q": "I want to live."
+    },
+    {
+     "p": "Even after multiple rewatches, that scene still hits me."
+    }
+   ],
+   "emotion": "HOPE AFTER COMPLETE DESPAIR"
+  },
+  {
+   "series": "One Piece",
+   "n": "05",
+   "title": "Every time Luffy declares his dream",
+   "text": [
+    {
+     "p": "It used to annoy me."
+    },
+    {
+     "p": "Now it reminds me why I love him."
+    }
+   ],
+   "emotion": "FREEDOM"
+  },
+  {
+   "series": "One Piece",
+   "n": "06",
+   "title": "Zoro: \"Nothing happened.\"",
+   "text": [
+    {
+     "p": "No speech. No request for praise. Just loyalty pushed to an absurd level."
+    }
+   ],
+   "emotion": "RESPECT"
+  },
+  {
+   "series": "One Piece",
+   "n": "07",
+   "title": "Ace's death",
+   "text": [
+    {
+     "p": "Watching Luffy finally reach Ace, actually free him, and then lose him anyway is brutal. What destroys the scene even more is seeing Luffy completely collapse afterward."
+    }
+   ],
+   "emotion": "HELPLESSNESS"
+  },
+  {
+   "series": "One Piece",
+   "n": "08",
+   "title": "Wano: infinite chances",
+   "text": [
+    {
+     "p": "Luffy's attitude in Wano perfectly captures why I love him. As long as he is still alive, the fight is not automatically over."
+    }
+   ],
+   "emotion": "REFUSAL TO QUIT"
+  },
+  {
+   "series": "One Piece",
+   "n": "09",
+   "title": "Gear 5 vs Kaido — \"Beat louder\"",
+   "text": [
+    {
+     "p": "This is probably my favorite One Piece clip of all time."
+    },
+    {
+     "p": "The animation, the drums, Luffy remembering the people of Wano, the exhaustion, Kaido warning him that continuing could kill him, and Luffy basically responding with zero fear."
+    },
+    {
+     "p": "Even thinking about that scene still gives me chills."
+    }
+   ],
+   "emotion": "PURE JOY + DEFIANCE"
+  },
+  {
+   "series": "One Piece",
+   "n": "10",
+   "title": "Kuma's backstory",
+   "text": [
+    {
+     "p": "The running sequence broke me."
+    },
+    {
+     "p": "Kuma's story is one of those pieces of fiction where you already know the character survived enormous pain, but once the full weight of it is shown, everything about him changes."
+    },
+    {
+     "p": "Even remembering that sequence can make my eyes wet."
+    }
+   ],
+   "emotion": "DEVASTATION"
+  },
+  {
+   "series": "One Piece",
+   "n": "11",
+   "title": "The Elbaf mural",
+   "text": [
+    {
+     "p": "The references to the Sun God and the idea that \"they will surely meet\" gave me that specific One Piece feeling where lore, mystery, destiny, and emotion suddenly collide."
+    }
+   ],
+   "emotion": "AWE"
+  },
+  {
+   "series": "One Piece",
+   "n": "12",
+   "title": "\"Memories\" — the first ending song",
+   "text": [
+    {
+     "p": "I do not even fully understand why this song gets me so badly."
+    },
+    {
+     "p": "Sometimes the opening seconds are enough."
+    },
+    {
+     "p": "It feels connected to the entire journey of One Piece now, not just an ending theme. If they ever use it near the actual ending of the story, I am finished. 😭"
+    }
+   ],
+   "emotion": "NOSTALGIA DAMAGE"
+  },
+  {
+   "series": "Re:Zero",
+   "n": "01",
+   "title": "Subaru finding Rem dead",
+   "text": [
+    {
+     "p": "That was one of the first moments where the show made it clear that it was willing to become much darker than I expected."
+    }
+   ],
+   "emotion": ""
+  },
+  {
+   "series": "Re:Zero",
+   "n": "02",
+   "title": "Episode 9 collapse",
+   "text": [
+    {
+     "p": "Watching everything go wrong so completely made the \"reset\" mechanic stop feeling safe."
+    }
+   ],
+   "emotion": ""
+  },
+  {
+   "series": "Re:Zero",
+   "n": "03",
+   "title": "Subaru's deaths in general",
+   "text": [
+    {
+     "p": "A lot of his deaths are stuck in my memory because the physical pain is only half of it. He has to return carrying memories that the people around him do not have."
+    },
+    {
+     "p": "That is what makes Re:Zero terrifying."
+    }
+   ],
+   "emotion": ""
+  }
  ]
 }

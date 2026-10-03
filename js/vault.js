@@ -16,7 +16,9 @@ const openVault=async key=>JSON.parse(new TextDecoder().decode(await vdecrypt('m
 export async function loadVault(){
  vault.VAULT=await fetch('data/vault.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
  if(vault.VAULT&&CRYPTO){try{const raw=localStorage.getItem(VKEY_STORE);if(raw){VKEY=await crypto.subtle.importKey('raw',b64(raw),'AES-GCM',false,['decrypt']);vault.LIFE=await openVault(VKEY);}}catch{VKEY=null;vault.LIFE=null;try{localStorage.removeItem(VKEY_STORE);}catch{}}}
- if(!vault.LIFE&&!CRYPTO&&!/github\.io$/i.test(location.hostname))vault.LIFE=await fetch('private/life.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
+ // Local preview on the Mac: ?life loads the private copy directly (private/ never reaches GitHub).
+ const localLife=/^(localhost|127\.0\.0\.1)$/.test(location.hostname)&&new URLSearchParams(location.search).has('life');
+ if(!vault.LIFE&&(localLife||(!CRYPTO&&!/github\.io$/i.test(location.hostname))))vault.LIFE=await fetch('private/life.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
  vault.MODE=!!(vault.LIFE&&VKEY);
  if(vault.MODE)vault.LIFE.chapters.forEach(c=>c.photos.forEach(p=>VF[p.id]=p));
  return vault;

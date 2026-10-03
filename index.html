@@ -16,7 +16,7 @@
 <header class="bar" id="bar">
  <a class="brand" href="#home" data-jump><span class="brand-mark">G</span><span>Grand Archive</span></a>
  <nav class="bar-nav" aria-label="Sections">
-  <a href="#characters" data-jump>Characters</a><a href="#crew" data-jump>Crew</a><a href="#voyage" data-jump>Voyage</a><a href="#spreads" data-jump>Spreads</a><a href="#panels" data-jump>Panels</a><a href="#journey" data-jump>Journey</a><a href="#top" data-jump>Top 10</a><a href="#vault" data-jump>Vault</a><a href="#library" data-jump>Library</a><a href="#life" data-jump id="nav-life" hidden>Book II</a>
+  <a href="#characters" data-jump>Characters</a><a href="#crew" data-jump>Crew</a><a href="#voyage" data-jump>Voyage</a><a href="#moments" data-jump>Moments</a><a href="#spreads" data-jump>Spreads</a><a href="#panels" data-jump>Panels</a><a href="#journey" data-jump>Journey</a><a href="#top" data-jump>Top 10</a><a href="#vault" data-jump>Vault</a><a href="#library" data-jump>Library</a><a href="#life" data-jump id="nav-life" hidden>Book II</a>
  </nav>
  <div class="bar-toggles"><button class="gear-toggle" id="gear5" aria-pressed="false" title="Gear 5: bouncy mode + the Drums of Liberation"><span class="g5-sun" aria-hidden="true"></span>Gear 5 <b>Off</b></button><button class="motion-toggle" id="motion" aria-pressed="false">Motion <b>On</b></button></div>
 </header>
@@ -58,7 +58,7 @@
   <div class="wrap">
    <p class="eyebrow rv">02 · The Crew</p>
    <h2 class="rv">Everyone with a price <em>on their head.</em></h2>
-   <p class="section-lede rv">Every face on a ship, a throne or a wanted poster. Their bounty is how many times I saved them. Tap a poster to open the collection.</p>
+   <p class="section-lede rv">Every face on a ship, a throne or a wanted poster, with their latest bounty. Some of them, the World Government would rather you never saw. Tap a poster to open the collection.</p>
    <div class="board" id="board"></div>
   </div>
  </section>
@@ -82,6 +82,16 @@
    </div>
   </div>
   <ol class="voyage-static" id="voyage-static" hidden></ol>
+ </section>
+
+ <!-- MOMENTS that permanently live in my head -->
+ <section id="moments" class="moments" aria-label="Moments that permanently live in my head">
+  <div class="pin">
+   <div class="mo-bg" id="mo-bg" aria-hidden="true"></div>
+   <header class="mo-head"><p class="eyebrow">Moments that permanently live in my head</p><p class="mo-sub">Not the objectively best scenes. The ones that hit me personally.</p></header>
+   <div class="mo-stage" id="mo-stage"></div>
+   <p class="mo-index" id="mo-index">01 / 15</p>
+  </div>
  </section>
 
  <!-- 04 · COLOUR SPREADS: ink turns to colour -->
@@ -220,6 +230,14 @@
    <button class="sealed-card" data-gate><span class="sealed-rings" aria-hidden="true"><i></i><i></i><i></i></span><small>Book II</small><b>Some chapters aren't anime.</b><span>Say the magic words →</span></button>
   </div>
   <div id="life-book" hidden>
+   <div class="act cover-act" id="cover-act">
+    <div class="pin">
+     <div class="journal" id="journal">
+      <div class="j-inside"><p class="j-date">2024 —</p><p class="j-line" data-s="opening.line"></p><p class="j-sign">— Goma</p></div>
+      <div class="j-cover" id="j-cover"><div class="j-front"><span class="j-emblem" aria-hidden="true">✝</span><p class="j-kicker" data-s="opening.kicker"></p><h2 data-s="opening.title"></h2><span class="j-band" aria-hidden="true"></span></div><div class="j-back"></div></div>
+     </div>
+    </div>
+   </div>
    <div class="act mask-act" id="mask-act">
     <div class="pin">
      <div class="mask-light" aria-hidden="true"></div>
@@ -260,19 +278,22 @@
      <p class="ro-count" id="ro-count"></p>
     </div>
    </div>
-   <div class="act perfect-act" id="perfect-act">
+   <div class="act heart-act" id="heart-act">
     <div class="pin">
-     <p class="lb-kicker pf-kicker" data-s="family.kicker"></p>
-     <div class="pf-photos" id="pf-photos"></div>
-     <h2 class="pf-word" data-s="family.word"></h2>
-     <div class="pf-lines" id="pf-lines"></div>
+     <div class="heart-glow" aria-hidden="true"></div>
+     <p class="lb-kicker hf-kicker" data-s="family.kicker"></p>
+     <div class="heart" id="heart"></div>
+     <div class="hf-center"><h2 class="hf-word" data-s="family.word"></h2><div class="hf-lines" id="hf-lines"></div></div>
+     <button class="link hf-all" data-collection="" id="hf-all">See every family photo →</button>
     </div>
    </div>
-   <div class="act me-act" id="me-act">
+   <div class="act film-act" id="film-act">
     <div class="pin">
-     <header class="me-head"><p class="lb-kicker" data-s="me.kicker"></p><h2 data-s="me.title"></h2></header>
-     <div class="me-track" id="me-track"></div>
-     <div class="me-lines" id="me-lines"></div>
+     <header class="film-head"><p class="lb-kicker" data-s="me.kicker"></p><h2 data-s="me.title"></h2></header>
+     <div class="film" id="film-a"></div>
+     <div class="film-lines" id="film-lines"></div>
+     <div class="film" id="film-b"></div>
+     <div class="film-promise" id="film-promise"><p class="lb-kicker">A promise</p><p class="fp-text" data-s="me.promise"></p></div>
     </div>
    </div>
    <div class="life-end wrap">
@@ -301,6 +322,7 @@
 <footer class="foot">
  <span>Grand Archive · Goma</span>
  <a href="https://gomayoha.github.io/my-grand-archive/" target="_blank" rel="noopener">Original V1 ↗</a>
+ <a href="#desk" data-desk>✎ Captain's Desk</a>
  <a href="#home" data-jump>Back to the beginning ↑</a>
 </footer>
 

@@ -59,7 +59,25 @@ export async function loadData(){
  const keys=['journey','archive','media','panels','characters','posters','shelf','logbook','route'];
  const files=keys.map(k=>`data/${k}.json`);
  (await Promise.all(files.map(J))).forEach((v,i)=>data[keys[i]]=v);
+ // Edits made on the site (Captain's Desk) sit on top of what the notes say, until the note itself changes.
+ const edits=await fetch('data/edits.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
+ let pending=null;try{pending=JSON.parse(localStorage.getItem('grand-archive:pending-edits')||'null');}catch{}
+ data.edits=mergeEdits(edits,pending);
+ if(data.shelf)applyEdits(data.shelf,data.edits);
  return data;
+}
+export const FIELDS=['status','s','tagline','b','progress','chapter','genre'];
+export function mergeEdits(a,b){const out={records:{}};[a,b].forEach(x=>x&&Object.assign(out.records,x.records||{}));return out;}
+export function applyEdits(shelf,edits){
+ for(const [key,e] of Object.entries(edits.records||{})){
+  const [k,...rest]=key.split(':'),t=rest.join(':');if(!shelf[k])continue;
+  let rec=shelf[k].find(r=>r.t===t);
+  if(!rec){if(!e.new)continue;rec={t,k,status:e.status||'',added:true};shelf[k].push(rec);}
+  rec.k=k;
+  // A field edited on the site wins only while the note still says what it said at the time of the edit.
+  for(const f of FIELDS)if(f in(e.set||{})){const base=(e.base||{})[f];if(e.new||base===undefined||String(rec[f]??'')===String(base??''))rec[f]=e.set[f];}
+  rec.edited=e.at||true;
+ }
 }
 
 /* ---------------------------------------------------------------- images */

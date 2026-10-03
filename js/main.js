@@ -3,11 +3,13 @@ import {$,$$,data,loadData,motion,setReduced,measureAll,jumpTo,absTop,part,view,
 import {loadVault,initGate,vault} from './vault.js';
 import {closeDialog} from './dialogs.js';
 import {initGear5} from './gear5.js';
+import './editor.js';
 import {initOpening} from './s/opening.js';
 import {initCharacters} from './s/characters.js';
 import {initCrew} from './s/crew.js';
 import {initVoyage} from './s/voyage.js';
 import {initSpreads} from './s/spreads.js';
+import {initMoments} from './s/moments.js';
 import {initPanels} from './s/panels.js';
 import {initRoute} from './s/route.js';
 import {initTop10} from './s/top10.js';
@@ -24,6 +26,7 @@ run('opening',initOpening);
 run('characters',initCharacters);
 run('crew',initCrew);
 const voy=run('voyage',initVoyage);
+run('moments',initMoments);
 run('spreads',initSpreads);
 run('panels',initPanels);
 run('route',initRoute);
@@ -38,11 +41,11 @@ run('gate',initGate);
 
 /* ---------------- header: clear over full-screen scenes, frosted over reading sections ---------------- */
 const bar=$('#bar'),navLinks=$$('.bar-nav a');
-const clearOver=['#home','#voyage','#spreads','#top','#scenes','#outro'].map(s=>$(s)).filter(Boolean);
+const clearOver=['#home','#voyage','#moments','#spreads','#top','#scenes','#outro'].map(s=>$(s)).filter(Boolean);
 part({always:true,measure(){this.zones=clearOver.map(el=>[absTop(el)-10,absTop(el)+el.offsetHeight-view.vh*0.9]);const ink=$('#panels');this.ink=[absTop(ink)-30,absTop(ink)+ink.offsetHeight-60];},update(s){
  const clear=this.zones.some(([a,b])=>s>=a&&s<b);bar.classList.toggle('solid',!clear);bar.classList.toggle('paper',s>this.ink[0]&&s<this.ink[1]);
 }});
-['characters','crew','voyage','spreads','panels','journey','top','vault','library','life'].forEach(id=>{const el=document.getElementById(id);if(el)new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)navLinks.forEach(a=>a.getAttribute('href')==='#'+id?a.setAttribute('aria-current','true'):a.removeAttribute('aria-current'));}),{rootMargin:'-45% 0px -50% 0px'}).observe(el);});
+['characters','crew','voyage','moments','spreads','panels','journey','top','vault','library','life'].forEach(id=>{const el=document.getElementById(id);if(el)new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)navLinks.forEach(a=>a.getAttribute('href')==='#'+id?a.setAttribute('aria-current','true'):a.removeAttribute('aria-current'));}),{rootMargin:'-45% 0px -50% 0px'}).observe(el);});
 document.addEventListener('click',e=>{const a=e.target.closest('[data-jump]');if(!a)return;e.preventDefault();closeDialog();const id=a.getAttribute('href').slice(1);jumpTo(id==='home'?0:absTop(document.getElementById(id)));});
 
 /* ---------------- reveals ---------------- */

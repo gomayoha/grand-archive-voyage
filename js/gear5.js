@@ -42,36 +42,8 @@ const TRICKS = [
   ['gigant', ''],
   ['laugh', 'HAHAHAHA!']
 ];
-// Chibi Nika floating on his back: cloud hair, eyes shut, easy smile. Eyes spring open when the page is flung.
-const NIKA_SVG = `<svg viewBox="0 0 100 100" aria-hidden="true">
-<g class="n-wisp" fill="none" stroke="#9a83e0" stroke-width="2" stroke-linecap="round"><path d="M86 58c5 1 7 6 3 8-3 1-4-2-2-3"/><path d="M12 30c-4-2-4-7 0-8 3 0 3 3 1 3"/></g>
-<g stroke="#3b2a63" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round">
- <path d="M41 74c-5 1-10 5-11 9l5 2c2-3 6-5 9-5z" fill="#fde3cf"/>
- <path d="M33 73l-12-12c-2-2 1-5 3-3l13 10z" fill="#fde3cf"/><path d="M15 55l8 5c1 1 0 3-1 3l-8-4c-2-1-1-5 1-4z" fill="#c48a5f"/>
- <path d="M37 79l-17-2c-3 0-3-4 0-4l18 0z" fill="#fde3cf"/><path d="M15 71l9 0c1 0 1 3 0 4l-9 0c-2 0-2-4 0-4z" fill="#c48a5f"/>
- <path d="M28 66c3-3 7-3 9-1l1 6c-3 2-7 2-10-1zM29 74c3-2 7-2 9 0l0 6c-3 2-7 1-9-1z" fill="#fbf8ff"/>
- <path d="M34 70c6-6 18-7 27-2l1 11c-9 6-21 6-28 0z" fill="#fbf8ff"/>
- <path d="M36 70c-3 2-4 5-3 8M34 74c-2 1-2 3-1 5" fill="none" stroke="#bfb2dc"/>
- <path d="M44 70l5 5 5-5" fill="none" stroke="#c4473f" stroke-width="1.2"/>
- <path d="M34 78c8 3 18 3 27-1l1 4c-9 4-19 5-28 1z" fill="#6c4fb8"/><path d="M52 81l3 11 4-1-3-11z" fill="#5b3fa6"/>
-</g>
-<g fill="#fff" stroke="#8b6fd6" stroke-width="2.6" stroke-linejoin="round"><path d="M43.7 59.3L37.5 56.5C28.1 65.9 27.0 53.0 20.0 47.0Q20.0 43.4 23.5 43.8C25.9 43.2 26.0 46.0 32.0 46.2C18.6 49.3 25.7 38.2 22.5 29.5Q24.3 26.4 27.1 28.4C29.5 29.1 29.3 33.9 34.6 36.7C20.0 33.0 30.2 23.4 31.1 14.2Q34.0 12.2 35.7 15.3C37.6 16.9 37.5 24.3 41.1 29.2C29.0 18.8 41.8 12.6 46.5 4.7Q50.1 4.0 50.3 7.5C51.3 9.8 48.4 20.6 49.6 26.5C42.8 11.7 57.8 9.7 65.4 4.5Q68.9 5.4 67.6 8.7C67.5 11.2 60.5 20.8 59.1 26.6C59.2 11.3 71.8 17.4 80.9 16.1Q83.6 18.4 81.0 20.8C79.9 23.0 72.0 25.6 68.1 30.1C74.2 17.4 79.3 29.8 88.1 32.5Q89.5 35.9 86.1 36.9C84.1 38.4 79.6 35.6 74.1 38.1C83.5 37.7 27.6 51.2 21.1 44.7Q21.3 41.1 24.8 41.7C27.3 41.3 81.9 49.0 75.9 48.5C86.9 45.7 75.1 52.7 78.0 61.4Q76.1 64.5 73.4 62.4C71.0 61.6 76.5 60.0 71.3 57.0L64.3 59.3Z"/><path d="M36 50a18 18 0 1 1 36 0a18 18 0 1 1 -36 0z"/></g>
-<defs><linearGradient id="nk-h" x1="0" y1="0" x2=".3" y2="1"><stop offset=".35" stop-color="#fff"/><stop offset="1" stop-color="#e6dcff"/></linearGradient></defs><g fill="url(#nk-h)"><path d="M43.7 59.3L37.5 56.5C28.1 65.9 27.0 53.0 20.0 47.0Q20.0 43.4 23.5 43.8C25.9 43.2 26.0 46.0 32.0 46.2C18.6 49.3 25.7 38.2 22.5 29.5Q24.3 26.4 27.1 28.4C29.5 29.1 29.3 33.9 34.6 36.7C20.0 33.0 30.2 23.4 31.1 14.2Q34.0 12.2 35.7 15.3C37.6 16.9 37.5 24.3 41.1 29.2C29.0 18.8 41.8 12.6 46.5 4.7Q50.1 4.0 50.3 7.5C51.3 9.8 48.4 20.6 49.6 26.5C42.8 11.7 57.8 9.7 65.4 4.5Q68.9 5.4 67.6 8.7C67.5 11.2 60.5 20.8 59.1 26.6C59.2 11.3 71.8 17.4 80.9 16.1Q83.6 18.4 81.0 20.8C79.9 23.0 72.0 25.6 68.1 30.1C74.2 17.4 79.3 29.8 88.1 32.5Q89.5 35.9 86.1 36.9C84.1 38.4 79.6 35.6 74.1 38.1C83.5 37.7 27.6 51.2 21.1 44.7Q21.3 41.1 24.8 41.7C27.3 41.3 81.9 49.0 75.9 48.5C86.9 45.7 75.1 52.7 78.0 61.4Q76.1 64.5 73.4 62.4C71.0 61.6 76.5 60.0 71.3 57.0L64.3 59.3Z"/><path d="M36 50a18 18 0 1 1 36 0a18 18 0 1 1 -36 0z"/></g>
-<g fill="none" stroke="#c8b8f4" stroke-width="1.5" stroke-linecap="round">
- <path d="M44 22c-3-1-5 2-3 4 2 1 3-1 2-2"/><path d="M66 24c3 0 4 3 2 4-2 1-3-1-1-2"/><path d="M33 34c-3 1-3 5 0 5 2 0 2-2 1-3"/><path d="M76 40c2 2 0 5-2 4"/>
-</g>
-<path d="M38 47c0-10 7-16 16-16s16 6 16 16c0 11-7 18-16 18s-16-7-16-18z" fill="#fff6ef"/><path d="M38.2 49c.8 9 7.5 16 15.8 16s15-7 15.8-16" fill="none" stroke="#3b2a63" stroke-width="1.2"/>
-<path d="M36 48c0-10 8-18 18-18s18 8 18 18c-2-3-5-5-8-3-2-4-6-4-8-2-2-3-7-3-9 0-3-2-6-1-8 1-1-1-2 0-3 4z" fill="#fff"/>
-<g fill="none" stroke="#b9a6ee" stroke-width="1" stroke-linecap="round"><path d="M38 47c1-3 3-4 5-3"/><path d="M47 43c2-2 5-2 6 0"/><path d="M57 43c2-2 5-2 6 1"/><path d="M66 44c2-1 4 0 5 3"/></g>
-<g fill="none" stroke="#8b6fd6" stroke-width="1.2" stroke-linecap="round"><path d="M42 44c2-2 5-1 5 1 0 1-2 1-2 0"/><path d="M66 44c-2-2-5-1-5 1 0 1 2 1 2 0"/></g>
-<ellipse cx="43" cy="55" rx="3" ry="1.7" fill="#f7a8b0" opacity=".65"/><ellipse cx="65" cy="55" rx="3" ry="1.7" fill="#f7a8b0" opacity=".65"/>
-<g class="n-shut" fill="none" stroke="#2a1b4a" stroke-width="1.6" stroke-linecap="round"><path d="M43 50q3.5 3 7 0"/><path d="M58 50q3.5 3 7 0"/><path d="M42.6 49.6l-1.4-.9M65.4 49.6l1.4-.9"/></g>
-<path d="M60 54.6l5 2M61.6 53.6l-.8 3.8M63.6 54.4l-.8 3.6" stroke="#2a1b4a" stroke-width=".9" stroke-linecap="round"/>
-<g fill="none" stroke="#2a1b4a" stroke-width="2" stroke-linejoin="round"><path class="n-spring" d="M46 50 l-3 -3 6 -3 -6 -3 6 -3 -6 -3 3 -3"/><path class="n-spring" d="M62 50 l-3 -3 6 -3 -6 -3 6 -3 -6 -3 3 -3"/></g>
-<g class="n-eye"><g class="n-ball"><circle cx="46" cy="50" r="5.6" fill="#fff" stroke="#d7323a" stroke-width="1.6"/><circle class="n-pupil" cx="46" cy="50" r="2.6" fill="#140c24"/></g></g>
-<g class="n-eye"><g class="n-ball"><circle cx="62" cy="50" r="5.6" fill="#fff" stroke="#d7323a" stroke-width="1.6"/><circle class="n-pupil" cx="62" cy="50" r="2.6" fill="#140c24"/></g></g>
-<g class="n-mouth"><path class="n-smile" d="M47.5 58.6q6.5 5 13 0" fill="none" stroke="#2a1b4a" stroke-width="1.4" stroke-linecap="round"/><path class="n-open" d="M45 58q9 13 18 0q-9 2.5-18 0z" fill="#4a1426" stroke="#2a1b4a" stroke-width="1.4" stroke-linejoin="round"/></g>
-</svg>`;
+// Chibi Nika floating on his back, from the art Goma chose (@mintycrops), as a round badge.
+const NIKA_SVG = `<img src="assets/img/ui/nika.webp" alt="" width="160" height="160" draggable="false">`;
 
 export function initGear5({ button, isReduced }) {
   const root = document.documentElement, body = document.body, main = document.querySelector('main');

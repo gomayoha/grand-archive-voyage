@@ -60,46 +60,64 @@ if(vault.LIFE&&vault.LIFE.chapters.length){
   }});
  }else rAct.hidden=true;
 
- /* Act 3 · "Perfect." */
- const fam=CH.family,pAct=$('#perfect-act');
- if(fam){
-  const shots=pickShow(fam,10),wrap=$('#pf-photos');
-  // resting spots around the word (x%, y%, tilt), and the direction each one flies in from
-  // The centre (the word) and the bottom-centre band (the lines) are kept clear.
-  // Phones (tall screens): photos in bands above and below the word instead of around it.
-  const SPOTS_M=[[-33,-36,-6],[0,-38,4],[33,-35,6],[-17,-22,-3],[17,-21,5],[-33,18,5],[0,19,-4],[33,17,6]];
-  const SPOTS=[[-40,-33,-6],[-14,-38,4],[14,-37,-3],[40,-31,7],[-46,-1,-4],[46,1,5],[-39,31,5],[39,31,-6],[-23,36,3],[23,36,-4]];
-  wrap.innerHTML=shots.map((p,i)=>`<button class="polaroid" data-view="life:${fam.i}" data-id="${p.id}" aria-label="Open family photo"><img alt="" decoding="async"></button>`).join('');
-  const pol=[...wrap.children];
-  loadOnApproach(pAct,()=>pol.forEach((b,i)=>setSrc(b.querySelector('img'),LT(shots[i].id))));
-  const pfLines=lines($('#pf-lines'),[...(sget('family.lines')||[]),sget('family.sister'),sget('family.close')].filter(Boolean),'pf-line');
-  const word=pAct.querySelector('.pf-word');
-  part({top:0,h:1,measure(){this.top=absTop(pAct);this.h=pAct.offsetHeight;this.mob=view.vw<view.vh;},update(s){
-   const p=motion.reduced?0.6:pinned(this,s);
-   pol.forEach((el,i)=>{const SP=this.mob?SPOTS_M:SPOTS;if(i>=SP.length){el.style.opacity='0';return;}const [x,y,r]=SP[i];const t=smooth(clamp((p-0.04-i*0.03)/0.28));const fx=x*2.4,fy=y*2.6+(i%2?60:-60);
-    const X=x*t+fx*(1-t),Y=y*t+fy*(1-t);
-    el.style.transform=`translate(-50%,-50%) translate(${X.toFixed(2)}view.vw,${Y.toFixed(2)}view.vh) rotate(${(r*t+(i%2?40:-40)*(1-t)).toFixed(2)}deg) scale(${(0.9+0.1*t).toFixed(3)})`;el.style.opacity=t.toFixed(3);});
-   const w=smooth(clamp((p-0.14)/0.14));word.style.opacity=(w*(1-smooth(clamp((p-0.9)/0.08)))).toFixed(3);word.style.transform=`scale(${(0.86+w*0.14).toFixed(3)})`;
-   const n=pfLines.length,span=0.52/n;
-   pfLines.forEach((el,i)=>{const a=0.32+i*span,last=i===n-1;const o=last?smooth(clamp((p-a)/0.05)):fade(p,a,a+span-0.05,0.04);el.style.opacity=o.toFixed(3);el.style.transform=`translate3d(0,${((1-o)*16).toFixed(1)}px,0)`;});
-  }});
- }else pAct.hidden=true;
+ /* Cover · the journal opens */
+ const cAct=$('#cover-act'),jCover=$('#j-cover'),journal=$('#journal');
+ part({el:cAct,update(s){
+  const p=motion.reduced?1:pinned(this,s),o=smooth(clamp((p-0.12)/0.45));
+  jCover.style.transform=`rotateY(${(-o*168).toFixed(2)}deg)`;
+  const z=smooth(clamp((p-0.68)/0.3));
+  journal.style.transform=`translate3d(${(o*12).toFixed(2)}%,0,0) scale(${(1+z*0.5).toFixed(4)})`;journal.style.opacity=(1-z).toFixed(3);
+ }});
 
- /* Act 4 · still becoming */
- const me=CH.me,eAct=$('#me-act');
- if(me){
-  const reel=pickShow(me,18),track=$('#me-track');
-  track.innerHTML=reel.map((p,i)=>`<button class="reel ${i%3===1?'lo':i%3===2?'hi':''}" data-view="life:${me.i}" data-id="${p.id}" aria-label="Open photo"><img alt="" decoding="async"></button>`).join('')+`<div class="reel-end"><p class="lb-kicker">A promise</p><p class="reel-promise">${esc(sget('me.promise')||'')}</p></div>`;
-  const cards=[...track.querySelectorAll('.reel')];
-  loadOnApproach(eAct,()=>cards.forEach((b,i)=>setSrc(b.querySelector('img'),LF(reel[i].id))));
-  const meLines=lines($('#me-lines'),sget('me.lines'),'me-line');
-  part({top:0,h:1,measure(){const lead=parseFloat(getComputedStyle(track).paddingLeft)||0;this.shift=Math.max(0,track.scrollWidth-view.vw+lead);eAct.style.height=motion.reduced?'auto':`${Math.round(view.vh+this.shift*1.2)}px`;this.top=absTop(eAct);this.h=eAct.offsetHeight;},update(s){
-   if(motion.reduced){track.style.transform='';return;}
-   const p=pinned(this,s),x=-smooth(clamp(p/0.86))*this.shift;track.style.transform=`translate3d(${x.toFixed(1)}px,0,0)`;
-   cards.forEach(c=>{const r=c.offsetLeft+x+c.offsetWidth/2,o=clamp((r-view.vw/2)/view.vw,-1,1);c.firstElementChild.style.transform=`translate3d(${(o*-8).toFixed(2)}%,0,0) scale(1.14)`;});
-   const n=meLines.length;meLines.forEach((el,i)=>{const a=0.08+i*(0.62/n);const o=fade(p,a,a+0.62/n-0.04,0.04);el.style.opacity=o.toFixed(3);el.style.transform=`translate3d(0,${((1-o)*14).toFixed(1)}px,0)`;});
+ /* Act 3 · "Perfect." — every family photo flies in and they form a heart around the word */
+ const fam=CH.family,hAct=$('#heart-act');
+ if(fam){
+  const shots=fam.photos.filter(p=>!p.dup),N=shots.length,heart=$('#heart');
+  // points along a heart curve, spaced evenly by arc length
+  const curve=t=>[16*Math.sin(t)**3,-(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))];
+  const raw=[];for(let i=0;i<=2000;i++)raw.push(curve(i/2000*Math.PI*2));
+  const len=[0];for(let i=1;i<raw.length;i++)len.push(len[i-1]+Math.hypot(raw[i][0]-raw[i-1][0],raw[i][1]-raw[i-1][1]));
+  const total=len[len.length-1],pts=[];
+  const xs=raw.map(r=>r[0]),ys=raw.map(r=>r[1]),cx=(Math.max(...xs)+Math.min(...xs))/2,cy=(Math.max(...ys)+Math.min(...ys))/2,sx=(Math.max(...xs)-Math.min(...xs))/2;
+  for(let k=0;k<N;k++){const L=(k+0.5)/N*total,j=len.findIndex(v=>v>=L);pts.push([(raw[j][0]-cx)/sx,(raw[j][1]-cy)/sx]);}
+  const rnd=i=>{const x=Math.sin(i*99.13)*43758.5453;return x-Math.floor(x);};
+  heart.innerHTML=shots.map((p,i)=>`<button class="hpol" data-view="life:${fam.i}" data-id="${p.id}" aria-label="Open family photo" style="--r:${((rnd(i)-0.5)*16).toFixed(1)}deg"><img alt="" decoding="async"></button>`).join('');
+  const pol=[...heart.children].map((el,i)=>({el,x:pts[i][0],y:pts[i][1],fx:(rnd(i+7)-0.5)*3,fy:(rnd(i+3)>0.5?1:-1)*(1.2+rnd(i+5)),r:(rnd(i+11)-0.5)*120}));
+  loadOnApproach(hAct,()=>pol.forEach((o,i)=>setSrc(o.el.querySelector('img'),LT(shots[i].id))));
+  $('#hf-all').dataset.collection=`life:${fam.i}`;
+  const hfLines=lines($('#hf-lines'),[...(sget('family.lines')||[]),sget('family.sister'),sget('family.close')].filter(Boolean),'hf-line');
+  const word=hAct.querySelector('.hf-word'),glow=hAct.querySelector('.heart-glow');
+  hAct.style.height=`${Math.round(160+N*7)}svh`;
+  part({el:hAct,measure(){this.mob=view.vw<view.vh;this.W=Math.min(view.vw*(this.mob?0.37:0.34),view.vh*0.36);},update(s){
+   const p=motion.reduced?0.8:pinned(this,s),W=this.W,H=W;
+   pol.forEach((o,i)=>{const t=smooth(clamp((p-0.03-i*(0.5/N))/0.14));
+    if(t<=0){if(o.v){o.v=0;o.el.style.visibility='hidden';}return;}if(!o.v){o.v=1;o.el.style.visibility='visible';}
+    const X=(o.x*(1-0)*W)*t+o.fx*view.vw*0.5*(1-t),Y=(o.y*H)*t+o.fy*view.vh*0.7*(1-t);
+    o.el.style.transform=`translate(-50%,-50%) translate3d(${X.toFixed(1)}px,${Y.toFixed(1)}px,0) rotate(${(o.r*(1-t)).toFixed(1)}deg)`;});
+   const done=smooth(clamp((p-0.58)/0.1));heart.classList.toggle('beat',done>0.95&&!motion.reduced);glow.style.opacity=(done*0.9).toFixed(3);
+   const w=smooth(clamp((p-0.12)/0.12));word.style.opacity=w.toFixed(3);word.style.transform=`scale(${(0.86+w*0.14).toFixed(3)})`;
+   const n=hfLines.length,span=0.42/n;
+   hfLines.forEach((el,i)=>{const a=0.3+i*span,last=i===n-1;const o=last?smooth(clamp((p-a)/0.05)):fade(p,a,a+span-0.04,0.04);el.style.opacity=o.toFixed(3);el.style.transform=`translate3d(0,${((1-o)*14).toFixed(1)}px,0)`;});
   }});
- }else eAct.hidden=true;
+ }else hAct.hidden=true;
+
+ /* Act 4 · still becoming — every photo of him on two film strips running opposite ways */
+ const me=CH.me,fAct=$('#film-act');
+ if(me){
+  const shots=me.photos.filter(p=>!p.dup),half=Math.ceil(shots.length/2);
+  const strip=(el,list)=>{el.innerHTML=`<div class="film-track">${list.map(p=>`<button class="frame" data-view="life:${me.i}" data-id="${p.id}" aria-label="Open photo"><img alt="" decoding="async"></button>`).join('')}</div>`;return el.firstChild;};
+  const tA=strip($('#film-a'),shots.slice(0,half)),tB=strip($('#film-b'),shots.slice(half));
+  const frames=[...fAct.querySelectorAll('.frame img')];
+  loadOnApproach(fAct,()=>frames.forEach((im,i)=>setSrc(im,LT(shots[i].id))));
+  const fLines=lines($('#film-lines'),sget('me.lines'),'film-line'),promise=$('#film-promise');
+  part({el:fAct,measure(){this.ra=Math.max(0,tA.scrollWidth-view.vw);this.rb=Math.max(0,tB.scrollWidth-view.vw);fAct.style.height=motion.reduced?'auto':`${Math.round(view.vh+Math.max(this.ra,this.rb)*1.1+view.vh*0.6)}px`;},update(s){
+   const p=motion.reduced?0:pinned(this,s),q=clamp(p/0.82);
+   tA.style.transform=`translate3d(${(-q*this.ra).toFixed(1)}px,0,0)`;tB.style.transform=`translate3d(${(-(1-q)*this.rb).toFixed(1)}px,0,0)`;
+   const n=fLines.length;fLines.forEach((el,i)=>{const a=0.06+i*(0.66/n);const o=fade(p,a,a+0.66/n-0.04,0.04);el.style.opacity=o.toFixed(3);el.style.transform=`translate3d(0,${((1-o)*14).toFixed(1)}px,0)`;});
+   const pr=smooth(clamp((p-0.8)/0.12));promise.style.opacity=pr.toFixed(3);promise.style.transform=`translate(-50%,-50%) scale(${(0.94+pr*0.06).toFixed(3)})`;
+   fAct.classList.toggle('dim',pr>0.05);
+  }});
+ }else fAct.hidden=true;
 
  /* Ending: every chapter's full collection */
  $('#life-row').innerHTML=vault.LIFE.chapters.map((c,i)=>`<button class="world rv" style="--d:${i*0.08}s" data-collection="life:${i}"><img data-life="${(c.photos.find(p=>!p.dup)||c.photos[0]).id}" alt="${esc(c.title)}" decoding="async"><span class="world-copy"><small>${esc(c.name)}</small><b>${esc(c.title)}</b><span>${c.photos.length} photos →</span></span></button>`).join('');
