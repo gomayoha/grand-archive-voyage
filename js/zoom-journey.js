@@ -34,9 +34,14 @@ export function createJourney({section,layerHost,config,reverse=false,caption=nu
  function progress(){return clamp(-section.getBoundingClientRect().top/pinned,0,1);}
  // Scroll position (document px) at which a given segment starts, for the chapter rail.
  function scrollYFor(seg,p=0.02){const J=cum[seg]+p*(cum[seg+1]-cum[seg]);let e=J/total;if(reverse)e=1-e;return section.offsetTop+pinned*unease(clamp(e,0,1));}
- function keepLoaded(seg){els.forEach((el,i)=>{const want=i>=seg-1&&i<=seg+2;if(want&&!el.getAttribute('src'))el.src=layers[i].image;else if(!want&&el.getAttribute('src')&&Math.abs(i-seg)>3)el.removeAttribute('src');});}
+ // Images are fetched and decoded two hand-offs ahead, so a layer is never painted for the first time
+ // mid-zoom (that was the stutter). Phones drop layers far behind to save memory; desktops keep them.
+ const lowMem=matchMedia('(pointer: coarse)').matches;
+ function load(i){const el=els[i];if(!el||el.getAttribute('src'))return;el.src=layers[i].image;el.decode?.().catch(()=>{});}
+ function keepLoaded(seg){for(let i=seg-1;i<=seg+3;i++)load(i);if(lowMem)els.forEach((el,i)=>{if((i<seg-2||i>seg+4)&&el.getAttribute('src'))el.removeAttribute('src');});}
+ function preload(){keepLoaded(Math.max(0,lastSeg));}
  function show(el,on){if(el._on===on)return;el._on=on;el.style.visibility=on?'visible':'hidden';el.style.willChange=on?'transform,opacity':'auto';}
- function setMask(el,f){const m=f>0.5?`linear-gradient(to right,transparent,#000 ${f.toFixed(1)}px,#000 calc(100% - ${f.toFixed(1)}px),transparent),linear-gradient(to bottom,transparent,#000 ${f.toFixed(1)}px,#000 calc(100% - ${f.toFixed(1)}px),transparent)`:'none';if(el._mask!==m){el._mask=m;el.style.webkitMaskImage=m;el.style.maskImage=m;}}
+ function setMask(el,f){const m=f>0.05?`linear-gradient(to right,transparent,#000 ${f.toFixed(1)}px,#000 calc(100% - ${f.toFixed(1)}px),transparent),linear-gradient(to bottom,transparent,#000 ${f.toFixed(1)}px,#000 calc(100% - ${f.toFixed(1)}px),transparent)`:'none';if(el._mask!==m){el._mask=m;el.style.webkitMaskImage=m;el.style.maskImage=m;}}
 
  function render(gIn){
   const g=gIn??progress();state.g=g;
@@ -63,7 +68,10 @@ export function createJourney({section,layerHost,config,reverse=false,caption=nu
    const op=ghost?0.5:smooth(clamp((p-m.blendStart)/Math.max(0.001,m.blendEnd-m.blendStart),0,1));
    state.nextOpacity=op;show(next,op>0);next.style.opacity=op.toFixed(3);
    next.style.transform=`translate3d(${(Z*c*(Ax-Lx)).toFixed(2)}px,${(Z*c*(Ay-Ly)).toFixed(2)}px,0) scale(${k.toFixed(5)})`;
-   setMask(next,(ghost?0:m.feather*Math.min(box.w,box.h)*clamp((1-p)/Math.max(0.001,1-m.blendEnd),0,1))/k);
+   // Feather in the image's own pixels, snapped to 1/8-octave steps: the mask string (and so the
+   // repaint of a huge masked layer) changes a few dozen times per hand-off instead of every frame.
+   const fe=(ghost?0:m.feather*Math.min(box.w,box.h)*clamp((1-p)/Math.max(0.001,1-m.blendEnd),0,1))/k;
+   setMask(next,fe*k<1?0:Math.pow(2,Math.round(Math.log2(fe)*8)/8));
   }
   if(caption){
    const inAt=L.captionIn??(i===0?0.1:0.03),outAt=L.captionOut??(m?0.42:0.5);
@@ -77,7 +85,7 @@ export function createJourney({section,layerHost,config,reverse=false,caption=nu
  function renderStatic(){keepLoaded(0);lastSeg=0;els.forEach((el,i)=>{show(el,i===0);el.style.opacity='1';el.style.transform='';setMask(el,0);});if(caption){caption.set(layers[0],0,layers.length);caption.el.style.opacity='1';caption.el.style.transform='';}}
 
  rebuild();
- return{render,renderStatic,measure,rebuild,progress,scrollYFor,state,config,
+ return{render,renderStatic,measure,rebuild,progress,scrollYFor,state,config,preload,
   get cum(){return cum;},
   setScrub(v){scrub=v;render();},setGhost(v){ghost=v;render();}};
 }
