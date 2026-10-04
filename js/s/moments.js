@@ -10,15 +10,19 @@ const ART='assets/moments/';
 const PICK={
  'One Piece-01':[{crew:'Nami'}],
  'One Piece-02':[{ch:'sanji'}],
- 'One Piece-04':[{ch:'robin'}],
+ 'One Piece-03':['brook-laboon.webp'],
+ 'One Piece-04':[{ch:'robin'},'sniper-king.webp'],
  'One Piece-05':['elbaf-warriors.webp','elbaf-crew.webp'],
  'One Piece-06':[{ch:'zoro'}],
  'One Piece-07':['ace-yamato-luffy.webp'],
  'One Piece-08':['rubberman.webp','spider-man-1000.webp'],
  'One Piece-09':['heartbeat-2.webp','heartbeat-1.webp'],
- 'One Piece-11':['elbaf-mural.webp'],
+ 'One Piece-10':['kuma-bonney.webp'],
+ 'One Piece-11':['elbaf-mural.webp','joyboy.webp'],
  'One Piece-12':['usopp-memories.webp'],
- 'Re:Zero-03':[{ch:'subaru-natsuki'}]
+ 'Re:Zero-01':['rem-frame.webp'],
+ 'Re:Zero-02':['rezero-ep9.webp'],
+ 'Re:Zero-03':['subaru-raging.webp',{ch:'subaru-natsuki'}]
 };
 const HUE={'HYPE + TRUST':'#f3c969','PAIN + RESPECT':'#e3342f','LONGING':'#4f86c6','HOPE AFTER COMPLETE DESPAIR':'#b48ae0','FREEDOM':'#f3c969','RESPECT':'#4caf7a','HELPLESSNESS':'#8d8da0','REFUSAL TO QUIT':'#ef7a2f','PURE JOY + DEFIANCE':'#f6c453','DEVASTATION':'#6b7fa8','AWE':'#e0a24a','NOSTALGIA DAMAGE':'#c99ae0'};
 

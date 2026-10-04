@@ -39,21 +39,18 @@
 </header>
 
 <main>
- <!-- 00 · TODAY IN THE ARCHIVE: one page from the archive, different on every visit, in his own words. -->
- <section id="home" class="td" aria-label="Welcome">
-  <div class="td-glow" aria-hidden="true"></div>
-  <div class="td-grid">
-   <div class="td-copy">
-    <p class="eyebrow td-date" id="td-date">Goma's Grand Archive</p>
-    <h1 class="td-title">The Grand <em>Archive.</em></h1>
-    <p class="td-lede">Every story that stayed with me. Each visit opens it on a different page.</p>
-    <div class="td-page" id="td-page" aria-live="polite"></div>
-    <div class="td-actions"><button class="pill small" id="td-go">Take me there →</button><button class="td-next" id="td-next">Show me another ↻</button></div>
-    <p class="td-count" id="td-count"></p>
-   </div>
-   <figure class="td-art" id="td-art"><img alt="" decoding="async" fetchpriority="high"></figure>
+ <!-- 00 · THE ARCHIVE, OPENED: a living wall of every picture; one at a time opens full screen, then the wall reshuffles. -->
+ <section id="home" class="ar" aria-label="Welcome">
+  <div class="ar-wall" id="ar-wall"></div>
+  <div class="ar-shade" aria-hidden="true"></div>
+  <figure class="ar-open" id="ar-open" hidden><img alt="" decoding="async"></figure>
+  <div class="ar-copy">
+   <p class="eyebrow" id="ar-date">Goma's Grand Archive</p>
+   <h1>The Grand <em>Archive.</em></h1>
+   <p class="ar-cap" id="ar-cap"><b id="ar-name"></b><span id="ar-where"></span></p>
+   <div class="ar-actions"><button class="pill small" id="ar-shuffle">Shuffle ↻</button><button class="ar-go" id="ar-go">Take me there →</button><span class="ar-count" id="ar-count"></span></div>
   </div>
-  <span class="op-cue td-cue" aria-hidden="true"><i></i>Scroll</span>
+  <span class="op-cue ar-cue" aria-hidden="true"><i></i>Scroll</span>
  </section>
 
  <!-- The original opening ("Anime is for losers."), kept for later; not shown and not started (s/opening.js). -->

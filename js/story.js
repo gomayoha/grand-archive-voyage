@@ -40,17 +40,18 @@ add('elbaph',{kind:'mark',k:'Where I am',t:`Manga: chapter ${LATEST}.`});
 /* ---------------------------------------------------------------- more pictures per arc */
 // Colour spreads (by their place in his spreads collection) and his own photo collections, where they belong.
 const GALLERY={
- 'romance-dawn':[{char:'Luffy',n:3},{spread:11}],'syrup-village':[{crew:'Usopp',n:3}],'baratie':[{char:'Sanji',n:3},{spread:18}],
- 'arlong-park':[{crew:'Nami',n:3},{spread:50}],'loguetown':[{spread:114}],'reverse-mountain':[{spread:76}],'whisky-peak':[{spread:16}],
- 'little-garden':[{spread:33},{spread:25}],'drum-island':[{crew:'Chopper',n:2},{spread:36},{spread:64}],'jaya':[{char:'Robin',n:3}],
- 'water-7':[{spread:38},{spread:105}],'enies-lobby':[{spread:41},{char:'Robin',n:2,skip:3}],'thriller-bark':[{spread:39},{char:'Zoro',n:3}],
+ 'romance-dawn':[{id:'73a97b921282'},{char:'Luffy',n:3},{spread:11}],'syrup-village':[{crew:'Usopp',n:3}],'baratie':[{char:'Sanji',n:3},{spread:18}],
+ 'arlong-park':[{crew:'Nami',n:3},{spread:50}],'loguetown':[{spread:114}],'reverse-mountain':[{id:'3c786bb1ca5e'},{spread:76}],'whisky-peak':[{spread:16}],
+ 'little-garden':[{spread:33},{spread:25}],'drum-island':[{crew:'Chopper',n:2},{spread:36},{spread:64}],'jaya':[{id:'c22f7aad1c92'},{char:'Robin',n:3}],
+ 'water-7':[{spread:38},{spread:105}],'enies-lobby':[{id:'02543819ba09'},{id:'756d1da1bec9'},{spread:41},{char:'Robin',n:2,skip:3}],'thriller-bark':[{id:'ab8f8b4a6bc3'},{id:'3c786bb1ca5e'},{spread:39},{char:'Zoro',n:3}],
  'sabaody':[{spread:85}],'amazon-lily':[{crew:'Hancock',n:3},{spread:110}],'marineford':[{crew:'Straw Hats',n:2}],
- 'return-sabaody':[{spread:57}],'fish-man-island':[{spread:201},{spread:76}],'punk-hazard':[{crew:'Law',n:2}],'dressrosa':[{spread:153}],
- 'whole-cake':[{spread:29},{crew:'Imu',n:2}],'wano':[{spread:66},{spread:55},{spread:61},{crew:'Yamato',n:3}],'egghead':[{spread:14}],'elbaph':[{spread:33}]
+ 'return-sabaody':[{spread:57}],'fish-man-island':[{spread:201},{spread:76}],'punk-hazard':[{crew:'Law',n:2}],'dressrosa':[{id:'33060dcab061'},{spread:153}],
+ 'whole-cake':[{spread:29},{crew:'Imu',n:2}],'wano':[{spread:66},{spread:55},{spread:61},{crew:'Yamato',n:3}],'egghead':[{id:'830521db3d5d'},{id:'21edf61131af'},{spread:14}],'elbaph':[{id:'3ea4b740627e'},{spread:33}]
 };
 function galleryIds(id){
  const out=[];for(const g of GALLERY[id]||[]){
-  if(g.spread!=null){const x=media?.spreads?.all?.[g.spread];if(x)out.push(x);}
+  if(g.id){out.push(g.id);}
+  else if(g.spread!=null){const x=media?.spreads?.all?.[g.spread];if(x)out.push(x);}
   else{const c=(g.crew?media?.crew?.find(x=>x.name===g.crew):media?.characters?.find(x=>x.home===g.char));if(c)out.push(...c.all.slice(g.skip||0,(g.skip||0)+g.n));}
  }return [...new Set(out)];
 }
