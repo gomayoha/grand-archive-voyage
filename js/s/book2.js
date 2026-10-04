@@ -1,6 +1,6 @@
 // Book II · the man behind the archive. Four acts from his journal, unlocked by the magic words.
 // Words and photos come from the encrypted vault (private/life/story.json + the chapter folders).
-import {$,$$,esc,pad,clamp,smooth,view,part,pinned,absTop,motion} from '../core.js';
+import {$,$$,esc,pad,clamp,smooth,ease,view,part,pinned,absTop,motion} from '../core.js';
 import {vault,LF,LT,setSrc} from '../vault.js';
 import {registerCollection} from '../dialogs.js';
 
@@ -69,35 +69,62 @@ if(vault.LIFE&&vault.LIFE.chapters.length){
   journal.style.transform=`translate3d(${(o*12).toFixed(2)}%,0,0) scale(${(1+z*0.5).toFixed(4)})`;journal.style.opacity=(1-z).toFixed(3);
  }});
 
- /* Act 3 · "Perfect." — every family photo flies in and they form a heart around the word */
+ /* Act 3 · "Perfect." — the hallway at home. His word, then the family photo he chose as the cover held up
+    large while his lines about his mother arrive one by one. Then it settles into its frame on a lamplit wall
+    and every other family photo lights up around it, nearest first, like walking down the hallway at home. */
  const fam=CH.family,hAct=$('#heart-act');
  if(fam){
-  const shots=fam.photos.filter(p=>!p.dup),N=shots.length,heart=$('#heart');
-  // points along a heart curve, spaced evenly by arc length
-  const curve=t=>[16*Math.sin(t)**3,-(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))];
-  const raw=[];for(let i=0;i<=2000;i++)raw.push(curve(i/2000*Math.PI*2));
-  const len=[0];for(let i=1;i<raw.length;i++)len.push(len[i-1]+Math.hypot(raw[i][0]-raw[i-1][0],raw[i][1]-raw[i-1][1]));
-  const total=len[len.length-1],pts=[];
-  const xs=raw.map(r=>r[0]),ys=raw.map(r=>r[1]),cx=(Math.max(...xs)+Math.min(...xs))/2,cy=(Math.max(...ys)+Math.min(...ys))/2,sx=(Math.max(...xs)-Math.min(...xs))/2;
-  for(let k=0;k<N;k++){const L=(k+0.5)/N*total,j=len.findIndex(v=>v>=L);pts.push([(raw[j][0]-cx)/sx,(raw[j][1]-cy)/sx]);}
+  const shots=fam.photos.filter(p=>!p.dup),N=shots.length,wall=$('#hw-wall'),big=$('#hw-big'),lamp=hAct.querySelector('.hw-lamp');
   const rnd=i=>{const x=Math.sin(i*99.13)*43758.5453;return x-Math.floor(x);};
-  heart.innerHTML=shots.map((p,i)=>`<button class="hpol" data-view="life:${fam.i}" data-id="${p.id}" aria-label="Open family photo" style="--r:${((rnd(i)-0.5)*16).toFixed(1)}deg"><img alt="" decoding="async"></button>`).join('');
-  const pol=[...heart.children].map((el,i)=>({el,x:pts[i][0],y:pts[i][1],fx:(rnd(i+7)-0.5)*3,fy:(rnd(i+3)>0.5?1:-1)*(1.2+rnd(i+5)),r:(rnd(i+11)-0.5)*120}));
-  loadOnApproach(hAct,()=>pol.forEach((o,i)=>setSrc(o.el.querySelector('img'),LT(shots[i].id))));
+  const KINDS=['wood','black','white','gold','wood','black','white'];
+  wall.innerHTML=shots.map((p,i)=>`<button class="hw-frame ${i?KINDS[Math.floor(rnd(i+3)*KINDS.length)]:'wood cover'}" data-view="life:${fam.i}" data-id="${p.id}" aria-label="Open family photo" style="--tilt:${i?((rnd(i)-0.5)*2.4).toFixed(2):0}deg"><span><img alt="" decoding="async"></span></button>`).join('');
+  const frames=[...wall.children];
+  loadOnApproach(hAct,()=>{setSrc(big.querySelector('img'),LF(shots[0].id));frames.forEach((f,i)=>setSrc(f.querySelector('img'),LT(shots[i].id)));});
   $('#hf-all').dataset.collection=`life:${fam.i}`;
-  const hfLines=lines($('#hf-lines'),[...(sget('family.lines')||[]),sget('family.sister'),sget('family.close')].filter(Boolean),'hf-line');
-  const word=hAct.querySelector('.hf-word'),glow=hAct.querySelector('.heart-glow');
-  hAct.style.height=`${Math.round(160+N*7)}svh`;
-  part({el:hAct,measure(){this.mob=view.vw<view.vh;this.W=Math.min(view.vw*(this.mob?0.37:0.34),view.vh*0.36);},update(s){
-   const p=motion.reduced?0.8:pinned(this,s),W=this.W,H=W;
-   pol.forEach((o,i)=>{const t=smooth(clamp((p-0.03-i*(0.5/N))/0.14));
-    if(t<=0){if(o.v){o.v=0;o.el.style.visibility='hidden';}return;}if(!o.v){o.v=1;o.el.style.visibility='visible';}
-    const X=(o.x*(1-0)*W)*t+o.fx*view.vw*0.5*(1-t),Y=(o.y*H)*t+o.fy*view.vh*0.7*(1-t);
-    o.el.style.transform=`translate(-50%,-50%) translate3d(${X.toFixed(1)}px,${Y.toFixed(1)}px,0) rotate(${(o.r*(1-t)).toFixed(1)}deg)`;});
-   const done=smooth(clamp((p-0.58)/0.1));heart.classList.toggle('beat',done>0.95&&!motion.reduced);glow.style.opacity=(done*0.9).toFixed(3);
-   const w=smooth(clamp((p-0.12)/0.12));word.style.opacity=w.toFixed(3);word.style.transform=`scale(${(0.86+w*0.14).toFixed(3)})`;
-   const n=hfLines.length,span=0.42/n;
-   hfLines.forEach((el,i)=>{const a=0.3+i*span,last=i===n-1;const o=last?smooth(clamp((p-a)/0.05)):fade(p,a,a+span-0.04,0.04);el.style.opacity=o.toFixed(3);el.style.transform=`translate3d(0,${((1-o)*14).toFixed(1)}px,0)`;});
+  const mLines=lines($('#hf-lines'),sget('family.lines'),'hw-line');
+  const band=document.createElement('p');band.className='hw-band';band.textContent=sget('family.sister')||'';hAct.querySelector('.pin').appendChild(band);
+  const fin=$('#hw-final');fin.textContent=sget('family.close')||'';
+  const word=hAct.querySelector('.hf-word'),kick=hAct.querySelector('.hf-kicker'),all=$('#hf-all');
+  hAct.style.height='540svh';
+  let L=null;
+  part({el:hAct,measure(){
+   // justified rows sized so the whole wall fits the screen; the cover sits in the middle of the middle row
+   const vw=view.vw,vh=view.vh,phone=vw<=820,Wb=vw*(phone?0.94:0.9),Hb=vh*(phone?0.7:0.72),g=phone?6:12;
+   const asp=shots.map(p=>p.w/p.h),A=asp.reduce((s,a)=>s+a,0),rows=clamp(Math.round(Math.sqrt(A/(Wb/Hb))),2,12);
+   // fill the rows with the other photos (the middle row keeps room for the cover), then put the cover in its centre
+   const mid=Math.floor(rows/2),T=A/rows,R=[];let row=[],acc=0;
+   shots.forEach((_,i)=>{if(!i)return;row.push(i);acc+=asp[i];const want=T-(R.length===mid?asp[0]:0);if(R.length<rows-1&&acc>=want-asp[i]/2){R.push(row);row=[];acc=0;}});if(row.length)R.push(row);
+   const mr=R[Math.min(mid,R.length-1)];mr.splice(Math.floor(mr.length/2),0,0);
+   const hs=R.map(r=>(Wb-g*(r.length-1))/r.reduce((s,i)=>s+asp[i],0)),H=hs.reduce((s,h)=>s+h,0)+g*(R.length-1),f=Math.min(1,Hb/H);
+   const W=Wb*f,HH=H*f,pos=[];let y=0;
+   R.forEach((r,ri)=>{const h=hs[ri]*f;let x=(W-(r.reduce((s,i)=>s+asp[i]*h,0)+g*f*(r.length-1)))/2;r.forEach(i=>{const w=asp[i]*h;pos[i]={x,y,w,h};x+=w+g*f;});y+=h+g*f;});
+   wall.style.width=W+'px';wall.style.height=HH+'px';
+   frames.forEach((el,i)=>{const q=pos[i],m=Math.min(q.w,q.h);el.style.left=q.x+'px';el.style.top=q.y+'px';el.style.width=q.w+'px';el.style.height=q.h+'px';el.style.setProperty('--b',Math.max(2,m*0.035).toFixed(1)+'px');el.style.setProperty('--m',Math.max(2,m*0.05).toFixed(1)+'px');});
+   const cy=vh*(phone?0.52:0.53),wx=vw/2-W/2,wy=cy-HH/2,c=pos[0],ccx=wx+c.x+c.w/2,ccy=wy+c.y+c.h/2;
+   const dmax=Math.max(...pos.map(q=>Math.hypot(wx+q.x+q.w/2-ccx,wy+q.y+q.h/2-ccy)))||1;
+   const dist=pos.map(q=>Math.hypot(wx+q.x+q.w/2-ccx,wy+q.y+q.h/2-ccy)/dmax);
+   const bh=Math.min(vh*(phone?0.38:0.48),vw*0.86/asp[0]),bw=bh*asp[0];
+   big.style.width=bw+'px';big.style.height=bh+'px';big.style.marginLeft=-bw/2+'px';big.style.marginTop=-bh/2+'px';
+   hAct.style.setProperty('--bh',bh+'px');
+   wall.style.transform=`translate3d(${wx-vw/2}px,${wy-vh/2}px,0)`;wall.style.left='50%';wall.style.top='50%';
+   L={s:c.w/bw,dx:ccx-vw/2,dy:ccy-vh/2,dist};
+  },update(s){
+   if(!L)return;const p=motion.reduced?0.76:pinned(this,s);
+   kick.style.opacity=(1-smooth(clamp((p-0.86)/0.06))).toFixed(3);
+   const w=smooth(clamp((p-0.02)/0.06))*(1-smooth(clamp((p-0.48)/0.06)));word.style.opacity=w.toFixed(3);word.style.transform=`translate3d(0,${((1-smooth(clamp((p-0.02)/0.08)))*20-smooth(clamp((p-0.48)/0.08))*30).toFixed(1)}px,0)`;
+   // the photo rises in, then settles into its frame on the wall
+   const rise=smooth(clamp((p-0.06)/0.07)),t=ease(clamp((p-0.5)/0.14));
+   const sc=1+(L.s-1)*t;
+   big.style.opacity=(rise*(t<0.97?1:0)).toFixed(3);
+   big.style.transform=`translate3d(${(L.dx*t).toFixed(1)}px,${(L.dy*t+(1-rise)*40).toFixed(1)}px,0) scale(${sc.toFixed(4)})`;
+   const n=mLines.length,span=0.36/Math.max(1,n);
+   mLines.forEach((el,i)=>{const a=0.13+i*span;const o=fade(p,a,a+span-0.03,0.035)*(1-smooth(clamp((p-0.48)/0.04)));el.style.opacity=o.toFixed(3);el.style.transform=`translate3d(0,${((1-o)*12).toFixed(1)}px,0)`;});
+   lamp.style.opacity=(smooth(clamp((p-0.52)/0.16))*(1-0.5*smooth(clamp((p-0.84)/0.08)))).toFixed(3);
+   frames.forEach((el,i)=>{const r=i===0?(t>=0.97?1:0):smooth(clamp((p-0.6-L.dist[i]*0.12)/0.07));
+    if(el._r===r)return;el._r=r;el.style.opacity=r.toFixed(3);el.style.transform=r>=1?'':`translate3d(0,${((1-r)*-16).toFixed(1)}px,0) scale(${(0.94+r*0.06).toFixed(4)})`;});
+   wall.style.opacity=(1-0.62*smooth(clamp((p-0.84)/0.08))).toFixed(3);
+   band.style.opacity=fade(p,0.72,0.82,0.04).toFixed(3);
+   const f=smooth(clamp((p-0.86)/0.06));fin.style.opacity=f.toFixed(3);all.style.opacity=f.toFixed(3);all.style.pointerEvents=f>0.5?'auto':'none';
   }});
  }else hAct.hidden=true;
 

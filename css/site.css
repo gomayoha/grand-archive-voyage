@@ -1104,22 +1104,32 @@ button[disabled]{opacity:.4;pointer-events:none}
 .j-back{transform:rotateY(180deg);background:#e9dfcb;box-shadow:inset -14px 0 24px -14px rgba(0,0,0,.35)}
 .mask-act .mask-open{display:none}
 
-/* ---------- Book II · "Perfect." — the heart ---------- */
-.heart-act .pin{display:grid;place-items:center;background:radial-gradient(70% 60% at 50% 50%,#2a1408,#0c0705 75%)}
-.heart-glow{position:absolute;left:50%;top:50%;width:min(90vw,110vh);height:min(90vw,110vh);translate:-50% -50%;background:radial-gradient(closest-side,rgba(255,120,110,.22),transparent);opacity:0;pointer-events:none}
-.hf-kicker{position:absolute;top:66px;left:0;right:0;text-align:center}
-.heart{position:absolute;left:50%;top:54%;width:0;height:0}
-.heart.beat{animation:hbeat 1.6s ease-in-out infinite}
-@keyframes hbeat{0%,100%{scale:1}14%{scale:1.035}28%{scale:1}42%{scale:1.025}}
-.hpol{position:absolute;left:0;top:0;width:clamp(64px,6.6vw,96px);padding:5px 5px 14px;background:#fbf8f2;box-shadow:0 12px 24px -10px rgba(0,0,0,.8);rotate:var(--r);visibility:hidden;will-change:transform;transition:scale .3s var(--ease)}
-.hpol:hover{scale:1.6;z-index:5}
-.hpol img{display:block;width:100%;aspect-ratio:1;object-fit:cover;background:#ddd}
-.hf-center{position:relative;z-index:3;text-align:center;max-width:min(30vw,380px);margin-top:4vh}
-.hf-word{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(54px,7vw,104px);line-height:1;opacity:0;color:#fff2e6;text-shadow:0 6px 40px rgba(0,0,0,.6)}
-.hf-lines{position:relative;margin-top:16px;min-height:5.5em}
-.hf-line{position:absolute;left:0;right:0;opacity:0;font-size:clamp(14px,1.25vw,17px);line-height:1.45;color:#f1e3d6}
-.hf-all{position:absolute;bottom:max(28px,5vh);left:50%;translate:-50% 0;color:#f3c9a0;font-size:14px}
-@media(max-width:820px){.hpol{width:13vw;padding:3px 3px 8px}.hf-center{max-width:56vw}.hf-word{font-size:12vw}.hf-line{font-size:13px}}
+/* ---------- Book II · "Perfect." — the hallway at home ---------- */
+/* His word, the family photo held up large while his lines about his mother arrive; then it settles into its
+   frame on a lamplit wall and every other family photo lights up around it, ripple by ripple. */
+.heart-act .pin{background:radial-gradient(90% 70% at 50% 0%,#2b1d12,#120c08 55%,#0a0705)}
+.hw-lamp{position:absolute;left:50%;top:-30%;width:140vmax;height:110vmax;translate:-50% 0;background:radial-gradient(closest-side,rgba(255,196,128,.26),rgba(255,170,90,.08) 55%,transparent);opacity:0;pointer-events:none}
+.hw-wall{position:absolute;left:50%;top:50%;transform-origin:50% 50%}
+.hw-frame{position:absolute;padding:var(--b);background:var(--fr);box-shadow:0 14px 26px -12px rgba(0,0,0,.85),inset 0 0 0 1px rgba(255,255,255,.06);rotate:var(--tilt);opacity:0;will-change:transform,opacity;cursor:zoom-in;transition:scale .5s var(--ease)}
+.hw-frame:hover{scale:1.04;z-index:3}
+.hw-frame span{display:block;width:100%;height:100%;padding:var(--m);background:#f3ece0}
+.hw-frame img{width:100%;height:100%;object-fit:cover;background:#2a2018}
+.hw-frame.wood{--fr:linear-gradient(135deg,#7a5232,#4a2f1a 55%,#6b4628)}
+.hw-frame.black{--fr:linear-gradient(135deg,#1d1a17,#0c0a08)}
+.hw-frame.white{--fr:linear-gradient(135deg,#f6f1e7,#d9d0c0)}
+.hw-frame.gold{--fr:linear-gradient(135deg,#d6b46a,#8a6a2c 55%,#c9a55a)}
+.hw-frame.cover{z-index:2}
+.hf-kicker{position:absolute;top:max(70px,9svh);left:0;right:0;text-align:center;z-index:4}
+.hf-word{position:absolute;left:0;right:0;top:calc(50% - var(--bh,30svh)/2 - 1.15em);z-index:4;text-align:center;font:italic 400 clamp(54px,7.4vw,112px)/1 var(--serif);color:#fff2e6;opacity:0;text-shadow:0 6px 40px rgba(0,0,0,.6)}
+.hw-big{position:absolute;left:50%;top:50%;margin:0;z-index:3;padding:clamp(6px,.7vw,10px);background:linear-gradient(135deg,#7a5232,#4a2f1a 55%,#6b4628);box-shadow:0 50px 90px -30px rgba(0,0,0,.95);opacity:0;will-change:transform,opacity;transform-origin:50% 50%}
+.hw-big img{width:100%;height:100%;object-fit:cover;border:clamp(8px,1vw,14px) solid #f3ece0}
+.hw-lines{position:absolute;left:24px;right:24px;top:calc(50% + var(--bh,30svh)/2 + 26px);z-index:4;min-height:4em}
+.hw-line{position:absolute;left:0;right:0;margin:0 auto;max-width:620px;text-align:center;opacity:0;font:italic 400 clamp(17px,1.6vw,22px)/1.45 var(--serif);color:#f3e5d6}
+.hw-line.under{top:auto}
+.hw-final{position:absolute;left:24px;right:24px;top:50%;translate:0 -50%;z-index:5;text-align:center;font:italic 400 clamp(36px,5vw,76px)/1.1 var(--serif);color:#fff2e6;opacity:0;text-shadow:0 8px 50px #000}
+.hw-band{position:absolute;left:50%;bottom:max(70px,10svh);translate:-50% 0;z-index:4;max-width:min(640px,calc(100% - 40px));padding:12px 20px;border-radius:14px;background:rgba(14,10,7,.82);text-align:center;font:italic 400 clamp(16px,1.4vw,20px)/1.45 var(--serif);color:#f3e5d6;opacity:0}
+.hf-all{position:absolute;bottom:max(24px,4vh);left:50%;translate:-50% 0;z-index:5;color:#f3c9a0;font-size:14px}
+@media(max-width:820px){.hw-line{font-size:16px}.hw-final{font-size:34px}.hf-word{font-size:13vw}}
 
 /* ---------- Book II · still becoming — film strips ---------- */
 .film-act .pin{display:flex;flex-direction:column;justify-content:center;gap:clamp(14px,2.4vh,26px);background:#0a0a0b}
