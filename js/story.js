@@ -3,13 +3,13 @@
 // data/panels.json, route.json, characters.json). A log in the corner keeps Luffy's bounty, the crew and
 // the chapter while you read; six scenes mark the turning points. Same engine as the archive: native
 // scroll, one rAF, transform/opacity (the burning flag is the one masked paint).
-import {$,$$,esc,clamp,smooth,ease,view,part,pinned,motion,measureAll,remeasure,absTop,jumpTo,onSight,warm,FU} from './core.js';
+import {$,$$,esc,clamp,smooth,ease,view,part,pinned,motion,measureAll,remeasure,absTop,jumpTo,onSight,warm,FU,TH} from './core.js';
 import {initPoneglyphs} from './poneglyph.js';
 
 // Lookups inside one block (core's $ and $$ always search the whole page).
 const q=(sel,root)=>root.querySelector(sel),qa=(sel,root)=>[...root.querySelectorAll(sel)];
 const J=(u,tries=3)=>fetch(u).then(r=>{if(!r.ok)throw r;return r.json();}).catch(()=>tries>1?new Promise(res=>setTimeout(res,500*(4-tries))).then(()=>J(u,tries-1)):null);
-const [story,panels,route,characters,shelf]=await Promise.all(['story','panels','route','characters','shelf'].map(k=>J(`data/${k}.json`)));
+const [story,panels,route,characters,shelf,media]=await Promise.all(['story','panels','route','characters','shelf','media'].map(k=>J(`data/${k}.json`)));
 const PM=id=>`assets/panels/m/${id}.webp`,PF=id=>`assets/panels/${id}.webp`;
 const band=(p,a,b,f=0.06)=>smooth(clamp((p-a)/f))*(1-smooth(clamp((p-b)/f)));
 const money=n=>Number(n).toLocaleString('en-US');
@@ -37,6 +37,24 @@ if(epNow){const a=arcs.find(a=>{const [x,y]=epRange(a);return epNow>=x&&epNow<=y
 add('romance-dawn',{kind:'mark',k:'July 2024',t:'Where my One Piece started.'});
 add('elbaph',{kind:'mark',k:'Where I am',t:`Manga: chapter ${LATEST}.`});
 
+/* ---------------------------------------------------------------- more pictures per arc */
+// Colour spreads (by their place in his spreads collection) and his own photo collections, where they belong.
+const GALLERY={
+ 'romance-dawn':[{char:'Luffy',n:3},{spread:11}],'syrup-village':[{crew:'Usopp',n:3}],'baratie':[{char:'Sanji',n:3},{spread:18}],
+ 'arlong-park':[{crew:'Nami',n:3},{spread:50}],'loguetown':[{spread:114}],'reverse-mountain':[{spread:76}],'whisky-peak':[{spread:16}],
+ 'little-garden':[{spread:33},{spread:25}],'drum-island':[{crew:'Chopper',n:2},{spread:36},{spread:64}],'jaya':[{char:'Robin',n:3}],
+ 'water-7':[{spread:38},{spread:105}],'enies-lobby':[{spread:41},{char:'Robin',n:2,skip:3}],'thriller-bark':[{spread:39},{char:'Zoro',n:3}],
+ 'sabaody':[{spread:85}],'amazon-lily':[{crew:'Hancock',n:3},{spread:110}],'marineford':[{crew:'Straw Hats',n:2}],
+ 'return-sabaody':[{spread:57}],'fish-man-island':[{spread:201},{spread:76}],'punk-hazard':[{crew:'Law',n:2}],'dressrosa':[{spread:153}],
+ 'whole-cake':[{spread:29},{crew:'Imu',n:2}],'wano':[{spread:66},{spread:55},{spread:61},{crew:'Yamato',n:3}],'egghead':[{spread:14}],'elbaph':[{spread:33}]
+};
+function galleryIds(id){
+ const out=[];for(const g of GALLERY[id]||[]){
+  if(g.spread!=null){const x=media?.spreads?.all?.[g.spread];if(x)out.push(x);}
+  else{const c=(g.crew?media?.crew?.find(x=>x.name===g.crew):media?.characters?.find(x=>x.home===g.char));if(c)out.push(...c.all.slice(g.skip||0,(g.skip||0)+g.n));}
+ }return [...new Set(out)];
+}
+
 /* ---------------------------------------------------------------- building the page */
 const crew=story.crew,crewIdx=Object.fromEntries(crew.map(([id],i)=>[id,i]));
 const CREW_NAME=Object.fromEntries(crew.map(([id,n])=>[id,n]));
@@ -59,6 +77,7 @@ function arcHTML(a,n){
    <dl class="arc-meta"><div><dt>Chapters</dt><dd>${a.ch[0]}–${a.ch[1]}${a.id===last.id?'<small> so far</small>':''}</dd></div><div><dt>Episodes</dt><dd>${esc(a.ep)}</dd></div></dl></header>
   <div class="arc-main">
    ${a.art?`<figure class="arc-art"><img src="${FU(a.art)}" alt="" loading="lazy" decoding="async"></figure>`:''}
+   ${(g=>g.length?`<div class="arc-gal">${g.map(id=>`<button class="ag" data-lbsrc="${FU(id)}" data-cap="${esc(a.name)}"><img src="${TH(id)}" alt="" loading="lazy" decoding="async"></button>`).join('')}</div>`:'')(galleryIds(a.id))}
    <div class="arc-text">${a.text.map(t=>`<p>${esc(t)}</p>`).join('')}</div>
    ${a.id==='zou'?'<p class="pg-inline"><span class="pg-spot" data-pg="zou"></span><span>A red stone covered in writing almost nobody can read.</span></p>':''}
    ${a.quote?`<blockquote class="arc-quote">“${esc(a.quote[0].replace(/^“|”$/g,''))}”<cite>${esc(a.quote[1])}</cite></blockquote>`:''}
@@ -137,23 +156,74 @@ const SCENES={
    const d=Math.round(730*smooth(clamp((p-0.44)/0.38)));if(d!==e.last){e.last=d;e.n.textContent=d;}
    e.end.style.opacity=smooth(clamp((p-0.86)/0.08)).toFixed(3);
   }},
- drums:{h:340,html:()=>`<div class="pin"><div class="dr-beat"></div><p class="dr-k">Onigashima · Chapter 1044</p>
-  <p class="dr-l1">Luffy fell.</p><p class="dr-l2">Then his heart started to beat like a drum.</p><p class="dr-dum">dum · dum · du-dum</p>
-  <div class="dr-after"><figure class="dr-panel"><img src="${PM('265bdb2df0cb')}" alt="Gear Fifth" loading="lazy" decoding="async"></figure><div class="dr-copy"><p class="dr-name">Gear Fifth.<em>The Sun God Nika.</em></p><a class="pill dark" href="index.html#scenes">Watch my favourite clip ↗</a></div></div></div>`,
-  init(el){return{el,beat:q('.dr-beat',el),k:q('.dr-k',el),l1:q('.dr-l1',el),l2:q('.dr-l2',el),dum:q('.dr-dum',el),after:q('.dr-after',el),white:false};},
-  // scroll-driven heartbeats: each one swells and settles
+ // Drum Island: snow on the Drum Rockies, Chopper's "monster", Luffy's answer, then Kureha's cannons turn the snow into Hiriluk's cherry blossoms.
+ sakura:{h:340,html:()=>`<div class="pin"><div class="sk-sky"></div><div class="sk-flakes">${Array.from({length:56},(_,i)=>{const r=x=>{const v=Math.sin((i+1)*x)*43758.5453;return v-Math.floor(v);};return `<i style="left:${(r(12.9)*100).toFixed(1)}%;--d:${(-r(7.1)*12).toFixed(2)}s;--t:${(8+r(3.3)*8).toFixed(2)}s;--x:${((r(5.7)-0.5)*80).toFixed(0)}px;--z:${(0.5+r(2.2)*0.9).toFixed(2)}"></i>`;}).join('')}</div>
+  <svg class="sk-mount" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><path d="M0 400V300l90-10 20-120 40-6 18 130 90 14 40-260h70l30 250 80 10 30-90 50 0 20 100 110 6 40-210 60 0 24 214 100 10 40-60 60 4 30 70 100 2 V400Z"/></svg>
+  <div class="sk-burst"><i></i><i></i><i></i></div>
+  <p class="dr-k">Drum Island · Chapter 152</p>
+  <p class="sk-l1">“I’m a reindeer! I’ve got horns, hooves… and a blue nose!”<small>— Chopper, sure no one could want a monster</small></p>
+  <p class="sk-l2">“Shut up!<br>Let’s go!!”<small>— Luffy</small></p>
+  <p class="sk-l3">Hiriluk’s cherry blossoms.<small>The snow on Drum Island turns pink, and Chopper sails away.</small></p></div>`,
+  init(el){return{el,l1:q('.sk-l1',el),l2:q('.sk-l2',el),l3:q('.sk-l3',el),k:q('.dr-k',el),burst:qa('.sk-burst i',el),glow:q('.sk-sky',el),pink:false};},
+  update(p,e){
+   e.k.style.opacity=band(p,0.02,0.92).toFixed(3);
+   e.l1.style.opacity=band(p,0.08,0.3).toFixed(3);
+   const y=smooth(clamp((p-0.34)/0.06));e.l2.style.opacity=(y*(1-smooth(clamp((p-0.56)/0.05)))).toFixed(3);
+   e.l2.style.transform=`scale(${(0.6+0.4*ease(clamp((p-0.34)/0.08))+Math.sin(clamp((p-0.34)/0.12)*Math.PI)*0.08).toFixed(3)})`;
+   e.burst.forEach((b,i)=>{const t=clamp((p-0.6-i*0.035)/0.12);b.style.opacity=(Math.sin(t*Math.PI)*0.9).toFixed(3);b.style.transform=`translate(-50%,-50%) scale(${(0.1+t*2.4).toFixed(3)})`;});
+   const pk=p>0.63;if(pk!==e.pink){e.pink=pk;e.el.classList.toggle('bloom',pk);}
+   e.l3.style.opacity=smooth(clamp((p-0.7)/0.08)).toFixed(3);
+  }},
+ // Thriller Bark: his panel in the dark, Sanji's question, a long silence while the red spreads, then the answer, typed.
+ nothing:{h:320,html:()=>`<div class="pin"><p class="dr-k">Thriller Bark · Chapter 485</p><figure class="nh-panel"><img src="${PM('e7b62f443ffe')}" alt="Zoro after taking Luffy's pain" loading="lazy" decoding="async"><i class="nh-blood"></i></figure>
+  <p class="nh-q">“What happened here?!”<small>— Sanji</small></p><p class="nh-a"><span></span><small>— Zoro</small></p></div>`,
+  init(el){const a=q('.nh-a span',el);return{k:q('.dr-k',el),panel:q('.nh-panel',el),blood:q('.nh-blood',el),qq:q('.nh-q',el),a,aw:q('.nh-a',el),full:'Nothing… happened.',n:-1};},
+  update(p,e){
+   e.k.style.opacity=band(p,0.02,0.9).toFixed(3);
+   e.panel.style.opacity=(0.85*smooth(clamp((p-0.02)/0.1))*(1-0.55*smooth(clamp((p-0.58)/0.1)))).toFixed(3);
+   e.panel.style.transform=`scale(${(1.06-p*0.06).toFixed(4)})`;
+   e.blood.style.transform=`translate(-50%,0) scale(${(0.05+ease(clamp((p-0.24)/0.4))*1.15).toFixed(4)},${(0.05+ease(clamp((p-0.24)/0.4))*0.9).toFixed(4)})`;
+   e.qq.style.opacity=band(p,0.12,0.34).toFixed(3);
+   const n=Math.round(e.full.length*clamp((p-0.6)/0.18));if(n!==e.n){e.n=n;e.a.textContent=e.full.slice(0,n);}
+   e.aw.style.opacity=(p>0.58?1:0).toString();e.aw.querySelector('small').style.opacity=smooth(clamp((p-0.8)/0.06)).toFixed(3);
+  }},
+ // Marineford: Ace's vivre card burns away from its edges as his flames die, then the last words in the dark.
+ ace:{h:340,html:()=>`<div class="pin"><div class="ac-fire"><i></i><i></i><i></i><i></i></div><div class="ac-embers">${Array.from({length:30},(_,i)=>{const r=x=>{const v=Math.sin((i+1)*x)*43758.5453;return v-Math.floor(v);};return `<i style="left:${(30+r(4.1)*40).toFixed(1)}%;--d:${(-r(6.3)*5).toFixed(2)}s;--t:${(3+r(2.7)*4).toFixed(2)}s;--x:${((r(8.8)-0.5)*120).toFixed(0)}px"></i>`;}).join('')}</div>
+  <p class="dr-k">Marineford · Chapter 574</p><div class="ac-card"><i class="ac-paper"></i><i class="ac-glow"></i></div>
+  <p class="ac-l1">A vivre card: a scrap of paper that burns away as its owner’s life fades.</p><p class="ac-l2">Ace stepped in front of Akainu’s fist to shield his little brother.</p>
+  <p class="ac-last">“Thank you…<br>for loving me.”<small>— Portgas D. Ace</small></p></div>`,
+  init(el){return{el,k:q('.dr-k',el),card:q('.ac-card',el),glow:q('.ac-glow',el),fire:q('.ac-fire',el),emb:q('.ac-embers',el),l1:q('.ac-l1',el),l2:q('.ac-l2',el),last:q('.ac-last',el)};},
+  update(p,e){
+   e.k.style.opacity=band(p,0.02,0.7).toFixed(3);
+   e.l1.style.opacity=band(p,0.06,0.28).toFixed(3);e.l2.style.opacity=band(p,0.3,0.52).toFixed(3);
+   const burn=smooth(clamp((p-0.24)/0.4));e.card.style.setProperty('--r',(burn*104).toFixed(2)+'%');e.glow.style.opacity=(burn>0&&burn<0.99?1:0).toString();
+   e.card.style.opacity=(1-smooth(clamp((p-0.62)/0.04))).toFixed(3);
+   const f=1-smooth(clamp((p-0.4)/0.3));e.fire.style.opacity=(f*smooth(clamp(p/0.08))).toFixed(3);e.fire.style.transform=`translate(-50%,0) scale(${(0.6+f*0.4).toFixed(3)})`;e.emb.style.opacity=f.toFixed(3);
+   const l=smooth(clamp((p-0.72)/0.1));e.last.style.opacity=l.toFixed(3);e.last.style.transform=`translate3d(0,${((1-l)*16).toFixed(1)}px,0)`;
+  }},
+ // Wano: a heartbeat builds into the Drums of Liberation (rings, a jolt, each "dum" on its beat), then the white of Gear Fifth.
+ drums:{h:380,html:()=>`<div class="pin"><div class="dr-rays"></div><div class="dr-rings"><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="dr-beat"></div><p class="dr-k">Onigashima · Chapter 1044</p>
+  <p class="dr-l1">Luffy fell.</p><p class="dr-l2">Then his heart started to beat like a drum.</p><p class="dr-dum"><span>dum</span><span>dum</span><span>du-dum</span></p>
+  <div class="dr-after"><figure class="dr-panel"><img src="${PM('265bdb2df0cb')}" alt="Gear Fifth" loading="lazy" decoding="async"></figure><div class="dr-copy"><p class="dr-name">${[...'Gear Fifth.'].map((c,i)=>`<span style="--i:${i}">${c===' '?'&nbsp;':c}</span>`).join('')}<em>The Sun God Nika.</em></p><p class="dr-ha">Ha ha ha ha!</p><a class="pill dark" href="index.html#scenes">Watch my favourite clip ↗</a></div></div></div>`,
+  init(el){return{el,pin:q('.pin',el),beat:q('.dr-beat',el),rings:qa('.dr-rings i',el),k:q('.dr-k',el),l1:q('.dr-l1',el),l2:q('.dr-l2',el),dum:q('.dr-dum',el),dums:qa('.dr-dum span',el),after:q('.dr-after',el),white:false};},
   beats:[0.3,0.345,0.39,0.42,0.46,0.49,0.53,0.555,0.59,0.61,0.64,0.66],
   update(p,e){
+   const B=SCENES.drums.beats;
    e.k.style.opacity=band(p,0.02,0.66).toFixed(3);
-   e.l1.style.opacity=band(p,0.05,0.2).toFixed(3);e.l2.style.opacity=band(p,0.2,0.4).toFixed(3);e.dum.style.opacity=band(p,0.4,0.64).toFixed(3);
-   let s=0.06+clamp((p-0.24)/0.4)*0.12;for(const b of SCENES.drums.beats){const d=(p-b)/0.012;if(d>-1&&d<3)s+=0.14*Math.exp(-((d-0.4)**2));}
+   e.l1.style.opacity=band(p,0.05,0.2).toFixed(3);e.l2.style.opacity=band(p,0.2,0.36).toFixed(3);e.dum.style.opacity=band(p,0.36,0.66).toFixed(3);
+   let s=0.06+clamp((p-0.24)/0.4)*0.12,kick=0;
+   for(const b of B){const d=(p-b)/0.012;if(d>-1&&d<3){const g=Math.exp(-((d-0.4)**2));s+=0.14*g;kick=Math.max(kick,g);}}
+   // each "dum" lights on its own beat
+   const hit=B.filter(b=>p>=b).length;e.dums.forEach((x,i)=>x.classList.toggle('on',hit>0&&(hit-1)%3===i));
+   const past=B.filter(b=>p>=b);e.rings.forEach((r,i)=>{const b=past[past.length-1-i],t=b==null?1:clamp((p-b)/0.05);r.style.opacity=(t<1?(1-t)*0.55:0).toFixed(3);r.style.transform=`translate(-50%,-50%) scale(${(0.3+t*3).toFixed(3)})`;});
+   e.pin.style.transform=kick>0.6&&!motion.reduced?`translate3d(${((Math.random()-0.5)*6*kick).toFixed(1)}px,${((Math.random()-0.5)*6*kick).toFixed(1)}px,0)`:'';
    const flood=ease(clamp((p-0.68)/0.12));
    e.beat.style.transform=`translate3d(-50%,-50%,0) scale(${(s+flood*14).toFixed(4)})`;
    const w=flood>0.6;if(w!==e.white){e.white=w;e.el.classList.toggle('white',w);}
-   const a=smooth(clamp((p-0.78)/0.1));e.after.style.opacity=a.toFixed(3);e.after.style.transform=`translate3d(0,${((1-a)*30).toFixed(1)}px,0)`;
+   const a=smooth(clamp((p-0.78)/0.08));e.after.style.opacity=a.toFixed(3);
   }}
 };
-const SCENE_AFTER={'arlong-park':'hat','enies-lobby':'flag','sabaody':'scatter','marineford':'twoyears','wano':'drums'};
+const SCENE_AFTER={'drum-island':['sakura'],'arlong-park':['hat'],'enies-lobby':['flag'],'thriller-bark':['nothing'],'sabaody':['scatter'],'marineford':['ace','twoyears'],'wano':['drums']};
 
 /* ---------------------------------------------------------------- assemble */
 const host=$('#sagas');
@@ -161,7 +231,7 @@ host.innerHTML=sagas.map(sagaHTML).join('');
 let n=0;const scenes=[];
 sagas.forEach((s,si)=>{const box=$(`#saga-${si+1} .saga-arcs`);s.arcs.forEach(a=>{
  box.insertAdjacentHTML('beforeend',arcHTML(arcs[n],n));n++;
- const sc=SCENE_AFTER[a.id];if(sc){const el=document.createElement('section');el.className=`sx scene ${sc}-scene`;el.dataset.scene=sc;el.style.height=`${SCENES[sc].h}svh`;el.innerHTML=SCENES[sc].html();box.appendChild(el);scenes.push(el);}
+ for(const sc of SCENE_AFTER[a.id]||[]){const el=document.createElement('section');el.className=`sx scene ${sc}-scene`;el.dataset.scene=sc;el.style.height=`${SCENES[sc].h}svh`;el.innerHTML=SCENES[sc].html();box.appendChild(el);scenes.push(el);}
 });});
 $$('[data-latest]').forEach(el=>el.textContent=LATEST);
 $('#st-stats').innerHTML=[[sagas.length,'Sagas'],[arcs.length,'Arcs'],[money(LATEST),'Chapters'],[crew.length,'Straw Hats'],['฿3B','Luffy’s bounty']].map(([v,k])=>`<div><dd>${v}</dd><dt>${k}</dt></div>`).join('');
@@ -183,12 +253,12 @@ document.addEventListener('click',e=>{
  const j=e.target.closest('[data-to]');if(j){e.preventDefault();if(idx.open)idx.close();// a saga lands mid-hero (frame open), an arc just above its title
   const t=document.getElementById(j.dataset.to);if(t)jumpTo(absTop(t)+(t.classList.contains('saga')?view.vh*0.5:-60));return;}
  const s=e.target.closest('[data-st-jump]');if(s){e.preventDefault();jumpTo(0);return;}
- const lb=e.target.closest('[data-lb]');if(lb){openPanel(lb.dataset.lb,lb.dataset.cap);}
+ const lb=e.target.closest('[data-lb],[data-lbsrc]');if(lb){openPanel(lb.dataset.lb,lb.dataset.cap,lb.dataset.lbsrc);}
 });
 
 /* ---------------------------------------------------------------- panel viewer */
 const lbx=$('#st-lb'),lbImg=$('#st-lb-img');
-function openPanel(id,cap){lbImg.removeAttribute('src');lbImg.src=PF(id);$('#st-lb-cap').textContent=cap||'';lbx.showModal();document.documentElement.style.overflow='hidden';}
+function openPanel(id,cap,src){lbImg.removeAttribute('src');lbImg.src=src||PF(id);$('#st-lb-cap').textContent=cap||'';lbx.showModal();document.documentElement.style.overflow='hidden';}
 lbx.addEventListener('close',()=>{document.documentElement.style.overflow='';});
 lbx.addEventListener('click',e=>{if(e.target===lbx||e.target.closest('#st-lb-close'))lbx.close();});
 
