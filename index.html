@@ -39,8 +39,27 @@
 </header>
 
 <main>
- <!-- 00 · OPENING: "Anime is for losers." Crossed out. Then everything since. -->
- <section id="home" class="opening" aria-label="Welcome">
+ <!-- 00 · A MESSAGE IN A BOTTLE: a calm sea under the sky of the hour; every visit brings back a different note. -->
+ <section id="home" class="bt" aria-label="Welcome">
+  <div class="bt-sky" aria-hidden="true"><div class="bt-stars" id="bt-stars"></div><i class="bt-orb"></i><i class="bt-shine"></i></div>
+  <div class="bt-sea" id="bt-sea" aria-hidden="true"></div>
+  <header class="bt-head">
+   <p class="bt-brand">Goma's Grand Archive</p>
+   <h1 class="bt-greet" id="bt-greet">Welcome back.</h1>
+   <p class="bt-sub">Something washed up. <span>Tap the bottle.</span></p>
+   <p class="bt-found" id="bt-found"></p>
+  </header>
+  <button class="bt-bottle" id="bt-bottle" aria-label="Open the message in the bottle"></button>
+  <div class="bt-note-wrap">
+   <div class="bt-note" id="bt-note" aria-live="polite"></div>
+   <div class="bt-controls"><button class="pill small" id="bt-again">Another bottle ↻</button><button class="pill small ghost" id="bt-go">Take me there →</button></div>
+   <p class="bt-count" id="bt-count"></p>
+  </div>
+  <span class="op-cue bt-cue" aria-hidden="true"><i></i>Scroll to begin</span>
+ </section>
+
+ <!-- The original opening ("Anime is for losers."), kept for later; not shown and not started (s/opening.js). -->
+ <section id="origin" class="opening" aria-label="How it started" hidden>
   <div class="pin">
    <div class="op-stage" aria-hidden="true"><div class="op-plane"><div class="op-wall" id="op-wall"></div></div></div>
    <div class="op-shade" id="op-shade" aria-hidden="true"></div>

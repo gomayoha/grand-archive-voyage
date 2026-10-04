@@ -25,6 +25,13 @@ const HUE={'HYPE + TRUST':'#f3c969','PAIN + RESPECT':'#e3342f','LONGING':'#4f86c
 // His words, every block of them (phones show the opening lines and offer the rest in the reader).
 const textHTML=m=>m.text.map(b=>b.q?`<blockquote>${esc(b.q)}</blockquote>`:`<p>${esc(b.p)}</p>`).join('');
 
+// The pictures he paired with a moment (also used by the message-in-a-bottle on the first screen).
+export function momentArt(m){
+ const chars=data.characters?.characters||[],crew=data.media?.crew||[];
+ const src=p=>{if(typeof p==='string')return ART+p;if(p.ch){const c=chars.find(x=>x.id===p.ch);return c&&`assets/chars/m/${c.image.id}.webp`;}if(p.crew){const c=crew.find(x=>x.name===p.crew);return c&&FU(c.cover);}return null;};
+ return (PICK[`${m.series}-${m.n}`]||[]).map(src).filter(Boolean);
+}
+
 export function initMoments(){
  const R=data.route,sec=$('#moments'),stage=$('#mo-stage'),idx=$('#mo-index'),bg=$('#mo-bg');
  const list=(R&&R.moments)||[];if(!list.length){sec.hidden=true;return;}
