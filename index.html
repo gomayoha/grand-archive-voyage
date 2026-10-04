@@ -7,6 +7,23 @@
 <meta name="description" content="Goma's Grand Archive. From “anime is for losers” to the stories he carries with him.">
 <title>Grand Archive</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<!-- Home-screen app (opens full screen, no browser bars) and the card shown when the link is shared. -->
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/img/ui/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Archive">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Grand Archive">
+<meta property="og:title" content="The Grand Archive">
+<meta property="og:description" content="“Anime is for losers.” I was completely wrong. Goma's archive of the stories he carries with him.">
+<meta property="og:url" content="https://gomayoha.github.io/grand-archive-voyage/">
+<meta property="og:image" content="https://gomayoha.github.io/grand-archive-voyage/assets/img/ui/share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Grand Archive, over a wall of anime and manga posters">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="css/site.css">
 <script type="module" src="js/main.js"></script>
 </head>
@@ -18,7 +35,7 @@
  <nav class="bar-nav" aria-label="Sections">
   <a href="#characters" data-jump>Characters</a><a href="#crew" data-jump>Crew</a><a href="#voyage" data-jump>Voyage</a><a href="#moments" data-jump>Moments</a><a href="#spreads" data-jump>Spreads</a><a href="#panels" data-jump>Panels</a><a href="#journey" data-jump>Journey</a><a href="#top" data-jump>Top 10</a><a href="#vault" data-jump>Vault</a><a href="#library" data-jump>Library</a><a href="#life" data-jump id="nav-life" hidden>Book II</a>
  </nav>
- <div class="bar-toggles"><button class="gear-toggle" id="gear5" aria-pressed="false" title="Gear 5: bouncy mode + the Drums of Liberation"><span class="g5-sun" aria-hidden="true"></span>Gear 5 <b>Off</b></button><button class="motion-toggle" id="motion" aria-pressed="false">Motion <b>On</b></button></div>
+ <div class="bar-toggles"><button class="logpose-btn" id="logpose-btn" aria-haspopup="dialog" aria-label="Log Pose: every chapter" title="Log Pose: every chapter"><svg class="lp-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="10.5" r="7.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8.6 17.6 7.6 21h8.8l-1-3.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><g class="lp-needle"><path d="M12 4.6 13.5 10.5H10.5Z" fill="#e3342f"/><path d="M12 16.4 13.5 10.5H10.5Z" fill="currentColor" opacity=".55"/></g><circle cx="12" cy="10.5" r="1" fill="currentColor"/></svg><span>Log Pose</span></button><button class="gear-toggle" id="gear5" aria-pressed="false" title="Gear 5: bouncy mode + the Drums of Liberation"><span class="g5-sun" aria-hidden="true"></span>Gear 5 <b>Off</b></button><button class="motion-toggle" id="motion" aria-pressed="false">Motion <b>On</b></button></div>
 </header>
 
 <main>
@@ -340,6 +357,17 @@
  </form>
  <p class="gate-welcome" id="gate-welcome">Welcome home.</p>
 </div>
+
+<dialog class="logpose" id="logpose" aria-labelledby="lp-title">
+ <div class="lp-wrap">
+  <header class="lp-head">
+   <div><p class="eyebrow">Log Pose</p><h2 id="lp-title">Set a <em>course.</em></h2></div>
+   <button class="lp-close" id="lp-close">Close ✕</button>
+  </header>
+  <ol class="lp-list" id="lp-list"></ol>
+  <footer class="lp-foot"><button class="motion-toggle" id="lp-motion" aria-pressed="false">Motion <b>On</b></button></footer>
+ </div>
+</dialog>
 
 <dialog id="dialog" aria-labelledby="dialog-title">
  <button class="dialog-close" id="dialog-close" aria-label="Close">Close ✕</button>

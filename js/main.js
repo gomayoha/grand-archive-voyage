@@ -1,8 +1,9 @@
 // Grand Archive. Each section lives in js/s/ and owns one idea; this file wires them together.
-import {$,$$,data,loadData,motion,setReduced,measureAll,jumpTo,absTop,part,view,debugParts} from './core.js';
+import {$,$$,data,loadData,motion,setReduced,measureAll,jumpTo,absTop,part,view,debugParts,lookAhead} from './core.js';
 import {loadVault,initGate,vault} from './vault.js';
 import {closeDialog} from './dialogs.js';
 import {initGear5} from './gear5.js';
+import {initLogPose} from './logpose.js';
 import './editor.js';
 import {initOpening} from './s/opening.js';
 import {initCharacters} from './s/characters.js';
@@ -38,6 +39,8 @@ run('scenes',initScenes);
 run('library',initLibrary);
 run('book2',initBook2);
 run('gate',initGate);
+run('logpose',initLogPose);
+lookAhead();
 
 /* ---------------- header: clear over full-screen scenes, frosted over reading sections ---------------- */
 const bar=$('#bar'),navLinks=$$('.bar-nav a');

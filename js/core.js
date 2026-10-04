@@ -43,7 +43,7 @@ export const through=(p,s=view.sy)=>clamp((s+view.vh-p.top)/(p.h+view.vh));
 // A value that eases toward its target over a few frames (for scrubbed scenes on wheel/trackpad).
 export function follower(tau=110){const f={v:null,target:0,step(t){if(f.v===null||motion.reduced||motion.snap){f.v=f.target;return f.v;}const dt=Math.min(64,t-(f.last||t))||16;f.last=t;f.v+=(f.target-f.v)*(1-Math.exp(-dt/(coarse?Math.min(tau,45):tau)));if(Math.abs(f.target-f.v)<1e-4)f.v=f.target;if(f.v!==f.target)animating.add(f);else animating.delete(f);return f.v;}};return f;}
 export function measureAll(){if(!innerHeight)return;view.vh=innerHeight;view.vw=innerWidth;for(const p of parts)p.measure();frame(performance.now());}
-export function jumpTo(y){scrollTo({top:Math.max(0,Math.round(y)),behavior:'instant'});kick();}
+export function jumpTo(y){y=Math.max(0,Math.round(y));const at=sectionAt(y);if(at)warm(at);scrollTo({top:y,behavior:'instant'});kick();}
 addEventListener('scroll',kick,{passive:true});
 let rz;export const remeasure=()=>{clearTimeout(rz);rz=setTimeout(measureAll,140);};
 // Phones fire resize when the toolbar slides; only re-measure on real changes.
@@ -89,4 +89,12 @@ export const dims=id=>(data.media&&data.media.img[id])||[4,5];
 // browser picks the small file where it needs the big one and the photo looks soft.
 export const pic=(id,{alt='',sizes='(max-width:820px) 50vw, 25vw',cls='',eager=false}={})=>{const [w,h]=dims(id),tw=Math.round(w*Math.min(1,720/Math.max(w,h)));return `<img${cls?` class="${cls}"`:''} src="${TH(id)}" srcset="${TH(id)} ${tw}w, ${FU(id)} ${w}w" sizes="${sizes}" width="${w}" height="${h}" alt="${esc(alt)}" ${eager?'':'loading="lazy" '}decoding="async">`;};
 // Images inside transformed/pinned stages: native lazy-loading can miss them, so load as they approach.
-export function loadNear(root,margin='150% 0px'){onSight(root,()=>root.querySelectorAll('img[loading="lazy"]').forEach(i=>i.loading='eager'),margin);}
+export function loadNear(root,margin='150% 0px'){onSight(root,()=>warm(root),margin);}
+export const warm=root=>root.querySelectorAll('img[loading="lazy"]').forEach(i=>i.loading='eager');
+// Every section starts loading its pictures two screens before it arrives, and a jump (nav, Log Pose)
+// warms its target first, so nobody lands on empty frames.
+const sectionAt=y=>[...document.querySelectorAll('main>section')].find(s=>!s.hidden&&y<absTop(s)+s.offsetHeight);
+export function lookAhead(){document.querySelectorAll('main>section').forEach(s=>onSight(s,warm,'0px 0px 200% 0px'));}
+// Pictures fade in as they arrive instead of popping (the zoom paintings and the viewer handle their own).
+const arrived=new WeakSet();
+document.addEventListener('load',e=>{const t=e.target;if(t.tagName!=='IMG'||arrived.has(t)||t.closest('.jl-host,.viewer-stage'))return;arrived.add(t);if(!motion.reduced)t.classList.add('img-in');},true);

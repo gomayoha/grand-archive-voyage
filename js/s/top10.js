@@ -17,21 +17,27 @@ export function initTop10(){
   <figure class="tt-poster">${t.img?`<img src="${esc(t.img)}" alt="${esc(t.title)} cover" loading="lazy" decoding="async">`:''}${t.rank===1?'<span class="tt-crown" aria-hidden="true">👑</span>':''}</figure>
   <div class="tt-copy"><p class="tt-label">#${t.rank}${t.score&&/^\d/.test(t.score)?` · ${esc(t.score)}/10`:''}</p><h3>${esc(t.title)}</h3><p class="tt-why">${esc(t.why)}</p></div>
  </div>`).join('');
- const items=[...stage.children];
+ const items=[...stage.children].map(el=>({el,parts:[...el.querySelectorAll('.tt-rank,.tt-poster,.tt-copy')]}));
  new IntersectionObserver(([e],io)=>{if(e.isIntersecting){stage.querySelectorAll('img').forEach(i=>{i.loading='eager';i.decode?.().catch(()=>{});});io.disconnect();}},{rootMargin:'150% 0px'}).observe(sec);
  sec.style.height=`${100+N*60}svh`;
+ // Number, cover and words travel at different speeds, so each rank rolls in with depth. The outgoing
+ // and incoming ranks overlap (never both faded out): the old one sinks back while the new one slides up
+ // over it. The roll slows near each rank without ever stopping.
+ // LAYER = [speed, fade start, fade length] for the number, the cover and the words. On phones the
+ // words sit under the cover, so they clear out sooner and the next cover never slides over old text.
+ const LAYER=[[0.3,0.12,0.4],[0.55,0.22,0.7],[0.75,0.15,0.55]],PHONE_WORDS=[0.75,0.06,0.3];
  let cur=-1;
- part({el:sec,update(s){
-  const p=motion.reduced?1:pinned(this,s),raw=clamp(p*1.04-0.02)*(N-1),fl=Math.floor(raw);
-  const x=raw;
-  items.forEach((el,i)=>{
+ // Phones show the big number faintly (CSS opacity); scroll fades multiply that, never replace it.
+ const readBase=()=>items.forEach(it=>{it.parts.forEach(c=>c.style.opacity='');it.base=it.parts.map(c=>parseFloat(getComputedStyle(c).opacity)||1);});
+ part({el:sec,measure:readBase,update(s){
+  const p=motion.reduced?1:pinned(this,s),raw=clamp(p*1.04-0.02)*(N-1),fl=Math.min(N-2,Math.floor(raw)),f=raw-fl;
+  const x=fl+f-Math.sin(2*Math.PI*f)/(2*Math.PI)*0.55;
+  items.forEach(({el,parts,base},i)=>{
    const d=i-x,a=Math.abs(d);
-   if(a>1.2){if(el._v){el._v=0;el.style.visibility='hidden';}return;}
+   if(a>1.05){if(el._v){el._v=0;el.style.visibility='hidden';}return;}
    if(!el._v){el._v=1;el.style.visibility='visible';}
-   const o=1-smooth(clamp((a-0.04)/0.42));
-   el.style.opacity=o.toFixed(3);
-   el.style.transform=`translate3d(0,${(d*view.vh*0.55).toFixed(1)}px,0) scale(${(1-a*0.1).toFixed(4)})`;
+   parts.forEach((c,j)=>{const [v,f0,fd]=j===2&&view.vw<=820?PHONE_WORDS:LAYER[j];c.style.opacity=(base[j]*(1-smooth(clamp((a-f0)/fd)))).toFixed(3);c.style.transform=`translate3d(0,${(d*view.vh*v*(d<0?0.45:1)).toFixed(1)}px,0)${j===1?` scale(${(1-a*(d<0?0.14:0.04)).toFixed(4)})`:''}`;});
   });
-  const k=Math.round(x);if(k!==cur){cur=k;bg.style.setProperty('--c',list[k].color);sec.classList.toggle('crowned',list[k].rank===1);}
+ const k=Math.round(x);if(k!==cur){cur=k;bg.style.setProperty('--c',list[k].color);sec.classList.toggle('crowned',list[k].rank===1);}
  }});
 }

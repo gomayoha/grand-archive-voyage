@@ -20,9 +20,9 @@ export function initSpreads(){
   const p=motion.reduced?0.6:pinned(this,s),vw=view.vw;
   const pull=ease(clamp((p-0.15)/0.16));                 // full screen -> film strip
   const q=clamp((p-0.24)/0.72);                           // strip position
-  const x=vw/2-W/2-q*(N-1)*(W+G);
-  track.style.transform=`translate3d(${x.toFixed(1)}px,-50%,0)`;
-  const centre=q*(N-1);let near=0;
+  // each spread settles at the centre for a beat (the strip slows there, never stops) to bloom
+  const r=q*(N-1),f=r-Math.floor(r),centre=Math.floor(r)+f-Math.sin(2*Math.PI*f)/(2*Math.PI)*0.6;let near=0;
+  track.style.transform=`translate3d(${(vw/2-W/2-centre*(W+G)).toFixed(1)}px,-50%,0)`;
   cards.forEach((c,i)=>{
    const d=Math.abs(i-centre);if(d<0.5)near=i;
    if(d>4.5&&i>0){if(!c.off){c.off=1;c.el.style.visibility='hidden';}return;}
