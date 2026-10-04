@@ -4,6 +4,7 @@
 // the chapter while you read; six scenes mark the turning points. Same engine as the archive: native
 // scroll, one rAF, transform/opacity (the burning flag is the one masked paint).
 import {$,$$,esc,clamp,smooth,ease,view,part,pinned,motion,measureAll,remeasure,absTop,jumpTo,onSight,warm,FU} from './core.js';
+import {initPoneglyphs} from './poneglyph.js';
 
 // Lookups inside one block (core's $ and $$ always search the whole page).
 const q=(sel,root)=>root.querySelector(sel),qa=(sel,root)=>[...root.querySelectorAll(sel)];
@@ -59,6 +60,7 @@ function arcHTML(a,n){
   <div class="arc-main">
    ${a.art?`<figure class="arc-art"><img src="${FU(a.art)}" alt="" loading="lazy" decoding="async"></figure>`:''}
    <div class="arc-text">${a.text.map(t=>`<p>${esc(t)}</p>`).join('')}</div>
+   ${a.id==='zou'?'<p class="pg-inline"><span class="pg-spot" data-pg="zou"></span><span>A red stone covered in writing almost nobody can read.</span></p>':''}
    ${a.quote?`<blockquote class="arc-quote">“${esc(a.quote[0].replace(/^“|”$/g,''))}”<cite>${esc(a.quote[1])}</cite></blockquote>`:''}
    ${ev?`<div class="arc-ev">${ev}</div>`:''}
    ${mineHTML(mine[a.id])}
@@ -250,6 +252,7 @@ part({always:true,measure(){
  if(si!==shown.saga){shown.saga=si;hSaga.textContent=sagas[si].title;hud.style.setProperty('--c',HUE[si]);railA.forEach((a,i)=>a.classList.toggle('now',i===si));}
 }});
 
+initPoneglyphs();
 // Every block starts loading its pictures two screens before it arrives.
 $$('.saga,.sx,.arc,.st-route,.st-end').forEach(el=>onSight(el,warm,'0px 0px 200% 0px'));
 measureAll();

@@ -4,6 +4,7 @@ import {loadVault,initGate,vault} from './vault.js';
 import {closeDialog} from './dialogs.js';
 import {initGear5} from './gear5.js';
 import {initLogPose} from './logpose.js';
+import {initPoneglyphs} from './poneglyph.js';
 import './editor.js';
 import {initOpening} from './s/opening.js';
 import {initCharacters} from './s/characters.js';
@@ -40,6 +41,7 @@ run('library',initLibrary);
 run('book2',initBook2);
 run('gate',initGate);
 run('logpose',initLogPose);
+run('poneglyphs',initPoneglyphs);
 lookAhead();
 
 /* ---------------- header: clear over full-screen scenes, frosted over reading sections ---------------- */

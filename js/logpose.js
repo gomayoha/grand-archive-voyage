@@ -3,6 +3,7 @@
 // chapter appears as an island to sail to, with the one you're on marked. On phones it is the only way
 // to jump around, so it also carries the Motion switch that no longer fits in the bar.
 import {$,esc,data,part,absTop,jumpTo,TH,motion,setReduced,view} from './core.js';
+import {poneglyphsFound} from './poneglyph.js';
 
 const poster=k=>{const p=data.posters&&data.posters[k];return p&&p.img;};
 // [section id, number, kicker, title (the section's own heading), thumbnail]
@@ -48,6 +49,8 @@ export function initLogPose(){
 
  btn.addEventListener('click',()=>{
   if(!built)build();mark();showMotion();
+  // once the hunt has started, the Log Pose keeps count (and says nothing before that)
+  const pg=poneglyphsFound(),pgEl=$('#lp-pg');pgEl.classList.toggle('on',pg>0);pgEl.innerHTML=pg?`Road Poneglyphs found: <b>${pg}</b> / 4`:'';
   dlg.showModal();document.documentElement.style.overflow='hidden';
   const now=list.querySelector('.lp-isle.now')||list.querySelector('.lp-isle');now?.focus({preventScroll:true});
   now?.scrollIntoView({block:'center'});

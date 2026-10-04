@@ -187,6 +187,7 @@
 .end-memories{width:min(640px,100%);text-align:left;margin-top:20px}
 .end-memories .mine-moment{--c:#c99ae0}
 .end-tbc{margin-top:30px;font:italic 400 clamp(40px,6vw,96px) var(--serif);color:var(--gold)}
+.end-hunt{max-width:520px;font:italic 15px/1.5 var(--serif);color:#9c8f74}
 .end-links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:10px}
 
 /* ---------- the log (HUD) ---------- */
