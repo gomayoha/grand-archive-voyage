@@ -1,0 +1,691 @@
+{
+ "note": "The story of One Piece, arc by arc. Chapter and episode ranges follow Wikipedia's list of story arcs. Written for the Grand Archive; Goma's own words come from his notes (panels, moments), never from here.",
+ "crew": [
+  [
+   "luffy",
+   "Luffy",
+   "#e3342f"
+  ],
+  [
+   "zoro",
+   "Zoro",
+   "#3fae6a"
+  ],
+  [
+   "nami",
+   "Nami",
+   "#f39c3a"
+  ],
+  [
+   "usopp",
+   "Usopp",
+   "#c9a24a"
+  ],
+  [
+   "sanji",
+   "Sanji",
+   "#f3d36b"
+  ],
+  [
+   "chopper",
+   "Chopper",
+   "#f08bb4"
+  ],
+  [
+   "robin",
+   "Robin",
+   "#8e6cd8"
+  ],
+  [
+   "franky",
+   "Franky",
+   "#4fc3f7"
+  ],
+  [
+   "brook",
+   "Brook",
+   "#e8e8ea"
+  ],
+  [
+   "jinbe",
+   "Jinbe",
+   "#3f6fd8"
+  ]
+ ],
+ "latest": 1191,
+ "sagas": [
+  {
+   "num": "I",
+   "title": "East Blue",
+   "tag": "Five dreamers and a straw hat.",
+   "spread": "731168a960c9",
+   "ch": [
+    1,
+    100
+   ],
+   "places": "Foosha Village · Shells Town · Syrup Village · Baratie · Cocoyasi · Loguetown",
+   "arcs": [
+    {
+     "id": "romance-dawn",
+     "name": "Romance Dawn",
+     "place": "Foosha Village · Shells Town",
+     "ch": [
+      1,
+      7
+     ],
+     "ep": "1–4",
+     "text": [
+      "Years before the story, a boy in Foosha Village eats a strange fruit by accident and turns to rubber. When a sea king attacks him, the pirate he idolises, Red-Haired Shanks, saves him and loses an arm doing it. Shanks leaves him his straw hat and a promise: give it back when you’ve become a great pirate.",
+      "Ten years later, Monkey D. Luffy sets out alone in a tiny boat. He meets Coby, a timid boy who dreams of joining the Marines, and in Shells Town he frees the bounty hunter Roronoa Zoro from an execution post. Zoro joins on one condition: his dream of becoming the world’s greatest swordsman comes first."
+     ],
+     "quote": [
+      "I’m gonna be King of the Pirates!",
+      "Monkey D. Luffy"
+     ],
+     "joins": [
+      "zoro"
+     ]
+    },
+    {
+     "id": "orange-town",
+     "name": "Orange Town",
+     "place": "Orange Town",
+     "ch": [
+      8,
+      21
+     ],
+     "ep": "5–8",
+     "text": [
+      "Luffy meets Nami, a thief who steals only from pirates, and they run into Buggy the Clown, whose body splits into pieces so no blade can cut him. Zoro fights while bleeding from a wound Buggy gave him; Luffy fights for an old mayor and for Chouchou, a dog guarding the shop of its dead master.",
+      "Buggy is blown out of the sky. Nami agrees to sail with them, but only as a partner, and only for the treasure."
+     ]
+    },
+    {
+     "id": "syrup-village",
+     "name": "Syrup Village",
+     "place": "Syrup Village",
+     "ch": [
+      22,
+      41
+     ],
+     "ep": "9–18",
+     "text": [
+      "In a quiet village lives Usopp, a liar who shouts every morning that pirates are coming. This time it’s true. Kaya’s gentle butler Klahadore is really Captain Kuro of the Black Cat Pirates, who faked his own death and waited three years to kill her for her fortune.",
+      "Usopp and the crew hold the slope against Kuro’s pirates. The village never learns what happened that night. Kaya gives them a ship, the Going Merry, and Usopp, who always wanted to be a brave warrior of the sea, comes aboard."
+     ],
+     "joins": [
+      "usopp"
+     ]
+    },
+    {
+     "id": "baratie",
+     "name": "Baratie",
+     "place": "The floating restaurant",
+     "ch": [
+      42,
+      68
+     ],
+     "ep": "19–30",
+     "text": [
+      "On a restaurant at sea, Zoro finds the man he set out to beat: Dracule Mihawk, the world’s greatest swordsman. He loses, and turns to take the final cut on his chest, because scars on the back are a swordsman’s shame. Bleeding, in tears, he promises Luffy he will never lose again.",
+      "Don Krieg’s starving fleet attacks the restaurant that fed them. Luffy brings him down. Sanji, the cook who once nearly starved on a rock with head chef Zeff, bows to the man who raised him and leaves to find the All Blue."
+     ],
+     "quote": [
+      "I will never lose again!",
+      "Roronoa Zoro"
+     ],
+     "joins": [
+      "sanji"
+     ]
+    },
+    {
+     "id": "arlong-park",
+     "name": "Arlong Park",
+     "place": "Cocoyasi Village",
+     "ch": [
+      69,
+      95
+     ],
+     "ep": "31–44",
+     "text": [
+      "Nami takes the Going Merry and runs home, and the truth comes out. Since the fish-man Arlong killed her adoptive mother, Bell-mère, she has worked for him, drawing his maps and saving a hundred million berries to buy her village back.",
+      "When Arlong’s Marine ally seizes her savings, Nami stabs the tattoo on her arm and finally asks Luffy for help. He puts his straw hat on her head and walks toward the park. The crew tears it down. Nami joins for real, and Luffy gets his first bounty."
+     ],
+     "quote": [
+      "Luffy… help me.",
+      "Nami"
+     ],
+     "joins": [
+      "nami"
+     ],
+     "bounty": 30000000
+    },
+    {
+     "id": "loguetown",
+     "name": "Loguetown",
+     "place": "The town of the beginning and the end",
+     "ch": [
+      96,
+      100
+     ],
+     "ep": "45–53",
+     "text": [
+      "The town where Gol D. Roger was born and executed. Luffy climbs the same scaffold, and Buggy raises a sword to behead him there. Luffy just grins, and lightning strikes the scaffold.",
+      "Captain Smoker gives chase until a cloaked stranger, Monkey D. Dragon, lets them go. In the storm, the five of them put a foot on a barrel and swear their dreams aloud before sailing into the Grand Line."
+     ],
+     "art": "d24870492d95"
+    }
+   ]
+  },
+  {
+   "num": "II",
+   "title": "Alabasta",
+   "tag": "For a friend’s country.",
+   "spread": "86e69bc69dce",
+   "ch": [
+    101,
+    217
+   ],
+   "places": "Reverse Mountain · Whisky Peak · Little Garden · Drum Island · Alabasta",
+   "arcs": [
+    {
+     "id": "reverse-mountain",
+     "name": "Reverse Mountain",
+     "place": "The entrance to the Grand Line",
+     "ch": [
+      101,
+      105
+     ],
+     "ep": "62–63",
+     "text": [
+      "The Merry rides a current up a mountain and down into the Grand Line, straight into Laboon, a giant whale who has rammed the Red Line for fifty years, waiting for a crew of musicians who promised to come back.",
+      "Luffy picks a fight with him, calls it a draw, and paints their Jolly Roger on his head: a promise of a rematch. The lighthouse keeper Crocus explains the Log Pose, the only way to navigate a sea where compasses don’t work."
+     ]
+    },
+    {
+     "id": "whisky-peak",
+     "name": "Whisky Peak",
+     "place": "Whisky Peak",
+     "ch": [
+      106,
+      114
+     ],
+     "ep": "64–67",
+     "text": [
+      "A town that throws pirates a party and robs them in their sleep: every citizen is a bounty hunter of Baroque Works. Zoro cuts down a hundred of them alone.",
+      "One of the agents is Miss Wednesday, who is really Nefertari Vivi, princess of Alabasta, spying on the secret company that is destroying her country. She lets slip the boss’s name: the Warlord Crocodile. Luffy agrees to take her home."
+     ]
+    },
+    {
+     "id": "little-garden",
+     "name": "Little Garden",
+     "place": "Little Garden",
+     "ch": [
+      115,
+      129
+     ],
+     "ep": "70–77",
+     "text": [
+      "A prehistoric island where two giants of Elbaph, Dorry and Brogy, have fought a duel every day for a hundred years over a reason they’ve both forgotten. Usopp is in awe: this is what a warrior of the sea looks like.",
+      "Baroque Works sabotages the duel and seals the crew in wax. Usopp and Luffy free them. It is the crew’s first glimpse of Elbaph, a thousand chapters before they sail there."
+     ]
+    },
+    {
+     "id": "drum-island",
+     "name": "Drum Island",
+     "place": "Drum Kingdom",
+     "ch": [
+      130,
+      154
+     ],
+     "ep": "78–91",
+     "text": [
+      "Nami collapses with a deadly fever. Luffy climbs a sheer, frozen mountain with her on his back and an injured Sanji in tow to reach the island’s only doctor, Kureha.",
+      "Her apprentice is Tony Tony Chopper, a reindeer who ate the Human-Human Fruit and was rejected by reindeer and people alike, until a quack doctor named Hiriluk gave him a name and a dream. Luffy defeats the tyrant Wapol. As Chopper sails off with them, Kureha’s cannons turn the snow into Hiriluk’s cherry blossoms."
+     ],
+     "quote": [
+      "Shut up! Let’s go!",
+      "Monkey D. Luffy, to Chopper"
+     ],
+     "joins": [
+      "chopper"
+     ]
+    },
+    {
+     "id": "alabasta",
+     "name": "Alabasta",
+     "place": "The Kingdom of Alabasta",
+     "ch": [
+      155,
+      217
+     ],
+     "ep": "92–130",
+     "text": [
+      "A desert kingdom on the edge of civil war. Crocodile, the Warlord the people call their hero, is secretly Mr. 0 of Baroque Works. He has caused a drought so the rebels and the royal army will destroy each other, while he hunts for an ancient weapon.",
+      "Luffy loses to him twice, once dried to a husk and once stabbed and buried in sand, and wins the third time with his own blood. The rain returns. Vivi stays to lead her country. On the dock, unable to speak, the crew raise their left arms and show her the X on their wrists: they are still friends."
+     ],
+     "bounty": 100000000
+    }
+   ]
+  },
+  {
+   "num": "III",
+   "title": "Sky Island",
+   "tag": "Dreams don’t end.",
+   "spread": "8c9e92d6b266",
+   "ch": [
+    218,
+    302
+   ],
+   "places": "Jaya · Skypiea",
+   "arcs": [
+    {
+     "id": "jaya",
+     "name": "Jaya",
+     "place": "Mock Town · Jaya",
+     "ch": [
+      218,
+      236
+     ],
+     "ep": "144–152",
+     "text": [
+      "Nico Robin, Crocodile’s former partner, appears on the Merry and asks to stay, since Luffy refused to let her die. On Jaya, a town that laughs at dreamers, Luffy and Zoro take a beating from Bellamy without striking back. There they meet a man who will matter a great deal: Marshall D. Teach.",
+      "Montblanc Cricket tells them about his ancestor Noland, mocked as a liar for claiming he’d seen a city of gold. Believing him, the crew rides the Knock Up Stream straight into the sky."
+     ],
+     "quote": [
+      "People’s dreams never end!",
+      "Marshall D. Teach"
+     ],
+     "joins": [
+      "robin"
+     ]
+    },
+    {
+     "id": "skypiea",
+     "name": "Skypiea",
+     "place": "Skypiea · Upper Yard",
+     "ch": [
+      237,
+      302
+     ],
+     "ep": "153–195",
+     "text": [
+      "Islands made of clouds, ruled by Enel, a self-proclaimed god who controls lightning and hears every voice on the island. Rubber doesn’t conduct electricity: Luffy is the one man in the sky Enel can’t touch.",
+      "Under the clouds lie the ruins of Shandora, the golden city Noland saw four hundred years ago, blasted into the sky. When Luffy rings its great bell, the sound carries down to Noland’s descendant on the sea below: the city was real."
+     ]
+    }
+   ]
+  },
+  {
+   "num": "IV",
+   "title": "Water 7",
+   "tag": "Declare war for one friend.",
+   "spread": "695560c960c1",
+   "ch": [
+    303,
+    441
+   ],
+   "places": "Long Ring Long Land · Water 7 · Enies Lobby",
+   "arcs": [
+    {
+     "id": "long-ring",
+     "name": "Long Ring Long Land",
+     "place": "Long Ring Long Land",
+     "ch": [
+      303,
+      321
+     ],
+     "ep": "207–219",
+     "text": [
+      "A lighthearted detour: Foxy challenges them to a Davy Back Fight, a pirate game where the winner takes crew members. Chopper is taken and won back.",
+      "Then Admiral Aokiji appears out of nowhere. He knows Robin: the girl who survived the destruction of Ohara with a bounty on her head at eight years old. He freezes her and Luffy solid, and leaves a warning."
+     ]
+    },
+    {
+     "id": "water-7",
+     "name": "Water 7",
+     "place": "The City of Water",
+     "ch": [
+      322,
+      374
+     ],
+     "ep": "229–263",
+     "text": [
+      "A city of canals and shipwrights. The Going Merry is beyond repair, and Luffy decides to replace her. Usopp loves the Merry like a crewmate. He challenges his own captain to a duel for her, loses, and leaves the crew.",
+      "Robin disappears too, apparently a traitor. The truth: she surrendered to CP9, the World Government’s secret assassins who had spent years disguised as shipwrights, to protect the crew."
+     ]
+    },
+    {
+     "id": "enies-lobby",
+     "name": "Enies Lobby",
+     "place": "The Judicial Island",
+     "ch": [
+      375,
+      441
+     ],
+     "ep": "264–325",
+     "text": [
+      "To take Robin back, the crew declares war on the World Government. At the Tower of Justice, Robin finally explains why she gave up: the world calls her very existence a crime. Luffy has Sogeking shoot down the government’s flag, and Robin screams that she wants to live.",
+      "The crew beats CP9 one by one; Luffy beats Rob Lucci with Gear Second and Third. When they’re trapped at the edge of the sea, the Going Merry comes for them on her own, one last time. Franky builds them a new ship, the Thousand Sunny, and joins."
+     ],
+     "quote": [
+      "I want to live!",
+      "Nico Robin"
+     ],
+     "joins": [
+      "franky"
+     ],
+     "bounty": 300000000,
+     "art": "672952b558b4"
+    }
+   ]
+  },
+  {
+   "num": "V",
+   "title": "Thriller Bark",
+   "tag": "A promise fifty years old.",
+   "spread": "662966296d49",
+   "ch": [
+    442,
+    489
+   ],
+   "places": "Thriller Bark",
+   "arcs": [
+    {
+     "id": "thriller-bark",
+     "name": "Thriller Bark",
+     "place": "Thriller Bark",
+     "ch": [
+      442,
+      489
+     ],
+     "ep": "337–381",
+     "text": [
+      "A ghost ship the size of an island, run by the Warlord Gecko Moria, who steals people’s shadows and puts them in an army of zombies. The crew meets Brook, a living skeleton with an afro who has drifted alone for fifty years with one promise left: to see Laboon again.",
+      "Luffy takes in a hundred shadows and beats Moria. Then Bartholomew Kuma arrives to kill him. Zoro offers his own life instead and takes all of Luffy’s pain into his body. When Sanji finds him standing in a pool of blood, Zoro says nothing happened."
+     ],
+     "quote": [
+      "Nothing… happened.",
+      "Roronoa Zoro"
+     ],
+     "joins": [
+      "brook"
+     ]
+    }
+   ]
+  },
+  {
+   "num": "VI",
+   "title": "Summit War",
+   "tag": "Everything lost in one war.",
+   "spread": "b646a6d294ca",
+   "ch": [
+    490,
+    597
+   ],
+   "places": "Sabaody · Amazon Lily · Impel Down · Marineford",
+   "arcs": [
+    {
+     "id": "sabaody",
+     "name": "Sabaody Archipelago",
+     "place": "Sabaody Archipelago",
+     "ch": [
+      490,
+      513
+     ],
+     "ep": "385–405",
+     "text": [
+      "Giant mangroves covered in bubbles at the foot of the Red Line, full of rookie captains: Law, Kid and the rest of the Worst Generation. When a Celestial Dragon shoots their friend Hachi and bids on Camie at a slave auction, Luffy punches Saint Charlos in front of everyone, knowing it will bring an Admiral.",
+      "Admiral Kizaru and the Pacifista hunt them down. One by one, Kuma touches them with his paw and they vanish. The crew is scattered across the world."
+     ],
+     "scatter": true
+    },
+    {
+     "id": "amazon-lily",
+     "name": "Amazon Lily",
+     "place": "Amazon Lily",
+     "ch": [
+      514,
+      524
+     ],
+     "ep": "408–417",
+     "text": [
+      "Luffy lands alone on an island of warrior women ruled by Boa Hancock, a Warlord whose beauty turns people to stone, but not him. He learns that his brother Ace is going to be executed at Marine Headquarters. Hancock, now in love with him, takes him toward the prison."
+     ]
+    },
+    {
+     "id": "impel-down",
+     "name": "Impel Down",
+     "place": "The underwater prison",
+     "ch": [
+      525,
+      549
+     ],
+     "ep": "422–458",
+     "text": [
+      "Luffy breaks into the world’s worst prison to save his brother. With Buggy, Mr. 3, Ivankov, Crocodile and Jinbe, and nearly killed by Magellan’s poison, he breaks back out through every level. Mr. 2 Bon Clay stays behind to open the gate so they can escape.",
+      "Ace has already been moved. Blackbeard walks in and frees the worst prisoners of Level 6."
+     ]
+    },
+    {
+     "id": "marineford",
+     "name": "Marineford",
+     "place": "Marine Headquarters",
+     "ch": [
+      550,
+      597
+     ],
+     "ep": "459–516",
+     "text": [
+      "Whitebeard goes to war with the Marines to save Ace. Luffy fights his way through admirals to the execution platform and frees his brother. Moments later Ace shields him from Admiral Akainu and dies in his arms, thanking him for loving him.",
+      "Whitebeard dies standing, after confirming the One Piece is real. Shanks ends the war. Luffy breaks down until Jinbe makes him remember what he still has: his crew. He returns to Marineford, rings the Ox Bell sixteen times, and sends his crew one hidden message: 3D2Y. Two more years, then we meet."
+     ],
+     "quote": [
+      "Thank you… for loving me.",
+      "Portgas D. Ace"
+     ],
+     "bounty": 400000000
+    }
+   ]
+  },
+  {
+   "num": "VII",
+   "title": "Fish-Man Island",
+   "tag": "Two years later.",
+   "spread": "3581598e591b",
+   "ch": [
+    598,
+    653
+   ],
+   "places": "Sabaody · Fish-Man Island",
+   "arcs": [
+    {
+     "id": "return-sabaody",
+     "name": "Return to Sabaody",
+     "place": "Sabaody Archipelago",
+     "ch": [
+      598,
+      602
+     ],
+     "ep": "517–522",
+     "text": [
+      "Two years later, everyone keeps the promise. Impostors are using the Straw Hats’ names; the real crew arrives one by one, stronger. Luffy knocks out a crowd of pirates just by looking at them. The Sunny is coated in a bubble and dives."
+     ],
+     "gather": true
+    },
+    {
+     "id": "fish-man-island",
+     "name": "Fish-Man Island",
+     "place": "Ryugu Kingdom",
+     "ch": [
+      603,
+      653
+     ],
+     "ep": "523–574",
+     "text": [
+      "Ten thousand metres under the sea is a kingdom shaped by centuries of hatred between fish-men and humans. Hody Jones, who hates humans more than any human ever hurt him, tries to kill the royal family.",
+      "Luffy beats him and needs blood. No fish-man will give it to a human, until Jinbe does and breaks the taboo. Luffy then tells the Emperor Big Mom he will take her down."
+     ]
+    }
+   ]
+  },
+  {
+   "num": "VIII",
+   "title": "Dressrosa",
+   "tag": "A kingdom of strings.",
+   "spread": "465960d159d9",
+   "ch": [
+    654,
+    801
+   ],
+   "places": "Punk Hazard · Dressrosa",
+   "arcs": [
+    {
+     "id": "punk-hazard",
+     "name": "Punk Hazard",
+     "place": "Punk Hazard",
+     "ch": [
+      654,
+      699
+     ],
+     "ep": "579–625",
+     "text": [
+      "An island half on fire and half frozen, where the scientist Caesar Clown makes poison gas and experiments on kidnapped children. Trafalgar Law, now a Warlord, proposes an alliance to take down an Emperor: Kaido. They capture Caesar to cut off Kaido’s supply of artificial Devil Fruits."
+     ],
+     "art": "9b92b572b432"
+    },
+    {
+     "id": "dressrosa",
+     "name": "Dressrosa",
+     "place": "The Kingdom of Love and Toys",
+     "ch": [
+      700,
+      801
+     ],
+     "ep": "629–746",
+     "text": [
+      "A kingdom of love, passion and living toys, ruled by the Warlord Donquixote Doflamingo, who turned people into toys and erased them from everyone’s memory. Luffy fights in the Colosseum for his brother’s Flame-Flame Fruit, and Sabo, who everyone thought was dead, wins it for him.",
+      "Usopp knocks out the girl whose power made the toys, and the people return; the freed toys call him God. Doflamingo locks the whole island in a cage of strings. Luffy unveils Gear Fourth and beats him. Seven crews pledge themselves to Luffy: the Straw Hat Grand Fleet, 5,640 strong."
+     ],
+     "bounty": 500000000
+    }
+   ]
+  },
+  {
+   "num": "IX",
+   "title": "Whole Cake Island",
+   "tag": "Bring the cook home.",
+   "spread": "326964662166",
+   "ch": [
+    802,
+    908
+   ],
+   "places": "Zou · Whole Cake Island · Mary Geoise",
+   "arcs": [
+    {
+     "id": "zou",
+     "name": "Zou",
+     "place": "Mokomo Dukedom",
+     "ch": [
+      802,
+      822
+     ],
+     "ep": "751–779",
+     "text": [
+      "An island on the back of a thousand-year-old elephant, home of the minks, nearly wiped out by Kaido’s men hunting a samurai. Sanji is gone: his family has promised him in marriage to Big Mom’s daughter.",
+      "The minks show the crew a Road Poneglyph, one of four stones that point to the final island. Luffy splits the crew: half go to Wano, half go to bring Sanji home."
+     ]
+    },
+    {
+     "id": "whole-cake",
+     "name": "Whole Cake Island",
+     "place": "Totto Land",
+     "ch": [
+      823,
+      908
+     ],
+     "ep": "783–891",
+     "text": [
+      "Big Mom’s candy kingdom. Threatened through Zeff’s life, Sanji kicks Luffy away, then breaks down and admits he wants to go back. Luffy, starving, waits for him all night in the rain without moving.",
+      "The wedding becomes a heist. Brook sneaks into Big Mom’s treasury and copies a Road Poneglyph; Luffy fights Katakuri, who can see the future, and wins. Jinbe leaves Big Mom to sail with them. The papers start calling Luffy the fifth Emperor of the Sea. At the Reverie in Mary Geoise, the world gets a glimpse of Imu, sitting on the empty throne."
+     ],
+     "bounty": 1500000000
+    }
+   ]
+  },
+  {
+   "num": "X",
+   "title": "Wano Country",
+   "tag": "Dawn over the land of samurai.",
+   "spread": "68c96ee576a5",
+   "ch": [
+    909,
+    1057
+   ],
+   "places": "Wano Country · Onigashima",
+   "arcs": [
+    {
+     "id": "wano",
+     "name": "Wano Country",
+     "place": "Wano · Onigashima",
+     "ch": [
+      909,
+      1057
+     ],
+     "ep": "892–1088",
+     "text": [
+      "A closed land of samurai under Kaido, the strongest creature in the world, and the shogun Orochi. Twenty years ago its rightful lord, Kozuki Oden, was boiled alive; his retainers jumped twenty years into the future to finish his fight. Through Oden’s past, the world learns that Roger reached the final island and laughed.",
+      "Luffy loses to Kaido, is thrown into a prison mine, and learns to hit without touching. On the night of the fire festival, the samurai and the Straw Hats raid Onigashima. Zoro beats King, Sanji beats Queen, and Law and Kid bring down Big Mom. Luffy falls. Then his heart starts to beat like a drum: Gear Fifth, the Sun God Nika, and he beats Kaido. Jinbe officially joins. Luffy becomes an Emperor."
+     ],
+     "joins": [
+      "jinbe"
+     ],
+     "bounty": 3000000000
+    }
+   ]
+  },
+  {
+   "num": "XI",
+   "title": "Final Saga",
+   "tag": "The world is about to change.",
+   "spread": "9a369b393331",
+   "ch": [
+    1058,
+    1191
+   ],
+   "places": "Egghead · Elbaph",
+   "arcs": [
+    {
+     "id": "egghead",
+     "name": "Egghead",
+     "place": "The island of the future",
+     "ch": [
+      1058,
+      1125
+     ],
+     "ep": "1089–1155",
+     "text": [
+      "The island of Dr. Vegapunk, the world’s greatest scientist, now hunted by the government he served. The crew meets his six satellites, and Bonney, searching for her father. Kuma’s memories, kept in a bubble, show how a gentle man gave up his own mind to save his daughter.",
+      "Admiral Kizaru and the Five Elders come down on the island. The giant warriors of Elbaph sail in to get the Straw Hats out. Vegapunk’s recorded message reaches the whole world: the sea is rising, and the truth about the Void Century is close."
+     ],
+     "art": "b2ae1aaa6a2d"
+    },
+    {
+     "id": "elbaph",
+     "name": "Elbaph",
+     "place": "The land of giants",
+     "ch": [
+      1126,
+      1191
+     ],
+     "ep": "1156–",
+     "text": [
+      "The country of giants the crew first heard about on Little Garden, a thousand chapters ago. For Usopp, it’s the dream he grew up on. Beneath the great Treasure Tree, an ancient mural speaks of the Sun God and a promise that they will surely meet.",
+      "Under the tree, Loki, the prince the giants call cursed, lies in chains. Then the Holy Knights of Mary Geoise come to Elbaph. This part of the story is still being drawn."
+     ],
+     "art": "1b666f3566a1"
+    }
+   ]
+  }
+ ]
+}

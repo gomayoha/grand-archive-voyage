@@ -1,5 +1,5 @@
 // Grand Archive. Each section lives in js/s/ and owns one idea; this file wires them together.
-import {$,$$,data,loadData,motion,setReduced,measureAll,jumpTo,absTop,part,view,debugParts,lookAhead} from './core.js';
+import {$,$$,data,loadData,motion,setReduced,measureAll,remeasure,jumpTo,absTop,part,view,debugParts,lookAhead} from './core.js';
 import {loadVault,initGate,vault} from './vault.js';
 import {closeDialog} from './dialogs.js';
 import {initGear5} from './gear5.js';
@@ -63,6 +63,8 @@ motionBtn.addEventListener('click',()=>setReduced(!motion.reduced));
 document.body.classList.toggle('reduced',motion.reduced);motionBtn.innerHTML=`Motion <b>${motion.reduced?'Off':'On'}</b>`;
 
 measureAll();
+// Anything that changes the page's height later (fonts, late pictures, the shelf filters) re-measures every section.
+new ResizeObserver(remeasure).observe($('main'));
 let crossing=false;try{crossing=sessionStorage.getItem('grand-archive:cross')==='1';sessionStorage.removeItem('grand-archive:cross');}catch{}
 if(crossing&&!$('#life').hidden)requestAnimationFrame(()=>{measureAll();jumpTo(absTop($('#life')));});
 else if(location.hash&&location.hash!=='#home'){const t=document.getElementById(location.hash.slice(1));if(t)requestAnimationFrame(()=>jumpTo(absTop(t)));}

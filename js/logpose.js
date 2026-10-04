@@ -11,6 +11,7 @@ const CHAPTERS=[
  ['characters','01','The Character Log','They each left something behind.',()=>{const c=data.characters?.characters?.[0];return c&&`assets/chars/m/${c.image.id}.webp`;}],
  ['crew','02','The Crew','Everyone with a price on their head.',()=>data.media?.crew?.[0]&&TH(data.media.crew[0].cover)],
  ['voyage','03','The Voyage','They sailed ten seas.',()=>data.media?.journey?.[0]&&TH(data.media.journey[0])],
+ ['story.html','↗','A page of its own','The Story of One Piece, arc by arc.',()=>'assets/img/t/695560c960c1.webp'],
  ['moments','✦','Moments','The ones that live in my head.',()=>'assets/moments/heartbeat-1.webp'],
  ['spreads','04','Colour spreads','Manga is black and white. Mostly.',()=>data.media?.spreads?.wall?.[0]&&TH(data.media.spreads.wall[0])],
  ['panels','05','Favourite panels','Between the panels.',()=>{const c=data.panels?.onepiece?.[0]?.cover;return c&&`assets/panels/m/${c.id}.webp`;}],
@@ -29,18 +30,20 @@ const BEARING=[-28,34,-52,68,14,-40,52,-12,30,-64,44,-22,58,-36,20,0];
 
 export function initLogPose(){
  const btn=$('#logpose-btn'),dlg=$('#logpose'),list=$('#lp-list'),needle=btn.querySelector('.lp-needle'),motionBtn=$('#lp-motion');
- const chapters=CHAPTERS.map(([id,n,kicker,title,thumb],i)=>({id,n,kicker,title,thumb,i,el:document.getElementById(id)})).filter(c=>c.el);
- const visible=()=>chapters.filter(c=>!c.el.hidden);
+ // An id that ends in .html is another page (the One Piece story); everything else is a section here.
+ const chapters=CHAPTERS.map(([id,n,kicker,title,thumb],i)=>({id,n,kicker,title,thumb,i,page:id.endsWith('.html'),el:document.getElementById(id)})).filter(c=>c.el||c.page);
+ const sections=chapters.filter(c=>!c.page);
+ const visible=()=>chapters.filter(c=>c.page||!c.el.hidden);
  let cur=-1,built=false;
 
  function build(){
-  list.innerHTML=visible().map((c,k)=>{const src=c.thumb();return `<li style="--k:${k}"><button class="lp-isle" data-to="${c.id}">
+  list.innerHTML=visible().map((c,k)=>{const src=c.thumb();return `<li style="--k:${k}"><${c.page?`a href="${c.id}"`:'button'} class="lp-isle${c.page?' lp-page':''}" data-to="${c.page?'':c.id}">
    <span class="lp-img">${src?`<img src="${esc(src)}" alt="" decoding="async">`:'<span class="lp-seal" aria-hidden="true">II</span>'}</span>
    <span class="lp-txt"><small><span class="lp-n">${esc(c.n)}</span>${esc(c.kicker)}</small><b>${esc(c.title)}</b></span>
-   <i class="lp-here">You are here</i></button></li>`;}).join('');
+   <i class="lp-here">You are here</i></${c.page?'a':'button'}></li>`;}).join('');
   built=true;
  }
- function mark(){list.querySelectorAll('.lp-isle').forEach(b=>b.classList.toggle('now',b.dataset.to===chapters[cur]?.id));}
+ function mark(){list.querySelectorAll('.lp-isle').forEach(b=>b.classList.toggle('now',b.dataset.to===sections[cur]?.id));}
  const showMotion=()=>{motionBtn.innerHTML=`Motion <b>${motion.reduced?'Off':'On'}</b>`;motionBtn.setAttribute('aria-pressed',String(motion.reduced));};
 
  btn.addEventListener('click',()=>{
@@ -52,7 +55,7 @@ export function initLogPose(){
  dlg.addEventListener('close',()=>{document.documentElement.style.overflow='';});
  dlg.addEventListener('click',e=>{
   if(e.target.closest('#lp-close')||e.target===dlg){dlg.close();return;}
-  const b=e.target.closest('.lp-isle');if(!b)return;
+  const b=e.target.closest('.lp-isle');if(!b||b.classList.contains('lp-page'))return;
   dlg.close();btn.focus({preventScroll:true});
   const el=document.getElementById(b.dataset.to);if(el)jumpTo(b.dataset.to==='home'?0:absTop(el));
  });
@@ -61,10 +64,10 @@ export function initLogPose(){
 
  // Needle: swing to the bearing of the chapter you're in.
  let tops=[];
- part({always:true,measure(){tops=chapters.map(c=>c.el.hidden?Infinity:absTop(c.el));},update(s){
+ part({always:true,measure(){tops=sections.map(c=>c.el.hidden?Infinity:absTop(c.el));},update(s){
   const y=s+view.vh*0.4;let k=0;tops.forEach((t,i)=>{if(t<=y)k=i;});
   if(k===cur)return;cur=k;
-  needle.style.transform=`rotate(${BEARING[chapters[k].i%BEARING.length]}deg)`;
+  needle.style.transform=`rotate(${BEARING[sections[k].i%BEARING.length]}deg)`;
   if(dlg.open)mark();
  }});
 }

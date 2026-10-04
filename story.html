@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="description" content="The whole story of One Piece, Chapter 1 to now, arc by arc, with Goma's favourite pages and moments along the way.">
+<title>The Story of One Piece · Grand Archive</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/img/ui/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Grand Archive">
+<meta property="og:title" content="The Story of One Piece">
+<meta property="og:description" content="Chapter 1 to now, arc by arc, with Goma's favourite pages and moments along the way.">
+<meta property="og:image" content="https://gomayoha.github.io/grand-archive-voyage/assets/img/ui/share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/story.css">
+<script type="module" src="js/story.js"></script>
+</head>
+<body class="story-page">
+
+<header class="bar solid" id="bar">
+ <a class="brand" href="index.html"><span class="brand-mark">G</span><span>Grand Archive</span></a>
+ <div class="bar-toggles"><button class="st-sagas-btn" id="sagas-btn" aria-haspopup="dialog">Sagas</button><a class="st-back" href="index.html#voyage">← The Archive</a></div>
+</header>
+
+<main>
+ <!-- PROLOGUE: Roger's execution starts everything -->
+ <section class="sx prologue" id="prologue" aria-label="Prologue">
+  <div class="pin">
+   <figure class="pr-panel" id="pr-panel"><img src="assets/panels/9c41b1f383c0.webp" alt="Gol D. Roger's execution, Chapter 1" fetchpriority="high"></figure>
+   <div class="pr-lines" id="pr-lines">
+    <p data-at="0.04">Wealth. Fame. Power.</p>
+    <p data-at="0.2">One man had all of it: <b>Gol D. Roger</b>, the King of the Pirates.</p>
+    <p data-at="0.38">On the scaffold, someone asked him where his treasure was.</p>
+    <p data-at="0.54" class="pr-quote">“My treasure? If you want it, you can have it. Go and find it!”</p>
+    <p data-at="0.72" class="pr-era">The world set sail.</p>
+   </div>
+   <span class="op-cue st-cue" aria-hidden="true"><i></i>Scroll</span>
+  </div>
+ </section>
+
+ <!-- TITLE -->
+ <section class="st-title" id="title" aria-label="The Story of One Piece">
+  <p class="eyebrow">Goma's Grand Archive · Book of the Voyage</p>
+  <h1>The Story of <em>One Piece.</em></h1>
+  <p class="st-lede">Chapter 1 to chapter <span data-latest>1191</span>, arc by arc. Every saga, every island, every crewmate, and the pages and moments that stayed with me along the way.</p>
+  <dl class="st-stats" id="st-stats"></dl>
+  <p class="st-spoil">Spoilers all the way to the latest chapter.</p>
+ </section>
+
+ <div id="sagas"></div>
+
+ <!-- THE WHOLE ROUTE: every arc on one line, chapter-scaled -->
+ <section class="st-route" id="route" aria-label="The whole route">
+  <div class="wrap">
+   <p class="eyebrow">The whole route</p>
+   <h2>1 to <span data-latest>1191</span>, <em>on one line.</em></h2>
+   <p class="st-sub">Every arc sized by its chapters. Tap one to sail back to it.</p>
+   <div class="rt-line" id="rt-line"></div>
+   <div class="rt-legend" id="rt-legend"></div>
+  </div>
+ </section>
+
+ <!-- LAUGH TALE -->
+ <section class="st-end" id="end" aria-label="To be continued">
+  <div class="wrap">
+   <figure class="end-panel"><img src="assets/panels/m/9fed15cec4cc.webp" width="1073" height="800" alt="Roger laughs at Laugh Tale" loading="lazy" decoding="async"></figure>
+   <p class="eyebrow">Laugh Tale</p>
+   <h2>Roger reached the end of the world <em>and laughed.</em></h2>
+   <p class="end-line">Nobody else has been there since. The story is still being drawn, and I'm reading it as it happens: chapter <span data-latest>1191</span>.</p>
+   <div class="end-memories" id="end-memories"></div>
+   <p class="end-tbc">To be continued.</p>
+   <div class="end-links"><a class="pill" href="index.html#voyage">Back to the archive</a><a class="pill ghost" href="#prologue" data-st-jump>Start again ↑</a></div>
+  </div>
+ </section>
+</main>
+
+<!-- The log: Luffy's bounty, the crew, the chapter -->
+<aside class="hud" id="hud" aria-label="Where the story is">
+ <div class="hud-wanted"><span class="hw-top">WANTED</span><span class="hw-photo"><img src="assets/chars/m/a8f45cb61d3f.webp" alt="" decoding="async"></span><span class="hw-name">MONKEY D. LUFFY</span><span class="hw-bounty"><i>฿</i><b id="hud-bounty">0</b></span></div>
+ <div class="hud-info">
+  <p class="hud-saga" id="hud-saga">East Blue</p>
+  <p class="hud-ch">Ch. <b id="hud-ch">1</b></p>
+  <ol class="hud-crew" id="hud-crew" aria-label="The crew so far"></ol>
+ </div>
+</aside>
+<nav class="st-rail" id="st-rail" aria-label="Sagas"></nav>
+
+<dialog class="st-index" id="st-index" aria-labelledby="sti-title">
+ <div class="sti-wrap">
+  <header class="lp-head"><div><p class="eyebrow">Sagas</p><h2 id="sti-title">Choose a <em>sea.</em></h2></div><button class="lp-close" id="sti-close">Close ✕</button></header>
+  <ol class="sti-list" id="sti-list"></ol>
+ </div>
+</dialog>
+
+<dialog class="st-lb" id="st-lb" aria-label="Panel">
+ <button class="lp-close st-lb-close" id="st-lb-close">Close ✕</button>
+ <figure><img id="st-lb-img" alt=""><figcaption id="st-lb-cap"></figcaption></figure>
+</dialog>
+
+<noscript><p class="noscript">This page needs JavaScript.</p></noscript>
+</body>
+</html>
