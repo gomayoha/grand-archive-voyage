@@ -6,7 +6,7 @@ import {initGear5} from './gear5.js';
 import {initLogPose} from './logpose.js';
 import {initPoneglyphs} from './poneglyph.js';
 import './editor.js';
-import {initBottle} from './s/bottle.js';
+import {initToday} from './s/today.js';
 // The original opening (s/opening.js, "Anime is for losers.") is kept for later; #origin stays hidden.
 import {initCharacters} from './s/characters.js';
 import {initCrew} from './s/crew.js';
@@ -27,7 +27,7 @@ import {initBook2} from './s/book2.js';
 await Promise.all([loadData(),loadVault()]);
 // One broken section must never take the rest of the page down with it.
 const run=(name,fn)=>{try{return fn();}catch(e){console.error(`[${name}]`,e);}};
-run('bottle',initBottle);
+run('today',initToday);
 run('characters',initCharacters);
 run('crew',initCrew);
 const voy=run('voyage',initVoyage);
