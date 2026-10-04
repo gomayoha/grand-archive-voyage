@@ -71,15 +71,9 @@ function logEntry(e){
 }
 if(LOG&&LOG.entries.length){
  $('#log').innerHTML=LOG.entries.map(logEntry).join('');
- const done=SH.anime.filter(a=>a.status==='completed'),rated=SH.anime.filter(a=>scoreNum(a.s)!==null&&a.status!=='want');
- const avg=rated.reduce((s,a)=>s+scoreNum(a.s),0)/(rated.length||1);
- const stats=[[done.length,'anime completed'],[SH.anime.filter(a=>a.status==='watching').length,'watching now'],[SH.manga.filter(a=>a.status==='finished').length,'manga finished'],[SH.manga.filter(a=>a.status==='reading').length,'manga in progress'],[SH.tv.length,'shows'],[avg.toFixed(1),'average anime rating']];
- $('#log-stats').innerHTML=stats.map(([n,l])=>`<div><b>${n}</b><span>${l}</span></div>`).join('');
 }else $('#logbook').hidden=true;
 
 
-// Big numbers count up the first time they come into view.
-$$('#log-stats b').forEach(b=>{const end=parseFloat(b.textContent),dec=String(b.textContent).includes('.')?1:0;if(isNaN(end)||motion.reduced)return;b.textContent=(0).toFixed(dec);onSight(b,()=>{const t0=performance.now();const run=t=>{const k=ease(clamp((t-t0)/1400));b.textContent=(end*k).toFixed(dec);if(k<1)requestAnimationFrame(run);};requestAnimationFrame(run);});});
 document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
  if(b.dataset.rec!==undefined)openRecord(+b.dataset.rec);
  if(b.dataset.shelf){setTab(b.dataset.shelf);jumpTo(absTop($('#records'))-20);}
