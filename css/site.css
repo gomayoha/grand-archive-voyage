@@ -1271,3 +1271,22 @@ body.reduced .laugh-tale *{animation-duration:.01ms!important;animation-delay:0s
 .bt.opened .bt-cue{opacity:0}
 @media(max-width:820px){.bt-sea{height:34%}.bt-bottle{bottom:calc(34% - 24px)}.bn-text{font-size:15.5px}.bn-paper{max-height:62svh}}
 body.reduced .bt-bottle{opacity:1;transform:none;animation:none}
+
+/* ---------- the Story of One Piece, as a trailer (s/showcase.js) ---------- */
+.ss{position:relative;background:#000}
+.ss-bg{position:absolute;inset:0}
+.ss-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;will-change:opacity,transform}
+.ss-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.88),rgba(0,0,0,.55) 46%,rgba(0,0,0,.15)),linear-gradient(0deg,rgba(0,0,0,.6),transparent 40%)}
+.ss-copy{position:absolute;left:max(24px,7vw);top:50%;translate:0 -50%;max-width:560px;display:flex;flex-direction:column;align-items:flex-start;gap:18px}
+.ss-copy h2{font-size:clamp(48px,7vw,112px);line-height:.92}
+.ss-lede{font-size:clamp(16px,1.4vw,19px);line-height:1.55;color:#e2e2e6}
+.ss-now{display:flex;align-items:center;gap:16px;margin-top:6px}
+.ss-wanted{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 12px;background:#efe3c4;color:#2a1f10;border-radius:3px;font-family:Georgia,var(--serif);box-shadow:0 10px 20px -10px #000}
+.ss-wanted b{font-size:16px;letter-spacing:.04em}.ss-wanted i{font-style:normal;font-size:8px;font-weight:700;letter-spacing:.06em}.ss-wanted em{font-style:normal;font-weight:700;font-size:15px;font-variant-numeric:tabular-nums;min-width:12ch;text-align:center}
+.ss-saga{display:flex;flex-direction:column;gap:4px}
+.ss-saga b{font:700 13px var(--font);letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.ss-saga i{font:italic 400 18px var(--serif);color:#fff}
+.ss-open{margin-top:6px;font-size:17px;padding:15px 28px}
+.ss-stats{font-size:13px;color:var(--mute)}
+@media(max-width:820px){.ss-shade{background:linear-gradient(0deg,rgba(0,0,0,.92) 20%,rgba(0,0,0,.6) 60%,rgba(0,0,0,.3))}.ss-copy{left:20px;right:20px;top:auto;bottom:max(40px,6svh);translate:none}.ss-copy h2{font-size:52px}.ss-lede{font-size:15px}}
+body.reduced .ss{height:100svh!important}

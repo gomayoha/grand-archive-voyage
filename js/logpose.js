@@ -12,10 +12,11 @@ const CHAPTERS=[
  ['characters','01','The Character Log','They each left something behind.',()=>{const c=data.characters?.characters?.[0];return c&&`assets/chars/m/${c.image.id}.webp`;}],
  ['crew','02','The Crew','Everyone with a price on their head.',()=>data.media?.crew?.[0]&&TH(data.media.crew[0].cover)],
  ['voyage','03','The Voyage','They sailed ten seas.',()=>data.media?.journey?.[0]&&TH(data.media.journey[0])],
- ['story.html','↗','A page of its own','The Story of One Piece, arc by arc.',()=>'assets/img/t/695560c960c1.webp'],
+
  ['moments','✦','Moments','The ones that live in my head.',()=>'assets/moments/heartbeat-1.webp'],
  ['spreads','04','Colour spreads','Manga is black and white. Mostly.',()=>data.media?.spreads?.wall?.[0]&&TH(data.media.spreads.wall[0])],
  ['panels','05','Favourite panels','Between the panels.',()=>{const c=data.panels?.onepiece?.[0]?.cover;return c&&`assets/panels/m/${c.id}.webp`;}],
+ ['story-show','↗','A page of its own','The Story of One Piece, arc by arc.',()=>'assets/img/t/695560c960c1.webp'],
  ['journey','06','The Anime Journey','I used to call them just cartoons.',()=>poster('anime:Berserk')||poster('anime:Demon Slayer')],
  ['top','07','My current top 10','Personal, unstable, allowed to change.',()=>poster('anime:Re:Zero')||poster('anime:One Piece')],
  ['records','✦','The Shelf','Rated, preserved as written.',()=>poster('anime:Death Note')],
