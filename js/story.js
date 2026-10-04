@@ -8,7 +8,7 @@ import {initPoneglyphs} from './poneglyph.js';
 
 // Lookups inside one block (core's $ and $$ always search the whole page).
 const q=(sel,root)=>root.querySelector(sel),qa=(sel,root)=>[...root.querySelectorAll(sel)];
-const J=u=>fetch(u).then(r=>r.ok?r.json():null).catch(()=>null);
+const J=(u,tries=3)=>fetch(u).then(r=>{if(!r.ok)throw r;return r.json();}).catch(()=>tries>1?new Promise(res=>setTimeout(res,500*(4-tries))).then(()=>J(u,tries-1)):null);
 const [story,panels,route,characters,shelf]=await Promise.all(['story','panels','route','characters','shelf'].map(k=>J(`data/${k}.json`)));
 const PM=id=>`assets/panels/m/${id}.webp`,PF=id=>`assets/panels/${id}.webp`;
 const band=(p,a,b,f=0.06)=>smooth(clamp((p-a)/f))*(1-smooth(clamp((p-b)/f)));

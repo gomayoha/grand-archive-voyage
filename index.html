@@ -151,12 +151,16 @@
    <h2 class="rv">I used to call them <em>just cartoons.</em></h2>
    <p class="section-lede rv" id="route-count"></p>
   </header>
-  <div class="route" id="route">
-   <div class="route-line" aria-hidden="true"><i id="route-fill"></i></div>
-   <span class="route-ship" id="route-ship" aria-hidden="true"></span>
-   <ol class="route-stops" id="route-stops"></ol>
+  <div class="chart">
+   <div class="chart-head"><p class="chart-k">A chart of the Anime Journey</p><p class="chart-sub">Every island reached so far, charted in the order I landed.</p></div>
+   <span class="chart-rose-wrap" id="chart-rose" aria-hidden="true"></span>
+   <div class="route" id="route">
+    <svg class="route-svg" id="route-svg" aria-hidden="true"></svg>
+    <span class="route-ship" id="route-ship" aria-hidden="true"></span>
+    <ol class="route-stops" id="route-stops"></ol>
+   </div>
+   <div class="route-ahead" id="route-ahead"></div>
   </div>
-  <div class="wrap route-ahead" id="route-ahead"></div>
   <div class="wrap"><pre class="save" id="save" aria-label="Current save file"></pre></div>
  </section>
 

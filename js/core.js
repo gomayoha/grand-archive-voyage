@@ -53,7 +53,8 @@ export const onSight=(el,fn,margin='0px 0px -12% 0px')=>{const io=new Intersecti
 export const debugParts=parts;
 
 /* ---------------------------------------------------------------- data */
-const J=u=>fetch(u).then(r=>r.ok?r.json():null).catch(()=>null);
+// A data file that fails to arrive (weak signal) is asked for again before the page gives up on it.
+const J=(u,tries=3)=>fetch(u).then(r=>{if(!r.ok)throw r;return r.json();}).catch(()=>tries>1?new Promise(res=>setTimeout(res,500*(4-tries))).then(()=>J(u,tries-1)):null);
 export const data={};
 export async function loadData(){
  const keys=['journey','archive','media','panels','characters','posters','shelf','logbook','route'];
