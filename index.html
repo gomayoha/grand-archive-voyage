@@ -9,7 +9,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <!-- Home-screen app (opens full screen, no browser bars) and the card shown when the link is shared. -->
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="assets/img/ui/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/img/ui/apple-touch-icon-luffy.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Archive">
@@ -128,7 +128,7 @@
     <h2 data-w="voyage.title">They sailed<br>ten <em>seas.</em></h2>
     <p class="lede" data-w="voyage.lede">So did I, one arc at a time. Keep scrolling: every painting is hidden inside the last.</p>
    </div>
-   <div class="voyage-caption" id="voyage-caption"><span class="vc-index"></span><span class="vc-kicker"></span><h2 class="vc-title"></h2><p class="vc-line"></p></div>
+   <div class="voyage-caption" id="voyage-caption"><span class="vc-index"></span><span class="vc-kicker"></span><h2 class="vc-title"></h2><p class="vc-line"></p><a class="vc-go" id="vc-go" href="story.html">Land on this island <i aria-hidden="true">→</i></a></div>
    <nav class="rail" id="rail" aria-label="Voyage chapters"></nav>
    <div class="voyage-end" id="voyage-end">
     <p class="eyebrow">Current era</p>
@@ -302,6 +302,22 @@
    </div>
   </div>
   <div class="art-wall" id="art-wall"></div>
+ </section>
+
+ <!-- THE NIGHT SKY: every character a constellation, every star a lesson; ends on his main quest -->
+ <section id="sky" class="sky" aria-label="The night sky">
+  <div class="pin">
+   <canvas class="sk-canvas" id="sk-canvas" aria-hidden="true"></canvas>
+   <div class="sk-stars" id="sk-stars"></div>
+   <div class="sk-intro" id="sk-intro">
+    <p class="eyebrow" data-w="sky.eyebrow">The night sky</p>
+    <h2 data-w="sky.title">Every one of them,<br><em>in one sky.</em></h2>
+    <p class="sk-lede" data-w="sky.lede">Each character is a constellation, and every star around them is something they taught me. Keep scrolling and the sky turns.</p>
+   </div>
+   <article class="sk-card" id="sk-card" aria-live="polite"></article>
+   <div class="sk-north" id="sk-north"><p class="eyebrow">Main quest</p><h2 id="sk-quest"></h2><p data-w="sky.north">Every one of them points the same way.</p></div>
+  </div>
+  <ol class="sk-static" id="sk-static" hidden></ol>
  </section>
 
  <!-- BOOK II: the man behind the archive. Content decrypts only after the magic words. -->

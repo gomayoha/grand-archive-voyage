@@ -42,6 +42,7 @@ const QUIPS = {
   vault: 'Can I eat these cards? …No? Okay.',
   scenes: 'Hey, that\'s ME! Shishishi!',
   library: 'Robin would never leave this place.',
+  sky: 'Stars!! Which one is made of MEAT?!',
   outro: 'Again! Again! Scroll back up!'
 };
 const TRICKS = [

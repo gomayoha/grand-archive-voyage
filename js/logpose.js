@@ -26,10 +26,11 @@ const CHAPTERS=[
  ['vault','08','The Card Vault','My kind of treasure.',()=>data.archive?.cards?.find(c=>c.image)?.image],
  ['scenes','09','Scenes that stay','“Come on, heartbeat. Beat louder.”',()=>'assets/media/luffy_poster.jpg'],
  ['library','10','The Ohara Library','Stories leave traces.',()=>data.media?.wall?.[0]&&TH(data.media.wall[0])],
+ ['sky','✦','The night sky','Every one of them, in one sky.',()=>null],
  ['life','II','Book II','Some chapters aren’t anime.',()=>null]
 ];
 // Where the needle points while you are in each chapter (degrees). Arbitrary, like the sea.
-const BEARING=[-28,34,-46,-52,68,14,-40,52,-12,30,-64,44,-22,58,-36,20,0];
+const BEARING=[-28,34,-46,-52,68,14,-40,52,-12,30,-64,44,-22,58,-36,72,20,0];
 
 export function initLogPose(){
  const btn=$('#logpose-btn'),dlg=$('#logpose'),list=$('#lp-list'),needle=btn.querySelector('.lp-needle'),motionBtn=$('#lp-motion');
@@ -41,7 +42,7 @@ export function initLogPose(){
 
  function build(){
   list.innerHTML=visible().map((c,k)=>{const src=c.thumb();return `<li style="--k:${k}"><${c.page?`a href="${c.id}"`:'button'} class="lp-isle${c.page?' lp-page':''}" data-to="${c.page?'':c.id}">
-   <span class="lp-img">${src?`<img src="${esc(src)}" alt="" decoding="async">`:'<span class="lp-seal" aria-hidden="true">II</span>'}</span>
+   <span class="lp-img">${src?`<img src="${esc(src)}" alt="" decoding="async">`:`<span class="lp-seal" aria-hidden="true">${esc(c.n)}</span>`}</span>
    <span class="lp-txt"><small><span class="lp-n">${esc(c.n)}</span>${esc(c.kicker)}</small><b>${esc(c.title)}</b></span>
    <i class="lp-here">You are here</i></${c.page?'a':'button'}></li>`;}).join('');
   built=true;

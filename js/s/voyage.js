@@ -7,18 +7,23 @@ import {createJourney} from '../zoom-journey.js';
 // The paintings were AI-upscaled (Real-ESRGAN, anime model) so they stay sharp deep into each zoom:
 // assets/journey/2x for desktops, 15x (1.5x) for phones, which keeps memory in check on iPhone.
 const HI=matchMedia('(pointer: coarse)').matches?'15x':'2x';
+// Living islands: every painting is a door into that island's chapter of The Story of One Piece (story.html),
+// where his panels, moments and the arc's own scene are waiting. The zoom itself is untouched.
+const ISLAND=['','romance-dawn','alabasta','skypiea','enies-lobby','marineford','fish-man-island','dressrosa','whole-cake','wano'];
+const islandHref=i=>ISLAND[i]?`story.html#arc-${ISLAND[i]}`:'story.html';
 
 export function initVoyage(){
  const cfg=structuredClone(data.journey);
  if(cfg.hi)cfg.layers.forEach(l=>{l.image=l.image.replace('assets/journey/',`assets/journey/${HI}/`);});
  const sec=$('#voyage'),capEl=$('#voyage-caption'),rail=$('#rail'),intro=$('#voyage-intro'),vEnd=$('#voyage-end');
- const caption={el:capEl,set(L,i,n){capEl.querySelector('.vc-index').textContent=`${pad(i+1)} / ${pad(n)}`;capEl.querySelector('.vc-kicker').textContent=L.kicker;capEl.querySelector('.vc-title').textContent=L.title;capEl.querySelector('.vc-line').textContent=L.line;}};
+ const go=$('#vc-go');
+ const caption={el:capEl,set(L,i,n){capEl.querySelector('.vc-index').textContent=`${pad(i+1)} / ${pad(n)}`;capEl.querySelector('.vc-kicker').textContent=L.kicker;capEl.querySelector('.vc-title').textContent=L.title;capEl.querySelector('.vc-line').textContent=L.line;go.href=islandHref(i);go.firstChild.textContent=i?'Land on this island ':'Read it from the very start ';}};
  rail.innerHTML=cfg.layers.map((l,i)=>`<button data-seg="${i}" aria-label="Chapter ${i+1}: ${esc(l.kicker)}"><span>${esc(l.kicker)}</span></button>`).join('');
  const rb=$$('#rail button');
  const voyage=createJourney({section:sec,layerHost:$('#voyage-layers'),config:cfg,caption,onChange:i=>rb.forEach((b,k)=>k===i?b.setAttribute('aria-current','step'):b.removeAttribute('aria-current'))});
  new IntersectionObserver(([e],io)=>{if(e.isIntersecting){voyage.preload();io.disconnect();}},{rootMargin:'250% 0px'}).observe(sec);
  rail.addEventListener('click',e=>{const b=e.target.closest('button');if(b){jumpTo(voyage.scrollYFor(+b.dataset.seg));f.v=null;}});
- $('#voyage-static').innerHTML=cfg.layers.map((l,i)=>`<li><img src="${esc(l.image)}" alt="" loading="lazy" decoding="async"><p class="eyebrow">${pad(i+1)} · ${esc(l.kicker)}</p><h3>${esc(l.title)}</h3><p>${esc(l.line)}</p></li>`).join('');
+ $('#voyage-static').innerHTML=cfg.layers.map((l,i)=>`<li><img src="${esc(l.image)}" alt="" loading="lazy" decoding="async"><p class="eyebrow">${pad(i+1)} · ${esc(l.kicker)}</p><h3>${esc(l.title)}</h3><p>${esc(l.line)}</p><a class="link" href="${islandHref(i)}">Land on this island →</a></li>`).join('');
  const f=follower(120);
  part({el:sec,measure(){voyage.measure();},update(s){
   if(motion.reduced)return;
@@ -31,6 +36,7 @@ export function initVoyage(){
   intro.style.transform=`translate3d(0,${(-st.p*120).toFixed(1)}px,0) scale(${(1+st.p*0.15).toFixed(4)})`;
   const e=st.seg===cfg.layers.length-1?smooth(clamp((st.p-0.62)/0.3)):0;vEnd.style.opacity=e.toFixed(3);vEnd.classList.toggle('live',e>0.5);
   rail.style.opacity=(1-e).toFixed(3);
+  capEl.classList.toggle('live',parseFloat(capEl.style.opacity||'0')>0.6);
  }});
 
  /* ---------------- outro: back out to where it began ---------------- */

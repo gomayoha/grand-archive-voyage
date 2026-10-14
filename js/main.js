@@ -26,6 +26,7 @@ import {initWorlds,initLibrary} from './s/worlds.js';
 import {initCards} from './s/cards.js';
 import {initScenes} from './s/scenes.js';
 import {initBook2} from './s/book2.js';
+import {initSky} from './s/sky.js';
 
 await Promise.all([loadData(),loadVault()]);
 // One broken section must never take the rest of the page down with it.
@@ -47,6 +48,7 @@ run('worlds',initWorlds);
 run('cards',initCards);
 run('scenes',initScenes);
 run('library',initLibrary);
+run('sky',initSky);
 run('book2',initBook2);
 run('gate',initGate);
 run('logpose',initLogPose);
@@ -58,7 +60,7 @@ lookAhead();
 
 /* ---------------- header: clear over full-screen scenes, frosted over reading sections ---------------- */
 const bar=$('#bar'),navLinks=$$('.bar-nav a');
-const clearOver=['#home','#strawhats','#voyage','#moments','#spreads','#story-show','#top','#scenes','#outro'].map(s=>$(s)).filter(Boolean);
+const clearOver=['#home','#strawhats','#voyage','#moments','#spreads','#story-show','#top','#scenes','#sky','#outro'].map(s=>$(s)).filter(Boolean);
 part({always:true,measure(){this.zones=clearOver.map(el=>[absTop(el)-10,absTop(el)+el.offsetHeight-view.vh*0.9]);const ink=$('#panels');this.ink=[absTop(ink)-30,absTop(ink)+ink.offsetHeight-60];},update(s){
  const clear=this.zones.some(([a,b])=>s>=a&&s<b);bar.classList.toggle('solid',!clear);bar.classList.toggle('paper',s>this.ink[0]&&s<this.ink[1]);
 }});
