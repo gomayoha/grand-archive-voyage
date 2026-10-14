@@ -6,8 +6,8 @@ import {registerCollection} from '../dialogs.js';
 
 // Latest canon bounties (as of the Egghead/Elbaf era). Characters with no confirmed bounty get a
 // redacted poster instead of a made-up number.
-const BOUNTY={'nami':366000000,'usopp':500000000,'chopper':1000,'hancock':1659000000,'law':3000000000,'straw hats':8816001000};
-const UNKNOWN={'imu':'CLASSIFIED','rocks':'ERASED FROM HISTORY','yamato':'NOT YET ISSUED'};
+const BOUNTY={'nami':366000000,'usopp':500000000,'chopper':1000,'franky':394000000,'brook':383000000,'jinbe':1100000000,'hancock':1659000000,'law':3000000000,'kuma':296000000,'straw hats':8816001000};
+const UNKNOWN={'imu':'CLASSIFIED','rocks':'ERASED FROM HISTORY','yamato':'NOT YET ISSUED','vivi':'A PRINCESS, NOT A PIRATE','garp':'HERO OF THE MARINES'};
 
 function bountyHTML(name){
  const k=name.toLowerCase();

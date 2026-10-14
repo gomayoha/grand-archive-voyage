@@ -159,7 +159,8 @@
    "name": "Subaru Natsuki",
    "series": "Re:Zero",
    "paras": [
-    "One of the best characters man I don’t even have words to describe how much I like this character. He’s the only character that might rival Luffy for my favorite character. But still Luffy is my favorite and Subaru is the second. The amount of pain, suffering and everything that he’s been through is hell and despite that he can’t share with anyone and he alone has to carry that burden of knowing what will happen. People might think returning from the death is the most broken and an easy power but you don’t understand how hard it is to die as a human and even after dead the fear and the moment when you die never ever leaves you especially how you felt at your final moments and imagine moments like this keep piling up within you and you can’t ever share with anyone. Man his writing is the best character writing I’ve ever seen for now. I can confidently say now Subaru surpasses Luffy in terms of writing remember only in writing. Also what I love about him is no matter how fucked up his life is he always manages smile and encourage others while giving other people the priority even above himself. That shows how selfless he’s as a character. I’m still in S4 and haven’t caught up I’m really rooting for him and planning to read LN after catching up with the anime.",
+    "One of the best characters man I don’t even have words to describe how much I like this character. He’s the only character that might rival Luffy for my favorite character. But still Luffy is my favorite and Subaru is the second. The amount of pain, suffering and everything that he’s been through is hell and despite that he can’t share with anyone and he alone has to carry that burden of knowing what will happen. People might think returning from the death is the most broken and an easy power but you don’t understand how hard it is to die as a human and even after dead the fear and the moment when you die never ever leaves you especially how you felt at your final moments and imagine moments like this keep piling up within you and you can’t ever share with anyone. Man his writing is the best character writing I’ve ever seen for now. I can confidently say now Subaru surpasses Luffy in terms of writing remember only in writing. Also what I love about him is no matter how fucked up his life is he always manages smile and encourage others while giving other people the priority even above himself. That shows how selfless he’s as a character. I've now finished S4 and I'm really rooting for him. I'm planning to read the LN next.",
+    "Subaru completely changed the whole anime scene for me. As a main character, the pain he goes through is really unique and one of a kind, something that can only be done by him. The way he loves and cares about his people is really good. He cares about Emilia and Beatrice in different ways, and the connection between the two of them through him is a big part of what makes the group feel real and easy to love. And the way he cares about Shaula in season 4 is one of the best examples of character writing and character development I have seen in anime.",
     "One of the best characters that really did a number on me and helped realize something that no matter how hard you wanna be someone you can’t change the fact about who you are as a person."
    ],
    "quotes": [],
@@ -171,16 +172,40 @@
    },
    "id": "subaru-natsuki",
    "word": "Try Again",
-   "left": "Being emotional is not the opposite of being strong. Sometimes strength is continuing while carrying pain nobody else can see.",
+   "left": "Being emotional is not the opposite of being strong. Sometimes strength is continuing while carrying pain nobody else can see. As a main character, the pain he goes through is really unique and one of a kind, something only he could carry.",
    "first": "Bro is a dumb-ass simp and a loser.",
    "now": [
     "I withdraw the charges. 😂",
     "The same emotional qualities I originally disliked are part of what makes him so attached, loyal, selfless, and human. He can die in horrific ways, respawn, and then immediately have to act normal around people who have no idea what he just experienced.",
-    "His suffering made me respect him far more than I expected."
+    "His suffering made me respect him far more than I expected.",
+    "Subaru completely changed the whole anime scene for me. As a main character, the pain he goes through is really unique and one of a kind, something that can only be done by him.",
+    "The way he loves and cares about his people is really good. He cares about Emilia and Beatrice in different ways, and the connection between the two of them through him is a big part of what makes the group feel real and easy to love.",
+    "And the way he cares about Shaula in Season 4 is one of the best examples of character writing and character development I have seen in anime."
    ],
    "changed": [
     "Subaru showed me that emotional pain does not automatically make someone weak.",
     "A person can be terrified, damaged, embarrassed, exhausted, and still choose to try again."
+   ]
+  },
+  {
+   "name": "Violet Evergarden",
+   "series": "Violet Evergarden",
+   "paras": [
+    "One of my very favorite characters. She impressed me from the very first episode, and I learned a lot from her and was motivated to be a better person. Her character development is beyond true. The way she loves the Major, her backstory, the way she learns about emotions, and the way she uses and takes advantage of being a Doll to understand humans and explore the emotions that different people have and different kinds of personalities is really, truly captivating."
+   ],
+   "quotes": [],
+   "image": {
+    "id": "38583bab47bc",
+    "w": 1200,
+    "h": 2133,
+    "color": "#1c2f4d"
+   },
+   "id": "violet-evergarden",
+   "word": "Learn to understand people",
+   "left": "She impressed me from the first episode. Watching her learn emotions and understand different kinds of people motivated me to be a better person.",
+   "changed": [
+    "Violet Evergarden motivated me to be a better person.",
+    "She impressed me from the first episode, and watching how she learns about emotions and understands all kinds of people taught me a lot."
    ]
   },
   {
@@ -235,6 +260,32 @@
     "color": "#322b4c"
    },
    "id": "sung-jinwoo"
+  }
+ ],
+ "supporting": [
+  {
+   "name": "Kuma",
+   "line": "Sacrifice, kindness, and how much pain a person can carry silently",
+   "series": "One Piece",
+   "source": "Anime Journey · what stayed with me"
+  },
+  {
+   "name": "Bon Clay",
+   "line": "Loyalty can come from the most unexpected person",
+   "series": "One Piece",
+   "source": "Anime Journey · what stayed with me"
+  },
+  {
+   "name": "Corazon",
+   "line": "Love can completely change the direction of someone else's life",
+   "series": "One Piece",
+   "source": "Anime Journey · what stayed with me"
+  },
+  {
+   "name": "Asta",
+   "word": "Outwork the limit",
+   "line": "If you were not born with the advantage, build what you can anyway.",
+   "source": "Anime Journey · the characters who left something behind"
   }
  ]
 }

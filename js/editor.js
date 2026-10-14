@@ -16,7 +16,26 @@ const ls={get(k){try{return localStorage.getItem(k);}catch{return null;}},set(k,
 const b64=s=>btoa(unescape(encodeURIComponent(s))),unb64=s=>decodeURIComponent(escape(atob(s.replace(/\n/g,''))));
 let kind='anime',query='',sel=null,dirty=false;
 
-function pending(){try{return JSON.parse(ls.get(PENDING)||'null')||{records:{}};}catch{return{records:{}};}}
+// Everything edited on this device and not yet published: shelf records (this desk) and, from Writer's
+// mode, rewritten words and diary pages. One store, one Publish.
+export function pending(){let p=null;try{p=JSON.parse(ls.get(PENDING)||'null');}catch{}p=p||{};for(const k of ['records','texts','diary'])p[k]=p[k]||{};return p;}
+export const savePending=P=>ls.set(PENDING,JSON.stringify(P));
+export const pendingCount=(P=pending())=>Object.keys(P.records).length+Object.keys(P.texts).length+Object.keys(P.diary).length;
+export const hasKey=()=>!!ls.get(TOKEN);
+export const setKey=v=>ls.set(TOKEN,v||null);
+// Write data/edits.json on GitHub (merged with what is already there). Returns a message for the person.
+export async function pushEdits(){
+ const tok=ls.get(TOKEN),P=pending();if(!tok)throw new Error('Connect GitHub first.');
+ const api=`https://api.github.com/repos/${REPO}/contents/${PATH}`,H={Authorization:`Bearer ${tok}`,Accept:'application/vnd.github+json'};
+ const cur=await fetch(`${api}?ref=${BRANCH}&t=${Date.now()}`,{headers:H});
+ let sha,old={records:{}};if(cur.ok){const j=await cur.json();sha=j.sha;old=JSON.parse(unb64(j.content));}else if(cur.status!==404)throw new Error(`GitHub said ${cur.status}`);
+ const next=mergeEdits(old,P);next.updated=new Date().toISOString();
+ const what=[...Object.keys(P.records),...Object.keys(P.texts).map(k=>'words: '+k),...Object.keys(P.diary).map(k=>'diary: '+k)];
+ const put=await fetch(api,{method:'PUT',headers:H,body:JSON.stringify({message:`Captain's Desk: ${what.join(', ')}`.slice(0,200),content:b64(JSON.stringify(next,null,1)),branch:BRANCH,...(sha?{sha}:{})})});
+ if(!put.ok)throw new Error(put.status===401||put.status===403?'GitHub refused the key. Check it has Contents: Read and write on this repo.':`GitHub said ${put.status}`);
+ ls.set(PENDING,null);data.edits=next;
+ return 'Published. The live site updates in about a minute.';
+}
 const recs=k=>data.shelf[k]||[];
 
 export function openDesk(){
@@ -57,30 +76,22 @@ function keep(fd,r,isNew){
  if(!Object.keys(set).length)return;
  const prev=P.records[key];P.records[key]={new:isNew||(prev&&prev.new)||undefined,set:{...(prev&&prev.set),...set},base:{...base,...(prev&&prev.base)},at:new Date().toISOString()};
   dirty=true;
- ls.set(PENDING,JSON.stringify(P));
+ savePending(P);
  applyEdits(data.shelf,{records:{[key]:P.records[key]}});
  renderList();renderForm(t);renderFoot();
 }
 function renderFoot(){
- const n=Object.keys(pending().records).length,tok=ls.get(TOKEN);
+ const n=pendingCount(),tok=ls.get(TOKEN);
  dialogBody.querySelector('#desk-foot').innerHTML=`<span>${n?`${n} unsaved change${n===1?'':'s'} on this device.`:'Everything is published.'}</span>
   ${tok?`<button class="pill small" data-desk-publish${n?'':' disabled'}>Publish to the site</button><button class="link" data-desk-forget>Forget GitHub key</button>`
    :`<details class="desk-key"><summary>Connect GitHub to publish</summary><p class="subtle">Create a <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">fine-grained token</a>: Repository access → only <b>grand-archive-voyage</b>; Permissions → <b>Contents: Read and write</b>. Paste it here. It stays in this browser only.</p><input type="password" id="desk-token" placeholder="github_pat_…" autocomplete="off"><button class="pill small" data-desk-savekey>Save key</button></details>`}
   <span class="desk-msg" id="desk-msg" aria-live="polite"></span>`;
 }
 async function publish(){
- const tok=ls.get(TOKEN),msg=dialogBody.querySelector('#desk-msg'),P=pending();if(!tok)return;
+ const msg=dialogBody.querySelector('#desk-msg');if(!hasKey())return;
  msg.textContent='Publishing…';
- const api=`https://api.github.com/repos/${REPO}/contents/${PATH}`,H={Authorization:`Bearer ${tok}`,Accept:'application/vnd.github+json'};
- try{
-  const cur=await fetch(`${api}?ref=${BRANCH}&t=${Date.now()}`,{headers:H});
-  let sha,old={records:{}};if(cur.ok){const j=await cur.json();sha=j.sha;old=JSON.parse(unb64(j.content));}else if(cur.status!==404)throw new Error(`GitHub said ${cur.status}`);
-  const next=mergeEdits(old,P);next.updated=new Date().toISOString();
-  const put=await fetch(api,{method:'PUT',headers:H,body:JSON.stringify({message:`Captain's Desk: ${Object.keys(P.records).join(', ')}`.slice(0,200),content:b64(JSON.stringify(next,null,1)),branch:BRANCH,...(sha?{sha}:{})})});
-  if(!put.ok)throw new Error(put.status===401||put.status===403?'GitHub refused the key. Check it has Contents: Read and write on this repo.':`GitHub said ${put.status}`);
-  ls.set(PENDING,null);data.edits=next;renderList();renderFoot();
-  dialogBody.querySelector('#desk-msg').textContent='Published. The live site updates in about a minute.';
- }catch(e){msg.textContent=String(e.message||e);}
+ try{const said=await pushEdits();renderList();renderFoot();dialogBody.querySelector('#desk-msg').textContent=said;}
+ catch(e){msg.textContent=String(e.message||e);}
 }
 document.addEventListener('click',e=>{
  const b=e.target.closest('[data-desk],[data-desk-kind],[data-desk-pick],[data-desk-new],[data-desk-undo],[data-desk-publish],[data-desk-savekey],[data-desk-forget]');if(!b)return;
@@ -88,7 +99,7 @@ document.addEventListener('click',e=>{
  if(b.dataset.deskKind){kind=b.dataset.deskKind;sel=null;dialogBody.querySelectorAll('[data-desk-kind]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));renderList();dialogBody.querySelector('#desk-form').innerHTML='<p class="subtle">Pick a title on the left, or add a new one.</p>';}
  if(b.dataset.deskPick!==undefined)renderForm(b.dataset.deskPick);
  if(b.matches('[data-desk-new]'))renderForm(null,true);
- if(b.matches('[data-desk-undo]')){const P=pending();delete P.records[sel];ls.set(PENDING,JSON.stringify(P));location.reload();}
+ if(b.matches('[data-desk-undo]')){const P=pending();delete P.records[sel];savePending(P);location.reload();}
  if(b.matches('[data-desk-savekey]')){const v=dialogBody.querySelector('#desk-token').value.trim();if(v){ls.set(TOKEN,v);renderFoot();}}
  if(b.matches('[data-desk-forget]')){ls.set(TOKEN,null);renderFoot();}
  if(b.matches('[data-desk-publish]'))publish();

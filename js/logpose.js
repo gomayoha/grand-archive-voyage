@@ -10,6 +10,7 @@ const poster=k=>{const p=data.posters&&data.posters[k];return p&&p.img;};
 const CHAPTERS=[
  ['home','00','The beginning','“Anime is for losers.”',()=>poster('anime:One Piece')],
  ['characters','01','The Character Log','They each left something behind.',()=>{const c=data.characters?.characters?.[0];return c&&`assets/chars/m/${c.image.id}.webp`;}],
+ ['strawhats','✦','The Straw Hat Pirates','Ten dreams. One ship. A walk down the deck.',()=>data.media?.img?.['9fdfff7bb2ea']&&TH('9fdfff7bb2ea')],
  ['crew','02','The Crew','Everyone with a price on their head.',()=>data.media?.crew?.[0]&&TH(data.media.crew[0].cover)],
  ['voyage','03','The Voyage','They sailed ten seas.',()=>data.media?.journey?.[0]&&TH(data.media.journey[0])],
 
@@ -28,7 +29,7 @@ const CHAPTERS=[
  ['life','II','Book II','Some chapters aren’t anime.',()=>null]
 ];
 // Where the needle points while you are in each chapter (degrees). Arbitrary, like the sea.
-const BEARING=[-28,34,-52,68,14,-40,52,-12,30,-64,44,-22,58,-36,20,0];
+const BEARING=[-28,34,-46,-52,68,14,-40,52,-12,30,-64,44,-22,58,-36,20,0];
 
 export function initLogPose(){
  const btn=$('#logpose-btn'),dlg=$('#logpose'),list=$('#lp-list'),needle=btn.querySelector('.lp-needle'),motionBtn=$('#lp-motion');

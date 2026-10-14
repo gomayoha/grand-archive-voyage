@@ -22,9 +22,10 @@ const PICK={
  'One Piece-12':['usopp-memories.webp'],
  'Re:Zero-01':['rem-frame.webp'],
  'Re:Zero-02':['rezero-ep9.webp'],
- 'Re:Zero-03':['subaru-raging.webp',{ch:'subaru-natsuki'}]
+ 'Re:Zero-03':['subaru-raging.webp',{ch:'subaru-natsuki'}],
+ 'Violet Evergarden-01':[{img:'2055c4135ff6'},{img:'38583bab47bc'}]
 };
-const HUE={'HYPE + TRUST':'#f3c969','PAIN + RESPECT':'#e3342f','LONGING':'#4f86c6','HOPE AFTER COMPLETE DESPAIR':'#b48ae0','FREEDOM':'#f3c969','RESPECT':'#4caf7a','HELPLESSNESS':'#8d8da0','REFUSAL TO QUIT':'#ef7a2f','PURE JOY + DEFIANCE':'#f6c453','DEVASTATION':'#6b7fa8','AWE':'#e0a24a','NOSTALGIA DAMAGE':'#c99ae0'};
+const HUE={'EMOTIONAL + CAPTIVATING':'#7fa6d9','HYPE + TRUST':'#f3c969','PAIN + RESPECT':'#e3342f','LONGING':'#4f86c6','HOPE AFTER COMPLETE DESPAIR':'#b48ae0','FREEDOM':'#f3c969','RESPECT':'#4caf7a','HELPLESSNESS':'#8d8da0','REFUSAL TO QUIT':'#ef7a2f','PURE JOY + DEFIANCE':'#f6c453','DEVASTATION':'#6b7fa8','AWE':'#e0a24a','NOSTALGIA DAMAGE':'#c99ae0'};
 
 // His words, every block of them (phones show the opening lines and offer the rest in the reader).
 const textHTML=m=>m.text.map(b=>b.q?`<blockquote>${esc(b.q)}</blockquote>`:`<p>${esc(b.p)}</p>`).join('');
@@ -32,7 +33,7 @@ const textHTML=m=>m.text.map(b=>b.q?`<blockquote>${esc(b.q)}</blockquote>`:`<p>$
 // The pictures he paired with a moment (also used by the message-in-a-bottle on the first screen).
 export function momentArt(m){
  const chars=data.characters?.characters||[],crew=data.media?.crew||[];
- const src=p=>{if(typeof p==='string')return ART+p;if(p.ch){const c=chars.find(x=>x.id===p.ch);return c&&`assets/chars/m/${c.image.id}.webp`;}if(p.crew){const c=crew.find(x=>x.name===p.crew);return c&&FU(c.cover);}return null;};
+ const src=p=>{if(typeof p==='string')return ART+p;if(p.ch){const c=chars.find(x=>x.id===p.ch);return c&&`assets/chars/m/${c.image.id}.webp`;}if(p.crew){const c=crew.find(x=>x.name===p.crew);return c&&FU(c.cover);}if(p.img)return FU(p.img);return null;};
  return (PICK[`${m.series}-${m.n}`]||[]).map(src).filter(Boolean);
 }
 
@@ -40,7 +41,7 @@ export function initMoments(){
  const R=data.route,sec=$('#moments'),stage=$('#mo-stage'),idx=$('#mo-index'),bg=$('#mo-bg');
  const list=(R&&R.moments)||[];if(!list.length){sec.hidden=true;return;}
  const chars=data.characters.characters,crew=data.media.crew;
- const src=p=>{if(typeof p==='string')return ART+p;if(p.ch){const c=chars.find(x=>x.id===p.ch);return c&&`assets/chars/m/${c.image.id}.webp`;}if(p.crew){const c=crew.find(x=>x.name===p.crew);return c&&FU(c.cover);}return null;};
+ const src=p=>{if(typeof p==='string')return ART+p;if(p.ch){const c=chars.find(x=>x.id===p.ch);return c&&`assets/chars/m/${c.image.id}.webp`;}if(p.crew){const c=crew.find(x=>x.name===p.crew);return c&&FU(c.cover);}if(p.img)return FU(p.img);return null;};
  const N=list.length;
  sec.style.height=`${Math.round(120+N*58)}svh`;
  const pics=[];

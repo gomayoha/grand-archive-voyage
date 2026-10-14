@@ -4,7 +4,7 @@
 // a few tiles reshuffle to new pictures. Tap any tile to open it, "Shuffle" to deal a new wall.
 // Calm on purpose: one moving picture at a time, transform/opacity/clip only. Pauses when off screen.
 // ("Anime is for losers", the old opening, is kept in s/opening.js for later.)
-import {$,esc,data,jumpTo,absTop,motion,TH,FU} from '../core.js';
+import {$,esc,data,jumpTo,absTop,motion,TH,FU,part,view,clamp,smooth,coarse} from '../core.js';
 import {openViewer,registerCollection} from '../dialogs.js';
 
 const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
@@ -35,7 +35,8 @@ export function initToday(){
  function build(){
   const phone=innerWidth<=820,cols=phone?3:8,rows=phone?6:4;
   wall.style.setProperty('--cols',cols);wall.style.setProperty('--rows',rows);
-  wall.innerHTML=Array.from({length:cols*rows},(_,i)=>`<button class="ar-tile" style="--i:${i}" aria-label="Open picture"><img alt="" decoding="async"></button>`).join('');
+  // each tile sits at its own small depth, so the wall has real thickness when it tilts
+  wall.innerHTML=Array.from({length:cols*rows},(_,i)=>`<button class="ar-tile" style="--i:${i};--z:${Math.round(Math.random()*70)}px" aria-label="Open picture"><img alt="" decoding="async"></button>`).join('');
   tiles=[...wall.children].map(el=>({el,img:el.querySelector('img'),p:null}));
   tiles.forEach(t=>setTile(t,deal()));
  }
@@ -45,7 +46,7 @@ export function initToday(){
 
  // one picture lifts out of the wall and opens to fill the screen
  async function expand(t,hold){
-  if(busy)return;busy=true;cur=t;
+  if(busy)return;busy=true;cur=t;flat(true);
   const W=sec.clientWidth,H=sec.clientHeight,r=t.el.getBoundingClientRect(),s=sec.getBoundingClientRect();
   const x=r.left-s.left,y=r.top-s.top,[iw,ih]=data.media.img[t.p.id]||[4,5];
   // the big image covers the screen; at the start it is scaled and clipped to sit exactly on the tile
@@ -74,7 +75,7 @@ export function initToday(){
   const dur=motion.reduced?1:900,ease='cubic-bezier(.65,0,.35,1)';
   open.animate([{clipPath:'inset(0px 0px 0px 0px round 0px)'},{clipPath:`inset(${y}px ${W-x-r.width}px ${H-y-r.height}px ${x}px round 10px)`}],{duration:dur,easing:ease,fill:'forwards'});
   await oimg.animate([{transform:'scale(1.07) translate(-1%,-1%)'},{transform:`translate(${x+r.width/2-W/2}px,${y+r.height/2-H/2}px) scale(${k})`}],{duration:dur,easing:ease,fill:'forwards'}).finished;
-  open.hidden=true;t.el.classList.remove('lifted');cur=null;busy=false;
+  open.hidden=true;t.el.classList.remove('lifted');cur=null;busy=false;flat(false);
   // a few tiles reshuffle, the opened one included
   const others=shuffle(tiles.filter(x=>x!==t)).slice(0,3);
   [t,...others].forEach((x,i)=>setTimeout(()=>turn(x),i*140));
@@ -90,7 +91,30 @@ export function initToday(){
   running=false;
  }
  build();
- if(!motion.reduced)setTimeout(loop,1400);
+ /* ---------------- 3D: the wall assembles out of the dark, tilts under the mouse, folds away on scroll ---------------- */
+ const tilt=$('#ar-tilt'),copy=sec.querySelector('.ar-copy');
+ const T={x:0,y:0,tx:0,ty:0,fold:0,flat:false};
+ const apply=()=>{const k=T.flat?0:1,f=T.fold;
+  tilt.style.transform=`translate3d(0,${(f*-6).toFixed(2)}vh,${(f*-260).toFixed(1)}px) rotateX(${(f*34+T.y*4*k).toFixed(3)}deg) rotateY(${(T.x*6*k).toFixed(3)}deg)`;
+  copy.style.transform=f?`translate3d(0,${(f*-90).toFixed(1)}px,0)`:'';copy.style.opacity=f?(1-smooth(clamp(f*1.4))).toFixed(3):'';};
+ function flat(v){T.flat=v;if(v){T.tx=T.ty=0;}apply();}
+ let traf=0;const ease=()=>{traf=0;T.x+=(T.tx-T.x)*0.07;T.y+=(T.ty-T.y)*0.07;apply();if(Math.abs(T.tx-T.x)+Math.abs(T.ty-T.y)>0.002)traf=requestAnimationFrame(ease);};
+ if(!coarse)sec.addEventListener('pointermove',e=>{if(motion.reduced||T.flat)return;T.tx=e.clientX/innerWidth-0.5;T.ty=0.5-e.clientY/innerHeight;if(!traf)traf=requestAnimationFrame(ease);});
+ sec.addEventListener('pointerleave',()=>{T.tx=T.ty=0;if(!traf)traf=requestAnimationFrame(ease);});
+ part({el:sec,update(s){const f=motion.reduced?0:smooth(clamp(s/Math.max(1,view.vh)));if(f!==T.fold){T.fold=f;apply();}}});
+ // The first time the site opens, every tile flies in from deep in the dark and lands in the wall.
+ function assemble(){
+  if(motion.reduced)return Promise.resolve();
+  sec.classList.add('assembling');
+  const W=innerWidth,H=innerHeight,anims=tiles.map((t,i)=>{
+   const r=t.el.getBoundingClientRect(),dx=(r.left+r.width/2-W/2),dy=(r.top+r.height/2-H/2),d=Math.hypot(dx/W,dy/H);
+   const z=-900-Math.random()*1600,rx=(Math.random()-0.5)*50,ry=(Math.random()-0.5)*70;
+   return t.el.animate([{transform:`translate3d(${(dx*0.6).toFixed(0)}px,${(dy*0.6).toFixed(0)}px,${z.toFixed(0)}px) rotateX(${rx.toFixed(1)}deg) rotateY(${ry.toFixed(1)}deg)`,opacity:0},{transform:`translateZ(${t.el.style.getPropertyValue('--z')||'0px'})`,opacity:0.5}],{duration:1500+Math.random()*500,delay:120+d*700+Math.random()*260,easing:'cubic-bezier(.16,.84,.24,1)',fill:'backwards'});
+  });
+  return Promise.all(anims.map(a=>a.finished.catch(()=>{}))).then(()=>sec.classList.remove('assembling'));
+ }
+ assemble();
+ if(!motion.reduced)setTimeout(loop,2600);
  new IntersectionObserver(([e])=>{visible=e.isIntersecting&&!document.hidden;if(visible)loop();},{threshold:0.35}).observe(sec);
  document.addEventListener('visibilitychange',()=>{visible=!document.hidden&&sec.getBoundingClientRect().bottom>innerHeight*0.35;if(visible)loop();});
  wall.addEventListener('click',e=>{const el=e.target.closest('.ar-tile');if(!el||busy)return;const t=tiles.find(x=>x.el===el);if(t)expand(t,5200);});

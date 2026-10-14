@@ -33,20 +33,20 @@
 <header class="bar" id="bar">
  <a class="brand" href="#home" data-jump><span class="brand-mark">G</span><span>Grand Archive</span></a>
  <nav class="bar-nav" aria-label="Sections">
-  <a href="#characters" data-jump>Characters</a><a href="#crew" data-jump>Crew</a><a href="#voyage" data-jump>Voyage</a><a href="#moments" data-jump>Moments</a><a href="#spreads" data-jump>Spreads</a><a href="#panels" data-jump>Panels</a><a href="#journey" data-jump>Journey</a><a href="#top" data-jump>Top 10</a><a href="#vault" data-jump>Vault</a><a href="#library" data-jump>Library</a><a href="#life" data-jump id="nav-life" hidden>Book II</a>
+  <a href="#characters" data-jump>Characters</a><a href="#strawhats" data-jump>Straw Hats</a><a href="#crew" data-jump>Crew</a><a href="#voyage" data-jump>Voyage</a><a href="#moments" data-jump>Moments</a><a href="#spreads" data-jump>Spreads</a><a href="#panels" data-jump>Panels</a><a href="#journey" data-jump>Journey</a><a href="#top" data-jump>Top 10</a><a href="#vault" data-jump>Vault</a><a href="#library" data-jump>Library</a><a href="#life" data-jump id="nav-life" hidden>Book II</a>
  </nav>
- <div class="bar-toggles"><button class="logpose-btn" id="logpose-btn" aria-haspopup="dialog" aria-label="Log Pose: every chapter" title="Log Pose: every chapter"><svg class="lp-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="10.5" r="7.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8.6 17.6 7.6 21h8.8l-1-3.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><g class="lp-needle"><path d="M12 4.6 13.5 10.5H10.5Z" fill="#e3342f"/><path d="M12 16.4 13.5 10.5H10.5Z" fill="currentColor" opacity=".55"/></g><circle cx="12" cy="10.5" r="1" fill="currentColor"/></svg><span>Log Pose</span></button><button class="gear-toggle" id="gear5" aria-pressed="false" title="Gear 5: bouncy mode + the Drums of Liberation"><span class="g5-sun" aria-hidden="true"></span>Gear 5 <b>Off</b></button><button class="motion-toggle" id="motion" aria-pressed="false">Motion <b>On</b></button></div>
+ <div class="bar-toggles"><button class="logpose-btn" id="logpose-btn" aria-haspopup="dialog" aria-label="Log Pose: every chapter" title="Log Pose: every chapter"><svg class="lp-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="10.5" r="7.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8.6 17.6 7.6 21h8.8l-1-3.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><g class="lp-needle"><path d="M12 4.6 13.5 10.5H10.5Z" fill="#e3342f"/><path d="M12 16.4 13.5 10.5H10.5Z" fill="currentColor" opacity=".55"/></g><circle cx="12" cy="10.5" r="1" fill="currentColor"/></svg><span>Log Pose</span></button><button class="write-toggle" id="write" aria-pressed="false" title="Writer's mode: edit the words, keep a diary"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 4.5l5 5L9 20H4v-5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12.5 6.5l5 5" stroke="currentColor" stroke-width="1.6"/></svg><span>Write</span></button><button class="gear-toggle" id="gear5" aria-pressed="false" title="Gear 5: bouncy mode + the Drums of Liberation"><span class="g5-sun" aria-hidden="true"></span>Gear 5 <b>Off</b></button><button class="motion-toggle" id="motion" aria-pressed="false">Motion <b>On</b></button></div>
 </header>
 
 <main>
  <!-- 00 · THE ARCHIVE, OPENED: a living wall of every picture; one at a time opens full screen, then the wall reshuffles. -->
  <section id="home" class="ar" aria-label="Welcome">
-  <div class="ar-wall" id="ar-wall"></div>
+  <div class="ar-tilt" id="ar-tilt"><div class="ar-wall" id="ar-wall"></div></div>
   <div class="ar-shade" aria-hidden="true"></div>
   <figure class="ar-open" id="ar-open" hidden><img alt="" decoding="async"></figure>
   <div class="ar-copy">
    <p class="eyebrow" id="ar-date">Goma's Grand Archive</p>
-   <h1>The Grand <em>Archive.</em></h1>
+   <h1 data-w="home.title">The Grand <em>Archive.</em></h1>
    <p class="ar-cap" id="ar-cap"><b id="ar-name"></b><span id="ar-where"></span></p>
    <div class="ar-actions"><button class="pill small" id="ar-shuffle">Shuffle ↻</button><button class="ar-go" id="ar-go">Take me there →</button><span class="ar-count" id="ar-count"></span></div>
   </div>
@@ -77,19 +77,42 @@
  <!-- 01 · THE CHARACTERS WHO LEFT SOMETHING BEHIND -->
  <section id="characters" class="cast-sec" aria-label="The characters who left something behind">
   <header class="cast-head wrap">
-   <p class="eyebrow rv">01 · The Character Log</p>
-   <h2 class="rv">They each left<br>something <em>behind.</em></h2>
-   <p class="section-lede rv">Some inspired me. Some made me rethink myself. Some showed me traits I want, and some showed me traits I don't. Ten records, in my own words.</p>
+   <p class="eyebrow rv" data-w="chars.eyebrow">01 · The Character Log</p>
+   <h2 class="rv" data-w="chars.title">They each left<br>something <em>behind.</em></h2>
+   <p class="section-lede rv" data-w="chars.lede">Some inspired me. Some made me rethink myself. Some showed me traits I want, and some showed me traits I don't. Ten records, in my own words.</p>
   </header>
   <div class="cast" id="cast"></div>
+ </section>
+
+
+ <!-- THE STRAW HAT PIRATES: a walk down the deck in 3D, one crew member at a time -->
+ <section id="strawhats" class="sh" aria-label="The Straw Hat Pirates">
+  <div class="pin">
+   <div class="sh-stage" id="sh-stage"><div class="sh-world" id="sh-world"></div></div>
+   <div class="sh-fog" aria-hidden="true"></div>
+   <div class="sh-intro" id="sh-intro">
+    <p class="eyebrow" data-w="sh.intro.eyebrow">Meet the crew</p>
+    <h2 class="sh-h">The Straw Hat <em>Pirates.</em></h2>
+    <p class="sh-lede" data-w="sh.intro.lede">Ten people came aboard, one island at a time, and every one of them changed something in how I see things. Walk the deck and meet them in the order they joined.</p>
+   </div>
+   <div class="sh-cards" id="sh-cards"></div>
+   <ol class="sh-rail" id="sh-rail" aria-label="Crew members"></ol>
+   <div class="sh-end" id="sh-end">
+    <p class="eyebrow">The whole crew</p>
+    <h2 data-w="sh.end.title">Still <em>sailing.</em></h2>
+    <p class="sh-sum"><span id="sh-total"></span><small>Combined bounty · still climbing</small></p>
+    <div class="ve-links"><button class="pill" data-collection="sh:all">Every crew picture →</button><a class="pill ghost" href="story.html">Their whole story</a></div>
+   </div>
+  </div>
+  <ol class="sh-static" id="sh-static" hidden></ol>
  </section>
 
  <!-- 02 · THE CREW: wanted posters -->
  <section id="crew" class="crew" aria-label="The crew and the wider world">
   <div class="wrap">
-   <p class="eyebrow rv">02 · The Crew</p>
-   <h2 class="rv">Everyone with a price <em>on their head.</em></h2>
-   <p class="section-lede rv">Every face on a ship, a throne or a wanted poster, with their latest bounty. Some of them, the World Government would rather you never saw. Tap a poster to open the collection.</p>
+   <p class="eyebrow rv" data-w="crew.eyebrow">02 · The Crew</p>
+   <h2 class="rv" data-w="crew.title">Everyone with a price <em>on their head.</em></h2>
+   <p class="section-lede rv" data-w="crew.lede">Every face on a ship, a throne or a wanted poster, with their latest bounty. Some of them, the World Government would rather you never saw. Tap a poster to open the collection.</p>
    <div class="board" id="board"></div>
    <span class="pg-spot pg-crew" data-pg="crew"></span>
   </div>
@@ -101,15 +124,15 @@
    <div class="jl-host" id="voyage-layers"></div>
    <div class="vignette" aria-hidden="true"></div>
    <div class="voyage-intro" id="voyage-intro">
-    <p class="eyebrow">03 · The Voyage</p>
-    <h2>They sailed<br>ten <em>seas.</em></h2>
-    <p class="lede">So did I, one arc at a time. Keep scrolling: every painting is hidden inside the last.</p>
+    <p class="eyebrow" data-w="voyage.eyebrow">03 · The Voyage</p>
+    <h2 data-w="voyage.title">They sailed<br>ten <em>seas.</em></h2>
+    <p class="lede" data-w="voyage.lede">So did I, one arc at a time. Keep scrolling: every painting is hidden inside the last.</p>
    </div>
    <div class="voyage-caption" id="voyage-caption"><span class="vc-index"></span><span class="vc-kicker"></span><h2 class="vc-title"></h2><p class="vc-line"></p></div>
    <nav class="rail" id="rail" aria-label="Voyage chapters"></nav>
    <div class="voyage-end" id="voyage-end">
     <p class="eyebrow">Current era</p>
-    <h2>The voyage<br><em>continues.</em></h2>
+    <h2 data-w="voyage.end">The voyage<br><em>continues.</em></h2>
     <div class="ve-links"><a class="pill" href="story.html">Read the whole story</a><a class="pill ghost" href="#spreads" data-jump>Keep exploring</a></div>
    </div>
   </div>
@@ -120,7 +143,7 @@
  <section id="moments" class="moments" aria-label="Moments that permanently live in my head">
   <div class="pin">
    <div class="mo-bg" id="mo-bg" aria-hidden="true"></div>
-   <header class="mo-head"><p class="eyebrow">Moments that permanently live in my head</p><p class="mo-sub">Not the objectively best scenes. The ones that hit me personally.</p></header>
+   <header class="mo-head"><p class="eyebrow" data-w="moments.eyebrow">Moments that permanently live in my head</p><p class="mo-sub" data-w="moments.sub">Not the objectively best scenes. The ones that hit me personally.</p></header>
    <div class="mo-stage" id="mo-stage"></div>
    <p class="mo-index" id="mo-index">01 / 15</p>
   </div>
@@ -130,7 +153,7 @@
  <section id="spreads" class="spreads" aria-label="Oda's colour spreads">
   <div class="pin">
    <div class="sp-track" id="sp-track"></div>
-   <div class="sp-copy" id="sp-copy"><p class="eyebrow">04 · Colour spreads</p><h2>Manga is black<br>and white. <em>Mostly.</em></h2><p>Then Oda opens a colour page.</p></div>
+   <div class="sp-copy" id="sp-copy"><p class="eyebrow" data-w="spreads.eyebrow">04 · Colour spreads</p><h2 data-w="spreads.title">Manga is black<br>and white. <em>Mostly.</em></h2><p data-w="spreads.lede">Then Oda opens a colour page.</p></div>
    <div class="sp-foot" id="sp-foot"><span id="sp-count">01 / 12</span><button class="pill small" id="spreads-all">View all spreads</button></div>
   </div>
  </section>
@@ -138,9 +161,9 @@
  <!-- 05 · BETWEEN THE PANELS: a manga you turn page by page -->
  <section id="panels" class="ink" aria-label="Favourite manga panels">
   <header class="ink-hero wrap">
-   <p class="ink-kicker rv">05 · Favourite panels</p>
-   <h2 class="rv">Between<br>the <em>panels.</em></h2>
-   <p class="ink-lede rv">No colour, no music, no voice acting. Just ink, and the pages that stopped me mid-read. Read it like a manga: right to left, one page at a time.</p>
+   <p class="ink-kicker rv" data-w="panels.eyebrow">05 · Favourite panels</p>
+   <h2 class="rv" data-w="panels.title">Between<br>the <em>panels.</em></h2>
+   <p class="ink-lede rv" data-w="panels.lede">No colour, no music, no voice acting. Just ink, and the pages that stopped me mid-read. Read it like a manga: right to left, one page at a time.</p>
    <span class="iris-jp" aria-hidden="true">名場面</span>
    <span class="pg-spot pg-panels" data-pg="panels"></span>
   </header>
@@ -153,7 +176,7 @@
   </div>
   <div class="beyond wrap">
    <p class="ink-kicker">Part two</p>
-   <h3>Beyond <em>One Piece.</em></h3>
+   <h3 data-w="panels.beyond">Beyond <em>One Piece.</em></h3>
    <div class="beyond-row" id="beyond"></div>
   </div>
  </section>
@@ -164,9 +187,9 @@
    <div class="ss-bg" id="ss-bg" aria-hidden="true"></div>
    <div class="ss-shade" aria-hidden="true"></div>
    <div class="ss-copy">
-    <p class="eyebrow">A page of its own</p>
-    <h2>The Story of <em>One Piece.</em></h2>
-    <p class="ss-lede">The whole manga, arc by arc, from Roger's execution to the chapter I'm reading now. With my panels and moments where they happen, and the scenes I can't forget.</p>
+    <p class="eyebrow" data-w="story.eyebrow">A page of its own</p>
+    <h2 data-w="story.title">The Story of <em>One Piece.</em></h2>
+    <p class="ss-lede" data-w="story.lede">The whole manga, arc by arc, from Roger's execution to the chapter I'm reading now. With my panels and moments where they happen, and the scenes I can't forget.</p>
     <div class="ss-now"><span class="ss-wanted"><b>WANTED</b><i>MONKEY D. LUFFY</i><em>฿<span id="ss-bounty">—</span></em></span><span class="ss-saga"><b id="ss-saga">Saga I · East Blue</b><i id="ss-tag"></i></span></div>
     <a class="pill ss-open" href="story.html">Open the story →</a>
     <p class="ss-stats" id="ss-stats"></p>
@@ -177,12 +200,12 @@
  <!-- 06 · THE ANIME JOURNEY: a route across the sea -->
  <section id="journey" class="route-sec" aria-label="Anime Journey">
   <header class="wrap route-head">
-   <p class="eyebrow rv">06 · The Anime Journey</p>
-   <h2 class="rv">I used to call them <em>just cartoons.</em></h2>
+   <p class="eyebrow rv" data-w="journey.eyebrow">06 · The Anime Journey</p>
+   <h2 class="rv" data-w="journey.title">I used to call them <em>just cartoons.</em></h2>
    <p class="section-lede rv" id="route-count"></p>
   </header>
   <div class="chart">
-   <div class="chart-head"><p class="chart-k">A chart of the Anime Journey</p><p class="chart-sub">Every island reached so far, charted in the order I landed.</p></div>
+   <div class="chart-head"><p class="chart-k" data-w="journey.chart">A chart of the Anime Journey</p><p class="chart-sub" data-w="journey.chartsub">Every island reached so far, charted in the order I landed.</p></div>
    <span class="chart-rose-wrap" id="chart-rose" aria-hidden="true"></span>
    <div class="route" id="route">
     <svg class="route-svg" id="route-svg" aria-hidden="true"></svg>
@@ -198,15 +221,15 @@
  <section id="top" class="top" aria-label="My current top ten">
   <div class="pin">
    <div class="top-bg" id="top-bg"></div>
-   <div class="top-head"><p class="eyebrow">07 · My current top 10</p><p class="top-note">Personal, unstable, emotionally biased, and absolutely allowed to change.</p></div>
+   <div class="top-head"><p class="eyebrow" data-w="top.eyebrow">07 · My current top 10</p><p class="top-note" data-w="top.note">Personal, unstable, emotionally biased, and absolutely allowed to change.</p></div>
    <div class="top-stage" id="top-stage"></div>
   </div>
  </section>
 
  <section id="records" class="records" aria-label="The shelf: every anime, manga and live-action record">
   <div class="wrap">
-   <p class="eyebrow rv">The Shelf · Every world, every opinion</p>
-   <h2 class="rv">Rated, <em>preserved as written.</em></h2>
+   <p class="eyebrow rv" data-w="shelf.eyebrow">The Shelf · Every world, every opinion</p>
+   <h2 class="rv" data-w="shelf.title">Rated, <em>preserved as written.</em></h2>
    <div class="shelf-tabs rv" role="tablist" aria-label="Shelf">
     <button role="tab" data-tab="anime" aria-selected="true">Anime <span id="n-anime"></span></button><button role="tab" data-tab="manga" aria-selected="false">Manga <span id="n-manga"></span></button><button role="tab" data-tab="tv" aria-selected="false">Live action <span id="n-tv"></span></button>
    </div>
@@ -223,21 +246,22 @@
 
  <section id="logbook" class="logbook" aria-label="The Logbook">
   <div class="wrap">
-   <p class="eyebrow rv">The Logbook</p>
-   <h2 class="rv">How far <em>I've come.</em></h2>
-   <p class="section-lede rv">Every time my notes change, the archive remembers. Ratings that moved, stories finished, chapters read, and everything still waiting.</p>
+   <p class="eyebrow rv" data-w="log.eyebrow">The Logbook</p>
+   <h2 class="rv" data-w="log.title">How far <em>I've come.</em></h2>
+   <p class="section-lede rv" data-w="log.lede">Every time my notes change, the archive remembers. Ratings that moved, stories finished, chapters read, and everything still waiting.</p>
    <div class="shiplog">
     <div class="tm" id="tm"></div>
     <p class="log-k">Every change, page by page</p>
     <ol class="log" id="log"></ol>
    </div>
+   <div class="diary" id="diary" hidden></div>
   </div>
  </section>
 
  <section id="worlds" class="worlds" aria-label="Beyond One Piece">
   <div class="wrap">
-   <p class="eyebrow rv">Beyond the Grand Line</p>
-   <h2 class="rv">Other worlds <em>that stayed.</em></h2>
+   <p class="eyebrow rv" data-w="worlds.eyebrow">Beyond the Grand Line</p>
+   <h2 class="rv" data-w="worlds.title">Other worlds <em>that stayed.</em></h2>
    <div class="doors" id="doors"></div>
   </div>
  </section>
@@ -245,7 +269,7 @@
  <!-- 08 · CARD VAULT: a ring that turns as you scroll -->
  <section id="vault" class="vault" aria-label="Card Vault">
   <div class="pin">
-   <header class="vault-head"><p class="eyebrow">08 · The Card Vault</p><h2>My kind of <em>treasure.</em></h2></header>
+   <header class="vault-head"><p class="eyebrow" data-w="vault.eyebrow">08 · The Card Vault</p><h2 data-w="vault.title">My kind of <em>treasure.</em></h2></header>
    <div class="ring-stage"><div class="ring" id="ring"></div></div>
    <div class="ring-info" id="ring-info" aria-live="polite"></div>
   </div>
@@ -259,7 +283,7 @@
  <section id="scenes" class="scenes" aria-label="Scenes that stay">
   <div class="pin">
    <div class="sv-frame" id="sv-frame"><video muted loop playsinline preload="none" aria-label="Gear 5 Luffy versus Kaido"></video></div>
-   <div class="sv-text" id="sv-text"><p class="eyebrow">09 · Scenes that stay</p><h2>“Come on, heartbeat.<br>Beat <em>louder.</em>”</h2><p>Gear 5 vs Kaido. Probably my favourite One Piece clip of all time. Pure joy and defiance.</p></div>
+   <div class="sv-text" id="sv-text"><p class="eyebrow" data-w="scenes.eyebrow">09 · Scenes that stay</p><h2 data-w="scenes.title">“Come on, heartbeat.<br>Beat <em>louder.</em>”</h2><p data-w="scenes.lede">Gear 5 vs Kaido. Probably my favourite One Piece clip of all time. Pure joy and defiance.</p></div>
    <button class="sound" id="sound" aria-pressed="false">Sound off</button>
   </div>
  </section>
@@ -267,9 +291,9 @@
  <!-- 10 · OHARA LIBRARY -->
  <section id="library" class="library" aria-label="Ohara Library">
   <div class="lib-head wrap">
-   <p class="eyebrow rv">10 · The Ohara Library</p>
-   <h2 class="rv">Stories leave <em>traces.</em></h2>
-   <p class="section-lede rv">Everything else I saved along the way.</p>
+   <p class="eyebrow rv" data-w="library.eyebrow">10 · The Ohara Library</p>
+   <h2 class="rv" data-w="library.title">Stories leave <em>traces.</em></h2>
+   <p class="section-lede rv" data-w="library.lede">Everything else I saved along the way.</p>
    <div class="lib-doors rv">
     <button data-shelf="manga">The manga shelf ↑</button>
     <button data-shelf="tv">Live action shelf ↑</button>
@@ -371,8 +395,8 @@
    <div class="jl-host" id="outro-layers"></div>
    <div class="vignette" aria-hidden="true"></div>
    <div class="outro-text" id="outro-text">
-    <h2>Every adventure<br>leaves a <em>record.</em></h2>
-    <p>To be continued.</p>
+    <h2 data-w="outro.title">Every adventure<br>leaves a <em>record.</em></h2>
+    <p data-w="outro.line">To be continued.</p>
     <button class="gate-link" data-gate hidden>✦ There's more beyond this</button>
    </div>
   </div>
@@ -410,7 +434,7 @@
   </header>
   <ol class="lp-list" id="lp-list"></ol>
   <p class="lp-pg" id="lp-pg"></p>
-  <footer class="lp-foot"><button class="motion-toggle" id="lp-motion" aria-pressed="false">Motion <b>On</b></button></footer>
+  <footer class="lp-foot"><button class="motion-toggle" id="lp-write">✎ Writer's mode</button><button class="motion-toggle" id="lp-motion" aria-pressed="false">Motion <b>On</b></button></footer>
  </div>
 </dialog>
 

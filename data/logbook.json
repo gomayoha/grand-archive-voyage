@@ -1,6 +1,87 @@
 {
  "entries": [
   {
+   "date": "2026-10-14",
+   "since": "2026-09-30",
+   "events": [
+    {
+     "kind": "anime",
+     "type": "rerated",
+     "t": "Re:Zero",
+     "frm": "9.7",
+     "to": "9.8"
+    },
+    {
+     "kind": "anime",
+     "type": "rerated",
+     "t": "Mushoku Tensei",
+     "frm": "9",
+     "to": "9.2"
+    },
+    {
+     "kind": "anime",
+     "type": "finished",
+     "t": "Violet Evergarden",
+     "to": "9.3"
+    },
+    {
+     "kind": "manga",
+     "type": "progress",
+     "t": "Smoking Behind the Supermarket with You",
+     "frm": "Ch. 63",
+     "to": "Ch. 64"
+    },
+    {
+     "kind": "manga",
+     "type": "progress",
+     "t": "The Fragrant Flower Blooms with Dignity",
+     "frm": "Ch. 140",
+     "to": "Ch. 145"
+    },
+    {
+     "kind": "manga",
+     "type": "progress",
+     "t": "Omniscient Reader",
+     "frm": "Ch. 14",
+     "to": "Ch. 58"
+    },
+    {
+     "kind": "manga",
+     "type": "finished",
+     "t": "Solo Leveling",
+     "to": null
+    },
+    {
+     "kind": "anime",
+     "type": "top10",
+     "frm": [
+      "One Piece",
+      "Re:Zero",
+      "Classroom of the Elite",
+      "Attack on Titan",
+      "Death Note",
+      "The Fragrant Flower Blooms with Dignity",
+      "Black Clover",
+      "Berserk: Golden Age",
+      "Smoking Behind the Supermarket with You",
+      "Hunter × Hunter"
+     ],
+     "to": [
+      "One Piece",
+      "Re:Zero",
+      "Classroom of the Elite",
+      "Violet Evergarden",
+      "Attack on Titan",
+      "Death Note",
+      "The Fragrant Flower Blooms with Dignity",
+      "Black Clover",
+      "Berserk: Golden Age",
+      "Smoking Behind the Supermarket with You"
+     ]
+    }
+   ]
+  },
+  {
    "date": "2026-09-30",
    "since": "2026-09-22",
    "events": [

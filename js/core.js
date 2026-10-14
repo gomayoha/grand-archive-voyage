@@ -57,18 +57,19 @@ export const debugParts=parts;
 const J=(u,tries=3)=>fetch(u).then(r=>{if(!r.ok)throw r;return r.json();}).catch(()=>tries>1?new Promise(res=>setTimeout(res,500*(4-tries))).then(()=>J(u,tries-1)):null);
 export const data={};
 export async function loadData(){
- const keys=['journey','archive','media','panels','characters','posters','shelf','logbook','route'];
+ const keys=['journey','archive','media','panels','characters','posters','shelf','logbook','route','strawhats'];
  const files=keys.map(k=>`data/${k}.json`);
  (await Promise.all(files.map(J))).forEach((v,i)=>data[keys[i]]=v);
  // Edits made on the site (Captain's Desk) sit on top of what the notes say, until the note itself changes.
  const edits=await fetch('data/edits.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
  let pending=null;try{pending=JSON.parse(localStorage.getItem('grand-archive:pending-edits')||'null');}catch{}
- data.edits=mergeEdits(edits,pending);
+ data.editsPublished=mergeEdits(edits,null);data.edits=mergeEdits(edits,pending);
  if(data.shelf)applyEdits(data.shelf,data.edits);
  return data;
 }
 export const FIELDS=['status','s','tagline','b','progress','chapter','genre'];
-export function mergeEdits(a,b){const out={records:{}};[a,b].forEach(x=>x&&Object.assign(out.records,x.records||{}));return out;}
+// records = shelf edits (Captain's Desk); texts = rewritten words and diary = the captain's diary (Writer's mode).
+export function mergeEdits(a,b){const out={records:{},texts:{},diary:{}};[a,b].forEach(x=>{if(!x)return;for(const k of ['records','texts','diary'])Object.assign(out[k],x[k]||{});});return out;}
 export function applyEdits(shelf,edits){
  for(const [key,e] of Object.entries(edits.records||{})){
   const [k,...rest]=key.split(':'),t=rest.join(':');if(!shelf[k])continue;

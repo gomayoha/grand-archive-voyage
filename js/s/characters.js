@@ -3,7 +3,7 @@
 // scrolling), the outgoing one sinks back into the dark. Each record carries the one word he says the
 // character left behind, his line about it, and a pull quote, all from his notes, word for word.
 // "Read everything I wrote" opens the full note in a reader; nothing is ever shortened.
-import {$,$$,esc,pad,clamp,smooth,ease,view,part,absTop,motion,data,remeasure} from '../core.js';
+import {$,$$,esc,pad,clamp,smooth,ease,view,part,absTop,motion,data,remeasure,TH} from '../core.js';
 import {openDialog,registerCollection} from '../dialogs.js';
 
 const CI=id=>`assets/chars/${id}.webp`,CM=id=>`assets/chars/m/${id}.webp`;
@@ -13,22 +13,25 @@ const LINES={luffy:"People's dreams never end",zoro:'always aim higher as possib
 const WORD_FALLBACK={'sung-jinwoo':'Sacrifice'};
 
 export function initCharacters(){
- const CH=data.characters.characters,{archive,media}=data,N=CH.length;
+ const CH=data.characters.characters,{media}=data,N=CH.length;
  const lineFor=c=>{const t=c.paras.join(' '),l=LINES[c.id];return (c.quotes[0]||(l&&t.includes(l)?l:c.paras[0].split(/(?<=[.!?])\s/)[0])).replace(/^["“\s]+|["”\s]+$/g,'');};
- const photosFor=c=>{const k=c.name.toLowerCase().slice(0,4);const i=archive.characters.findIndex(a=>a.name.toLowerCase().slice(0,4)===k);return i<0?null:media.characters[i];};
+ const photosFor=c=>{const k=c.name.toLowerCase().slice(0,4);return media.characters.find(a=>a.home.toLowerCase().slice(0,4)===k)||null;};
  registerCollection('char',i=>{const c=CH[+i],m=photosFor(c);return{title:c.name,eyebrow:'Character Log',ids:m?m.all:[]};});
  const word=c=>c.word||WORD_FALLBACK[c.id]||'';
 
+ // the intro counts the records, so it stays right as his note grows
+ const NUM=['Zero','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen','Seventeen','Eighteen','Nineteen','Twenty'];
+ const lede=$('#characters .section-lede');if(lede)lede.innerHTML=lede.innerHTML.replace(/\b[A-Z][a-z]+ records, in my own words/,`${NUM[N]||N} records, in my own words`);
  const cast=$('#cast');
- cast.innerHTML=CH.map((c,i)=>{const ph=photosFor(c),im=c.image;return `<article class="role" id="c-${c.id}" data-i="${i}" style="--tint:${im.color}">
+ cast.innerHTML=CH.map((c,i)=>{const ph=photosFor(c),im=c.image;return `<article class="role" id="c-${c.id}" data-i="${i}" data-wg="${esc(c.name)}" style="--tint:${im.color}">
   <div class="role-bg" aria-hidden="true"><img src="${CM(im.id)}" alt="" loading="lazy" decoding="async"></div>
   <div class="role-in">
    <figure class="role-pic" style="--ar:${im.w}/${im.h}"><img src="${CM(im.id)}" srcset="${CM(im.id)} 1000w, ${CI(im.id)} ${im.w}w" sizes="(max-width:820px) 92vw, 46vw" width="${im.w}" height="${im.h}" alt="${esc(c.name)}" loading="lazy" decoding="async"></figure>
    <div class="role-copy">
     <p class="role-no k"><b>${pad(i+1)}</b> / ${pad(N)}${c.series?` · ${esc(c.series)}`:''}</p>
     <h3 class="role-name k">${esc(c.name)}</h3>
-    ${word(c)?`<p class="role-word k"><small>Left behind</small><span>${esc(word(c))}</span></p>`:''}
-    ${c.left?`<p class="role-left k">${esc(c.left)}</p>`:''}
+    ${word(c)?`<p class="role-word k"><small>Left behind</small><span data-w="char.${c.id}.word" data-wl="Left behind">${esc(word(c))}</span></p>`:''}
+    ${c.left?`<p class="role-left k" data-w="char.${c.id}.left" data-wl="What it means">${esc(c.left)}</p>`:''}
     <div class="role-actions k"><button class="pill small" data-read="${i}">Read everything I wrote</button>${ph&&ph.all.length>1?`<button class="link" data-collection="char:${i}">${ph.all.length} photos →</button>`:''}</div>
     <blockquote class="role-quote k">“${esc(lineFor(c))}”</blockquote>
     ${c.first?`<button class="judge k" aria-pressed="false" aria-label="First impression versus current opinion"><span class="judge-face judge-f"><small>First impression</small><b>“${esc(c.first)}”</b><i>Tap for the verdict</i></span><span class="judge-face judge-b"><small>Current opinion</small><b>${esc(c.now.slice(0,3).join(' '))}</b></span></button>`:''}
@@ -37,6 +40,10 @@ export function initCharacters(){
   </div>
   <i class="role-shade" aria-hidden="true"></i>
  </article><div class="dwell" aria-hidden="true"></div>`;}).join('');
+ // The ones without a full record yet, who still left something (his One Piece table and Asta), word for word.
+ const SUP=data.characters.supporting||[],SUPART={'Kuma':()=>TH('150990e0419f'),'Asta':()=>data.posters?.['anime:Black Clover']?.img};
+ if(SUP.length){const also=document.createElement('div');also.className='also wrap';also.innerHTML=`<p class="eyebrow rv">Not full records yet</p><h3 class="rv" data-w="chars.also">They still left <em>something.</em></h3><div class="also-row">${SUP.map((c,i)=>{const art=SUPART[c.name]?.();const k=c.name.toLowerCase().replace(/[^a-z]+/g,'-');return `<article class="also-card rv${art?' has-art':''}" style="--d:${(i*0.08).toFixed(2)}s" data-wg="${esc(c.name)}">${art?`<img src="${esc(art)}" alt="" loading="lazy" decoding="async">`:`<span class="also-mark" aria-hidden="true">${esc(c.name[0])}</span>`}<div class="also-copy"><small>${esc(c.series||'Black Clover')}</small><b>${esc(c.name)}</b>${c.word?`<span class="also-word" data-w="also.${k}.word" data-wl="Left behind">${esc(c.word)}</span>`:''}<p data-w="also.${k}.line" data-wl="What stayed with me">${esc(c.line)}</p></div></article>`;}).join('')}</div>`;
+  $('#characters').append(also);}
  const roles=$$('.role'),slides=roles.map(r=>({el:r,pic:r.querySelector('.role-pic img'),shade:r.querySelector('.role-shade')}));
  cast.addEventListener('click',e=>{const j=e.target.closest('.judge');if(j)j.setAttribute('aria-pressed',String(j.getAttribute('aria-pressed')!=='true'));});
 

@@ -11,15 +11,25 @@
 //  - Chibi Nika lives in the corner: eyes follow you, pop out on springs when you scroll too fast,
 //    comments on each section, and does a trick on every tap (Pistol, Balloon, Gravity, Upside-down,
 //    Gigant, the Laugh). Double-click anything on a Mac and he punches it. He steps away for Book II.
+//  - Bajrang Gun: a giant rubber fist falls out of the sky onto the page; everything flinches.
+//  - Bounce house: every picture on screen turns into a rubber object with real physics. They fall,
+//    bounce off the edges and each other, squash when they land, and you can grab and throw them.
+//    After a while (or a tap on Nika) everything springs back to where it lives.
+//  - The Straw Hat deck dances: the camera bobs to the drums while Gear 5 is on (s/strawhats.js).
 // Music starts only from the toggle (a user gesture), so it works on iPhone too.
 const WORDS = ['BOING!', 'DON!', 'GOMU!', 'HAHAHA!', 'POP!', 'NIKA!', 'BWOING!', 'DON DON!'];
-const STRETCHY = '.wanted,.pc figure,.door,.stop-img,.polaroid,.rcard,.role-pic,.art-col button,.reel,.ro-img,.sp-card,.tt-poster,.vol';
+const STRETCHY = '.wanted,.pc figure,.door,.sc-poster,.rcard,.role-pic,.art-col button,.sp-card,.tt-poster,.vol,.mo-pic,.ar-tile';
+// what the bounce house can pick up (the pictures and cards on screen)
+const BOUNCY = '.wanted,.role-pic,.pc,.stop-card,.door,.rcard,.ar-tile,.tt-poster,.mo-pic,.sp-card,.sh-panel,.dy,.art-col button,.vol,.lp-isle';
+// read by other sections (the Straw Hat deck bobs to the drums)
+export const G5 = { on: false, beat: 0 };
 const OPEN = 'main section:not(#life)';
 const TILT = '.stop-card,.vol,.pc';
 const DROP = 'h1,h2,h3,p,.eyebrow,.pill,figure,.wanted,.door,.stop-card,.vol,.chips button,.link';
 const QUIPS = {
   home: 'Anime is for WHAT?! Shishishi!',
   characters: 'Everyone here is my nakama now. Shishishi!',
+  strawhats: 'MY CREW!! The best crew in the whole world!',
   crew: 'My bounty is WAY bigger than these!',
   voyage: 'Ten seas! Let\'s go! Shishishi!',
   spreads: 'Woah… Oda drew ALL of these?!',
@@ -36,7 +46,9 @@ const QUIPS = {
 };
 const TRICKS = [
   ['pistol', 'Gomu Gomu no… PISTOL!'],
+  ['bounce', 'Everything is RUBBER now! Throw them around!'],
   ['balloon', 'Gomu Gomu no… BALLOON!'],
+  ['bajrang', 'Gomu Gomu no…'],
   ['gravity', 'Oops. I dropped everything.'],
   ['flip', 'Toon logic! The world is upside down!'],
   ['gigant', ''],
@@ -130,6 +142,7 @@ export function initGear5({ button, isReduced }) {
     }
     root.style.setProperty('--sq', sq.toFixed(4));
     root.style.setProperty('--beat', (reduced ? 0 : Math.min(1, beat)).toFixed(3));
+    G5.beat = reduced ? 0 : Math.min(1, beat);
     if (Math.abs(y - lastScrollSeen) > 2) { lastScrollSeen = y; activity(); }
     // eyes pop out on springs when you fling the page
     if (!reduced && !busy && Math.abs(vel) > 48 && t - lastEyePop > 5000 && !lifeNear) { lastEyePop = t; popEyes(); }
@@ -233,7 +246,7 @@ export function initGear5({ button, isReduced }) {
   const shake = (px = 10, ms = 380) => A(main, [{ translate: '0 0' }, { translate: `${px}px ${-px * 0.6}px` }, { translate: `${-px}px ${px * 0.5}px` }, { translate: `${px * 0.6}px ${px * 0.4}px` }, { translate: `${-px * 0.3}px 0` }, { translate: '0 0' }], { duration: ms });
 
   const onPointer = e => {
-    if (!on || !e.isPrimary || (e.target.closest && e.target.closest('.gate,dialog,input,select,.bar,.g5-nika-wrap'))) return;
+    if (!on || !e.isPrimary || (e.target.closest && e.target.closest('.gate,dialog,input,select,.bar,.g5-nika-wrap,.wm,.g5-bounce'))) return;
     activity();
     if (e.pointerType === 'mouse') mouse = { x: e.clientX, y: e.clientY };
     const h = e.target.closest && e.target.closest('.g5-split');
@@ -244,7 +257,7 @@ export function initGear5({ button, isReduced }) {
   // Gomu Gomu stretch (mouse only; on touch, dragging must stay scrolling)
   let drag = null;
   const onDown = e => {
-    if (!on || e.pointerType !== 'mouse' || e.button !== 0 || isReduced()) return;
+    if (!on || e.pointerType !== 'mouse' || e.button !== 0 || isReduced() || (e.target.closest && e.target.closest('.g5-bounce,.wm'))) return;
     const el = e.target.closest(STRETCHY); if (!el) return;
     drag = { el, x: e.clientX, y: e.clientY, moved: false }; e.preventDefault();
   };
@@ -370,6 +383,100 @@ export function initGear5({ button, isReduced }) {
     shake(5, 1600);
     await wait(1800); body.classList.remove('g5-laughing'); nika.classList.remove('laugh');
   }
+  /* Gomu Gomu no Bajrang Gun: a fist the size of the screen, straight down from the sky */
+  async function bajrang() {
+    const W = innerWidth, H = innerHeight, fw = Math.min(W * 0.56, 560), fh = fw * 0.66, aw = fw * 0.42;
+    const arm = document.createElement('span'); arm.className = 'g5-barm';
+    arm.style.setProperty('--aw', aw + 'px'); arm.style.setProperty('--fw', fw + 'px'); arm.style.setProperty('--fh', fh + 'px');
+    arm.innerHTML = '<b class="g5-speed"></b><i class="g5-fist"><s></s><s></s><s></s><s></s><u></u></i>'; fx.append(arm);
+    sfx('giant'); await wait(380);
+    const hit = Math.max(fh + 40, H * 0.74);
+    await A(arm, [{ height: '0px' }, { height: (hit - fh) + 'px' }], { duration: 300, easing: 'cubic-bezier(.6,0,.9,.6)', fill: 'forwards' }).finished;
+    sfx('thud'); sfx('thud'); lines(W / 2, hit); pop(W / 2, hit - fh * 0.3, 'BAJRANG GUN!!', true); shake(26, 700);
+    document.querySelectorAll(`${OPEN} .g5-split`).forEach(h => { const r = h.getBoundingClientRect(); if (inView(r)) burst(h, 2.2); });
+    card(true);
+    const top = -main.getBoundingClientRect().top; main.style.transformOrigin = `50% ${top + H}px`;
+    const squash = A(main, [{ transform: 'none' }, { transform: 'scale(1.06,.82)', offset: 0.16 }, { transform: 'scale(.96,1.06)', offset: 0.42 }, { transform: 'scale(1.02,.98)', offset: 0.7 }, { transform: 'none' }], { duration: 1000, easing: 'cubic-bezier(.2,.9,.2,1)' });
+    await wait(520);
+    await A(arm, [{ height: (hit - fh) + 'px' }, { height: '0px' }], { duration: 420, easing: 'cubic-bezier(.5,0,.3,1)', fill: 'forwards' }).finished;
+    arm.remove(); await squash.finished.catch(() => {}); card(false);
+    say('…Shishishi! Too big?', 1800);
+  }
+
+  /* the bounce house: rubber physics for everything on screen */
+  let house = null;
+  function bounceHouse() {
+    const W = innerWidth, H = innerHeight;
+    let els = [...document.querySelectorAll(`${OPEN} :is(${BOUNCY})`)].filter(el => {
+      if (el.closest('.g5-bounce')) return false;
+      const r = el.getBoundingClientRect(), vis = Math.max(0, Math.min(r.right, W) - Math.max(r.left, 0)) * Math.max(0, Math.min(r.bottom, H) - Math.max(r.top, 0));
+      return r.width > 36 && r.height > 36 && r.width < W * 0.8 && r.height < H * 0.92 && vis > r.width * r.height * 0.6 && getComputedStyle(el).visibility !== 'hidden' && +getComputedStyle(el).opacity > 0.05;
+    });
+    els = els.filter(el => !els.some(o => o !== el && o.contains(el))).slice(0, 18);
+    if (!els.length) { say('Nothing to bounce here… scroll to some pictures!'); return Promise.resolve(); }
+    const layer = document.createElement('div'); layer.className = 'g5-bounce'; body.append(layer);
+    const bodies = els.map(el => {
+      const r = el.getBoundingClientRect(), wrap = document.createElement('div'), clone = el.cloneNode(true);
+      clone.removeAttribute('id'); clone.querySelectorAll('[id]').forEach(x => x.removeAttribute('id'));
+      clone.querySelectorAll('img').forEach(i => { i.loading = 'eager'; });
+      clone.classList.add('g5-clone'); clone.setAttribute('aria-hidden', 'true'); clone.tabIndex = -1;
+      wrap.className = 'g5-body'; wrap.style.width = r.width + 'px'; wrap.style.height = r.height + 'px'; wrap.append(clone); layer.append(wrap);
+      el.dataset.g5vis = el.style.visibility; el.style.visibility = 'hidden';
+      return { el, wrap, w: r.width, h: r.height, x: r.left + r.width / 2, y: r.top + r.height / 2, vx: rnd(-420, 420), vy: rnd(-1100, -350), a: 0, va: rnd(-2.4, 2.4), sq: 0, grab: null };
+    });
+    house = { layer, bodies, raf: 0, last: performance.now(), t0: performance.now(), ending: false, lastBoing: 0 };
+    const G = 2600, E = 0.7;
+    const step = t => {
+      if (!house || house.ending) return;
+      const dt = Math.min(1 / 30, (t - house.last) / 1000); house.last = t;
+      for (const b of bodies) {
+        if (b.grab) { const nx = b.grab.x - b.grab.ox, ny = b.grab.y - b.grab.oy; b.vx = (nx - b.x) / Math.max(dt, 1 / 120) * 0.6 + b.vx * 0.4; b.vy = (ny - b.y) / Math.max(dt, 1 / 120) * 0.6 + b.vy * 0.4; b.x += (nx - b.x) * 0.55; b.y += (ny - b.y) * 0.55; b.a += (b.vx * 0.00025 - b.a) * 0.2; continue; }
+        b.vy += G * dt; b.x += b.vx * dt; b.y += b.vy * dt; b.a += b.va * dt;
+        const hw = b.w / 2, hh = b.h / 2;
+        if (b.y + hh > H) { const imp = b.vy; b.y = H - hh; b.vy = -b.vy * E; b.vx *= 0.9; b.va = b.va * 0.6 + b.vx * 0.0015; b.a *= 0.86; if (imp > 380) { b.sq = Math.min(0.32, imp / 6000); if (t - house.lastBoing > 120) { house.lastBoing = t; sfx(imp > 1400 ? 'thud' : 'pop'); } } if (Math.abs(b.vy) < 60) b.vy = 0; }
+        if (b.y - hh < -H * 0.6) { b.y = -H * 0.6 + hh; b.vy = Math.abs(b.vy) * E; }
+        if (b.x - hw < 0) { b.x = hw; b.vx = Math.abs(b.vx) * E; b.va *= -0.8; }
+        if (b.x + hw > W) { b.x = W - hw; b.vx = -Math.abs(b.vx) * E; b.va *= -0.8; }
+      }
+      // boxes push each other apart along the shallower overlap and trade a little speed
+      for (let i = 0; i < bodies.length; i++) for (let j = i + 1; j < bodies.length; j++) {
+        const p = bodies[i], q = bodies[j], dx = q.x - p.x, dy = q.y - p.y, ox = (p.w + q.w) / 2 * 0.86 - Math.abs(dx), oy = (p.h + q.h) / 2 * 0.86 - Math.abs(dy);
+        if (ox <= 0 || oy <= 0) continue;
+        const pm = p.grab ? 0 : 1, qm = q.grab ? 0 : 1, tot = pm + qm || 1;
+        if (ox < oy) { const sx = Math.sign(dx) || 1; p.x -= sx * ox * pm / tot; q.x += sx * ox * qm / tot; const rv = q.vx - p.vx; if (rv * sx < 0) { const imp = rv * (1 + E) / 2; p.vx += imp * pm; q.vx -= imp * qm; p.va -= 0.6; q.va += 0.6; } }
+        else { const sy = Math.sign(dy) || 1; p.y -= sy * oy * pm / tot; q.y += sy * oy * qm / tot; const rv = q.vy - p.vy; if (rv * sy < 0) { const imp = rv * (1 + E) / 2; p.vy += imp * pm; q.vy -= imp * qm; } }
+      }
+      for (const b of bodies) {
+        b.sq *= 0.84; const sp = Math.hypot(b.vx, b.vy), st = b.grab ? 0 : Math.min(0.16, sp / 9000);
+        const ang = Math.atan2(b.vy, b.vx);
+        b.wrap.style.transform = `translate3d(${(b.x - b.w / 2).toFixed(1)}px,${(b.y - b.h / 2).toFixed(1)}px,0) rotate(${b.a.toFixed(3)}rad) rotate(${ang.toFixed(3)}rad) scale(${(1 + st).toFixed(3)},${(1 - st * 0.6).toFixed(3)}) rotate(${(-ang).toFixed(3)}rad) scale(${(1 + b.sq).toFixed(3)},${(1 - b.sq).toFixed(3)})`;
+      }
+      if (t - house.t0 > 11000) { endBounce(); return; }
+      house.raf = requestAnimationFrame(step);
+    };
+    // grab and throw (mouse or finger)
+    const down = e => { const w = e.target.closest('.g5-body'); if (!w || !house) return; const b = bodies.find(x => x.wrap === w); e.preventDefault(); w.setPointerCapture(e.pointerId); b.grab = { id: e.pointerId, x: e.clientX, y: e.clientY, ox: e.clientX - b.x, oy: e.clientY - b.y }; w.classList.add('held'); sfx('boing'); activity(); };
+    const move = e => { for (const b of bodies) if (b.grab && b.grab.id === e.pointerId) { b.grab.x = e.clientX; b.grab.y = e.clientY; } };
+    const up = e => { for (const b of bodies) if (b.grab && b.grab.id === e.pointerId) { b.grab = null; b.wrap.classList.remove('held'); b.vx = Math.max(-4200, Math.min(4200, b.vx)); b.vy = Math.max(-4200, Math.min(4200, b.vy)); b.va = b.vx * 0.004; pop(e.clientX, e.clientY, 'BOING!'); } };
+    layer.addEventListener('pointerdown', down); layer.addEventListener('pointermove', move); layer.addEventListener('pointerup', up); layer.addEventListener('pointercancel', up);
+    house.raf = requestAnimationFrame(step);
+    return new Promise(res => { house.done = res; });
+  }
+  // everything springs back home (or vanishes at once when Gear 5 switches off)
+  function endBounce(now = false) {
+    const h = house; if (!h || h.ending) return; h.ending = true; cancelAnimationFrame(h.raf);
+    const finish = () => { h.bodies.forEach(b => { b.el.style.visibility = b.el.dataset.g5vis || ''; delete b.el.dataset.g5vis; }); h.layer.remove(); if (house === h) house = null; h.done && h.done(); };
+    if (now) { finish(); return; }
+    say('Okay okay, everyone back home!', 1800);
+    const anims = h.bodies.map((b, i) => {
+      const r = b.el.getBoundingClientRect(), from = b.wrap.style.transform;
+      const to = `translate3d(${r.left.toFixed(1)}px,${r.top.toFixed(1)}px,0) rotate(0rad) rotate(0rad) scale(1,1) rotate(0rad) scale(1,1)`;
+      return b.wrap.animate([{ transform: from }, { transform: to }], { duration: 900, delay: i * 45, easing: 'cubic-bezier(.3,1.5,.5,1)', fill: 'forwards' }).finished.catch(() => {});
+    });
+    sfx('boing');
+    Promise.all(anims).then(finish);
+  }
+
   async function runTrick(forcePistol) {
     if (busy || !on) return;
     if (isReduced()) { say('Turn Motion on and I\'ll show you something. Shishishi!'); return; }
@@ -379,13 +486,15 @@ export function initGear5({ button, isReduced }) {
     try {
       if (name === 'pistol') await pistol(forcePistol ? forcePistol.el : pickTarget(), forcePistol && forcePistol.x, forcePistol && forcePistol.y);
       else if (name === 'balloon') await balloon();
+      else if (name === 'bounce') await bounceHouse();
+      else if (name === 'bajrang') await bajrang();
       else if (name === 'gravity') await gravity();
       else if (name === 'flip') await flip();
       else if (name === 'gigant') await gigant();
       else if (name === 'laugh') await laugh();
     } catch { /* cancelled by switching Gear 5 off */ } finally { busy = false; }
   }
-  nika.addEventListener('click', e => { e.stopPropagation(); if (!busy) { A(nika, [{ scale: '1' }, { scale: '1.25 .8' }, { scale: '.9 1.12' }, { scale: '1' }], { duration: 380 }); } runTrick(); });
+  nika.addEventListener('click', e => { e.stopPropagation(); if (house) { endBounce(); return; } if (!busy) { A(nika, [{ scale: '1' }, { scale: '1.25 .8' }, { scale: '.9 1.12' }, { scale: '1' }], { duration: 380 }); } runTrick(); });
   const onDbl = e => {
     if (!on || busy || (e.target.closest && e.target.closest('.gate,dialog,input,select,.bar,.g5-nika-wrap,#life'))) return;
     getSelection && getSelection().removeAllRanges();
@@ -400,6 +509,7 @@ export function initGear5({ button, isReduced }) {
   document.querySelectorAll('video').forEach(v => ['play', 'pause', 'volumechange'].forEach(ev => v.addEventListener(ev, duckCheck)));
 
   function cleanup() {
+    endBounce(true);
     timers.forEach(clearTimeout); timers.clear(); busy = false;
     anims.forEach(a => a.cancel()); anims.clear();
     card(false); nikaWrap.classList.remove('giant', 'in'); nika.classList.remove('pop', 'laugh', 'punch'); body.classList.remove('g5-laughing');
@@ -407,7 +517,7 @@ export function initGear5({ button, isReduced }) {
   }
   const LISTEN = [['pointerdown', onPointer, { passive: true }], ['pointerdown', onDown], ['pointermove', onMove], ['pointerup', onUp], ['pointercancel', onUp], ['dblclick', onDbl], ['mouseleave', onLeave, document]];
   function setOn(next) {
-    on = next;
+    on = next; G5.on = next; if (!next) G5.beat = 0;
     button.setAttribute('aria-pressed', String(on));
     button.querySelector('b').textContent = on ? 'On' : 'Off';
     if (on) {

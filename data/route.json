@@ -274,11 +274,22 @@
      "q": "Fine. One more try."
     },
     {
-     "p": "It is now one of the best anime I have ever watched, and one of the biggest surprises of my entire journey."
+     "h": "Season 4 update"
+    },
+    {
+     "p": "I have now finished Season 4, all the way to episode 19, and the rating keeps climbing. It went from 9.7 to 9.8/10."
+    },
+    {
+     "p": "Seriously, it is one of the best anime I have ever watched, and I honestly think it is the best isekai. Even Mushoku Tensei cannot be compared to this. It is a masterpiece."
+    },
+    {
+     "p": "It is also one of the biggest surprises of my entire journey, and I am really looking forward to reading the light novel."
     }
    ],
    "tags": [
-    "RATING: 9.7/10",
+    "RATING: 9.8/10",
+    "SEASON 4: DONE",
+    "NEXT: LIGHT NOVEL",
     "REWATCH: STARTED WITH MY SISTER",
     "EMOTIONAL DAMAGE: EXTREME"
    ]
@@ -326,6 +337,18 @@
      "p": "Shows like Mushoku Tensei, Smoking Behind the Supermarket with You, Frieren, Mob Psycho 100, Chainsaw Man, Hell's Paradise, and others kept widening that range."
     },
     {
+     "h": "Mushoku Tensei: Season 3 is done"
+    },
+    {
+     "p": "I have now finished Season 3, and the turning point was peak. It was really good."
+    },
+    {
+     "p": "The start was a little boring, just like in Season 1 and again in Season 3, but other than that, the last 3 episodes were really something else. Since I already knew what was about to come, the final episode was truly peak, and I am really looking forward to Season 4."
+    },
+    {
+     "p": "The animation is very good too. I recently lowered the rating to 9, but I am bringing it back up to 9.2/10."
+    },
+    {
      "p": "That is probably one of the coolest things anime gave me outside the stories themselves:"
     },
     {
@@ -338,7 +361,97 @@
      "p": "Perfect full-circle punishment. 💀"
     }
    ],
-   "tags": []
+   "tags": [
+    "RATING: 9.2/10",
+    "SEASON 3: DONE",
+    "NEXT: SEASON 4"
+   ]
+  },
+  {
+   "phase": "09",
+   "name": "The Short One That Hit This Hard",
+   "when": "",
+   "title": "Violet Evergarden",
+   "blocks": [
+    {
+     "p": "I did not expect a 13-episode anime to end up this high on my list, but here we are."
+    },
+    {
+     "p": "Violet Evergarden is a masterpiece. I can give it 9.3/10. It is very short, but it still captivated me that much, and part of me still wants to break the scale. 😭"
+    },
+    {
+     "p": "The characters, the backgrounds, the backstories, the connections, and the character development were all really intense, very close, and very affectionate."
+    },
+    {
+     "h": "Thirteen episodes, and nobody felt wasted"
+    },
+    {
+     "p": "Compared to long series, this one, with only 12 to 13 episodes, did really good justice to a huge number of characters, especially the main ones."
+    },
+    {
+     "p": "That is not easy to pull off, and it did it without ever feeling rushed."
+    },
+    {
+     "h": "Violet herself"
+    },
+    {
+     "p": "The main character is also one of my very favorite characters."
+    },
+    {
+     "p": "Violet's character development is beyond true. The way she loves the Major, her backstory, the way she learns about emotions, and the way she uses and takes advantage of being a Doll to understand humans and explore the emotions that different people have and different kinds of personalities: it is really, truly captivating."
+    },
+    {
+     "p": "She impressed me as a character from the very first episode, and I learned a lot from her and felt motivated to be a better person."
+    },
+    {
+     "h": "The animation is beyond this world"
+    },
+    {
+     "p": "Compared to other anime from 2017, the animation here is on another level. It can be compared to some of the greatest animation of that time."
+    },
+    {
+     "p": "Even to this day, the backgrounds are perfect."
+    },
+    {
+     "h": "Not just a romance"
+    },
+    {
+     "p": "It was truly refreshing to watch an anime that is not just romantic and has a truly intentional plot. No plot dumps, and a good connection between the side cast as well."
+    },
+    {
+     "h": "Gilbert, Hodgins, and the war"
+    },
+    {
+     "p": "Gilbert, the Major, and his friend Hodgins are really well-written characters too."
+    },
+    {
+     "p": "The war, and the way it connects the different characters and ties the events and episodes together, is really good."
+    },
+    {
+     "h": "The finale"
+    },
+    {
+     "p": "In the finale, the way they react to the letters, and the animation direction they went with to show how she wrote the Major her final letter, is truly emotional, well written, and very captivating."
+    },
+    {
+     "h": "Short, but unforgettable"
+    },
+    {
+     "p": "One of my favorite things about it is that the show is really short, but it is truly captivating and unforgettable."
+    },
+    {
+     "p": "It is one of the best short series I have ever watched, and I learned a lot of things throughout those 13 episodes. I never thought about them before."
+    },
+    {
+     "p": "I am looking forward to more anime like this."
+    }
+   ],
+   "tags": [
+    "RATING: 9.3/10",
+    "LENGTH: 13 EPISODES",
+    "ANIMATION: BEYOND THIS WORLD",
+    "IMPACT: MADE ME WANT TO BE BETTER"
+   ]
   }
  ],
  "save": [
@@ -557,6 +670,17 @@
     }
    ],
    "emotion": ""
+  },
+  {
+   "series": "Violet Evergarden",
+   "n": "01",
+   "title": "The final letter",
+   "text": [
+    {
+     "p": "The finale is where everything lands. The way the other characters react to the letters, and the animation direction used to show how Violet wrote her final letter to the Major, is truly emotional, well written, and very captivating."
+    }
+   ],
+   "emotion": "EMOTIONAL + CAPTIVATING"
   }
  ]
 }
