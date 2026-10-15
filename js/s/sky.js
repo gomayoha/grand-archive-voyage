@@ -24,7 +24,7 @@ export function initSky(){
  const key4=s=>String(s).toLowerCase().slice(0,4);
  const list=[
   ...CH.map(c=>({id:c.id,name:c.name,series:c.series,word:c.word||'',line:c.left||'',record:c.id,img:c.image&&`assets/chars/m/${c.image.id}.webp`,tint:c.image?.color,lessons:(ARCH.find(a=>key4(a.name)===key4(c.name))?.lessons)||EXTRA[c.id]||[]})),
-  ...SUP.map(c=>({id:slug(c.name),name:c.name,series:c.series||'Black Clover',word:c.word||'',line:c.line,img:{Kuma:TH('150990e0419f'),Asta:data.posters?.['anime:Black Clover']?.img}[c.name]||null,lessons:EXTRA[slug(c.name)]||[]}))
+  ...SUP.map(c=>({id:slug(c.name),name:c.name,series:c.series||'Black Clover',word:c.word||'',line:c.line,img:(()=>{const col=(data.media?.supporting||[]).find(x=>x.name===c.name)||(data.media?.crew||[]).find(x=>x.name===c.name);return col&&col.cover?TH(col.cover):c.name==='Asta'?data.posters?.['anime:Black Clover']?.img:null;})(),lessons:EXTRA[slug(c.name)]||[]}))
  ].filter(c=>c.lessons.length);
  const N=list.length;if(!N){sec.hidden=true;return;}
  const quest=((data.route?.save||[]).find(l=>/^MAIN QUEST/i.test(l))||'MAIN QUEST: Become a better version of myself').split(':').slice(1).join(':').trim();
