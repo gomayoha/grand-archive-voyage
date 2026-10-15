@@ -48,7 +48,7 @@
    <p class="eyebrow" id="ar-date">Goma's Grand Archive</p>
    <h1 data-w="home.title">The Grand <em>Archive.</em></h1>
    <p class="ar-cap" id="ar-cap"><b id="ar-name"></b><span id="ar-where"></span></p>
-   <div class="ar-actions"><button class="pill small" id="ar-shuffle">Shuffle ↻</button><button class="ar-go" id="ar-go">Take me there →</button><span class="ar-count" id="ar-count"></span></div>
+   <div class="ar-actions"><button class="pill small" id="ar-shuffle">Shuffle ↻</button><button class="pill small ghost ar-dive" id="ar-dive">Dive in ✦</button><button class="ar-go" id="ar-go">Take me there →</button><span class="ar-count" id="ar-count"></span></div>
   </div>
   <span class="op-cue ar-cue" aria-hidden="true"><i></i>Scroll</span>
  </section>
@@ -115,6 +115,22 @@
    <p class="section-lede rv" data-w="crew.lede">Every face on a ship, a throne or a wanted poster, with their latest bounty. Some of them, the World Government would rather you never saw. Tap a poster to open the collection.</p>
    <div class="board" id="board"></div>
    <span class="pg-spot pg-crew" data-pg="crew"></span>
+  </div>
+ </section>
+
+ <!-- BETWEEN THE SKY AND THE SEA: one fall from Skypiea to Fish-Man Island, through his background pictures -->
+ <section id="depths" class="dp" aria-label="Between the sky and the sea">
+  <div class="pin">
+   <div class="dp-world" id="dp-world" aria-hidden="true"></div>
+   <div class="dp-grade" id="dp-grade" aria-hidden="true"></div>
+   <div class="dp-caustics" id="dp-caustics" aria-hidden="true"></div>
+   <div class="dp-intro" id="dp-intro">
+    <p class="eyebrow" data-w="depths.eyebrow">Between the sky and the sea</p>
+    <h2 data-w="depths.title">Ten thousand metres up.<br><em>Ten thousand down.</em></h2>
+    <p data-w="depths.lede">From Skypiea to Fish-Man Island in one fall. Keep scrolling.</p>
+   </div>
+   <div class="dp-caps" id="dp-caps"></div>
+   <div class="dp-alt" aria-hidden="true"><span id="dp-alt-num">+11,200 m</span><i><b id="dp-alt-fill"></b></i><small>Altitude</small></div>
   </div>
  </section>
 
@@ -450,7 +466,7 @@
   </header>
   <ol class="lp-list" id="lp-list"></ol>
   <p class="lp-pg" id="lp-pg"></p>
-  <footer class="lp-foot"><button class="motion-toggle" id="lp-write">✎ Writer's mode</button><button class="motion-toggle" id="lp-motion" aria-pressed="false">Motion <b>On</b></button></footer>
+  <footer class="lp-foot"><button class="motion-toggle" id="lp-tilt" hidden aria-pressed="false">Tilt 3D <b>Off</b></button><button class="motion-toggle" id="lp-write">✎ Writer's mode</button><button class="motion-toggle" id="lp-motion" aria-pressed="false">Motion <b>On</b></button></footer>
  </div>
 </dialog>
 

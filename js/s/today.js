@@ -6,6 +6,8 @@
 // ("Anime is for losers", the old opening, is kept in s/opening.js for later.)
 import {$,esc,data,jumpTo,absTop,motion,TH,FU,part,view,clamp,smooth,coarse} from '../core.js';
 import {openViewer,registerCollection} from '../dialogs.js';
+import {openTunnel} from '../tunnel.js';
+import {onTilt} from '../tilt.js';
 
 const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
@@ -19,15 +21,23 @@ function pictures(){
  for(const w of m.worlds||[])add(w.all,`${w.name} · ${w.series}`,'worlds');
  add(m.spreads?.all,'A colour spread · Eiichiro Oda','spreads');
  add(m.wall,'The Ohara Library','library');
+ add(m.backgrounds?.all,'Between the sky and the sea','depths');
  return out;
 }
 
 export function initToday(){
  const sec=$('#home');if(!sec)return;
- const pool=shuffle(pictures());if(pool.length<12)return;
+ // What's new: every picture the gallery sync added since his last visit (a new day = a new visit) is dealt
+ // first, and the first picture to open is one of them.
+ const today=new Date().toISOString().slice(0,10);let since;
+ try{const v=JSON.parse(localStorage.getItem('grand-archive:visit')||'null');if(!v)since=new Date(Date.now()-7*864e5).toISOString().slice(0,10);else if(v.date!==today){since=v.date;localStorage.setItem('grand-archive:visit',JSON.stringify({date:today,since}));}else since=v.since;if(!v)localStorage.setItem('grand-archive:visit',JSON.stringify({date:today,since}));}catch{since=today;}
+ const added=data.media?.added||{},isNew=id=>(added[id]||'')>since;
+ const all=pictures(),fresh=shuffle(all.filter(p=>isNew(p.id))),pool=[...fresh,...shuffle(all.filter(p=>!isNew(p.id)))];if(pool.length<12)return;
+ // pictures too small to fill the screen stay in the wall but never open full screen on their own
+ const big=p=>{const d=data.media.img[p.id]||[0,0];return Math.max(d[0],d[1])>=900;};
  const wall=$('#ar-wall'),open=$('#ar-open'),oimg=open.querySelector('img'),cap=$('#ar-cap'),capName=$('#ar-name'),capWhere=$('#ar-where');
  $('#ar-date').textContent=`Goma's Grand Archive · ${new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'})}`;
- $('#ar-count').textContent=`${pool.length.toLocaleString('en-US')} pictures in the archive`;
+ $('#ar-count').innerHTML=`${pool.length.toLocaleString('en-US')} pictures in the archive${fresh.length?` · <b class="ar-new">${fresh.length} new since your last visit</b>`:''}`;
  registerCollection('archive',()=>({title:'The archive',eyebrow:'Every picture',ids:pool.map(p=>p.id)}));
  let next=0;const deal=()=>pool[(next++)%pool.length];
  let tiles=[],cur=null,running=false,visible=true,busy=false,timer=0;
@@ -53,7 +63,7 @@ export function initToday(){
   const cover=Math.max(W/iw,H/ih),tileCover=Math.max(r.width/iw,r.height/ih),k=tileCover/cover;
   const cx=x+r.width/2-W/2,cy=y+r.height/2-H/2;
   oimg.src=FU(t.p.id);try{await oimg.decode();}catch{}
-  capName.textContent=t.p.label.split(' · ')[0];capWhere.textContent=t.p.label.split(' · ').slice(1).join(' · ');
+  capName.textContent=t.p.label.split(' · ')[0];capWhere.textContent=t.p.label.split(' · ').slice(1).join(' · ')+(isNew(t.p.id)?` · New, ${new Date(added[t.p.id]+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short'})}`:'');
   const from=`inset(${y}px ${W-x-r.width}px ${H-y-r.height}px ${x}px round 10px)`,to='inset(0px 0px 0px 0px round 0px)';
   open.hidden=false;t.el.classList.add('lifted');
   const dur=motion.reduced?1:1100,ease='cubic-bezier(.2,.7,0,1)';
@@ -84,7 +94,9 @@ export function initToday(){
   if(running)return;running=true;
   while(running&&visible&&!motion.reduced){
    await wait(1800);if(!running||!visible)break;
-   const t=tiles[Math.floor(Math.random()*tiles.length)];
+   // new pictures open first (one per turn), then any picture big enough to fill the screen
+   const cands=tiles.filter(x=>big(x.p)),fresh1=cands.filter(x=>isNew(x.p.id)&&!x.shown),from=fresh1.length?fresh1:cands.length?cands:tiles;
+   const t=from[Math.floor(Math.random()*from.length)];t.shown=true;
    await expand(t,4200);
    await wait(900);
   }
@@ -101,6 +113,11 @@ export function initToday(){
  let traf=0;const ease=()=>{traf=0;T.x+=(T.tx-T.x)*0.07;T.y+=(T.ty-T.y)*0.07;apply();if(Math.abs(T.tx-T.x)+Math.abs(T.ty-T.y)>0.002)traf=requestAnimationFrame(ease);};
  if(!coarse)sec.addEventListener('pointermove',e=>{if(motion.reduced||T.flat)return;T.tx=e.clientX/innerWidth-0.5;T.ty=0.5-e.clientY/innerHeight;if(!traf)traf=requestAnimationFrame(ease);});
  sec.addEventListener('pointerleave',()=>{T.tx=T.ty=0;if(!traf)traf=requestAnimationFrame(ease);});
+ // on a phone, the wall follows the way you hold it
+ onTilt(t=>{if(motion.reduced||!coarse)return;
+  // a picture that's open drifts with the phone too, like looking at it through a window
+  open.style.scale=t.on?'1.05':'';open.style.translate=t.on?`${(t.x*-16).toFixed(1)}px ${(t.y*-12).toFixed(1)}px`:'';
+  if(T.flat)return;T.tx=t.x*0.7;T.ty=-t.y*0.7;if(!traf)traf=requestAnimationFrame(ease);});
  part({el:sec,update(s){const f=motion.reduced?0:smooth(clamp(s/Math.max(1,view.vh)));if(f!==T.fold){T.fold=f;apply();}}});
  // The first time the site opens, every tile flies in from deep in the dark and lands in the wall.
  function assemble(){
@@ -120,6 +137,7 @@ export function initToday(){
  wall.addEventListener('click',e=>{const el=e.target.closest('.ar-tile');if(!el||busy)return;const t=tiles.find(x=>x.el===el);if(t)expand(t,5200);});
  open.addEventListener('click',()=>{if(cur)openViewer('archive',cur.p.id);});
  $('#ar-go').addEventListener('click',()=>{const to=cur?.p.to||'characters',el=document.getElementById(to);if(el)jumpTo(absTop(el));});
+ $('#ar-dive').addEventListener('click',()=>openTunnel({title:'Every picture',eyebrow:`${pool.length.toLocaleString('en-US')} pictures · newest first`,ids:pool.map(p=>p.id)}));
  $('#ar-shuffle').addEventListener('click',()=>{if(busy)return;shuffle(tiles.slice()).forEach((t,i)=>setTimeout(()=>turn(t),i*35));});
  let rw=innerWidth;addEventListener('resize',()=>{if((innerWidth<=820)!==(rw<=820)){rw=innerWidth;if(!busy)build();}});
 }

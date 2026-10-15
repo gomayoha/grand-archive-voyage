@@ -8,6 +8,7 @@
 // the pieces near the edge of sight. Pieces behind the camera are hidden. Scrubbing eases like the Voyage.
 import {$,esc,pad,clamp,smooth,lerp,view,part,pinned,follower,motion,data,coarse,FU,TH,jumpTo,absTop,kick} from '../core.js';
 import {G5} from '../gear5.js';
+import {onTilt} from '../tilt.js';
 import {registerCollection} from '../dialogs.js';
 
 const ANG=34;                    // degrees each portrait is turned toward the walkway
@@ -155,8 +156,11 @@ export function initStrawHats(){
   if(G5.on)kick();
  }});
  // look around with the mouse (desktop): the camera turns its head a few degrees toward the pointer
- if(!coarse){let raf=0;pinEl.addEventListener('pointermove',e=>{look.tx=(e.clientX/view.vw-0.5)*2;look.ty=(e.clientY/view.vh-0.5)*-2;if(!raf)raf=requestAnimationFrame(function tick(){raf=0;if(motion.reduced||!G)return;look.x+=(look.tx-look.x)*0.1;look.y+=(look.ty-look.y)*0.1;render(f.v??0);if(Math.abs(look.tx-look.x)+Math.abs(look.ty-look.y)>0.004)raf=requestAnimationFrame(tick);});});
-  pinEl.addEventListener('pointerleave',()=>{look.tx=0;look.ty=0;pinEl.dispatchEvent(new PointerEvent('pointermove',{clientX:view.vw/2,clientY:view.vh/2}));});}
+ let lraf=0;const lookTick=()=>{lraf=0;if(motion.reduced||!G)return;look.x+=(look.tx-look.x)*0.1;look.y+=(look.ty-look.y)*0.1;render(f.v??0);if(Math.abs(look.tx-look.x)+Math.abs(look.ty-look.y)>0.004)lraf=requestAnimationFrame(lookTick);};
+ const lookAt=(x,y)=>{look.tx=x;look.ty=y;if(!lraf)lraf=requestAnimationFrame(lookTick);};
+ if(!coarse){pinEl.addEventListener('pointermove',e=>lookAt((e.clientX/view.vw-0.5)*2,(e.clientY/view.vh-0.5)*-2));pinEl.addEventListener('pointerleave',()=>lookAt(0,0));}
+ // phones: tilt to look around the deck (only while it's on screen)
+ onTilt(t=>{const r=sec.getBoundingClientRect();if(r.bottom>0&&r.top<view.vh)lookAt(t.x*1.1,-t.y*1.1);});
  // the rail: walk straight to someone
  rail.addEventListener('click',e=>{const b=e.target.closest('[data-sh]');if(!b)return;const p=sec.offsetHeight-view.vh;jumpTo(absTop(sec)+pOf(+b.dataset.sh+1)*p);f.v=null;});
  cards.addEventListener('click',e=>{const a=e.target.closest('[data-jump-record]');if(!a)return;e.preventDefault();const el=document.getElementById('c-'+a.dataset.jumpRecord);if(el)jumpTo(absTop(el));});

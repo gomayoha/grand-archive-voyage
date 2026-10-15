@@ -4,6 +4,7 @@
 // to jump around, so it also carries the Motion switch that no longer fits in the bar.
 import {$,esc,data,part,absTop,jumpTo,TH,motion,setReduced,view} from './core.js';
 import {poneglyphsFound} from './poneglyph.js';
+import {tilt,setTilt,resumeTilt,tiltSupported,recentre} from './tilt.js';
 
 const poster=k=>{const p=data.posters&&data.posters[k];return p&&p.img;};
 // [section id, number, kicker, title (the section's own heading), thumbnail]
@@ -12,6 +13,7 @@ const CHAPTERS=[
  ['characters','01','The Character Log','They each left something behind.',()=>{const c=data.characters?.characters?.[0];return c&&`assets/chars/m/${c.image.id}.webp`;}],
  ['strawhats','✦','The Straw Hat Pirates','Ten dreams. One ship. A walk down the deck.',()=>data.media?.img?.['9fdfff7bb2ea']&&TH('9fdfff7bb2ea')],
  ['crew','02','The Crew','Everyone with a price on their head.',()=>data.media?.crew?.[0]&&TH(data.media.crew[0].cover)],
+ ['depths','✦','Between the sky and the sea','Ten thousand metres up. Ten thousand down.',()=>TH('6ec6b336fb55')],
  ['voyage','03','The Voyage','They sailed ten seas.',()=>data.media?.journey?.[0]&&TH(data.media.journey[0])],
 
  ['moments','✦','Moments','The ones that live in my head.',()=>'assets/moments/heartbeat-1.webp'],
@@ -30,7 +32,7 @@ const CHAPTERS=[
  ['life','II','Book II','Some chapters aren’t anime.',()=>null]
 ];
 // Where the needle points while you are in each chapter (degrees). Arbitrary, like the sea.
-const BEARING=[-28,34,-46,-52,68,14,-40,52,-12,30,-64,44,-22,58,-36,72,20,0];
+const BEARING=[-28,34,-46,-52,8,68,14,-40,52,-12,30,-64,44,-22,58,-36,72,20,0];
 
 export function initLogPose(){
  const btn=$('#logpose-btn'),dlg=$('#logpose'),list=$('#lp-list'),needle=btn.querySelector('.lp-needle'),motionBtn=$('#lp-motion');
@@ -66,6 +68,10 @@ export function initLogPose(){
   const el=document.getElementById(b.dataset.to);if(el)jumpTo(b.dataset.to==='home'?0:absTop(el));
  });
  motionBtn.addEventListener('click',()=>{setReduced(!motion.reduced);showMotion();});
+ // Tilt 3D (phones): the 3D scenes follow the phone
+ const tiltBtn=$('#lp-tilt');
+ if(tiltBtn&&tiltSupported()){tiltBtn.hidden=false;const show=()=>{tiltBtn.innerHTML=`Tilt 3D <b>${tilt.on?'On':'Off'}</b>`;tiltBtn.setAttribute('aria-pressed',String(tilt.on));};
+  resumeTilt();show();tiltBtn.addEventListener('click',async e=>{e.stopPropagation();await setTilt(!tilt.on);if(tilt.on)recentre();show();});}
  motion.listeners.push(showMotion);
 
  // Needle: swing to the bearing of the chapter you're in.

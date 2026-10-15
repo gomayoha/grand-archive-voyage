@@ -14,6 +14,7 @@ import {initCharacters} from './s/characters.js';
 import {initCrew} from './s/crew.js';
 import {initStrawHats} from './s/strawhats.js';
 import {initVoyage} from './s/voyage.js';
+import {initDepths} from './s/depths.js';
 import {initSpreads} from './s/spreads.js';
 import {initMoments} from './s/moments.js';
 import {initPanels} from './s/panels.js';
@@ -35,6 +36,7 @@ run('today',initToday);
 run('characters',initCharacters);
 run('strawhats',initStrawHats);
 run('crew',initCrew);
+run('depths',initDepths);
 const voy=run('voyage',initVoyage);
 run('moments',initMoments);
 run('spreads',initSpreads);
@@ -60,7 +62,7 @@ lookAhead();
 
 /* ---------------- header: clear over full-screen scenes, frosted over reading sections ---------------- */
 const bar=$('#bar'),navLinks=$$('.bar-nav a');
-const clearOver=['#home','#strawhats','#voyage','#moments','#spreads','#story-show','#top','#scenes','#sky','#outro'].map(s=>$(s)).filter(Boolean);
+const clearOver=['#home','#strawhats','#depths','#voyage','#moments','#spreads','#story-show','#top','#scenes','#sky','#outro'].map(s=>$(s)).filter(Boolean);
 part({always:true,measure(){this.zones=clearOver.map(el=>[absTop(el)-10,absTop(el)+el.offsetHeight-view.vh*0.9]);const ink=$('#panels');this.ink=[absTop(ink)-30,absTop(ink)+ink.offsetHeight-60];},update(s){
  const clear=this.zones.some(([a,b])=>s>=a&&s<b);bar.classList.toggle('solid',!clear);bar.classList.toggle('paper',s>this.ink[0]&&s<this.ink[1]);
 }});

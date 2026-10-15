@@ -8,6 +8,7 @@
 // genuinely 3D without hundreds of layers. The canvas only runs while the section is on screen.
 import {$,esc,clamp,smooth,lerp,view,part,pinned,follower,motion,data,coarse,TH,jumpTo,absTop} from '../core.js';
 import {G5} from '../gear5.js';
+import {onTilt} from '../tilt.js';
 
 const RAD=Math.PI/180;
 // Lessons for the ones without tags in his old archive: fragments of his own notes, kept close to his words.
@@ -135,6 +136,7 @@ export function initSky(){
  const tick=t=>{raf=0;if(!visible||motion.reduced)return;if(t-last>33){last=t;tNow=t;look.x+=(look.tx-look.x)*0.12;look.y+=(look.ty-look.y)*0.12;render(f.v??sOf(pinned({top:absTop(sec),h:sec.offsetHeight})));}raf=requestAnimationFrame(tick);};
  new IntersectionObserver(([e])=>{visible=e.isIntersecting;if(visible&&!raf)raf=requestAnimationFrame(tick);},{threshold:0}).observe(sec);
  if(!coarse){pinEl.addEventListener('pointermove',e=>{look.tx=(e.clientX/W-0.5)*2;look.ty=(0.5-e.clientY/H)*2;});pinEl.addEventListener('pointerleave',()=>{look.tx=look.ty=0;});}
+ onTilt(t=>{look.tx=t.x*1.4;look.ty=-t.y*1.4;});
  // tap a character's star to turn the sky to them
  layer.addEventListener('click',e=>{const b=e.target.closest('.sk-star.main');if(!b)return;const k=+b.dataset.k;jumpTo(absTop(sec)+pOf(k+1)*(sec.offsetHeight-view.vh));f.v=null;});
  card.addEventListener('click',e=>{const a=e.target.closest('[data-sk-record]');if(!a)return;e.preventDefault();const el=document.getElementById('c-'+a.dataset.skRecord);if(el)jumpTo(absTop(el));});

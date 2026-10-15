@@ -31,6 +31,7 @@ const QUIPS = {
   characters: 'Everyone here is my nakama now. Shishishi!',
   strawhats: 'MY CREW!! The best crew in the whole world!',
   crew: 'My bounty is WAY bigger than these!',
+  depths: 'WHEEEE!! Sky island to fish island!!',
   voyage: 'Ten seas! Let\'s go! Shishishi!',
   spreads: 'Woah… Oda drew ALL of these?!',
   panels: 'Hey! I remember this panel!',
