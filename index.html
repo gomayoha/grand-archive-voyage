@@ -53,6 +53,25 @@
   <span class="op-cue ar-cue" aria-hidden="true"><i></i>Scroll</span>
  </section>
 
+ <!-- THE HELM: "Where to, captain?" Every way into the archive on one reel that turns as you scroll (s/helm.js) -->
+ <section id="helm" class="hm" aria-label="Where to, captain?">
+  <div class="pin">
+   <div class="hm-bg" aria-hidden="true"><img alt="" decoding="async"><img alt="" decoding="async"></div>
+   <div class="hm-shade" aria-hidden="true"></div>
+   <div class="hm-stage"><div class="hm-tilt" id="hm-tilt"><div class="hm-reel" id="hm-reel"></div></div></div>
+   <div class="hm-fade" aria-hidden="true"></div>
+   <div class="hm-copy">
+    <p class="eyebrow" data-w="helm.eyebrow">The helm</p>
+    <h2 data-w="helm.title">Where to,<br><em>captain?</em></h2>
+    <p class="hm-lede" data-w="helm.lede">Every island in the archive, and a few new ways to sail it. Scroll to turn the wheel. Tap one to set sail.</p>
+    <div class="hm-detail" id="hm-detail" aria-live="polite"></div>
+    <button class="hm-purse" id="hm-purse" aria-label="Your bounty. Open the Treasure Room"></button>
+   </div>
+   <ol class="hm-ticks" id="hm-ticks" aria-label="Every option"></ol>
+  </div>
+  <ol class="hm-static" id="hm-static" aria-label="Where to"></ol>
+ </section>
+
  <!-- The original opening ("Anime is for losers."), kept for later; not shown and not started (s/opening.js). -->
  <section id="origin" class="opening" aria-label="How it started" hidden>
   <div class="pin">
@@ -464,6 +483,7 @@
    <div><p class="eyebrow">Log Pose</p><h2 id="lp-title">Set a <em>course.</em></h2></div>
    <button class="lp-close" id="lp-close">Close ✕</button>
   </header>
+  <div class="lp-rooms" id="lp-rooms"></div>
   <ol class="lp-list" id="lp-list"></ol>
   <p class="lp-pg" id="lp-pg"></p>
   <footer class="lp-foot"><button class="motion-toggle" id="lp-tilt" hidden aria-pressed="false">Tilt 3D <b>Off</b></button><button class="motion-toggle" id="lp-write">✎ Writer's mode</button><button class="motion-toggle" id="lp-motion" aria-pressed="false">Motion <b>On</b></button></footer>

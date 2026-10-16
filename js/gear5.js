@@ -28,6 +28,7 @@ const TILT = '.stop-card,.vol,.pc';
 const DROP = 'h1,h2,h3,p,.eyebrow,.pill,figure,.wanted,.door,.stop-card,.vol,.chips button,.link';
 const QUIPS = {
   home: 'Anime is for WHAT?! Shishishi!',
+  helm: 'Where to?! Somewhere with MEAT!',
   characters: 'Everyone here is my nakama now. Shishishi!',
   strawhats: 'MY CREW!! The best crew in the whole world!',
   crew: 'My bounty is WAY bigger than these!',

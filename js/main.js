@@ -9,6 +9,8 @@ import './editor.js';
 import {initWriter} from './writer.js';
 import {bindTexts} from './texts.js';
 import {initToday} from './s/today.js';
+import {initHelm} from './s/helm.js';
+import {initBounty,openTreasure,openGames} from './bounty.js';
 // The original opening (s/opening.js, "Anime is for losers.") is kept for later; #origin stays hidden.
 import {initCharacters} from './s/characters.js';
 import {initCrew} from './s/crew.js';
@@ -33,6 +35,7 @@ await Promise.all([loadData(),loadVault()]);
 // One broken section must never take the rest of the page down with it.
 const run=(name,fn)=>{try{return fn();}catch(e){console.error(`[${name}]`,e);}};
 run('today',initToday);
+run('helm',initHelm);
 run('characters',initCharacters);
 run('strawhats',initStrawHats);
 run('crew',initCrew);
@@ -58,11 +61,13 @@ run('poneglyphs',initPoneglyphs);
 // words rewritten in Writer's mode go over the page's own, then the typewriter is wired up
 run('texts',()=>bindTexts(document));
 run('writer',initWriter);
+// your bounty: berries for the time spent here and everything learned on the way (js/bounty.js)
+run('bounty',()=>initBounty({chars:data.characters?.characters}));
 lookAhead();
 
 /* ---------------- header: clear over full-screen scenes, frosted over reading sections ---------------- */
 const bar=$('#bar'),navLinks=$$('.bar-nav a');
-const clearOver=['#home','#strawhats','#depths','#voyage','#moments','#spreads','#story-show','#top','#scenes','#sky','#outro'].map(s=>$(s)).filter(Boolean);
+const clearOver=['#home','#helm','#strawhats','#depths','#voyage','#moments','#spreads','#story-show','#top','#scenes','#sky','#outro'].map(s=>$(s)).filter(Boolean);
 part({always:true,measure(){this.zones=clearOver.map(el=>[absTop(el)-10,absTop(el)+el.offsetHeight-view.vh*0.9]);const ink=$('#panels');this.ink=[absTop(ink)-30,absTop(ink)+ink.offsetHeight-60];},update(s){
  const clear=this.zones.some(([a,b])=>s>=a&&s<b);bar.classList.toggle('solid',!clear);bar.classList.toggle('paper',s>this.ink[0]&&s<this.ink[1]);
 }});
@@ -85,6 +90,8 @@ measureAll();
 new ResizeObserver(remeasure).observe($('main'));
 let crossing=false;try{crossing=sessionStorage.getItem('grand-archive:cross')==='1';sessionStorage.removeItem('grand-archive:cross');}catch{}
 if(crossing&&!$('#life').hidden)requestAnimationFrame(()=>{measureAll();jumpTo(absTop($('#life')));});
+else if(location.hash==='#treasure')openTreasure();
+else if(location.hash==='#games')openGames();
 else if(location.hash&&location.hash!=='#home'){const t=document.getElementById(location.hash.slice(1));if(t)requestAnimationFrame(()=>jumpTo(absTop(t)));}
 requestAnimationFrame(()=>document.body.classList.add('ready'));
 initGear5({button:$('#gear5'),isReduced:()=>motion.reduced});

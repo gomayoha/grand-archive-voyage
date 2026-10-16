@@ -34,7 +34,7 @@ function stone(spot){
  });
 }
 
-async function openLaughTale(){
+export async function openLaughTale(){
  let d=document.querySelector('.laugh-tale');
  if(!d){
   const route=await fetch('data/route.json').then(r=>r.ok?r.json():null).catch(()=>null);

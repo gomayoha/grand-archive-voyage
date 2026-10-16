@@ -5,6 +5,7 @@
 // scroll, one rAF, transform/opacity (the burning flag is the one masked paint).
 import {$,$$,esc,clamp,smooth,ease,view,part,pinned,motion,measureAll,remeasure,absTop,jumpTo,onSight,warm,FU,TH} from './core.js';
 import {initPoneglyphs} from './poneglyph.js';
+import {initBounty} from './bounty.js';
 
 // Lookups inside one block (core's $ and $$ always search the whole page).
 const q=(sel,root)=>root.querySelector(sel),qa=(sel,root)=>[...root.querySelectorAll(sel)];
@@ -324,6 +325,8 @@ part({always:true,measure(){
 }});
 
 initPoneglyphs();
+// your bounty: every saga you reach pays (js/bounty.js)
+initBounty();
 // Every block starts loading its pictures two screens before it arrives.
 $$('.saga,.sx,.arc,.st-route,.st-end').forEach(el=>onSight(el,warm,'0px 0px 200% 0px'));
 measureAll();

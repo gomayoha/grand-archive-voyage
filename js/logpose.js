@@ -5,11 +5,14 @@
 import {$,esc,data,part,absTop,jumpTo,TH,motion,setReduced,view} from './core.js';
 import {poneglyphsFound} from './poneglyph.js';
 import {tilt,setTilt,resumeTilt,tiltSupported,recentre} from './tilt.js';
+import {startAuto} from './autovoyage.js';
+import {B,chests,money,title,openTreasure,openGames} from './bounty.js';
 
 const poster=k=>{const p=data.posters&&data.posters[k];return p&&p.img;};
 // [section id, number, kicker, title (the section's own heading), thumbnail]
 const CHAPTERS=[
- ['home','00','The beginning','“Anime is for losers.”',()=>poster('anime:One Piece')],
+ ['home','00','The beginning','The archive, opened.',()=>poster('anime:One Piece')],
+ ['helm','✦','The helm','Where to, captain?',()=>TH('3358de4cd87c')],
  ['characters','01','The Character Log','They each left something behind.',()=>{const c=data.characters?.characters?.[0];return c&&`assets/chars/m/${c.image.id}.webp`;}],
  ['strawhats','✦','The Straw Hat Pirates','Ten dreams. One ship. A walk down the deck.',()=>data.media?.img?.['9fdfff7bb2ea']&&TH('9fdfff7bb2ea')],
  ['crew','02','The Crew','Everyone with a price on their head.',()=>data.media?.crew?.[0]&&TH(data.media.crew[0].cover)],
@@ -32,7 +35,7 @@ const CHAPTERS=[
  ['life','II','Book II','Some chapters aren’t anime.',()=>null]
 ];
 // Where the needle points while you are in each chapter (degrees). Arbitrary, like the sea.
-const BEARING=[-28,34,-46,-52,8,68,14,-40,52,-12,30,-64,44,-22,58,-36,72,20,0];
+const BEARING=[-28,16,34,-46,-52,8,68,14,-40,52,-12,30,-64,44,-22,58,-36,72,20,0];
 
 export function initLogPose(){
  const btn=$('#logpose-btn'),dlg=$('#logpose'),list=$('#lp-list'),needle=btn.querySelector('.lp-needle'),motionBtn=$('#lp-motion');
@@ -49,11 +52,18 @@ export function initLogPose(){
    <i class="lp-here">You are here</i></${c.page?'a':'button'}></li>`;}).join('');
   built=true;
  }
+ // the new ways to sail sit above the islands: Auto voyage and the two rooms
+ const rooms=$('#lp-rooms');
+ function buildRooms(){const c=chests();rooms.innerHTML=[
+  ['auto',TH('6ec6b336fb55'),'Auto voyage','The archive sails itself'],
+  ['games','assets/media/luffy_poster.jpg','The Game Room','Four games, all paying berries'],
+  ['treasure',TH('c95409fbc40a'),'The Treasure Room',`฿${money(B.b)} · ${title()[1]}${c.waiting?` · ${c.waiting} ${c.waiting>1?'chests':'chest'} waiting`:''}`]
+ ].map(([k,src,t,sub])=>`<button class="lp-room${k==='treasure'&&c.waiting?' glow':''}" data-room="${k}"><img src="${esc(src)}" alt="" decoding="async"><span><b>${esc(t)}</b><small>${esc(sub)}</small></span></button>`).join('');}
  function mark(){list.querySelectorAll('.lp-isle').forEach(b=>b.classList.toggle('now',b.dataset.to===sections[cur]?.id));}
  const showMotion=()=>{motionBtn.innerHTML=`Motion <b>${motion.reduced?'Off':'On'}</b>`;motionBtn.setAttribute('aria-pressed',String(motion.reduced));};
 
  btn.addEventListener('click',()=>{
-  if(!built)build();mark();showMotion();
+  if(!built)build();mark();showMotion();buildRooms();
   // once the hunt has started, the Log Pose keeps count (and says nothing before that)
   const pg=poneglyphsFound(),pgEl=$('#lp-pg');pgEl.classList.toggle('on',pg>0);pgEl.innerHTML=pg?`Road Poneglyphs found: <b>${pg}</b> / 4`:'';
   dlg.showModal();document.documentElement.style.overflow='hidden';
@@ -63,6 +73,7 @@ export function initLogPose(){
  dlg.addEventListener('close',()=>{document.documentElement.style.overflow='';});
  dlg.addEventListener('click',e=>{
   if(e.target.closest('#lp-close')||e.target===dlg){dlg.close();return;}
+  const room=e.target.closest('[data-room]');if(room){dlg.close();const k=room.dataset.room;if(k==='auto')startAuto();else if(k==='games')openGames();else openTreasure();return;}
   const b=e.target.closest('.lp-isle');if(!b||b.classList.contains('lp-page'))return;
   dlg.close();btn.focus({preventScroll:true});
   const el=document.getElementById(b.dataset.to);if(el)jumpTo(b.dataset.to==='home'?0:absTop(el));
