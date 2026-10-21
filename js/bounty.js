@@ -69,7 +69,7 @@ export function openTreasure(tab){if(!onIndex()){location.href='index.html#treas
 export function openGames(game){if(!onIndex()){location.href='index.html#games';return;}import('./games.js').then(m=>m.openGames(game));}
 
 /* ---------------------------------------------------------------- the bounty board */
-const CH_NAMES={helm:'The helm',characters:'The Character Log',strawhats:'The Straw Hat Pirates',crew:'The Crew',depths:'Between the sky and the sea',voyage:'The Voyage',moments:'Moments',spreads:'Colour spreads',panels:'Favourite panels','story-show':'The Story of One Piece',journey:'The Anime Journey',top:'My top 10',records:'The Shelf',logbook:'The Logbook',worlds:'Other worlds',vault:'The Card Vault',scenes:'Scenes that stay',library:'The Ohara Library',sky:'The night sky',outro:'The last page'};
+const CH_NAMES={helm:'The helm',characters:'The Character Log',strawhats:'The Straw Hat Pirates',crew:'The Crew',depths:'Between the sky and the sea',voyage:'The Voyage',moments:'Moments',spreads:'Colour spreads',panels:'Favourite panels','story-show':'The Story of One Piece',journey:'The Anime Journey',top:'My top 10',records:'The Shelf',logbook:'The Logbook',worlds:'Other worlds',vault:'The Card Vault',table:'The Card Table',scenes:'Scenes that stay',library:'The Ohara Library',sky:'The night sky',outro:'The last page'};
 const PG=['zou','crew','panels','library'];
 const pgFound=()=>{try{const v=JSON.parse(localStorage.getItem('grand-archive:poneglyphs')||'[]');return Array.isArray(v)?v.filter(x=>PG.includes(x)):[];}catch{return[];}};
 const ODD=['g5','write','dive','shuffle','scene'];
@@ -78,6 +78,7 @@ const min=(a,b)=>Math.min(a,b);
 export const QUESTS=[
  {id:'ch',t:'Sail to every chapter',d:'Reach each chapter of the archive once.',n:()=>[marked('ch:'),Object.keys(CH_NAMES).length],pay:'฿5,000,000 each'},
  {id:'read',t:'Read every record',d:'Open “Read everything I wrote” for every character in the Character Log. The last one unlocks a relic.',n:()=>[marked('read:'),B.nChars||11],pay:'฿3,000,000 each · ฿30,000,000 for all'},
+ {id:'cards',t:'Hold every card',d:'Open each card in the Card Vault or on the Card Table up close.',n:()=>{let k=0;try{k=JSON.parse(localStorage.getItem('grand-archive:tcg-seen')||'[]').length;}catch{}return[k,74];},pay:'฿500,000 each · ฿30,000,000 for all'},
  {id:'judge',t:'First impressions',d:'Flip every first-impression card in the Character Log.',n:()=>[marked('judge:'),B.nJudge||2],pay:'฿2,000,000 each'},
  {id:'pg',t:'The Road Poneglyphs',d:'Four red stones are hidden in the archive. Take a rubbing of each one.',n:()=>[marked('pg:'),4],pay:'฿50,000,000 each · ฿100,000,000 at Laugh Tale'},
  {id:'saga',t:'The whole story',d:'Reach every saga in The Story of One Piece.',n:()=>[marked('saga:'),11],pay:'฿5,000,000 each · ฿50,000,000 for all'},

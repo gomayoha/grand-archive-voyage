@@ -33,7 +33,7 @@
 <header class="bar" id="bar">
  <a class="brand" href="#home" data-jump><span class="brand-mark">G</span><span>Grand Archive</span></a>
  <nav class="bar-nav" aria-label="Sections">
-  <a href="#characters" data-jump>Characters</a><a href="#strawhats" data-jump>Straw Hats</a><a href="#crew" data-jump>Crew</a><a href="#voyage" data-jump>Voyage</a><a href="#moments" data-jump>Moments</a><a href="#spreads" data-jump>Spreads</a><a href="#panels" data-jump>Panels</a><a href="#journey" data-jump>Journey</a><a href="#top" data-jump>Top 10</a><a href="#vault" data-jump>Vault</a><a href="#library" data-jump>Library</a><a href="#life" data-jump id="nav-life" hidden>Book II</a>
+  <a href="#characters" data-jump>Characters</a><a href="#strawhats" data-jump>Straw Hats</a><a href="#crew" data-jump>Crew</a><a href="#voyage" data-jump>Voyage</a><a href="#moments" data-jump>Moments</a><a href="#spreads" data-jump>Spreads</a><a href="#panels" data-jump>Panels</a><a href="#journey" data-jump>Journey</a><a href="#top" data-jump>Top 10</a><a href="#vault" data-jump>Cards</a><a href="#library" data-jump>Library</a><a href="#life" data-jump id="nav-life" hidden>Book II</a>
  </nav>
  <div class="bar-toggles"><button class="logpose-btn" id="logpose-btn" aria-haspopup="dialog" aria-label="Log Pose: every chapter" title="Log Pose: every chapter"><svg class="lp-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="10.5" r="7.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8.6 17.6 7.6 21h8.8l-1-3.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><g class="lp-needle"><path d="M12 4.6 13.5 10.5H10.5Z" fill="#e3342f"/><path d="M12 16.4 13.5 10.5H10.5Z" fill="currentColor" opacity=".55"/></g><circle cx="12" cy="10.5" r="1" fill="currentColor"/></svg><span>Log Pose</span></button><button class="write-toggle" id="write" aria-pressed="false" title="Writer's mode: edit the words, keep a diary"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 4.5l5 5L9 20H4v-5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12.5 6.5l5 5" stroke="currentColor" stroke-width="1.6"/></svg><span>Write</span></button><button class="gear-toggle" id="gear5" aria-pressed="false" title="Gear 5: bouncy mode + the Drums of Liberation"><span class="g5-sun" aria-hidden="true"></span>Gear 5 <b>Off</b></button><button class="motion-toggle" id="motion" aria-pressed="false">Motion <b>On</b></button></div>
 </header>
@@ -301,18 +301,31 @@
   </div>
  </section>
 
- <!-- 08 · CARD VAULT: a ring that turns as you scroll -->
+ <!-- 08 · CARD VAULT: every card on one spiral that turns and climbs as you scroll (js/s/cards.js) -->
  <section id="vault" class="vault" aria-label="Card Vault">
   <div class="pin">
-   <header class="vault-head"><p class="eyebrow" data-w="vault.eyebrow">08 · The Card Vault</p><h2 data-w="vault.title">My kind of <em>treasure.</em></h2></header>
-   <div class="ring-stage"><div class="ring" id="ring"></div></div>
-   <div class="ring-info" id="ring-info" aria-live="polite"></div>
+   <p class="vt-word" id="vt-word" aria-hidden="true"></p>
+   <div class="vt-stage"><div class="vt-helix" id="vt-helix"></div></div>
+   <header class="vault-head" id="vt-intro"><p class="eyebrow" data-w="vault.eyebrow">08 · The Card Vault</p><h2 data-w="vault.title">My kind of <em>treasure.</em></h2><p class="vt-lede"><b id="vt-count"></b> <span data-w="vault.lede">cards from my binder, photographed one by one. Scroll to climb them.</span></p></header>
+   <ol class="vt-ladder" id="vt-ladder" aria-label="Jump to a colour"></ol>
+   <div class="vt-info" id="vt-info" aria-live="polite"></div>
   </div>
+  <ul class="vt-static wrap" id="vt-static" hidden></ul>
  </section>
- <div class="wrap vault-foot">
-  <div class="decks" id="decks"></div>
-  <p class="fine">Twelve confirmed entries across eleven card numbers. Regular and Parallel OP14-112 are separate records. Quantity, language, condition and price are not recorded yet, so they are shown as unknown, never zero. Card art is the official catalog reference, not a photo of the owned copy.</p>
- </div>
+
+ <!-- 08½ · THE CARD TABLE: every card dealt onto a mat, sorted any way you like (js/s/table.js) -->
+ <section id="table" class="table-sec" aria-label="The Card Table">
+  <div class="wrap tb-head">
+   <p class="eyebrow" data-w="table.eyebrow">The Card Table</p>
+   <h2 data-w="table.title">Now lay them all <em>out.</em></h2>
+   <p class="tb-lede" data-w="table.lede">Sort them any way you like. Tap a pile to pick it up, tap a card to hold it.</p>
+   <div class="tb-bar"><div class="chips tb-sort" id="tb-sort" role="group" aria-label="Sort the cards by"></div><button class="pill small tb-draw" id="tb-draw">Draw a hand</button></div>
+   <div class="tb-meter" id="tb-meter"></div>
+  </div>
+  <div class="tb-mat"><div class="tb-stage" id="tb-stage"></div></div>
+  <div class="tb-veil" id="tb-veil" hidden></div>
+  <div class="tb-hand" id="tb-hand" hidden><div class="tb-hh" id="tb-hh"></div></div>
+ </section>
 
  <!-- 09 · SCENES THAT STAY -->
  <section id="scenes" class="scenes" aria-label="Scenes that stay">

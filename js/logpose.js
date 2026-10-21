@@ -28,14 +28,15 @@ const CHAPTERS=[
  ['records','✦','The Shelf','Rated, preserved as written.',()=>poster('anime:Death Note')],
  ['logbook','✦','The Logbook','How far I’ve come.',()=>poster('anime:Frieren')],
  ['worlds','✦','Beyond the Grand Line','Other worlds that stayed.',()=>data.media?.worlds?.[0]&&TH(data.media.worlds[0].cover)],
- ['vault','08','The Card Vault','My kind of treasure.',()=>data.archive?.cards?.find(c=>c.image)?.image],
+ ['vault','08','The Card Vault','My kind of treasure.',()=>'assets/tcg/s/OP09-061_p2.webp'],
+ ['table','✦','The Card Table','Now lay them all out.',()=>'assets/tcg/s/OP14-031.webp'],
  ['scenes','09','Scenes that stay','“Come on, heartbeat. Beat louder.”',()=>'assets/media/luffy_poster.jpg'],
  ['library','10','The Ohara Library','Stories leave traces.',()=>data.media?.wall?.[0]&&TH(data.media.wall[0])],
  ['sky','✦','The night sky','Every one of them, in one sky.',()=>null],
  ['life','II','Book II','Some chapters aren’t anime.',()=>null]
 ];
 // Where the needle points while you are in each chapter (degrees). Arbitrary, like the sea.
-const BEARING=[-28,16,34,-46,-52,8,68,14,-40,52,-12,30,-64,44,-22,58,-36,72,20,0];
+const BEARING=[-28,16,34,-46,-52,8,68,14,-40,52,-12,30,-64,44,-22,58,-36,72,26,20,0];
 
 export function initLogPose(){
  const btn=$('#logpose-btn'),dlg=$('#logpose'),list=$('#lp-list'),needle=btn.querySelector('.lp-needle'),motionBtn=$('#lp-motion');

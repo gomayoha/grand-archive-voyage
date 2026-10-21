@@ -57,7 +57,7 @@ export const debugParts=parts;
 const J=(u,tries=3)=>fetch(u).then(r=>{if(!r.ok)throw r;return r.json();}).catch(()=>tries>1?new Promise(res=>setTimeout(res,500*(4-tries))).then(()=>J(u,tries-1)):null);
 export const data={};
 export async function loadData(){
- const keys=['journey','archive','media','panels','characters','posters','shelf','logbook','route','strawhats'];
+ const keys=['journey','archive','media','panels','characters','posters','shelf','logbook','route','strawhats','tcg'];
  const files=keys.map(k=>`data/${k}.json`);
  (await Promise.all(files.map(J))).forEach((v,i)=>data[keys[i]]=v);
  // Edits made on the site (Captain's Desk) sit on top of what the notes say, until the note itself changes.
