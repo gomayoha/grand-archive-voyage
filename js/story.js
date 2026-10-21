@@ -78,7 +78,7 @@ function arcHTML(a,n){
   <header class="arc-side"><span class="arc-no">Arc ${String(n+1).padStart(2,'0')} / ${arcs.length}</span><h3>${esc(a.name)}</h3><p class="arc-place">${esc(a.place)}</p>
    <dl class="arc-meta"><div><dt>Chapters</dt><dd>${a.ch[0]}–${a.ch[1]}${a.id===last.id?'<small> so far</small>':''}</dd></div><div><dt>Episodes</dt><dd>${esc(a.ep)}</dd></div></dl></header>
   <div class="arc-main">
-   ${a.art?`<figure class="arc-art"><img src="${FU(a.art)}" alt="" loading="lazy" decoding="async"></figure>`:''}
+   ${a.art?`<figure class="arc-art"><img src="${media?.img?.[a.art]?FU(a.art):PF(a.art)}" alt="" loading="lazy" decoding="async"></figure>`:''}
    ${(g=>g.length?`<div class="arc-gal">${g.map(id=>`<button class="ag" data-lbsrc="${FU(id)}" data-cap="${esc(a.name)}"><img src="${TH(id)}" alt="" loading="lazy" decoding="async"></button>`).join('')}</div>`:'')(galleryIds(a.id))}
    <div class="arc-text">${a.text.map(t=>`<p>${esc(t)}</p>`).join('')}</div>
    ${a.id==='zou'?'<p class="pg-inline"><span class="pg-spot" data-pg="zou"></span><span>A red stone covered in writing almost nobody can read.</span></p>':''}

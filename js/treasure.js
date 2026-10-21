@@ -36,21 +36,38 @@ export function pool(){
  return POOL=out;
 }
 const byId=id=>pool().find(p=>p.id===id);
-// a fixed rarity per picture: 3% Secret, 9% Super rare, 23% Rare, the rest Common
-export const rarity=id=>{const v=parseInt(id.slice(-5),16)%1000;return v<30?'sec':v<120?'sr':v<350?'r':'c';};
-const RNAME={sec:'Secret',sr:'Super rare',r:'Rare',c:'Common'},RSHORT={sec:'SEC',sr:'SR',r:'R',c:'C'};
-const ODDS=[['sec',3],['sr',9],['r',23],['c',65]];
+// a fixed rarity per picture, like the card game he collects (Oct 21 2026 added the manga rarities and one of
+// the archive's own; the new tiers were carved out above the old ones, so no card ever went down a rarity):
+//  Sun God 0.4% (Nika's white clouds, the card beats like the Drums of Liberation), Red Manga 0.8% (red ink
+//  on gold), Manga 1.8% (black ink, screentone), Secret 3%, Super rare 9%, Rare 23%, the rest Common
+export const rarity=id=>{const v=parseInt(id.slice(-5),16)%1000;return v<30?'sec':v<34?'sun':v<42?'rm':v<60?'m':v<150?'sr':v<380?'r':'c';};
+const RNAME={sun:'Sun God',rm:'Red Manga',m:'Manga',sec:'Secret',sr:'Super rare',r:'Rare',c:'Common'},RSHORT={sun:'SUN GOD',rm:'RED MANGA',m:'MANGA',sec:'SEC',sr:'SR',r:'R',c:'C'};
+const TIERS=['sun','rm','m','sec','sr','r','c'],SPECIAL=new Set(['sun','rm','m','sec']);
+const ODDS=[['sun',0.4],['rm',0.8],['m',1.8],['sec',3],['sr',9],['r',23],['c',62]];
 const tier=()=>{let x=Math.random()*100;for(const [t,w] of ODDS){if((x-=w)<0)return t;}return 'c';};
 
 /* ---------------------------------------------------------------- fruits and relics */
+// in the order they wash ashore; Robin's Hana Hana stays the very last one on purpose
 export const FRUITS=[
  {id:'mera',name:'Mera Mera no Mi',kana:'メラメラ',user:'Portgas D. Ace',hue:'#ff6a2b',hue2:'#ffd23f',power:'Fire. Every tap bursts into flame, and embers follow your finger.',at:1},
+ {id:'pika',name:'Pika Pika no Mi',kana:'ピカピカ',user:'Kizaru',hue:'#ffe45c',hue2:'#fffbe0',power:'Light. Tap and a rain of light bullets streaks down onto the spot; the pictures it hits flash white.',at:2},
  {id:'goro',name:'Goro Goro no Mi',kana:'ゴロゴロ',user:'Enel',hue:'#7fd0ff',hue2:'#ffffff',power:'Lightning. Tap anywhere and a bolt comes down out of the sky onto that exact spot.',at:3},
+ {id:'moku',name:'Moku Moku no Mi',kana:'モクモク',user:'Smoker',hue:'#c9ccd2',hue2:'#ffffff',power:'Smoke. White smoke billows out of every tap and the pictures near it disappear inside it for a moment.',at:4},
  {id:'hie',name:'Hie Hie no Mi',kana:'ヒエヒエ',user:'Aokiji',hue:'#a9e6ff',hue2:'#e9fbff',power:'Ice. Frost spreads out from every tap, and the pictures it reaches freeze over for a moment.',at:6},
+ {id:'bomu',name:'Bomu Bomu no Mi',kana:'ボムボム',user:'Mr. 5',hue:'#ff7a2f',hue2:'#ffe08a',power:'Bombs. Every tap explodes, and the pictures around it are blown back and bounce home.',at:7},
+ {id:'mero',name:'Mero Mero no Mi',kana:'メロメロ',user:'Boa Hancock',hue:'#ff5aa5',hue2:'#ffd6ea',power:'Love. Hearts burst out of the tap, and every picture that looks at it turns to stone for a moment.',at:8},
  {id:'ope',name:'Ope Ope no Mi',kana:'オペオペ',user:'Trafalgar Law',hue:'#5aa8ff',hue2:'#c9e3ff',power:'ROOM. Tap to open a blue sphere. Every picture inside it trades places. Shambles.',at:10},
+ {id:'suna',name:'Suna Suna no Mi',kana:'スナスナ',user:'Crocodile',hue:'#d9a65a',hue2:'#f6e2b3',power:'Sand. Tap a picture and it dries out and blows away as sand, then comes back. Tap the sea and a sandstorm rises.',at:12},
+ {id:'horo',name:'Horo Horo no Mi',kana:'ホロホロ',user:'Perona',hue:'#e7d9ff',hue2:'#ffffff',power:'Ghosts. Negative Hollows float out of the tap, and the pictures they touch droop. “I’m sorry I was born…”',at:13},
  {id:'bara',name:'Bara Bara no Mi',kana:'バラバラ',user:'Buggy',hue:'#ff4f6d',hue2:'#ffd1d9',power:'Chop-chop. Tap a picture and it comes apart in pieces, then pulls itself back together.',at:15},
+ {id:'ito',name:'Ito Ito no Mi',kana:'イトイト',user:'Donquixote Doflamingo',hue:'#ff6fae',hue2:'#ffffff',power:'Strings. The Birdcage closes in from the sky, and the pictures dangle on strings like puppets.',at:17},
+ {id:'nikyu',name:'Nikyu Nikyu no Mi',kana:'ニキュニキュ',user:'Bartholomew Kuma',hue:'#ffb3c7',hue2:'#fff0f4',power:'Paws. A paw-shaped shockwave pushes every picture near it away, and they spring back.',at:19},
  {id:'yami',name:'Yami Yami no Mi',kana:'ヤミヤミ',user:'Marshall D. Teach',hue:'#8a63ff',hue2:'#1a0f33',power:'Darkness. Tap and a black hole pulls in everything near it, then lets go.',at:21},
- {id:'hana',name:'Hana Hana no Mi',kana:'ハナハナ',user:'Nico Robin',hue:'#ff8fc6',hue2:'#ffe3f1',power:'Bloom. Petals open wherever you tap, and the pictures around it bloom with them. Cien fleur.',at:28}
+ {id:'kage',name:'Kage Kage no Mi',kana:'カゲカゲ',user:'Gecko Moria',hue:'#6b5b8f',hue2:'#1a1426',power:'Shadows. The picture you tap loses its shadow, which walks off on its own; shadow bats scatter.',at:23},
+ {id:'magu',name:'Magu Magu no Mi',kana:'マグマグ',user:'Akainu',hue:'#ff3d1f',hue2:'#ffb24a',power:'Magma. Lava erupts out of the tap, and the pictures around it melt and sag before they cool.',at:25},
+ {id:'zushi',name:'Zushi Zushi no Mi',kana:'ズシズシ',user:'Fujitora',hue:'#8a7dff',hue2:'#d9d4ff',power:'Gravity. A meteor falls out of the sky onto the spot, and gravity presses the pictures flat.',at:26},
+ {id:'gura',name:'Gura Gura no Mi',kana:'グラグラ',user:'Edward Newgate',hue:'#e8f4ff',hue2:'#ffffff',power:'Quakes. The air cracks like glass where you tap, and every picture on the screen shakes.',at:28},
+ {id:'hana',name:'Hana Hana no Mi',kana:'ハナハナ',user:'Nico Robin',hue:'#ff8fc6',hue2:'#ffe3f1',power:'Bloom. Petals open wherever you tap, and the pictures around it bloom with them. Cien fleur.',at:30}
 ];
 const FRUIT_AT=Object.fromEntries(FRUITS.map(f=>[f.at,f.id]));
 const RELIC_AT={5:'ink'};
@@ -67,7 +84,7 @@ function draw(n,gold){
  const P=pool(),out=[];
  for(let s=0;s<n;s++){
   let t=tier();if(gold&&s===0&&(t==='c'||t==='r'))t='sr';
-  const order=[t,...['sec','sr','r','c'].filter(x=>x!==t)];let got=null;
+  const order=[t,...TIERS.filter(x=>x!==t)];let got=null;
   for(const x of order){const c=P.filter(p=>!B.cards[p.id]&&!out.includes(p)&&rarity(p.id)===x);if(c.length){got=rnd(c);break;}}
   // the whole archive is already in the log: a duplicate is worth berries instead
   out.push(got||{...rnd(P),dup:true});
@@ -93,7 +110,7 @@ function openOne(){
 const PLANKS=8;
 // a dark walnut chest with brass bands, built from planes in 3D; the lid is a half barrel of eight planks
 export const chestHTML=(cls='')=>`<div class="ch ${cls}"><div class="ch-float"><div class="ch-rot"><div class="ch-body"><i class="ch-f ch-back"></i><i class="ch-f ch-left"></i><i class="ch-f ch-right"></i><i class="ch-f ch-bottom"></i><i class="ch-glow"></i><i class="ch-f ch-front"><i class="ch-lock"><i></i></i></i></div><div class="ch-lid">${Array.from({length:PLANKS},(_,k)=>{const a=(k+0.5)*Math.PI/PLANKS,sh=(0.62-0.55*Math.sin(a)+(a>Math.PI/2?0.18:0)).toFixed(2);return `<i class="ch-pl" style="--k:${k};--sh:${sh}"></i>`;}).join('')}<i class="ch-cap ch-cl"></i><i class="ch-cap ch-cr"></i><i class="ch-hasp"></i></div></div></div><i class="ch-shadow"></i></div>`;
-const cardHTML=(p,{back=true,big=false}={})=>{const r=rarity(p.id);return `<div class="tc r-${r}${big?' big':''}" data-id="${p.id}"><div class="tc-in"><div class="tc-front"><img src="${big?FU(p.id):TH(p.id)}" alt="" decoding="async"><i class="tc-foil" aria-hidden="true"></i><i class="tc-glare" aria-hidden="true"></i><span class="tc-meta"><b>${esc(p.col)}</b><small>No. ${p.i} / ${p.of}</small></span><span class="tc-r">${RSHORT[r]}</span>${p.dup?'<span class="tc-dup">Duplicate · ฿2,000,000</span>':''}</div>${back?'<div class="tc-back" aria-hidden="true"><i></i><b>Grand Archive</b></div>':''}</div></div>`;};
+const cardHTML=(p,{back=true,big=false}={})=>{const r=rarity(p.id);return `<div class="tc r-${r}${big?' big':''}" data-id="${p.id}"><div class="tc-in"><div class="tc-front"><img src="${big?FU(p.id):TH(p.id)}" alt="" decoding="async">${r==='m'||r==='rm'?'<i class="tc-ink" aria-hidden="true"></i><i class="tc-tone" aria-hidden="true"></i>':''}${r==='sun'?'<i class="tc-cloud" aria-hidden="true"></i><i class="tc-cloud b" aria-hidden="true"></i>':''}<i class="tc-foil" aria-hidden="true"></i><i class="tc-glare" aria-hidden="true"></i><span class="tc-meta"><b>${esc(p.col)}</b><small>No. ${p.i} / ${p.of}</small></span><span class="tc-r">${RSHORT[r]}</span>${p.dup?'<span class="tc-dup">Duplicate · ฿2,000,000</span>':''}</div>${back?'<div class="tc-back" aria-hidden="true"><i></i><b>Grand Archive</b></div>':''}</div></div>`;};
 const fruitHTML=(f,locked=false)=>`<div class="tf${locked?' locked':''}" style="--h1:${f.hue};--h2:${f.hue2}"><span class="tf-orb"><i></i></span><span class="tf-kana">${locked?'？？？':esc(f.kana)}</span></div>`;
 const relicIcon={origin:'“',ink:'墨',laughtale:'✦',gold:'฿'};
 
@@ -102,12 +119,19 @@ let dlg=null,tab='log',logCol='',shownB=0;
 const $d=s=>dlg.querySelector(s);
 export async function openTreasure(t){
  await roomsCSS();
+ catchUp();
  if(!dlg)build();
  if(t)tab=t;
  render();
  if(!dlg.open){dlg.showModal();document.documentElement.style.overflow='hidden';dlg.scrollTop=0;}
  count();
  if(location.hash!=='#treasure')history.replaceState(null,'','#treasure');
+}
+// fruits added after someone already opened their chest go straight to the room (Hana always last)
+function catchUp(){
+ const miss=FRUITS.filter(f=>f.at<=B.opened&&!B.fruits.includes(f.id));if(!miss.length)return;
+ miss.forEach(f=>B.fruits.push(f.id));save();
+ setTimeout(()=>notice(miss.length>1?`${miss.length} new Devil Fruits`:'A new Devil Fruit',`${miss.map(f=>f.name).join(', ')}: waiting in the Devil Fruits tab.`,()=>{tab='fruits';render();}),600);
 }
 function build(){
  dlg=document.createElement('dialog');dlg.className='tr';dlg.setAttribute('aria-labelledby','tr-title');
@@ -139,7 +163,7 @@ function build(){
  document.getElementById('dialog')?.addEventListener('close',()=>{if(dlg.open)document.documentElement.style.overflow='hidden';});
 }
 // holographic foil + glare follow the pointer on whichever card is under it
-function foil(x,y){dlg.querySelectorAll('.tc.r-sec,.tc.r-sr,.tc.big').forEach(c=>{const r=c.getBoundingClientRect();if(!r.width)return;const mx=clamp((x-r.left)/r.width),my=clamp((y-r.top)/r.height);if(c.classList.contains('big')||(x>r.left-40&&x<r.right+40&&y>r.top-40&&y<r.bottom+40)){c.style.setProperty('--mx',(mx*100).toFixed(1)+'%');c.style.setProperty('--my',(my*100).toFixed(1)+'%');if(c.classList.contains('big'))c.style.setProperty('--rx',((mx-0.5)*22).toFixed(2)+'deg'),c.style.setProperty('--ry',((0.5-my)*16).toFixed(2)+'deg');}});}
+function foil(x,y){dlg.querySelectorAll('.tc.r-sec,.tc.r-sr,.tc.r-m,.tc.r-rm,.tc.r-sun,.tc.big').forEach(c=>{const r=c.getBoundingClientRect();if(!r.width)return;const mx=clamp((x-r.left)/r.width),my=clamp((y-r.top)/r.height);if(c.classList.contains('big')||(x>r.left-40&&x<r.right+40&&y>r.top-40&&y<r.bottom+40)){c.style.setProperty('--mx',(mx*100).toFixed(1)+'%');c.style.setProperty('--my',(my*100).toFixed(1)+'%');if(c.classList.contains('big'))c.style.setProperty('--rx',((mx-0.5)*22).toFixed(2)+'deg'),c.style.setProperty('--ry',((0.5-my)*16).toFixed(2)+'deg');}});}
 
 function render(){renderHero();dlg.querySelectorAll('[data-tab]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.tab===tab)));renderPanel();}
 // the bounty counts up from where you last saw it
@@ -162,7 +186,7 @@ function renderPanel(){
 function logHTML(){
  const P=pool(),got=P.filter(p=>B.cards[p.id]),cols=[...new Set(P.map(p=>p.col))];
  const per=r=>got.filter(p=>rarity(p.id)===r).length;
- const head=`<div class="tl-head"><p class="tl-count"><b>${got.length}</b> of ${P.length} cards found</p><p class="tl-r">${['sec','sr','r','c'].map(r=>`<span class="tl-rr r-${r}"><i></i>${RNAME[r]} <b>${per(r)}</b></span>`).join('')}</p><div class="tr-bar"><i style="transform:scaleX(${(got.length/Math.max(1,P.length)).toFixed(4)})"></i></div></div>`;
+ const head=`<div class="tl-head"><p class="tl-count"><b>${got.length}</b> of ${P.length} cards found</p><p class="tl-r">${TIERS.map(r=>`<span class="tl-rr r-${r}"><i></i>${RNAME[r]} <b>${per(r)}</b></span>`).join('')}</p><div class="tr-bar"><i style="transform:scaleX(${(got.length/Math.max(1,P.length)).toFixed(4)})"></i></div></div>`;
  const chips=`<div class="tl-chips"><button data-col="" aria-pressed="${!logCol}">Found <b>${got.length}</b></button>${cols.map(c=>{const all=P.filter(p=>p.col===c),g=all.filter(p=>B.cards[p.id]).length;return `<button data-col="${esc(c)}" aria-pressed="${logCol===c}"${g===all.length?' class="done"':''}>${esc(c)} <b>${g}/${all.length}</b></button>`;}).join('')}</div>`;
  const list=logCol?P.filter(p=>p.col===logCol):got.slice().sort((a,b)=>B.cards[b.id]-B.cards[a.id]);
  const grid=list.length?`<div class="tl-grid">${list.map(p=>B.cards[p.id]?`<button class="tl-card" data-card-id="${p.id}" aria-label="${esc(p.col)} ${p.i}, ${RNAME[rarity(p.id)]}">${cardHTML(p,{back:false})}</button>`:`<div class="tl-slot"><span>No. ${p.i}</span></div>`).join('')}</div>`:`<p class="tl-empty">No cards yet. Open your first chest above: every picture in the archive is waiting to be found.</p>`;
@@ -246,7 +270,7 @@ async function stage(roll){
  await wait(900+items.length*130);
  // they turn over one by one; tap one to turn it sooner
  const flip=i=>{const s=slots[i];if(!s||s.classList.contains('up'))return;s.classList.add('up');const it=items[i];
-  if(it.p){const r=rarity(it.p.id);if(r==='sr'||r==='sec')flash(s,r);s.setAttribute('aria-label',`${it.p.col}, ${RNAME[r]}`);}
+  if(it.p){const r=rarity(it.p.id);if(r==='sr'||SPECIAL.has(r))flash(s,r);if(r==='sun'||r==='rm')callout(r);s.setAttribute('aria-label',`${it.p.col}, ${RNAME[r]}`);}
   else{flash(s,'special');name(it.s);}};
  L.querySelector('.tc-row').addEventListener('click',e=>{const s=e.target.closest('.tc-slot');if(s)flip(+s.dataset.i);});
  for(let i=0;i<items.length;i++){flip(i);await wait(items[i].s?700:420);}
@@ -265,6 +289,8 @@ function name(s){
  else{const r=RELICS.find(x=>x.id===s.id);el.innerHTML=`<p class="eyebrow">You found a relic</p><h3>${esc(r.name)}</h3><p>${esc(r.d)}</p>${s.id==='ink'?'<button class="pill small" data-relic="ink">Turn it on</button>':''}`;}
  el.classList.add('in');
 }
+// the rarest ones announce themselves
+function callout(r){const el=$d('#tc-name');if(!el||el.classList.contains('in'))return;el.innerHTML=r==='sun'?'<p class="eyebrow">Don don don don</p><h3>A Sun God card.</h3><p>The rarest card in the archive. Listen to it: it has a heartbeat.</p>':'<p class="eyebrow">Red ink</p><h3>A Red Manga card.</h3><p>Printed in red and gold, like the rarest manga cards in the real game.</p>';el.classList.add('in');}
 function flash(s,kind){s.classList.add('flash-'+kind);if(motion.reduced)return;const f=document.createElement('i');f.className='tc-flash '+kind;s.appendChild(f);setTimeout(()=>f.remove(),1400);}
 function burst(host,gold){
  if(motion.reduced)return;const n=gold?46:30;

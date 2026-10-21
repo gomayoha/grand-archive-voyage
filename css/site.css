@@ -978,9 +978,6 @@ dialog.is-reader .dialog-close{position:fixed;top:16px;right:16px;margin:0;float
 :is(.vt-card.front,.tg:hover,.tg.held,.ti-card) .t-r .tgf-foil{opacity:.55}
 :is(.vt-card.front,.tg:hover,.tg.held,.ti-card) .tgf-glare{opacity:.7}
 .t-alt .tgf-foil{opacity:.16}.t-lead .tgf-foil{opacity:.1}
-.t-ghost img{filter:grayscale(1) brightness(.55)}
-.tg .t-ghost:after{font-size:7px}
-.t-ghost:after{content:"Not photographed yet";position:absolute;left:8%;right:8%;bottom:9%;padding:5px 4px;border-radius:6px;background:rgba(0,0,0,.72);color:#d2d2d7;font:600 9px/1.2 var(--font);text-align:center;letter-spacing:.02em}
 
 /* ---------- 08 card vault: every card on one spiral (s/cards.js) ---------- */
 .vault{--hue:#c8922f;position:relative;height:640svh;background:#050405}
@@ -1833,6 +1830,8 @@ html.ink .jl-host img,html.ink .dp-world img{filter:none}
 @keyframes dfPulse{40%{transform:scale(1.25)}}
 .df-badge span{font:600 9px var(--serif);color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.8)}
 .df-frozen{filter:saturate(.3) brightness(1.18) hue-rotate(-14deg) contrast(1.05)!important;transition:filter .25s!important}
+.df-stone{filter:grayscale(1) sepia(.25) contrast(1.15) brightness(.82)!important;transition:filter .35s!important}
+.df-shadow img{filter:brightness(0)}
 .df-piece{position:fixed;z-index:379;overflow:hidden;pointer-events:none;border-radius:2px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
 .df-piece img{position:absolute;max-width:none}
 

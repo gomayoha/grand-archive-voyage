@@ -12,7 +12,7 @@ import {COLORS,HUE,RNAME,face,big,rank,tier,hue,label,light,inspect,picturesOf,o
 import {once} from '../bounty.js';
 
 const CREWS=['Straw Hat Pirates','The Emperors’ crews','The Warlords','The Worst Generation','Revolutionary Army','The World Government','Dressrosa','Thriller Bark','Across the Grand Line','From the films','DON!!'];
-const TIERS=[['alt','Parallels & special frames'],['lead','Leaders'],['sr','Super Rares'],['r','Rares & promos'],['c','Uncommons & commons'],['ghost','Not photographed yet'],['don','DON!!']];
+const TIERS=[['alt','Parallels & special frames'],['lead','Leaders'],['sr','Super Rares'],['r','Rares & promos'],['c','Uncommons & commons'],['don','DON!!']];
 const ALT_T=Object.fromEntries(TIERS);
 const MODES=[
  {id:'char',l:'Character',type:'piles',key:c=>c.char},

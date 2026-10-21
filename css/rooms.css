@@ -366,3 +366,39 @@ body.reduced .ch-float,body.reduced .ch-shadow,body.reduced .tc-beam{animation:n
  .gq-card{grid-template-columns:1fr}.gq-img{width:100%;aspect-ratio:16/9}.gq-opts{grid-template-columns:1fr}
  .gh-stage{min-height:calc(100svh - 200px)}
 }
+
+/* ---------- the manga rarities and the Sun God (Oct 2026) ---------- */
+.tc-ink,.tc-tone,.tc-cloud{position:absolute;inset:var(--bw);border-radius:8px;pointer-events:none}
+/* Manga: black ink on paper, screentone and speed lines, an etched silver foil */
+.tc.r-m{--fr:repeating-linear-gradient(90deg,#f4f1e8 0 2px,#e9e4d8 2px 3px)}
+.tc.r-m .tc-front img,.tc.r-rm .tc-front img{filter:grayscale(1) contrast(1.5) brightness(1.08)}
+.tc.r-m .tc-front img{box-shadow:0 0 0 2px #111}
+.tc.r-m .tc-tone{background:radial-gradient(circle,#000 .8px,transparent 1.25px) 0 0/4px 4px;mix-blend-mode:multiply;opacity:.3;-webkit-mask-image:linear-gradient(160deg,transparent 35%,#000);mask-image:linear-gradient(160deg,transparent 35%,#000)}
+.tc.r-m .tc-ink{background:repeating-conic-gradient(from 0deg at 50% 42%,rgba(0,0,0,0) 0 2.6deg,rgba(0,0,0,.55) 3deg,rgba(0,0,0,0) 3.6deg);mix-blend-mode:multiply;-webkit-mask-image:radial-gradient(ellipse 62% 56% at 50% 46%,transparent 62%,#000 100%);mask-image:radial-gradient(ellipse 62% 56% at 50% 46%,transparent 62%,#000 100%)}
+.tc.r-m .tc-foil{opacity:.4;background:repeating-linear-gradient(115deg,rgba(255,255,255,0) 0 5px,rgba(210,225,255,.9) 6px,rgba(255,210,240,.6) 7px,rgba(255,255,255,0) 9px),linear-gradient(115deg,transparent 30%,rgba(255,255,255,.6) 50%,transparent 70%);background-size:100% 100%,300% 300%;background-position:0 0,var(--mx,50%) var(--my,50%)}
+.r-m .tc-r{background:#111;color:#fff;box-shadow:0 0 0 1px #fff}
+/* Red Manga: the same ink, printed in red on gold */
+.tc.r-rm{--fr:linear-gradient(135deg,#6e0a10,#f2cf7a 24%,#a3121b 48%,#ffe2a0 74%,#6e0a10)}
+.tc.r-rm .tc-tone{background:#c8101e;mix-blend-mode:screen}
+.tc.r-rm .tc-ink{background:repeating-conic-gradient(from 0deg at 50% 42%,rgba(90,0,8,0) 0 2.6deg,rgba(90,0,8,.75) 3deg,rgba(90,0,8,0) 3.6deg),radial-gradient(circle,rgba(90,0,8,.9) .8px,transparent 1.3px) 0 0/4px 4px;mix-blend-mode:multiply;-webkit-mask-image:radial-gradient(ellipse 62% 56% at 50% 46%,transparent 62%,#000 100%);mask-image:radial-gradient(ellipse 62% 56% at 50% 46%,transparent 62%,#000 100%)}
+.tc.r-rm .tc-foil{opacity:.55;mix-blend-mode:color-dodge;background:radial-gradient(circle,rgba(255,215,120,.95) 0 .9px,transparent 1.6px) 0 0/9px 9px,radial-gradient(circle,rgba(255,240,190,.8) 0 .7px,transparent 1.4px) 4px 5px/13px 13px,linear-gradient(115deg,transparent 25%,rgba(255,200,90,.7) 48%,transparent 70%);background-size:9px 9px,13px 13px,300% 300%;background-position:var(--mx,0) var(--my,0),calc(var(--my,0px) * .5) var(--mx,0),var(--mx,50%) var(--my,50%)}
+.tc.r-rm .tc-glare{opacity:.9}
+.r-rm .tc-r{background:linear-gradient(135deg,#ffe2a0,#c8101e 60%);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+/* Sun God: the archive's own rarity. Nika's ring of clouds turns around the picture, the foil is pearl,
+   and the whole card beats like the Drums of Liberation */
+.tc.r-sun{--fr:conic-gradient(from 160deg,#ffffff,#eadcff,#fff3cf,#dcf3ff,#ffe1f1,#ffffff)}
+.tc.r-sun .tc-front{animation:sunBeat 1.7s ease-in-out infinite;box-shadow:0 18px 40px -16px rgba(0,0,0,.9),0 0 34px rgba(220,200,255,.55)}
+@keyframes sunBeat{0%,30%,100%{scale:1}8%{scale:1.03}16%{scale:1}22%{scale:1.022}}
+.tc.r-sun .tc-front img{filter:saturate(1.15) brightness(1.06)}
+.tc.r-sun .tc-cloud{overflow:hidden}
+.tc.r-sun .tc-cloud:before{content:"";position:absolute;left:50%;top:44%;width:150%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(closest-side,transparent 62%,rgba(255,255,255,.6) 65%,rgba(255,255,255,.3) 68%,transparent 72%),repeating-conic-gradient(from 0deg,rgba(255,255,255,0) 0 14deg,rgba(255,255,255,.3) 18deg,rgba(255,255,255,0) 24deg);-webkit-mask-image:radial-gradient(closest-side,transparent 52%,#000 62%,#000 78%,transparent 86%);mask-image:radial-gradient(closest-side,transparent 52%,#000 62%,#000 78%,transparent 86%);animation:sunSpin 14s linear infinite;mix-blend-mode:screen}
+.tc.r-sun .tc-cloud.b:before{width:220%;background:repeating-conic-gradient(from 0deg,rgba(255,240,200,0) 0 8deg,rgba(255,240,200,.35) 11deg,rgba(220,200,255,0) 16deg);-webkit-mask-image:radial-gradient(closest-side,#000 20%,transparent 80%);mask-image:radial-gradient(closest-side,#000 20%,transparent 80%);animation-duration:40s;animation-direction:reverse;opacity:.3}
+@keyframes sunSpin{to{rotate:360deg}}
+.tc.r-sun .tc-foil{opacity:.42;background:repeating-linear-gradient(115deg,hsl(280 100% 88%) 0%,hsl(45 100% 86%) 8%,hsl(190 100% 88%) 16%,hsl(330 100% 90%) 24%,hsl(280 100% 88%) 32%);background-size:300% 300%;background-position:var(--mx,50%) var(--my,50%)}
+.tc.r-sun .tc-glare{opacity:.9}
+.r-sun .tc-r{background:#fff;color:#5b2fb0;box-shadow:0 0 12px rgba(200,170,255,.9)}
+.tl-rr.r-m i{background:repeating-linear-gradient(90deg,#f4f1e8 0 2px,#111 2px 3px)}.tl-rr.r-rm i{background:linear-gradient(135deg,#c8101e,#f2cf7a)}.tl-rr.r-sun i{background:conic-gradient(#fff,#eadcff,#fff3cf,#dcf3ff,#fff);box-shadow:0 0 8px rgba(220,200,255,.9)}
+.tc-flash.m{background:radial-gradient(closest-side,rgba(255,255,255,.95),rgba(255,255,255,.2) 45%,transparent),repeating-conic-gradient(rgba(0,0,0,0) 0 4deg,rgba(255,255,255,.7) 5deg,rgba(0,0,0,0) 7deg)}
+.tc-flash.rm{background:radial-gradient(closest-side,rgba(255,226,160,.95),rgba(200,16,30,.5) 45%,transparent),repeating-conic-gradient(rgba(0,0,0,0) 0 4deg,rgba(255,200,120,.8) 5deg,rgba(0,0,0,0) 7deg)}
+.tc-flash.sun{inset:-70%;background:radial-gradient(closest-side,#fff,rgba(234,220,255,.7) 30%,transparent 70%),repeating-conic-gradient(rgba(255,255,255,0) 0 6deg,rgba(255,250,230,.9) 8deg,rgba(255,255,255,0) 11deg);animation-duration:2.2s}
+body.reduced .tc.r-sun .tc-front,body.reduced .tc.r-sun .tc-cloud:before{animation:none}
