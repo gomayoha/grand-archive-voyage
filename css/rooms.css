@@ -479,3 +479,163 @@ body.reduced .tc.r-conq .tc-front,body.reduced .tc-haki g{animation:none}body.re
 .th-sw.on small{color:var(--a)}
 .th-sw.locked{opacity:.4;cursor:not-allowed}.th-sw.locked .th-chip{filter:grayscale(1) brightness(.5)}
 .th-row{margin-bottom:6px}
+
+/* =====================================================================================================
+   The room (Oct 22 2026). Walls, lanterns and dust behind everything; an alcove and heaps of gold around the chest;
+   a showcase of your rarest cards; brass plates for tabs; and the vault door you walk in through.
+   ===================================================================================================== */
+.tr{isolation:isolate;background:#070504}
+.tr-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.tr-wall{position:absolute;inset:0;background:
+ radial-gradient(75% 60% at 50% 18%,rgba(255,190,96,.13),transparent 72%),
+ url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .8 0 0 0 0 .6 0 0 0 0 .3 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E"),
+ repeating-linear-gradient(0deg,rgba(0,0,0,.4) 0 2px,transparent 2px 92px),
+ linear-gradient(180deg,#150d06,#0a0705 58%,#050403);box-shadow:inset 0 0 240px 50px rgba(0,0,0,.9)}
+.tr-lamp{position:absolute;top:-16vmax;width:62vmax;height:62vmax;border-radius:50%;background:radial-gradient(closest-side,rgba(255,176,80,.22),rgba(255,140,50,.07) 55%,transparent);animation:lamp 5.4s ease-in-out infinite}
+.tr-lamp.a{left:-22vmax}.tr-lamp.b{right:-22vmax;animation-duration:7.1s;animation-delay:-2.2s}
+@keyframes lamp{0%,100%{opacity:.82}14%{opacity:1}27%{opacity:.86}41%{opacity:.98}63%{opacity:.8}82%{opacity:1}}
+.tr-shaft{position:absolute;top:-8%;width:20vmax;height:125%;transform-origin:50% 0;rotate:var(--rot);background:linear-gradient(180deg,rgba(255,214,140,.17),rgba(255,214,140,.04) 62%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 38%,#000 62%,transparent);mask-image:linear-gradient(90deg,transparent,#000 38%,#000 62%,transparent);animation:shaft 9s ease-in-out infinite}
+.tr-shaft.s1{left:6%;--rot:17deg}.tr-shaft.s2{right:4%;--rot:-19deg;animation-delay:-4s}
+@keyframes shaft{50%{opacity:.45}}
+.tr-dust{position:absolute;inset:0;width:100%;height:100%}
+.tr-wrap{position:relative;z-index:1}
+body.reduced .tr-lamp,body.reduced .tr-shaft{animation:none}
+
+/* head */
+.tr-eyebrow{display:flex;align-items:center;gap:12px;letter-spacing:.2em}
+.tr-eyebrow i{position:relative;flex:none;width:46px;height:7px;background:linear-gradient(90deg,transparent,var(--gold)) 0 50%/38px 1px no-repeat}
+.tr-eyebrow i:after{content:"";position:absolute;right:0;top:0;width:7px;height:7px;rotate:45deg;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+.tr-head h2{filter:drop-shadow(0 0 34px rgba(243,201,105,.22))}
+.tr-head h2 em{background:linear-gradient(100deg,#fff4cf,#f3c969 45%,#c8922f);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.08em}
+.tr-close{background:linear-gradient(180deg,rgba(243,201,105,.2),rgba(243,201,105,.05));box-shadow:inset 0 0 0 1px rgba(243,201,105,.5);color:#fff1c2}
+.tr-close:hover{background:linear-gradient(180deg,rgba(243,201,105,.32),rgba(243,201,105,.1))}
+.tr-bar{background:rgba(243,201,105,.12);box-shadow:inset 0 0 0 1px rgba(243,201,105,.12)}
+.tr-bar i{box-shadow:0 0 14px rgba(243,201,105,.6)}
+
+/* the poster, pinned up under its own light, signed by whoever you are */
+.tr-poster{position:relative}
+.tr-poster:before{content:"";position:absolute;inset:-34px -40px -40px;z-index:-1;background:radial-gradient(70% 62% at 50% 22%,rgba(255,214,140,.26),transparent 72%);pointer-events:none}
+.tr-wanted{animation:posterSway 8s ease-in-out infinite;transform-origin:50% 0}
+.tr-wanted:hover{animation:none}
+@keyframes posterSway{50%{transform:rotate(calc(var(--r) + .9deg))}}
+.tr-wanted:before,.tr-wanted:after{content:"";position:absolute;top:9px;z-index:2;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff3c8,#d9a640 45%,#6b4710);box-shadow:0 3px 4px rgba(0,0,0,.55),0 0 0 1px rgba(60,35,5,.5)}
+.tr-wanted:before{left:11px}.tr-wanted:after{right:11px}
+.tr-wanted .w-name.tr-name{display:block;max-width:100%;font-size:calc(var(--nfs,26px)*min(1,10/var(--nl,1)))}
+.tr-name-b{position:relative;display:inline-block;max-width:100%;font:inherit;letter-spacing:inherit;color:inherit;cursor:text;padding:2px 5px;border-radius:6px;transition:background .3s}
+.tr-name-b span{display:block;white-space:nowrap}
+.tr-name-b:hover{background:rgba(58,41,19,.1)}
+.tr-pen{position:absolute;right:-.7em;top:0;font-style:normal;font-size:.55em;opacity:0;transform:translateY(2px);transition:opacity .3s}
+.tr-name-b:hover .tr-pen,.tr-name-b:focus-visible .tr-pen{opacity:.6}
+@media(hover:none){.tr-pen{opacity:.45}}
+.tr-name.empty .tr-name-b span{color:rgba(58,41,19,.4);border-bottom:2px dashed rgba(58,41,19,.38)}
+.tr-name.empty .tr-pen{opacity:.75;animation:penNudge 2.2s ease-in-out infinite}
+@keyframes penNudge{50%{transform:translate(3px,-3px) rotate(-12deg)}}
+.tr-name-in{width:100%;min-width:0;font:inherit;letter-spacing:inherit;text-transform:uppercase;text-align:center;color:#3a2913;background:rgba(255,255,255,.4);border:0;border-bottom:2px solid #3a2913;border-radius:4px 4px 0 0;padding:2px 4px;outline:none}
+.tr-name-in::placeholder{color:rgba(58,41,19,.38);text-transform:none;font-weight:600;letter-spacing:0}
+.tr-name.signed span{animation:inkIn .8s cubic-bezier(.2,1.4,.4,1)}
+@keyframes inkIn{from{opacity:0;transform:scale(1.7) rotate(-6deg);filter:blur(3px)}}
+.tr-edits{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px}.tr-edits .tr-photo{margin-top:0}
+.tr-sign.ask{color:#fff1c2;text-shadow:0 0 20px rgba(243,201,105,.7)}
+
+/* the alcove, the heaps of gold and the light on the floor */
+.tr-stage{isolation:isolate;overflow:visible}
+.tr-niche{position:absolute;left:50%;bottom:-3%;z-index:-3;width:min(480px,80%);height:118%;translate:-50% 0;border-radius:999px 999px 0 0;background:
+ radial-gradient(72% 58% at 50% 72%,rgba(255,176,80,.3),rgba(120,70,20,.12) 58%,transparent),
+ repeating-linear-gradient(90deg,rgba(0,0,0,.28) 0 1px,transparent 1px 42px),
+ linear-gradient(180deg,#0d0804,#1b1107 70%,#26160a);
+ box-shadow:inset 0 0 0 2px rgba(243,201,105,.6),inset 0 0 0 9px #0a0603,inset 0 0 0 10px rgba(243,201,105,.26),inset 0 0 80px 12px rgba(0,0,0,.88),0 0 70px rgba(243,201,105,.1);-webkit-mask-image:linear-gradient(180deg,#000 74%,transparent 96%);mask-image:linear-gradient(180deg,#000 74%,transparent 96%)}
+.tr-floor{position:absolute;left:50%;bottom:-3%;z-index:-1;width:136%;height:36%;translate:-50% 0;border-radius:50%;background:radial-gradient(closest-side,rgba(243,201,105,.26),rgba(243,201,105,.06) 62%,transparent)}
+.tr-heap{position:absolute;left:0;right:0;bottom:-3%;z-index:0;width:100%;height:52%;pointer-events:none}
+.tr-chest{position:relative;z-index:1}
+.tr-tw{position:absolute;left:var(--x);top:var(--y);z-index:2;width:16px;height:16px;margin:-8px 0 0 -8px;pointer-events:none;opacity:0;background:linear-gradient(90deg,transparent,#fff,transparent) 50% 50%/100% 1.5px no-repeat,linear-gradient(0deg,transparent,#fff,transparent) 50% 50%/1.5px 100% no-repeat;filter:drop-shadow(0 0 4px #ffe08a);animation:twinkle 3.6s ease-in-out infinite var(--d)}
+@keyframes twinkle{0%,62%,100%{opacity:0;scale:.3;rotate:0deg}80%{opacity:1;scale:1.15;rotate:24deg}}
+body.reduced .tr-tw{animation:none}
+.tr-stage.ready:before{content:"";position:absolute;left:50%;top:38%;z-index:-2;width:128%;aspect-ratio:1;translate:-50% -50%;background:repeating-conic-gradient(from 0deg,rgba(255,214,130,0) 0 8deg,rgba(255,214,130,.13) 10deg,rgba(255,214,130,0) 13deg);-webkit-mask-image:radial-gradient(closest-side,#000 5%,transparent 68%);mask-image:radial-gradient(closest-side,#000 5%,transparent 68%);animation:beam 46s linear infinite}
+body.reduced .tr-stage.ready:before{animation:none}
+.tr-open{position:relative;overflow:hidden}
+.tr-open:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 36%,rgba(255,255,255,.75) 50%,transparent 64%);translate:-130% 0;animation:openSheen 3.4s ease-in-out infinite}
+@keyframes openSheen{58%,100%{translate:130% 0}}
+body.reduced .tr-open:after{animation:none}
+
+/* the showcase: your rarest finds, behind glass, on velvet */
+.cs{margin:0 0 clamp(28px,5vh,52px)}
+.cs-plaque{position:relative;z-index:2;width:max-content;max-width:90%;margin:0 auto -18px;padding:9px 30px 10px;border-radius:6px;text-align:center;background:linear-gradient(180deg,#f8e2a0,#cf9b35 55%,#8a5e17);color:#2a1a02;box-shadow:0 10px 22px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.65),inset 0 0 0 1px rgba(60,35,5,.5)}
+.cs-plaque small{display:block;font:700 9px var(--font);letter-spacing:.32em;text-transform:uppercase;opacity:.72}
+.cs-plaque b{font:italic 400 20px/1.1 var(--serif)}
+.cs-shelf{position:relative;display:grid;grid-template-columns:repeat(6,1fr);align-items:start;gap:clamp(10px,2vw,26px);padding:40px clamp(14px,3vw,34px) 34px;border-radius:18px;overflow:hidden;background:
+ repeating-linear-gradient(45deg,rgba(255,255,255,.014) 0 2px,transparent 2px 5px),
+ radial-gradient(120% 90% at 50% 0,#4d131b,#27090e 56%,#150509);
+ box-shadow:0 0 0 1px #7a5420,0 0 0 8px #2d1b0c,0 0 0 9px #9a6f27,0 0 0 11px #1a0f06,0 34px 60px -20px #000,inset 0 0 80px rgba(0,0,0,.7)}
+.cs-shelf:after{content:"";position:absolute;left:0;right:0;bottom:0;height:14px;background:linear-gradient(180deg,#b17c27,#6b4413 40%,#2b1a09);box-shadow:0 -6px 14px rgba(0,0,0,.5)}
+.cs-vit{position:relative;display:block;text-align:center;transition:transform .6s var(--ease)}
+.cs-vit:not(.empty):hover{transform:translateY(-8px)}
+.cs-vit:before{content:"";position:absolute;left:-16%;right:-16%;top:-46px;height:150%;background:radial-gradient(60% 66% at 50% 0,rgba(255,228,160,.3),transparent 72%);pointer-events:none}
+.cs-vit.empty:before{opacity:.35}
+.cs-vit .tc{--cw:100%;--bw:4px;position:relative;z-index:1}
+.cs-vit .tc-meta{padding:18px 7px 6px}.cs-vit .tc-meta b{font-size:11px}.cs-vit .tc-meta small{font-size:9px}
+.cs-tag{position:relative;display:block;margin-top:11px;font:700 9px var(--font);letter-spacing:.22em;text-transform:uppercase;color:#e2b55c;text-shadow:0 1px 0 rgba(0,0,0,.8)}
+.cs-vit.empty{aspect-ratio:5/7;display:grid;place-items:center;border-radius:10px;background:rgba(0,0,0,.3);box-shadow:inset 0 0 0 1px rgba(243,201,105,.2),inset 0 10px 26px rgba(0,0,0,.75)}
+.cs-vit.empty span{padding:8px;font:italic 400 13px/1.25 var(--serif);color:rgba(243,201,105,.5)}
+.cs-glass{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.08) 38%,rgba(255,255,255,.025) 46%,transparent 54%) 120% 0/260% 100%;animation:csGlass 10s ease-in-out infinite}
+@keyframes csGlass{50%,100%{background-position:-30% 0}}
+body.reduced .cs-glass{animation:none}
+.cs-foot{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 28px;margin-top:24px;font-size:13px;color:var(--mute)}
+.cs-foot b{color:#fff1c2;font-weight:600;font-variant-numeric:tabular-nums}
+
+/* tabs: engraved brass plates */
+.tr-tabs{background:linear-gradient(rgba(8,6,4,.88) 62%,transparent)}
+.tr-tabs button{border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(0,0,0,.28));box-shadow:inset 0 0 0 1px rgba(243,201,105,.24),inset 0 1px 0 rgba(255,255,255,.06)}
+.tr-tabs button:hover{color:#fff;box-shadow:inset 0 0 0 1px rgba(243,201,105,.6),inset 0 1px 0 rgba(255,255,255,.06)}
+.tr-tabs button[aria-selected=true]{background:linear-gradient(180deg,#fbe8ae,#e2b55c 55%,#b98328);color:#2a1a02;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 8px 24px rgba(243,201,105,.28)}
+
+/* every panel's cards: dark glass with a brass edge, lit from where the pointer is */
+:is(.tf-card,.tq,.mk-item,.bb-q,.mk-bal,.mk-streak,.mk-hunt,.th-sw,.mk-ways li){position:relative;box-shadow:inset 0 0 0 1px rgba(243,201,105,.17),inset 0 1px 0 rgba(255,255,255,.06),0 22px 36px -26px #000}
+:is(.tf-card,.tq,.mk-item,.bb-q,.mk-bal,.mk-streak,.mk-hunt,.th-sw,.mk-ways li):after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .45s;background:radial-gradient(260px circle at var(--sx,50%) var(--sy,-40%),rgba(255,222,150,.12),transparent 70%)}
+:is(.tf-card,.tq,.mk-item,.bb-q,.mk-bal,.mk-streak,.mk-hunt,.th-sw,.mk-ways li):hover:after{opacity:1}
+.tf-card.eaten{box-shadow:inset 0 0 0 1px var(--gold),0 0 40px rgba(243,201,105,.14)}
+.th-sw.on{box-shadow:inset 0 0 0 2px var(--a),0 0 30px color-mix(in srgb,var(--a) 25%,transparent)}
+.bb-q.done{box-shadow:inset 0 0 0 1px rgba(243,201,105,.4)}
+.mk-item.conq{box-shadow:inset 0 0 0 1px rgba(255,40,60,.4)}
+.mk-item.gold,.tq:not(.locked){box-shadow:inset 0 0 0 1px rgba(243,201,105,.4),0 22px 36px -26px #000}
+.mk-bal{box-shadow:inset 0 0 0 1px rgba(255,215,106,.4),0 22px 36px -26px #000}
+.mk-h{font-family:var(--serif);font-style:italic;font-weight:400;font-size:24px;display:flex;align-items:center;gap:14px}
+.mk-h:after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(243,201,105,.4),transparent)}
+
+/* the Treasure Log: cards in velvet recesses */
+.tl-count b{background:linear-gradient(180deg,#fff7dc,#e2b55c);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tl-chips button{box-shadow:inset 0 0 0 1px rgba(243,201,105,.22)}
+.tl-chips button[aria-pressed=true]{background:linear-gradient(180deg,#fbe8ae,#e2b55c 55%,#b98328);color:#2a1a02;box-shadow:none}
+.tl-chips button[aria-pressed=true] b{color:#2a1a02}
+.tl-slot{background:radial-gradient(100% 80% at 50% 0,#3b1018,#16060a);box-shadow:inset 0 0 0 1px rgba(243,201,105,.2),inset 0 12px 26px rgba(0,0,0,.75);font:italic 400 13px var(--serif);color:rgba(243,201,105,.5)}
+.tl-card:hover{filter:drop-shadow(0 16px 16px rgba(0,0,0,.6))}
+.tr-fine{color:var(--dim)}
+
+/* the vault door */
+.tr-door{position:fixed;inset:0;z-index:60;overflow:hidden;cursor:pointer}
+.td-half{position:absolute;top:0;bottom:0;width:50.4%;overflow:hidden;background:
+ repeating-linear-gradient(90deg,rgba(255,255,255,.02) 0 1px,transparent 1px 3px),
+ linear-gradient(90deg,#16100a,#2b2013 52%,#110b06)}
+.td-half.l{left:0;box-shadow:inset -18px 0 36px rgba(0,0,0,.7),1px 0 0 #000}
+.td-half.r{right:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.02) 0 1px,transparent 1px 3px),linear-gradient(90deg,#110b06,#2b2013 48%,#16100a);box-shadow:inset 18px 0 36px rgba(0,0,0,.7),-1px 0 0 #000}
+.td-half:before{content:"";position:absolute;inset:22px;border-radius:6px;box-shadow:inset 0 0 0 2px rgba(243,201,105,.6),inset 0 0 0 11px #0d0905,inset 0 0 0 12px rgba(243,201,105,.26);background:
+ radial-gradient(circle,#f6df9c 0 2.2px,#7a5518 3.5px,transparent 4.4px) 0 0/66px 14px repeat-x,
+ radial-gradient(circle,#f6df9c 0 2.2px,#7a5518 3.5px,transparent 4.4px) 0 100%/66px 14px repeat-x}
+.td-half:after{content:"";position:absolute;left:0;right:0;top:34%;height:32%;background:linear-gradient(180deg,transparent,rgba(243,201,105,.05) 50%,transparent);border-block:1px solid rgba(243,201,105,.18)}
+.td-bolt{position:absolute;top:calc(50% - 8px);height:16px;width:24vw;border-radius:3px;background:linear-gradient(180deg,#f6df9c,#b98328 42%,#5d3d0e);box-shadow:0 7px 14px rgba(0,0,0,.65),inset 0 0 0 1px rgba(60,35,5,.5)}
+.td-bolt.l{right:50%}.td-bolt.r{left:50%}
+.td-lock{position:absolute;left:50%;top:50%;translate:-50% -50%;width:min(320px,58vmin);aspect-ratio:1;opacity:0;filter:drop-shadow(0 20px 34px rgba(0,0,0,.85))}
+.td-lock svg{display:block;width:100%;height:100%}
+.td-cap{position:absolute;left:0;right:0;top:max(7vh,34px);text-align:center;font:italic 400 clamp(18px,2.4vw,28px) var(--serif);letter-spacing:.04em;color:#f6df9c;opacity:0;text-shadow:0 0 30px rgba(243,201,105,.55)}
+.td-flood{position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(60% 85% at 50% 50%,#fff6d8,rgba(255,200,110,.88) 34%,rgba(255,160,60,.3) 66%,transparent)}
+
+@media(max-width:820px){
+ .tr-wanted{--nfs:18px}
+ .tr-wanted:before,.tr-wanted:after{width:8px;height:8px;top:3px}.tr-wanted:before{left:5px}.tr-wanted:after{right:5px}
+ .tr-hero{gap:30px}
+ .tr-heap{height:44%}
+ .tr-niche{width:min(330px,84%);height:100%}
+ .cs-shelf{grid-template-columns:repeat(3,1fr);padding:36px 14px 30px}
+ .cs-plaque b{font-size:17px}
+ .tr-eyebrow i{width:30px}
+ .td-half:before{inset:12px}
+}

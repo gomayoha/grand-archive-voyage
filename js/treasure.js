@@ -14,13 +14,18 @@
 //  - Relics: things that can't be bought: the archive's original opening, a manga-ink way of seeing it,
 //    Laugh Tale, and a poster printed in gold.
 //  - The bounty board: every way to earn, and how far along you are.
+//  - The room itself (Oct 22 2026, js/treasurefx.js): you walk in through a vault door, the chest stands in an alcove between
+//    heaps of gold, dust drifts through the lantern light, and your rarest cards sit in a showcase. The name on your poster
+//    is whatever you sign it with (B.name): nobody's by default.
 import {esc,data,TH,FU,dims,motion,coarse,clamp} from './core.js';
-import {B,save,money,chests,title,nextTitle,QUESTS,once,grantChest,onBounty,has,notice,gainGold,spendGold,goldFmt,toast} from './bounty.js';
+import {B,save,money,chests,title,nextTitle,QUESTS,once,grantChest,onBounty,has,notice,gainGold,spendGold,goldFmt,toast,cleanName} from './bounty.js';
+import {heaps,dust,door} from './treasurefx.js';
 import {THEMES,setTheme} from './themes.js';
 import {todaysHunt} from './gold.js';
 import {openViewer,registerCollection} from './dialogs.js';
 import {onTilt} from './tilt.js';
 
+const SHEEN='.tf-card,.tq,.mk-item,.bb-q,.mk-bal,.mk-streak,.mk-hunt,.th-sw,.mk-ways li';
 let cssReady=null;
 export const roomsCSS=()=>cssReady||(cssReady=new Promise(res=>{const l=document.createElement('link');l.rel='stylesheet';l.href='css/rooms.css';l.onload=res;l.onerror=res;document.head.appendChild(l);}));
 const wait=ms=>new Promise(r=>setTimeout(r,motion.reduced?Math.min(ms,30):ms));
@@ -134,7 +139,7 @@ const fruitHTML=(f,locked=false)=>`<div class="tf${locked?' locked':''}" style="
 const relicIcon={origin:'“',ink:'墨',laughtale:'✦',gold:'฿'};
 
 /* ---------------------------------------------------------------- the room */
-let dlg=null,tab='log',logCol='',shownB=0;
+let dlg=null,tab='log',logCol='',shownB=0,nameEdit=false,signed=false,walked=false,fx=null;
 const $d=s=>dlg.querySelector(s);
 export async function openTreasure(t){
  await roomsCSS();
@@ -142,8 +147,9 @@ export async function openTreasure(t){
  if(!dlg)build();
  if(t)tab=t;
  render();
- if(!dlg.open){dlg.showModal();document.documentElement.style.overflow='hidden';dlg.scrollTop=0;}
- count();
+ let entering=false;
+ if(!dlg.open){dlg.showModal();document.documentElement.style.overflow='hidden';dlg.scrollTop=0;fx.start();requestAnimationFrame(paintHeaps);entering=!motion.reduced;}
+ if(entering){door(dlg,{fast:walked}).then(count);walked=true;}else count();
  if(location.hash!=='#treasure')history.replaceState(null,'','#treasure');
 }
 // fruits added after someone already opened their chest go straight to the room (Hana always last)
@@ -154,12 +160,13 @@ function catchUp(){
 }
 function build(){
  dlg=document.createElement('dialog');dlg.className='tr';dlg.setAttribute('aria-labelledby','tr-title');
- dlg.innerHTML=`<div class="tr-wrap">
-  <header class="tr-head"><div><p class="eyebrow">The Treasure Room</p><h2 id="tr-title">Your <em>bounty.</em></h2></div><button class="tr-close" data-tr-close>Close ✕</button></header>
+ dlg.innerHTML=`<div class="tr-bg" aria-hidden="true"><i class="tr-wall"></i><i class="tr-lamp a"></i><i class="tr-lamp b"></i><i class="tr-shaft s1"></i><i class="tr-shaft s2"></i><canvas class="tr-dust"></canvas></div><div class="tr-wrap">
+  <header class="tr-head"><div><p class="eyebrow tr-eyebrow"><i aria-hidden="true"></i>The Treasure Room</p><h2 id="tr-title">Your <em>bounty.</em></h2></div><button class="tr-close" data-tr-close>Close ✕</button></header>
   <section class="tr-hero">
    <div class="tr-left"><div class="tr-poster" id="tr-poster"></div><div class="tr-epi" id="tr-epi"></div></div>
-   <div class="tr-vault"><div class="tr-stage">${chestHTML('tr-chest')}<i class="tr-halo" aria-hidden="true"></i></div><div class="tr-under" id="tr-under"></div></div>
+   <div class="tr-vault"><div class="tr-stage"><i class="tr-niche" aria-hidden="true"></i><i class="tr-floor" aria-hidden="true"></i><canvas class="tr-heap" aria-hidden="true"></canvas>${Array.from({length:9},(_,i)=>`<i class="tr-tw" style="--x:${[8,14,19,24,31,69,77,83,91][i]}%;--y:${[66,52,70,60,74,72,56,66,50][i]}%;--d:${(i*0.83).toFixed(2)}s" aria-hidden="true"></i>`).join('')}${chestHTML('tr-chest')}<i class="tr-halo" aria-hidden="true"></i></div><div class="tr-under" id="tr-under"></div></div>
   </section>
+  <section class="cs" id="tr-case" aria-label="Your showcase"></section>
   <nav class="tr-tabs" role="tablist" aria-label="The Treasure Room">
    <button role="tab" data-tab="log">Treasure Log</button><button role="tab" data-tab="market">Black Market</button><button role="tab" data-tab="fruits">Devil Fruits</button><button role="tab" data-tab="themes">Themes</button><button role="tab" data-tab="relics">Relics</button><button role="tab" data-tab="board">Bounty board</button>
   </nav>
@@ -169,14 +176,18 @@ function build(){
  <div class="tr-cer" id="tr-cer" hidden></div>
  <div class="tr-insp" id="tr-insp" hidden></div>`;
  document.body.appendChild(dlg);
- dlg.addEventListener('close',()=>{document.documentElement.style.overflow='';if(location.hash==='#treasure')history.replaceState(null,'',location.pathname+location.search);});
- dlg.addEventListener('cancel',e=>{const film=$d('.tr-film');if(film){e.preventDefault();film.querySelector('[data-film-close]').click();return;}if(!$d('#tr-cer').hidden||!$d('#tr-insp').hidden){e.preventDefault();closeLayers();}});
+ fx=dust($d('.tr-dust'),()=>!$d('#tr-cer').hidden);
+ new ResizeObserver(()=>{if(dlg.open)paintHeaps();}).observe($d('.tr-stage'));
+ dlg.addEventListener('close',()=>{fx.stop();document.documentElement.style.overflow='';if(location.hash==='#treasure')history.replaceState(null,'',location.pathname+location.search);});
+ dlg.addEventListener('cancel',e=>{if(nameEdit||$d('.tr-door')){e.preventDefault();return;}const film=$d('.tr-film');if(film){e.preventDefault();film.querySelector('[data-film-close]').click();return;}if(!$d('#tr-cer').hidden||!$d('#tr-insp').hidden){e.preventDefault();closeLayers();}});
  dlg.addEventListener('click',onClick);
  onBounty(()=>{if(dlg.open&&$d('#tr-cer').hidden){renderHero();if(tab==='board'||tab==='market')renderPanel();}});
  // the chest and the inspected card lean toward the mouse, or the way the phone is held
  const rot=$d('.tr-chest .ch-rot');
  dlg.addEventListener('pointermove',e=>{if(coarse||motion.reduced)return;const x=e.clientX/innerWidth-0.5,y=e.clientY/innerHeight-0.5;rot.style.setProperty('--ty',(x*18).toFixed(2)+'deg');rot.style.setProperty('--tx',(y*-8).toFixed(2)+'deg');foil(e.clientX,e.clientY);});
  onTilt(t=>{if(!dlg.open||!coarse)return;rot.style.setProperty('--ty',(t.x*18).toFixed(2)+'deg');rot.style.setProperty('--tx',(t.y*-8).toFixed(2)+'deg');const c=$d('.tr-insp .tc');if(c){const r=c.getBoundingClientRect();foil(r.left+r.width*(0.5+t.x*0.5),r.top+r.height*(0.5+t.y*0.5));}});
+ // the panels' cards catch the lantern light where the pointer is
+ dlg.addEventListener('pointermove',e=>{if(coarse||motion.reduced)return;const c=e.target.closest?.(SHEEN);if(!c)return;const r=c.getBoundingClientRect();c.style.setProperty('--sx',(e.clientX-r.left).toFixed(0)+'px');c.style.setProperty('--sy',(e.clientY-r.top).toFixed(0)+'px');});
  // a picture from the log opened full size goes back to the room afterwards
  registerCollection('treasure',()=>({title:'The Treasure Log',eyebrow:'Cards you found',ids:Object.keys(B.cards).sort((a,b)=>B.cards[b]-B.cards[a])}));
  document.getElementById('dialog')?.addEventListener('close',()=>{if(dlg.open)document.documentElement.style.overflow='hidden';});
@@ -187,13 +198,34 @@ function foil(x,y){dlg.querySelectorAll('.tc.r-sec,.tc.r-sr,.tc.r-m,.tc.r-rm,.tc
 function render(){renderHero();dlg.querySelectorAll('[data-tab]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.tab===tab)));renderPanel();}
 // the bounty counts up from where you last saw it
 function count(){const el=$d('.tr-b');if(!el)return;const from=shownB,to=B.b;shownB=to;if(motion.reduced||from===to||!from){el.textContent=money(to);return;}const t0=performance.now(),d=1400;const step=t=>{const k=clamp((t-t0)/d),e=1-Math.pow(1-k,3);el.textContent=money(from+(to-from)*e);if(k<1)requestAnimationFrame(step);};requestAnimationFrame(step);}
+function paintHeaps(){const cv=dlg?.querySelector('.tr-heap');if(cv)heaps(cv);}
 function renderHero(){
- const t=title(),n=nextTitle(),c=chests(),poster=B.poster&&data.media?.img?.[B.poster]?B.poster:'3358de4cd87c';
- $d('#tr-poster').innerHTML=`<div class="wanted tr-wanted${B.b>=1e9?' gold':''}" style="--r:-1.6deg"><span class="w-top">WANTED</span><span class="w-photo"><img src="${TH(poster)}" alt="" decoding="async"></span><span class="w-dead">DEAD OR ALIVE</span><b class="w-name">GOMA</b><span class="w-bounty"><i>฿</i><span class="tr-b">${money(dlg.open?B.b:shownB||B.b)}</span><small>-</small></span><span class="w-line">“${esc(t[1])}”</span><span class="w-mark">MARINE</span></div>`;
- $d('#tr-epi').innerHTML=`<p class="tr-title"><small>Epithet</small><b>${esc(t[1])}</b><span>${esc(t[2])}</span></p>${n?`<p class="tr-nextt">Next title at <b>฿${money(n[0])}</b>: ${esc(n[1])}. <span>${esc(n[2])}</span></p>`:'<p class="tr-nextt">There is no title above this one.</p>'}<button class="link tr-photo" data-photo>Change the poster photo →</button><button class="tr-gold" data-tab="market"><i class="gp-coin" aria-hidden="true"></i><b>${goldFmt(B.gold)}</b><span>gold · Black Market →</span></button>`;
+ if(nameEdit)return;
+ const nm=B.name||'',t=title(),n=nextTitle(),c=chests(),poster=B.poster&&data.media?.img?.[B.poster]?B.poster:'3358de4cd87c';
+ $d('#tr-poster').innerHTML=`<div class="wanted tr-wanted${B.b>=1e9?' gold':''}" style="--r:-1.6deg"><span class="w-top">WANTED</span><span class="w-photo"><img src="${TH(poster)}" alt="" decoding="async"></span><span class="w-dead">DEAD OR ALIVE</span><b class="w-name tr-name${nm?'':' empty'}${signed?' signed':''}" style="--nl:${nm?Math.max(1,nm.length):9}"><button class="tr-name-b" data-name aria-label="${nm?'Change your pirate name':'Sign your poster with a pirate name'}"><span>${nm?esc(nm.toUpperCase()):'YOUR NAME'}</span><i class="tr-pen" aria-hidden="true">✎</i></button></b><span class="w-bounty"><i>฿</i><span class="tr-b">${money(dlg.open?B.b:shownB||B.b)}</span><small>-</small></span><span class="w-line">“${esc(t[1])}”</span><span class="w-mark">MARINE</span></div>`;
+ $d('#tr-epi').innerHTML=`<p class="tr-title"><small>Epithet</small><b>${esc(t[1])}</b><span>${esc(t[2])}</span></p>${n?`<p class="tr-nextt">Next title at <b>฿${money(n[0])}</b>: ${esc(n[1])}. <span>${esc(n[2])}</span></p>`:'<p class="tr-nextt">There is no title above this one.</p>'}<div class="tr-edits"><button class="link tr-photo tr-sign${nm?'':' ask'}" data-name>${nm?'Change your pirate name →':'Sign your poster: add your pirate name →'}</button><button class="link tr-photo" data-photo>Change the poster photo →</button></div><button class="tr-gold" data-tab="market"><i class="gp-coin" aria-hidden="true"></i><b>${goldFmt(B.gold)}</b><span>gold · Black Market →</span></button>`;
  $d('#tr-under').innerHTML=c.waiting?`<p class="tr-wait"><b>${c.waiting}</b> ${c.waiting>1?'chests':'chest'} waiting</p><button class="pill tr-open" data-open>Open ${c.waiting>1?'a chest':'the chest'}</button><p class="tr-nexts">Opened so far: ${B.opened}</p>`
   :`<p class="tr-wait">No chests waiting</p><div class="tr-bar"><i style="transform:scaleX(${clamp(c.frac).toFixed(3)})"></i></div><p class="tr-nexts">Next chest at <b>฿${money(c.next)}</b> · ฿${money(c.next-B.b)} to go. Keep exploring, reading and playing.</p>`;
  $d('.tr-stage').classList.toggle('ready',c.waiting>0);
+ signed=false;
+ renderCase();
+}
+// the showcase: your six rarest finds behind glass, on velvet, each under its own light
+function renderCase(){
+ const P=pool(),got=P.filter(p=>B.cards[p.id]);
+ const best=got.slice().sort((a,b)=>TIERS.indexOf(rarity(a.id))-TIERS.indexOf(rarity(b.id))||B.cards[b.id]-B.cards[a.id]).slice(0,6);
+ const slots=Array.from({length:6},(_,i)=>{const p=best[i];return p?`<button class="cs-vit" data-card-id="${p.id}" aria-label="${esc(p.col)} ${p.i}, ${RNAME[rarity(p.id)]}">${cardHTML(p,{back:false})}<span class="cs-tag">${RNAME[rarity(p.id)]}</span></button>`:`<div class="cs-vit empty"><span>${got.length?'Still out there':'Waiting for treasure'}</span></div>`;}).join('');
+ $d('#tr-case').innerHTML=`<div class="cs-plaque"><small>The showcase</small><b>Your rarest finds</b></div><div class="cs-shelf">${slots}<i class="cs-glass" aria-hidden="true"></i></div><p class="cs-foot"><span><b>${got.length}</b> of ${P.length} cards</span><span><b>${B.opened}</b> ${B.opened===1?'chest':'chests'} opened</span><span><b>${B.fruits.length}</b> of ${FRUITS.length} Devil Fruits</span></p>`;
+}
+function startName(){
+ const host=$d('.tr-name');if(!host||nameEdit)return;
+ nameEdit=true;host.classList.add('editing');
+ host.innerHTML=`<input class="tr-name-in" type="text" maxlength="16" value="${esc(B.name||'')}" placeholder="Your pirate name" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="done" aria-label="Your pirate name">`;
+ const i=host.querySelector('input');i.focus();i.select();
+ let done=false;
+ const fin=ok=>{if(done)return;done=true;nameEdit=false;if(ok){const n=cleanName(i.value);if(n!==(B.name||'')){B.name=n;save();signed=!!n;}}renderHero();};
+ i.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();fin(true);}else if(e.key==='Escape'){e.preventDefault();e.stopPropagation();fin(false);}});
+ i.addEventListener('blur',()=>fin(true));
 }
 function renderPanel(){
  const P=$d('#tr-panel');
@@ -287,6 +319,7 @@ function closeLayers(){const c=$d('#tr-cer'),i=$d('#tr-insp');if(!i.hidden){i.hi
 async function onClick(e){
  const t=e.target;
  if(t.closest('[data-tr-close]')||t===dlg){if(!$d('#tr-cer').hidden||!$d('#tr-insp').hidden)closeLayers();else dlg.close();return;}
+ if(t.closest('[data-name]')){startName();return;}
  const tb=t.closest('[data-tab]');if(tb){tab=tb.dataset.tab;render();return;}
  if(t.closest('[data-open]')){ceremony();return;}
  const col=t.closest('[data-col]');if(col){logCol=col.dataset.col;renderPanel();return;}

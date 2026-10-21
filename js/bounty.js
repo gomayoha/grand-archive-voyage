@@ -10,9 +10,11 @@
 // Everything lives in this browser only.
 const KEY='grand-archive:bounty',M=1e6;
 const blank=()=>({v:1,b:0,marks:{},days:[],sec:0,min:0,opened:0,bonus:0,cards:{},fruits:[],eat:null,relics:[],best:{},poster:null,
- gold:0,goldEver:0,gf:0,bought:0,goldNext:0,lucky:0,likes:{},streak:{n:0,last:null},hunt:null,theme:'auto'});
+ gold:0,goldEver:0,gf:0,bought:0,goldNext:0,lucky:0,likes:{},streak:{n:0,last:null},hunt:null,theme:'auto',name:''});
 export const B=(()=>{try{const v=JSON.parse(localStorage.getItem(KEY)||'null');if(v&&v.v===1)return Object.assign(blank(),v);}catch{}return blank();})();
 export const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(B));}catch{}};
+// the pirate name on your wanted poster: whatever you typed, never a default
+export const cleanName=s=>String(s??'').replace(/[\u0000-\u001f<>]/g,'').replace(/\s+/g,' ').trim().slice(0,16).trim();
 export const money=n=>Math.round(n).toLocaleString('en-US');
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const subs=new Set();

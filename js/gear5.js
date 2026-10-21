@@ -60,6 +60,9 @@ const TRICKS = [
 // Chibi Nika floating on his back, from the art Goma chose (@mintycrops), as a round badge.
 const NIKA_SVG = `<img src="assets/img/ui/nika.webp" alt="" width="160" height="160" draggable="false">`;
 
+// greets whoever signed their wanted poster (the pirate name lives with the bounty), nobody otherwise
+const pirate = () => { try { const n = JSON.parse(localStorage.getItem('grand-archive:bounty') || '{}').name; return n ? ' ' + n : ''; } catch { return ''; } };
+
 export function initGear5({ button, isReduced }) {
   const root = document.documentElement, body = document.body, main = document.querySelector('main');
   const mk = (cls, html = '') => { const el = document.createElement('div'); el.className = cls; el.setAttribute('aria-hidden', 'true'); el.innerHTML = html; return el; };
@@ -533,7 +536,7 @@ export function initGear5({ button, isReduced }) {
       root.classList.add('g5-on');
       later(() => { if (!on) return; body.classList.add('gear5'); splitLetters(); }, reduced ? 0 : 420);
       later(() => { if (!on) return; nikaWrap.classList.add('in'); sfx('boing'); }, reduced ? 0 : 1500);
-      later(() => { if (on && !lifeNear) say('Oi Goma! Gear 5 is ON. Tap me for tricks!', 3800); }, reduced ? 300 : 2300);
+      later(() => { if (on && !lifeNear) say(`Oi${pirate()}! Gear 5 is ON. Tap me for tricks!`, 3800); }, reduced ? 300 : 2300);
       quipSeen.clear(); activity();
       lastY = scrollY; if (!raf) raf = requestAnimationFrame(loop);
       LISTEN.forEach(([ev, fn, opt]) => (opt === document ? document : window).addEventListener(ev, fn, opt === document ? undefined : opt));
