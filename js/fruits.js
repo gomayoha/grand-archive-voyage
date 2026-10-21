@@ -50,13 +50,20 @@ let later=[],cur=null,cv=null,ctx=null,dpr=1,raf=0,parts=[],bolts=[],rings=[],ba
 const rnd=(a,b)=>a+Math.random()*(b-a);
 
 /* ---------------------------------------------------------------- eating */
-export function eat(id,{quiet=false,fromRoom=false}={}){
+// from the Treasure Room it's a ceremony (js/eatfx.js); the archive takes the fruit's colours as it goes down
+export async function eat(id,{quiet=false,fromRoom=false}={}){
  const f=FR[id];if(!f)return;cur=id;B.eat=id;save();
+ if(fromRoom&&!quiet&&!motion.reduced){
+  const [fx,tr,th]=await Promise.all([import('./eatfx.js'),import('./treasure.js'),import('./themes.js')]);
+  const info=tr.FRUITS.find(x=>x.id===id)||{};
+  const p=fx.ceremony(f,info);document.querySelector('dialog.ef')?.addEventListener('ate',()=>th.refreshTheme(),{once:true});
+  await p;th.refreshTheme();
+ }else import('./themes.js').then(m=>m.refreshTheme());
  setup();showBadge();
  if(!quiet)notice(`You ate the ${f.name}`,coarse?'Tap anywhere on the archive to use it.':'Click anywhere on the archive to use it.');
- if(fromRoom&&!quiet)setTimeout(()=>word(innerWidth/2,innerHeight*0.45,f.words[0]),200);
+ if(fromRoom&&!quiet)setTimeout(()=>{if(!document.querySelector('dialog[open]'))use(innerWidth/2,innerHeight*0.5,null);else word(innerWidth/2,innerHeight*0.45,f.words[0]);},250);
 }
-export function spit(){if(!cur)return;const f=FR[cur];cur=null;B.eat=null;save();badge?.classList.remove('in');notice('Spat it out',`The ${f.name} is back in the Treasure Room.`);}
+export function spit(){if(!cur)return;const f=FR[cur];cur=null;B.eat=null;save();badge?.classList.remove('in');import('./themes.js').then(m=>m.refreshTheme());notice('Spat it out',`The ${f.name} is back in the Treasure Room.`);}
 
 function setup(){
  if(cv)return;
@@ -80,7 +87,7 @@ const blocked=()=>motion.reduced||document.documentElement.classList.contains('w
 /* ---------------------------------------------------------------- using it */
 let uses=0;
 function use(x,y,el){
- if(!cur||blocked())return;if(el instanceof Element&&el.closest('.df-badge,.av,.bt-toast'))return;
+ if(!cur||blocked())return;if(el instanceof Element&&el.closest('.df-badge,.av,.bt-toast,.gt,.gp'))return;
  const f=FR[cur];uses++;badge?.classList.remove('pulse');void badge?.offsetWidth;badge?.classList.add('pulse');
  if(uses===1||Math.random()<0.34)word(x,y-70,f.words[Math.floor(Math.random()*f.words.length)],f.h1);
  ({mera,goro,hie,ope,bara,yami,hana,pika,moku,bomu,mero,suna,horo,ito,nikyu,kage,magu,zushi,gura})[cur](x,y,el);loop();

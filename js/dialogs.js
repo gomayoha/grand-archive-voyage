@@ -6,6 +6,8 @@ import {setSrc} from './vault.js';
 const dialog=$('#dialog'),dBody=$('#dialog-body');let lastFocus=null,viewer=null;
 const providers={};
 export const registerCollection=(kind,fn)=>{providers[kind]=fn;};
+// told about every picture the viewer shows (likes, today's treasure: js/gold.js)
+export const viewerHooks=[];
 export function openDialog(html,cls=''){
  dialog.className=cls;
  if(!dialog.open){lastFocus=document.activeElement;dialog.showModal();document.documentElement.style.overflow='hidden';}
@@ -26,10 +28,10 @@ const masonry=(key,ids,thumb)=>`<div class="masonry">${ids.map(id=>`<button data
 export function openCollection(key){const c=collection(key);const fly=!c.thumb&&!c.src&&c.ids.length>5;openDialog(`<p class="eyebrow">${esc(c.eyebrow)}</p><h2 id="dialog-title">${esc(c.title)}</h2><p class="subtle">${c.ids.length} ${c.ids.length===1?'image':'images'}. Tap one to view it full size.${fly?` <button class="link dive-link" data-dive="${esc(key)}">Fly through them in 3D ✦</button>`:''}</p>${masonry(key,c.ids,c.thumb)}`);if(c.thumb)dBody.querySelectorAll('img[data-life]').forEach(i=>setSrc(i,c.thumb(i.dataset.life)));}
 export function openViewer(key,id){
  const c=collection(key),n=c.ids.length;viewer={key,c,i:Math.max(0,c.ids.indexOf(id))};
- openDialog(`<div class="viewer"><div class="viewer-top"><button class="link" data-collection="${key}">← ${esc(c.title)}</button><span class="viewer-count" id="viewer-count"></span></div><div class="viewer-stage"><img id="viewer-img" alt="${esc(c.title)} artwork"></div>${c.caps?'<p class="viewer-cap" id="viewer-cap"></p>':''}${n>1?'<button class="viewer-nav prev" data-step="-1" aria-label="Previous image">‹</button><button class="viewer-nav next" data-step="1" aria-label="Next image">›</button>':''}</div>`,'is-viewer');
+ openDialog(`<div class="viewer"><div class="viewer-top"><button class="link" data-collection="${key}">← ${esc(c.title)}</button><span class="viewer-r"><button class="vw-like" id="vw-like" aria-pressed="false" aria-label="Like this picture"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.2 0 3.6 1.2 4.3 2.4h2c.7-1.2 2.1-2.4 4.3-2.4 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z"/></svg></button><span class="viewer-count" id="viewer-count"></span></span></div><div class="viewer-stage"><img id="viewer-img" alt="${esc(c.title)} artwork"></div>${c.caps?'<p class="viewer-cap" id="viewer-cap"></p>':''}${n>1?'<button class="viewer-nav prev" data-step="-1" aria-label="Previous image">‹</button><button class="viewer-nav next" data-step="1" aria-label="Next image">›</button>':''}</div>`,'is-viewer');
  showView();
 }
-function showView(){if(!viewer)return;const{c,i}=viewer,id=c.ids[i],img=$('#viewer-img');img.classList.remove('in');img.onload=()=>img.classList.add('in');setSrc(img,(c.src||FU)(id));if(img.complete&&img.src)img.classList.add('in');if(c.caps)$('#viewer-cap').textContent=c.caps[id]||'';$('#viewer-count').textContent=`${i+1} / ${c.ids.length}`;[1,-1].forEach(d=>{const j=(i+d+c.ids.length)%c.ids.length;setSrc(new Image(),(c.src||FU)(c.ids[j]));});}
+function showView(){if(!viewer)return;const{c,i}=viewer,id=c.ids[i],img=$('#viewer-img');img.classList.remove('in');img.onload=()=>img.classList.add('in');setSrc(img,(c.src||FU)(id));if(img.complete&&img.src)img.classList.add('in');if(c.caps)$('#viewer-cap').textContent=c.caps[id]||'';$('#viewer-count').textContent=`${i+1} / ${c.ids.length}`;if(!c.src)viewerHooks.forEach(f=>{try{f(id,c);}catch(e){console.error(e);}});else{const b=$('#vw-like');if(b)b.hidden=true;}[1,-1].forEach(d=>{const j=(i+d+c.ids.length)%c.ids.length;setSrc(new Image(),(c.src||FU)(c.ids[j]));});}
 function step(d){if(!viewer)return;viewer.i=(viewer.i+d+viewer.c.ids.length)%viewer.c.ids.length;showView();}
 addEventListener('keydown',e=>{if(!dialog.open||!viewer)return;if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1);});
 let tx=null;

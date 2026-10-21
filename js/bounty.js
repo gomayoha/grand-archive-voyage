@@ -4,9 +4,13 @@
 // milestone washes a treasure chest ashore, opened in the Treasure Room (js/treasure.js).
 // Most of it is noticed from the outside (clicks on things that already exist, chapters crossing the
 // middle of the screen), so the sections themselves don't need to know about any of this.
+// Gold (Oct 22 2026) is the second currency: the bounty is what the world says you're worth, gold is what's
+// in your pocket. It drips from every berry earned and comes from things of its own (js/gold.js), and it is
+// spent in the Treasure Room's Black Market on chests, packs and fruit, to sail faster than the bounty alone.
 // Everything lives in this browser only.
 const KEY='grand-archive:bounty',M=1e6;
-const blank=()=>({v:1,b:0,marks:{},days:[],sec:0,min:0,opened:0,bonus:0,cards:{},fruits:[],eat:null,relics:[],best:{},poster:null});
+const blank=()=>({v:1,b:0,marks:{},days:[],sec:0,min:0,opened:0,bonus:0,cards:{},fruits:[],eat:null,relics:[],best:{},poster:null,
+ gold:0,goldEver:0,gf:0,bought:0,goldNext:0,lucky:0,likes:{},streak:{n:0,last:null},hunt:null,theme:'auto'});
 export const B=(()=>{try{const v=JSON.parse(localStorage.getItem(KEY)||'null');if(v&&v.v===1)return Object.assign(blank(),v);}catch{}return blank();})();
 export const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(B));}catch{}};
 export const money=n=>Math.round(n).toLocaleString('en-US');
@@ -40,7 +44,10 @@ export const grantChest=(n=1)=>{B.bonus+=n;save();changed();chestToast(n);};
 
 /* ---------------------------------------------------------------- earning */
 export function earn(n,why,{quiet=false}={}){
- const before=earned(B.b);B.b+=Math.round(n);save();
+ const before=earned(B.b);B.b+=Math.round(n);
+ // every million berries drops a gold coin in your pocket
+ B.gf=(B.gf||0)+n/M;if(B.gf>=1){const g=Math.floor(B.gf);B.gf-=g;B.gold+=g;B.goldEver+=g;purse(g);}
+ save();
  if(!quiet&&why)toast(`+${money(n)}`,why);
  const after=earned(B.b);if(after>before)setTimeout(()=>chestToast(after-before),quiet?200:1100);
  changed();
@@ -50,6 +57,27 @@ export function once(key,n,why,opts){if(B.marks[key])return false;B.marks[key]=D
 // a game's best score; rewards come from the game itself
 export function best(game,v){if(v>(B.best[game]||0)){B.best[game]=v;save();changed();return true;}return false;}
 export function unlockRelic(id,name){if(B.relics.includes(id))return false;B.relics.push(id);save();changed();notice('Relic unlocked',name,()=>openTreasure('relics'));return true;}
+
+/* ---------------------------------------------------------------- gold */
+export const goldFmt=n=>Math.floor(n).toLocaleString('en-US');
+export function gainGold(n,why,{quiet=false}={}){
+ n=Math.round(n);if(n<=0)return;B.gold+=n;B.goldEver+=n;save();purse(n);
+ if(!quiet&&why)goldToast(n,why);changed();
+}
+export function spendGold(n){if(B.gold<n)return false;B.gold-=n;save();purse(-n);changed();return true;}
+// the purse: a small pouch bottom-left that shows up whenever gold comes in, counting up
+let pu=null,puT=0,puShown=null;
+function purse(d){
+ if(typeof document==='undefined'||document.documentElement.classList.contains('wm-on'))return;
+ if(!pu){pu=document.createElement('button');pu.className='gp';pu.setAttribute('aria-label','Your gold. Open the Black Market');pu.innerHTML='<i class="gp-coin" aria-hidden="true"></i><b></b><small></small>';pu.addEventListener('click',()=>openTreasure('market'));document.body.appendChild(pu);}
+ const b=pu.querySelector('b'),sm=pu.querySelector('small'),from=puShown??B.gold-d,to=B.gold;puShown=to;
+ sm.textContent=d>0?`+${goldFmt(d)}`:`−${goldFmt(-d)}`;sm.classList.toggle('neg',d<0);
+ pu.classList.remove('bump');void pu.offsetWidth;pu.classList.add('in','bump');
+ const t0=performance.now();const step=t=>{const k=Math.min(1,(t-t0)/600);b.textContent=goldFmt(from+(to-from)*k);if(k<1)requestAnimationFrame(step);};requestAnimationFrame(step);
+ clearTimeout(puT);puT=setTimeout(()=>pu.classList.remove('in'),2600);
+}
+export const goldTarget=()=>{if(!pu)purse(0);const r=pu.getBoundingClientRect();return{x:r.left+22,y:r.top+r.height/2};};
+function goldToast(n,why){if(document.documentElement.classList.contains('wm-on'))return;const t=document.createElement('div');t.className='bt-toast bt-gold';t.innerHTML=`<i class="gp-coin" aria-hidden="true"></i><b>+${goldFmt(n)} gold</b><span>${esc(why)}</span>`;add(t,3600);}
 
 /* ---------------------------------------------------------------- toasts */
 let box;
@@ -89,6 +117,7 @@ export const QUESTS=[
  {id:'wind',t:'Gone with the wind',d:'Catch 25 wanted posters in one gust.',n:()=>[min(B.best.wind||0,25),25],pay:'฿20,000,000'},
  {id:'haki',t:'Observation Haki',d:'Reach level 8.',n:()=>[min(B.best.haki||0,8),8],pay:'฿20,000,000'},
  {id:'col',t:'Collector',d:'Open ten photo collections.',n:()=>[min(marked('col:'),10),10],pay:'฿1,000,000 each'},
+ {id:'gold',t:'Pockets full of gold',d:'Earn 5,000 gold in total: scroll, like pictures, catch the coins that float by, keep a streak, find the day’s hidden treasure.',n:()=>[Math.min(B.goldEver||0,5000),5000],pay:'Spend it in the Black Market'},
  {id:'chest',t:'Treasure hunter',d:'Open ten chests.',n:()=>[min(B.opened,10),10],pay:'A gold chest'},
  {id:'odd',t:'Odds and ends',d:'Wake Nika (Gear 5), open Writer’s mode, dive into a collection in 3D, shuffle the wall, turn the sound up in Scenes.',n:()=>[ODD.filter(has).length,ODD.length],pay:'฿1,000,000 to ฿5,000,000 each'}
 ];
@@ -100,6 +129,8 @@ export function initBounty({chars=null}={}){
  // what you've earned stays switched on between visits: the manga-ink relic and the fruit you ate
  if(B.ink)document.documentElement.classList.add('ink');
  if(B.eat)import('./fruits.js').then(m=>m.eat(B.eat,{quiet:true})).catch(()=>{});
+ import('./themes.js').then(m=>m.refreshTheme()).catch(()=>{});
+ import('./gold.js').then(m=>m.initGold()).catch(e=>console.error('[gold]',e));
  if(chars){B.nChars=chars.length;B.nJudge=chars.filter(c=>c.first).length;}
  // a new day at sea (local date)
  const today=new Date().toLocaleDateString('en-CA');
@@ -139,5 +170,5 @@ export function initBounty({chars=null}={}){
   if(t.closest('[data-card]'))once('vault',2*M,'A card, up close');
   if(t.closest('.pg-stone'))setTimeout(pg,120);
  },true);
- if(new URLSearchParams(location.search).has('debug'))window.__bounty={B,earn,chests,grantChest,save};
+ if(new URLSearchParams(location.search).has('debug'))window.__bounty={B,earn,chests,grantChest,save,gainGold};
 }
