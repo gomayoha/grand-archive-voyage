@@ -24,6 +24,7 @@ import {THEMES,setTheme} from './themes.js';
 import {todaysHunt} from './gold.js';
 import {openViewer,registerCollection} from './dialogs.js';
 import {onTilt} from './tilt.js';
+import {backHTML,mount as mountCard,opening as playOpening,preload as preloadPanels,hint as MOVE} from './cardfx.js';
 
 const SHEEN='.tf-card,.tq,.mk-item,.bb-q,.mk-bal,.mk-streak,.mk-hunt,.th-sw,.mk-ways li';
 let cssReady=null;
@@ -43,7 +44,8 @@ export function pool(){
  add(m.spreads?.all,'Colour spreads','spreads');
  add(m.wall,'Ohara Library','library');
  add(m.backgrounds?.all,'Sky and sea','depths');
- return POOL=out;
+ if(out.length)POOL=out;// never keep an empty pool: the data may simply not have arrived yet
+ return out;
 }
 const byId=id=>pool().find(p=>p.id===id);
 // a fixed rarity per picture, like the card game he collects (Oct 21 2026 added the manga rarities and one of
@@ -117,7 +119,7 @@ function openOne(){
  // chest No. 11 holds the Conqueror, if it hasn't found you already
  const cq=pool().find(p=>p.id===CONQ);if(k===CONQ_AT&&cq&&!B.cards[CONQ])cards[cards.length-1]=cq;
  B.opened=k;const now=Date.now();
- cards.forEach(p=>{if(!p.dup)B.cards[p.id]=now;});
+ cards.forEach(p=>{if(!p.dup){B.cards[p.id]=now;const x=B.cx||(B.cx={});x[p.id]={...x[p.id],k};}});
  if(special?.kind==='fruit'&&!B.fruits.includes(special.id))B.fruits.push(special.id);
  if(special?.kind==='relic'&&!B.relics.includes(special.id))B.relics.push(special.id);
  save();
@@ -130,7 +132,9 @@ function openOne(){
 const PLANKS=8;
 // a dark walnut chest with brass bands, built from planes in 3D; the lid is a half barrel of eight planks
 export const chestHTML=(cls='')=>`<div class="ch ${cls}"><div class="ch-float"><div class="ch-rot"><div class="ch-body"><i class="ch-f ch-back"></i><i class="ch-f ch-left"></i><i class="ch-f ch-right"></i><i class="ch-f ch-bottom"></i><i class="ch-glow"></i><i class="ch-f ch-front"><i class="ch-lock"><i></i></i></i></div><div class="ch-lid">${Array.from({length:PLANKS},(_,k)=>{const a=(k+0.5)*Math.PI/PLANKS,sh=(0.62-0.55*Math.sin(a)+(a>Math.PI/2?0.18:0)).toFixed(2);return `<i class="ch-pl" style="--k:${k};--sh:${sh}"></i>`;}).join('')}<i class="ch-cap ch-cl"></i><i class="ch-cap ch-cr"></i><i class="ch-hasp"></i></div></div></div><i class="ch-shadow"></i></div>`;
-const cardHTML=(p,{back=true,big=false}={})=>{const r=rarity(p.id);return `<div class="tc r-${r}${big?' big':''}" data-id="${p.id}"><div class="tc-in"><div class="tc-front"><img src="${big?FU(p.id):TH(p.id)}" alt="" decoding="async">${r==='m'||r==='rm'?'<i class="tc-ink" aria-hidden="true"></i><i class="tc-tone" aria-hidden="true"></i>':''}${r==='sun'?'<i class="tc-cloud" aria-hidden="true"></i><i class="tc-cloud b" aria-hidden="true"></i>':''}${r==='conq'?`<i class="tc-tone" aria-hidden="true"></i><i class="tc-haki" aria-hidden="true">${HAKI}</i>`:''}<i class="tc-foil" aria-hidden="true"></i><i class="tc-glare" aria-hidden="true"></i><span class="tc-meta"><b>${esc(p.col)}</b><small>No. ${p.i} / ${p.of}</small></span><span class="tc-r">${RSHORT[r]}</span>${p.dup?'<span class="tc-dup">Duplicate · ฿2,000,000</span>':''}</div>${back?'<div class="tc-back" aria-hidden="true"><i></i><b>Grand Archive</b></div>':''}</div></div>`;};
+// the Conqueror wears the picture he made himself (his Sanji over the manga panels); the rest are the archive's own
+const cardImg=(id,big)=>id===CONQ?`assets/cards/conqueror${big?'':'-t'}.webp`:big?FU(id):TH(id);
+const cardHTML=(p,{back=true,big=false,lazy=false}={})=>{const r=rarity(p.id);return `<div class="tc r-${r}${big?' big':''}" data-id="${p.id}"><div class="tc-in"><div class="tc-front"><img src="${cardImg(p.id,big)}" alt="" decoding="async"${lazy?' loading="lazy"':''}>${r==='m'||r==='rm'?'<i class="tc-ink" aria-hidden="true"></i><i class="tc-tone" aria-hidden="true"></i>':''}${r==='sun'?'<i class="tc-cloud" aria-hidden="true"></i><i class="tc-cloud b" aria-hidden="true"></i>':''}${r==='conq'?`<i class="tc-tone" aria-hidden="true"></i><i class="tc-haki" aria-hidden="true">${HAKI}</i>`:''}<i class="tc-foil" aria-hidden="true"></i><i class="tc-glare" aria-hidden="true"></i><span class="tc-meta"><b>${esc(p.col)}</b><small>No. ${p.i} / ${p.of}</small></span><span class="tc-r">${RSHORT[r]}</span>${p.dup?'<span class="tc-dup">Duplicate · ฿2,000,000</span>':''}</div>${big?`<div class="tc-bk" aria-hidden="true">${backHTML(r,p)}</div>`:back?'<div class="tc-back" aria-hidden="true"><i></i><b>Grand Archive</b></div>':''}</div></div>`;};
 // Conqueror's Haki: black lightning with a red core, crackling across the card
 const bolt=(x,y,len,a,seg=12)=>{let d=`M${x} ${y}`,br='';for(let i=1;i<=seg;i++){x+=Math.cos(a)*len/seg+(Math.random()-.5)*11;y+=Math.sin(a)*len/seg+(Math.random()-.5)*11;d+=`L${x.toFixed(1)} ${y.toFixed(1)}`;
   if(i%4===2){let bx=x,by=y,ba=a+(Math.random()<.5?-1:1)*(0.6+Math.random()*.5);br+=`M${bx.toFixed(1)} ${by.toFixed(1)}`;for(let j=0;j<4;j++){bx+=Math.cos(ba)*6+(Math.random()-.5)*6;by+=Math.sin(ba)*6+(Math.random()-.5)*6;br+=`L${bx.toFixed(1)} ${by.toFixed(1)}`;}}}return d+br;};
@@ -148,7 +152,7 @@ export async function openTreasure(t){
  if(t)tab=t;
  render();
  let entering=false;
- if(!dlg.open){dlg.showModal();document.documentElement.style.overflow='hidden';dlg.scrollTop=0;fx.start();requestAnimationFrame(paintHeaps);entering=!motion.reduced;}
+ if(!dlg.open){dlg.showModal();document.documentElement.style.overflow='hidden';document.documentElement.classList.add('room-open');dlg.scrollTop=0;fx.start();requestAnimationFrame(paintHeaps);entering=!motion.reduced;}
  if(entering){door(dlg,{fast:walked}).then(count);walked=true;}else count();
  if(location.hash!=='#treasure')history.replaceState(null,'','#treasure');
 }
@@ -176,9 +180,9 @@ function build(){
  <div class="tr-cer" id="tr-cer" hidden></div>
  <div class="tr-insp" id="tr-insp" hidden></div>`;
  document.body.appendChild(dlg);
- fx=dust($d('.tr-dust'),()=>!$d('#tr-cer').hidden);
+ fx=dust($d('.tr-dust'),()=>!$d('#tr-cer').hidden||!$d('#tr-insp').hidden);
  new ResizeObserver(()=>{if(dlg.open)paintHeaps();}).observe($d('.tr-stage'));
- dlg.addEventListener('close',()=>{fx.stop();document.documentElement.style.overflow='';if(location.hash==='#treasure')history.replaceState(null,'',location.pathname+location.search);});
+ dlg.addEventListener('close',()=>{fx.stop();document.documentElement.style.overflow='';document.documentElement.classList.remove('room-open');moreIO?.disconnect();moreIO=null;if(location.hash==='#treasure')history.replaceState(null,'',location.pathname+location.search);});
  dlg.addEventListener('cancel',e=>{if(nameEdit||$d('.tr-door')){e.preventDefault();return;}const film=$d('.tr-film');if(film){e.preventDefault();film.querySelector('[data-film-close]').click();return;}if(!$d('#tr-cer').hidden||!$d('#tr-insp').hidden){e.preventDefault();closeLayers();}});
  dlg.addEventListener('click',onClick);
  onBounty(()=>{if(dlg.open&&$d('#tr-cer').hidden){renderHero();if(tab==='board'||tab==='market')renderPanel();}});
@@ -228,13 +232,14 @@ function startName(){
  i.addEventListener('blur',()=>fin(true));
 }
 function renderPanel(){
- const P=$d('#tr-panel');
+ const P=$d('#tr-panel');moreIO?.disconnect();moreIO=null;
  if(tab==='log')P.innerHTML=logHTML();
  if(tab==='fruits')P.innerHTML=fruitsHTML();
  if(tab==='relics')P.innerHTML=relicsHTML();
  if(tab==='board')P.innerHTML=boardHTML();
  if(tab==='market')P.innerHTML=marketHTML();
  if(tab==='themes')P.innerHTML=themesHTML();
+ if(tab==='log')logWatch();
 }
 /* ---------------------------------------------------------------- the Black Market: gold buys time */
 const chestPrice=()=>Math.min(550,150+40*(B.bought||0));
@@ -278,7 +283,7 @@ async function buy(what){
  if(what==='lucky'){if(!spendGold(PRICE.lucky))return;B.lucky=(B.lucky||0)+1;save();notice('The lucky compass','It points the way on your next chest.');renderPanel();return;}
  if(what==='fruit'){const f=nextFruit();if(!f||!spendGold(PRICE.fruit))return;B.fruits.push(f.id);save();tab='fruits';render();notice(`You bought the ${f.name}`,'It’s waiting in the Devil Fruits tab. Eat it when you’re ready.');return;}
  if(what==='pack'){const from=pool().filter(p=>p.col===packCol);if(!from.length||!spendGold(PRICE.pack))return;
-  const cards=draw(3,false,{from}),now=Date.now();cards.forEach(p=>{if(!p.dup)B.cards[p.id]=now;});save();
+  const cards=draw(3,false,{from}),now=Date.now();cards.forEach(p=>{if(!p.dup){B.cards[p.id]=now;const x=B.cx||(B.cx={});x[p.id]={...x[p.id],pack:packCol};}});save();
   const dups=cards.filter(p=>p.dup).length;if(dups)setTimeout(()=>gainGold(dups*20,'Duplicates, sold to a merchant'),3500);
   busy=true;try{await stage({k:B.opened,pack:packCol,gold:false,special:null,cards});}finally{busy=false;}return;}
 }
@@ -294,13 +299,28 @@ function themesHTML(){
  <h3 class="mk-h">From the cards</h3><div class="th-grid">${cards}</div>
  <h3 class="mk-h">From the Devil Fruits</h3><div class="th-grid">${fr}</div>`;
 }
+// The log shows a page of cards at a time on phones (a few hundred cards at once, each a picture and a few layers,
+// was more than some phones could hold); more arrive as you reach the end of the list. Laptops show them all.
+const LOGPAGE=()=>coarse||innerWidth<=820?30:1e9;
+let logList=[],logShown=0,moreIO=null;
+const logCell=p=>B.cards[p.id]?`<button class="tl-card" data-card-id="${p.id}" aria-label="${esc(p.col)} ${p.i}, ${RNAME[rarity(p.id)]}">${cardHTML(p,{back:false,lazy:true})}</button>`:`<div class="tl-slot"><span>No. ${p.i}</span></div>`;
+const logMore=()=>logShown<logList.length?`<div class="tl-more" id="tl-more"><button class="pill ghost small" data-more>Show ${Math.min(LOGPAGE(),logList.length-logShown)} more · ${logList.length-logShown} left</button></div>`:'';
+function logWatch(){moreIO?.disconnect();moreIO=null;const m=dlg&&$d('#tl-more');if(!m||!('IntersectionObserver' in window))return;moreIO=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting))showMore();},{rootMargin:'700px 0px'});moreIO.observe(m);}
+function showMore(){
+ const g=$d('.tl-grid');if(!g||logShown>=logList.length)return;
+ const next=logList.slice(logShown,logShown+LOGPAGE());logShown+=next.length;
+ g.insertAdjacentHTML('beforeend',next.map(logCell).join(''));
+ const m=$d('#tl-more');if(m)m.outerHTML=logMore();
+ logWatch();
+}
 function logHTML(){
  const P=pool(),got=P.filter(p=>B.cards[p.id]),cols=[...new Set(P.map(p=>p.col))];
  const per=r=>got.filter(p=>rarity(p.id)===r).length;
  const head=`<div class="tl-head"><p class="tl-count"><b>${got.length}</b> of ${P.length} cards found</p><p class="tl-r">${TIERS.map(r=>`<span class="tl-rr r-${r}"><i></i>${RNAME[r]} <b>${per(r)}</b></span>`).join('')}</p><div class="tr-bar"><i style="transform:scaleX(${(got.length/Math.max(1,P.length)).toFixed(4)})"></i></div></div>`;
  const chips=`<div class="tl-chips"><button data-col="" aria-pressed="${!logCol}">Found <b>${got.length}</b></button>${cols.map(c=>{const all=P.filter(p=>p.col===c),g=all.filter(p=>B.cards[p.id]).length;return `<button data-col="${esc(c)}" aria-pressed="${logCol===c}"${g===all.length?' class="done"':''}>${esc(c)} <b>${g}/${all.length}</b></button>`;}).join('')}</div>`;
- const list=logCol?P.filter(p=>p.col===logCol):got.slice().sort((a,b)=>B.cards[b.id]-B.cards[a.id]);
- const grid=list.length?`<div class="tl-grid">${list.map(p=>B.cards[p.id]?`<button class="tl-card" data-card-id="${p.id}" aria-label="${esc(p.col)} ${p.i}, ${RNAME[rarity(p.id)]}">${cardHTML(p,{back:false})}</button>`:`<div class="tl-slot"><span>No. ${p.i}</span></div>`).join('')}</div>`:`<p class="tl-empty">No cards yet. Open your first chest above: every picture in the archive is waiting to be found.</p>`;
+ logList=logCol?P.filter(p=>p.col===logCol):got.slice().sort((a,b)=>B.cards[b.id]-B.cards[a.id]);
+ logShown=Math.min(logList.length,LOGPAGE());
+ const grid=logList.length?`<div class="tl-grid">${logList.slice(0,logShown).map(logCell).join('')}</div>${logMore()}`:`<p class="tl-empty">No cards yet. Open your first chest above: every picture in the archive is waiting to be found.</p>`;
  return head+chips+grid;
 }
 function fruitsHTML(){
@@ -315,13 +335,14 @@ function boardHTML(){
 }
 
 /* ---------------------------------------------------------------- clicks */
-function closeLayers(){const c=$d('#tr-cer'),i=$d('#tr-insp');if(!i.hidden){i.hidden=true;i.innerHTML='';return;}if(!c.hidden){c.hidden=true;c.innerHTML='';render();count();}}
+function closeLayers(){const c=$d('#tr-cer'),i=$d('#tr-insp');if(!i.hidden){unmount?.();unmount=null;i.hidden=true;i.innerHTML='';return;}if(!c.hidden){c.hidden=true;c.innerHTML='';render();count();}}
 async function onClick(e){
  const t=e.target;
  if(t.closest('[data-tr-close]')||t===dlg){if(!$d('#tr-cer').hidden||!$d('#tr-insp').hidden)closeLayers();else dlg.close();return;}
  if(t.closest('[data-name]')){startName();return;}
  const tb=t.closest('[data-tab]');if(tb){tab=tb.dataset.tab;render();return;}
  if(t.closest('[data-open]')){ceremony();return;}
+ if(t.closest('[data-more]')){showMore();return;}
  const col=t.closest('[data-col]');if(col){logCol=col.dataset.col;renderPanel();return;}
  const card=t.closest('[data-card-id]');if(card){inspect(card.dataset.cardId);return;}
  const eat=t.closest('[data-eat]');if(eat){const id=eat.dataset.eat;const m=await import('./fruits.js');if(B.eat===id){m.spit();}else{m.eat(id,{fromRoom:true});}renderPanel();return;}
@@ -342,13 +363,17 @@ function relic(id){
  if(id==='ink'){B.ink=!B.ink;save();document.documentElement.classList.toggle('ink',B.ink);renderPanel();notice(B.ink?'Manga ink':'Colour is back',B.ink?'The archive is in black and white. Touch a picture to bring its colour back.':'The archive is in full colour again.');}
  if(id==='laughtale')import('./poneglyph.js').then(m=>m.openLaughTale());
 }
+let unmount=null;
 function inspect(id){
- const p=byId(id);if(!p)return;const r=rarity(id),L=$d('#tr-insp');
- L.innerHTML=`<div class="ti-in"><div class="ti-card">${cardHTML(p,{back:false,big:true})}</div><div class="ti-copy"><p class="eyebrow">${esc(RNAME[r])} · No. ${p.i} of ${p.of}</p><h3>${esc(p.col)}</h3><p class="ti-when">Found ${new Date(B.cards[id]).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}</p><div class="ti-acts"><button class="pill small" data-poster="${id}">Put it on my poster</button><button class="pill small ghost" data-viewfull="${id}">View full size</button><button class="link" data-insp-close>Back to the log</button></div></div></div>`;
+ const p=byId(id);if(!p)return;const r=rarity(id),L=$d('#tr-insp');unmount?.();unmount=null;
+ L.innerHTML=`<div class="ti-in"><div class="ti-card">${cardHTML(p,{back:false,big:true})}</div><div class="ti-copy"><p class="eyebrow">${esc(RNAME[r])} · No. ${p.i} of ${p.of}</p><h3>${esc(p.col)}</h3><p class="ti-when">Found ${new Date(B.cards[id]).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}</p><p class="ti-move">${MOVE[r]||'Tap the card to turn it over'}</p><div class="ti-acts"><button class="pill small" data-poster="${id}">Put it on my poster</button><button class="pill small ghost" data-viewfull="${id}">View full size</button><button class="link" data-insp-close>Back to the log</button></div></div></div>`;
  L.hidden=false;
+ unmount=mountCard(L.querySelector('.tc.big'),p,r,L);
 }
 
 /* ---------------------------------------------------------------- the ceremony */
+// the four top rarities open with a full-screen scene of their own (js/cardfx.js)
+const OPENS=new Set(['conq','sun','rm','m']);
 let busy=false;
 async function ceremony(){
  if(busy)return;const roll=openOne();if(!roll)return;busy=true;
@@ -356,6 +381,7 @@ async function ceremony(){
 }
 async function stage(roll){
  const L=$d('#tr-cer'),items=[...roll.cards.map(p=>({p})),...(roll.special?[{s:roll.special}]:[])];
+ if(roll.cards.some(p=>OPENS.has(rarity(p.id))))preloadPanels();
  L.innerHTML=`<div class="tc-sky" aria-hidden="true"><i class="tc-beam"></i></div>
   <p class="tc-k">${roll.pack?`A ${esc(roll.pack)} pack`:`${roll.gold?'A gold chest':'Chest'} · No. ${roll.k}`}${roll.lucky?' · with the lucky compass':''}</p>
   <div class="tc-chest">${chestHTML(roll.gold?'gold big':'big')}</div>
@@ -389,7 +415,7 @@ async function stage(roll){
   if(it.p){const r=rarity(it.p.id);if(r==='sr'||SPECIAL.has(r))flash(s,r);if(r==='sun'||r==='rm'||r==='conq')callout(r,s);s.setAttribute('aria-label',`${it.p.col}, ${RNAME[r]}`);}
   else{flash(s,'special');name(it.s);}};
  L.querySelector('.tc-row').addEventListener('click',e=>{const s=e.target.closest('.tc-slot');if(s)flip(+s.dataset.i);});
- for(let i=0;i<items.length;i++){flip(i);await wait(items[i].s?700:420);}
+ for(let i=0;i<items.length;i++){const it=items[i];if(it.p&&!it.p.dup&&OPENS.has(rarity(it.p.id)))await playOpening(L,it.p,rarity(it.p.id),cardHTML(it.p,{back:false,big:true}));flip(i);await wait(it.s?700:420);}
  L.classList.add('done');
  renderHero();
 }

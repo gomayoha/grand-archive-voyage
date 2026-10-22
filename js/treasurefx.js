@@ -67,16 +67,17 @@ export function heaps(cv){
 
 /* ---------------------------------------------------------------- dust in the lantern light */
 export function dust(cv,isCovered){
- const c=cv.getContext('2d');let W=0,H=0,raf=0,last=0,live=false;const R=Math.random;
+ const c=cv.getContext('2d');let W=0,H=0,raf=0,last=0,live=false,skip=0;const R=Math.random;
  const size=()=>{const dpr=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);c.setTransform(dpr,0,0,dpr,0,0);};
  const mote=(y)=>({x:R()*W,y:y??R()*H,r:.5+R()*1.7,v:5+R()*13,ph:R()*6.3,sw:6+R()*16,tw:.6+R()*1.8,a:.25+R()*.6,bokeh:false});
  const bok=()=>({...mote(),r:10+R()*26,v:2+R()*5,a:.05+R()*.06,bokeh:true});
  let P=[];
- const fill=()=>{const n=Math.min(90,Math.round(W*H/16000));P=Array.from({length:n},()=>mote());for(let i=0;i<6;i++)P.push(bok());};
+ const fill=()=>{const ph=innerWidth<=820,n=Math.min(ph?36:90,Math.round(W*H/16000));P=Array.from({length:n},()=>mote());for(let i=0;i<(ph?3:6);i++)P.push(bok());};
  const frame=t=>{
   raf=requestAnimationFrame(frame);
   const dt=Math.min(.05,(t-last)/1000||.016);last=t;
   if(document.hidden||isCovered())return;
+  if(innerWidth<=820&&(skip^=1))return;// phones: every other frame is plenty for drifting dust
   c.clearRect(0,0,W,H);
   for(const p of P){
    p.y-=p.v*dt;p.ph+=dt*p.tw;const x=p.x+Math.sin(p.ph*.7)*p.sw;

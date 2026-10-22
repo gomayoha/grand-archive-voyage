@@ -48,10 +48,10 @@ export async function openGames(game){
   dlg=document.createElement('dialog');dlg.className='gr';dlg.setAttribute('aria-labelledby','gr-title');
   dlg.innerHTML=`<div class="gr-wrap"><header class="gr-head"><div><p class="eyebrow" id="gr-k">The Game Room</p><h2 id="gr-title">Pick a <em>game.</em></h2></div><button class="tr-close" data-gr-close>Close ✕</button></header><div class="gr-body" id="gr-body"></div></div>`;
   document.body.appendChild(dlg);
-  dlg.addEventListener('close',()=>{stop();stop=()=>{};document.documentElement.style.overflow='';if(location.hash==='#games')history.replaceState(null,'',location.pathname+location.search);});
+  dlg.addEventListener('close',()=>{stop();stop=()=>{};document.documentElement.style.overflow='';document.documentElement.classList.remove('room-open');if(location.hash==='#games')history.replaceState(null,'',location.pathname+location.search);});
   dlg.addEventListener('click',e=>{if(e.target.closest('[data-gr-close]')){dlg.close();return;}const g=e.target.closest('[data-game]');if(g){play(g.dataset.game);return;}if(e.target.closest('[data-menu]'))menu();});
  }
- if(!dlg.open){dlg.showModal();document.documentElement.style.overflow='hidden';}
+ if(!dlg.open){dlg.showModal();document.documentElement.style.overflow='hidden';document.documentElement.classList.add('room-open');}
  if(location.hash!=='#games')history.replaceState(null,'','#games');
  game?play(game):menu();
 }
