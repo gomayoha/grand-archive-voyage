@@ -27,6 +27,7 @@ const CHAPTERS=[
  ['journey','06','The Anime Journey','I used to call them just cartoons.',()=>poster('anime:Berserk')||poster('anime:Demon Slayer')],
  ['top','07','My current top 10','Personal, unstable, allowed to change.',()=>poster('anime:Re:Zero')||poster('anime:One Piece')],
  ['records','✦','The Shelf','Rated, preserved as written.',()=>poster('anime:Death Note')],
+ ['collection','✦','My manga collection','Books I can hold.',()=>'assets/posters/vagabond.webp'],
  ['logbook','✦','The Logbook','How far I’ve come.',()=>poster('anime:Frieren')],
  ['worlds','✦','Beyond the Grand Line','Other worlds that stayed.',()=>data.media?.worlds?.[0]&&TH(data.media.worlds[0].cover)],
  ['orv','✦','The Star Stream','Omniscient Reader’s Viewpoint, a webtoon that reads itself.',()=>{const w=data.media?.worlds?.find(x=>x.name==='Omniscient Reader');return w&&TH(w.cover);}],

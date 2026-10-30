@@ -25,6 +25,7 @@ import {initRoute} from './s/route.js';
 import {initShowcase} from './s/showcase.js';
 import {initTop10} from './s/top10.js';
 import {initShelf} from './s/shelf.js';
+import {initCollection} from './s/collection.js';
 import {initTimeMachine} from './s/timemachine.js';
 import {initWorlds,initLibrary} from './s/worlds.js';
 import {initOrv} from './s/orv.js';
@@ -54,6 +55,7 @@ run('showcase',()=>initShowcase().catch(e=>console.error('[showcase]',e)));
 run('route',initRoute);
 run('top10',initTop10);
 run('shelf',initShelf);
+run('collection',()=>initCollection().catch(e=>console.error('[collection]',e)));
 run('timemachine',()=>initTimeMachine().catch(e=>console.error('[timemachine]',e)));
 run('worlds',initWorlds);
 run('orv',initOrv);
@@ -75,10 +77,10 @@ run('bounty',()=>initBounty({chars:data.characters?.characters}));
 lookAhead();
 
 /* ---------------- header: clear over full-screen scenes, frosted over reading sections ---------------- */
-const bar=$('#bar'),navLinks=$$('.bar-nav a'),prog=$('#bar-prog');
+const bar=$('#bar'),navLinks=$$('.bar-nav a');
 const clearOver=['#home','#helm','#strawhats','#closer','#depths','#voyage','#moments','#spreads','#story-show','#top','#scenes','#sky','#outro'].map(s=>$(s)).filter(Boolean);
 part({always:true,measure(){this.zones=clearOver.map(el=>[absTop(el)-10,absTop(el)+el.offsetHeight-view.vh*0.9]);const ink=$('#panels');this.ink=[absTop(ink)-30,absTop(ink)+ink.offsetHeight-60];},update(s){
- const clear=this.zones.some(([a,b])=>s>=a&&s<b);prog.style.transform=`scaleX(${(s/Math.max(1,document.documentElement.scrollHeight-view.vh)).toFixed(4)})`;bar.classList.toggle('solid',!clear);bar.classList.toggle('paper',s>this.ink[0]&&s<this.ink[1]);
+ const clear=this.zones.some(([a,b])=>s>=a&&s<b);bar.classList.toggle('solid',!clear);bar.classList.toggle('paper',s>this.ink[0]&&s<this.ink[1]);
 }});
 ['characters','strawhats','crew','voyage','moments','spreads','panels','journey','top','vault','library','life'].forEach(id=>{const el=document.getElementById(id);if(el)new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)navLinks.forEach(a=>a.getAttribute('href')==='#'+id?a.setAttribute('aria-current','true'):a.removeAttribute('aria-current'));}),{rootMargin:'-45% 0px -50% 0px'}).observe(el);});
 document.addEventListener('click',e=>{const a=e.target.closest('[data-jump]');if(!a)return;e.preventDefault();closeDialog();const id=a.getAttribute('href').slice(1);jumpTo(id==='home'?0:absTop(document.getElementById(id)));});

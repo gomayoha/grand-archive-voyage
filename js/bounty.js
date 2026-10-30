@@ -100,7 +100,7 @@ export function openCharLog(at,o){if(!onIndex()){location.href='index.html#charl
 export function openGames(game){if(!onIndex()){location.href='index.html#games';return;}import('./games.js').then(m=>m.openGames(game));}
 
 /* ---------------------------------------------------------------- the bounty board */
-const CH_NAMES={helm:'The helm',characters:'The Character Log',strawhats:'The Straw Hat Pirates',closer:'Look closer',crew:'The Crew',depths:'Between the sky and the sea',voyage:'The Voyage',moments:'Moments',spreads:'Colour spreads',panels:'Favourite panels','story-show':'The Story of One Piece',journey:'The Anime Journey',top:'My top 10',records:'The Shelf',logbook:'The Logbook',worlds:'Other worlds',orv:'The Star Stream',vault:'The Card Vault',table:'The Card Table',scenes:'Scenes that stay',library:'The Ohara Library',sky:'The night sky',outro:'The last page'};
+const CH_NAMES={helm:'The helm',characters:'The Character Log',strawhats:'The Straw Hat Pirates',closer:'Look closer',crew:'The Crew',depths:'Between the sky and the sea',voyage:'The Voyage',moments:'Moments',spreads:'Colour spreads',panels:'Favourite panels','story-show':'The Story of One Piece',journey:'The Anime Journey',top:'My top 10',records:'The Shelf',collection:'My manga collection',logbook:'The Logbook',worlds:'Other worlds',orv:'The Star Stream',vault:'The Card Vault',table:'The Card Table',scenes:'Scenes that stay',library:'The Ohara Library',sky:'The night sky',outro:'The last page'};
 const PG=['zou','crew','panels','library'];
 const pgFound=()=>{try{const v=JSON.parse(localStorage.getItem('grand-archive:poneglyphs')||'[]');return Array.isArray(v)?v.filter(x=>PG.includes(x)):[];}catch{return[];}};
 const ODD=['g5','write','dive','shuffle','scene'];

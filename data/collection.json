@@ -1,0 +1,8 @@
+{
+ "about": "His physical manga collection (the books on his real shelf). Add a book: copy an entry; cover = a picture path (a photo of his own copy is best: assets/img/f/<id>.webp after the gallery imports it), spine/ink = the spine's colours, added = YYYY-MM. 'slots' = empty places kept on the shelf for what's still to come.",
+ "books": [
+  {"id": "20cb-perfect-finale", "title": "20th Century Boys", "edition": "Perfect Edition", "vol": "The finale", "author": "Naoki Urasawa", "cover": "assets/posters/5b25bc3608.webp", "spine": "#f1e6c8", "band": "#c8241c", "ink": "#151515", "added": "2026-10", "shelf": "20th Century Boys"},
+  {"id": "vagabond-deluxe-1", "title": "Vagabond", "edition": "Deluxe Edition", "vol": "Volume 1", "author": "Takehiko Inoue", "cover": "assets/posters/vagabond.webp", "spine": "#1b1a17", "band": "#b8945a", "ink": "#efe7d6", "added": "2026-10", "shelf": "Vagabond"}
+ ],
+ "slots": 7
+}

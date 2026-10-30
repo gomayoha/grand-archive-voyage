@@ -13,5 +13,35 @@
   }
  },
  "texts": {},
- "diary": {}
+ "diary": {},
+ "top10": {
+  "order": [
+   "One Piece",
+   "Violet Evergarden",
+   "Re:Zero",
+   "Classroom of the Elite",
+   "Attack on Titan",
+   "Death Note",
+   "The Fragrant Flower Blooms with Dignity",
+   "Black Clover",
+   "Berserk: Golden Age",
+   "Smoking Behind the Supermarket with You"
+  ],
+  "base": [
+   "One Piece",
+   "Re:Zero",
+   "Classroom of the Elite",
+   "Violet Evergarden",
+   "Attack on Titan",
+   "Death Note",
+   "The Fragrant Flower Blooms with Dignity",
+   "Black Clover",
+   "Berserk: Golden Age",
+   "Smoking Behind the Supermarket with You"
+  ],
+  "body": {
+   "Violet Evergarden": "Rated 10/10 since I rewatched it with my family. Only 13 episodes, but incredible character development, perfect backgrounds, and a finale that stays with you"
+  },
+  "at": "2026-10-31T10:00:00.000Z"
+ }
 }

@@ -30,7 +30,7 @@
 <body>
 <a class="skip" href="#characters">Skip the opening</a>
 
-<header class="bar" id="bar"><i class="bar-prog" id="bar-prog" aria-hidden="true"></i>
+<header class="bar" id="bar">
  <a class="brand" href="#home" data-jump><span class="brand-mark"><img src="assets/img/ui/icon-o4-192.png" alt="" width="30" height="30" decoding="async" draggable="false"><b aria-hidden="true">G</b></span><span>Grand Archive</span></a>
  <nav class="bar-nav" aria-label="Sections">
   <a href="#characters" data-jump>Characters</a><a href="#strawhats" data-jump>Straw Hats</a><a href="#crew" data-jump>Crew</a><a href="#voyage" data-jump>Voyage</a><a href="#moments" data-jump>Moments</a><a href="#spreads" data-jump>Spreads</a><a href="#panels" data-jump>Panels</a><a href="#journey" data-jump>Journey</a><a href="#top" data-jump>Top 10</a><a href="#vault" data-jump>Cards</a><a href="#library" data-jump>Library</a><a href="trivia.html" class="nav-tv">Trivia</a><a href="#life" data-jump id="nav-life" hidden>Book II</a>
@@ -297,6 +297,21 @@
    <p class="count" id="record-count" aria-live="polite"></p>
    <div class="record-grid" id="record-grid"></div>
    <details class="rewatches"><summary>Some stories gained company. Rewatch memories</summary><div id="rewatches"></div></details>
+  </div>
+ </section>
+
+ <!-- MY MANGA COLLECTION: the books on his real shelf, standing in 3D; tap one to take it off the shelf (s/collection.js, data/collection.json) -->
+ <section id="collection" class="mc" aria-label="My manga collection">
+  <div class="mc-lamp" aria-hidden="true"></div>
+  <div class="wrap mc-head">
+   <p class="eyebrow" data-w="collection.eyebrow">My manga collection</p>
+   <h2 data-w="collection.title">Books I can <em>hold.</em></h2>
+   <p class="mc-lede" data-w="collection.lede">The volumes on my own shelf. It's only just started, and there's room for what's still to come.</p>
+   <p class="mc-count" id="mc-count"></p>
+  </div>
+  <div class="wrap mc-body">
+   <div class="mc-case"><div class="mc-shelf" id="mc-shelf"></div><i class="mc-plank" aria-hidden="true"></i></div>
+   <div class="mc-info" id="mc-info" aria-live="polite"></div>
   </div>
  </section>
 

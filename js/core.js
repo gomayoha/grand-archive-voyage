@@ -64,12 +64,22 @@ export async function loadData(){
  const edits=await fetch('data/edits.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
  let pending=null;try{pending=JSON.parse(localStorage.getItem('grand-archive:pending-edits')||'null');}catch{}
  data.editsPublished=mergeEdits(edits,null);data.edits=mergeEdits(edits,pending);
- if(data.shelf)applyEdits(data.shelf,data.edits);
+ if(data.shelf){applyEdits(data.shelf,data.edits);applyTop10(data.shelf,data.edits.top10);}
+ // the quiz reads the top 10 from archive.json (an older list); it follows the shelf's, so both always agree
+ if(data.shelf?.top10&&data.archive)data.archive.top10=data.shelf.top10;
  return data;
 }
 export const FIELDS=['status','s','tagline','b','progress','chapter','genre'];
 // records = shelf edits (Captain's Desk); texts = rewritten words and diary = the captain's diary (Writer's mode).
-export function mergeEdits(a,b){const out={records:{},texts:{},diary:{}};[a,b].forEach(x=>{if(!x)return;for(const k of ['records','texts','diary'])Object.assign(out[k],x[k]||{});});return out;}
+// top10 = a new order for his top 10 that he asked for in chat (Oct 31 2026), kept until his note's order changes.
+export function mergeEdits(a,b){const out={records:{},texts:{},diary:{}};[a,b].forEach(x=>{if(!x)return;for(const k of ['records','texts','diary'])Object.assign(out[k],x[k]||{});if(x.top10)out.top10=x.top10;});return out;}
+export function applyTop10(shelf,e){
+ if(!e||!Array.isArray(shelf?.top10))return;const n=t=>String(t).toLowerCase();
+ if(e.base&&shelf.top10.map(x=>n(x.title)).join('|')!==e.base.map(n).join('|'))return;
+ const by=Object.fromEntries(shelf.top10.map(x=>[n(x.title),x]));
+ const next=e.order.map(t=>by[n(t)]||{title:t,body:''}).map(x=>e.body&&e.body[x.title]?{...x,body:e.body[x.title]}:x);
+ shelf.top10=next;
+}
 export function applyEdits(shelf,edits){
  for(const [key,e] of Object.entries(edits.records||{})){
   const [k,...rest]=key.split(':'),t=rest.join(':');if(!shelf[k])continue;
