@@ -8,6 +8,8 @@ import {onTilt} from './tilt.js';
 import {once,earn} from './bounty.js';
 
 export const big=c=>`assets/tcg/${c.id}.webp`,small=c=>`assets/tcg/s/${c.id}.webp`;
+// twice the official size, AI-upscaled (tools/tcg/hd.py, Oct 31 2026); used up close, where a card fills the screen
+export const hd=c=>c.kind==='DON'?null:`assets/tcg/hd/${c.id}.webp`;
 export const COLORS=['Red','Green','Blue','Purple','Black','Yellow'];
 export const HUE={Red:'#e2412f',Green:'#1f9a6a',Blue:'#2b86d6',Purple:'#8b4fc4',Black:'#6d7178',Yellow:'#f0c531','DON!!':'#c8922f'};
 export const RNAME={SEC:'Secret Rare',L:'Leader',SR:'Super Rare',R:'Rare',UC:'Uncommon',C:'Common',P:'Promo',DON:'DON!!'};
@@ -66,6 +68,8 @@ function render(){
   </div></div>`,'is-card');
  dialogBody.parentElement.style.setProperty('--hue',hue(c));
  const card=dialogBody.querySelector('.ti-card'),f=card.querySelector('.tgf');
+ // the sharp version slips in once it has arrived (and quietly doesn't if it isn't there)
+ if(hd(c)){const im=card.querySelector('img'),h=new Image();h.onload=()=>{if(im.isConnected)im.src=h.src;};h.src=hd(c);}
  // it arrives with a half turn, like a card being flipped into your hand
  if(!motion.reduced){card.classList.add('in');setTimeout(()=>card.classList.remove('in'),900);}
  const tilt=(mx,my)=>{card.style.setProperty('--rx',((mx-0.5)*24).toFixed(2)+'deg');card.style.setProperty('--ry',((0.5-my)*18).toFixed(2)+'deg');f.style.setProperty('--mx',(mx*100).toFixed(1)+'%');f.style.setProperty('--my',(my*100).toFixed(1)+'%');};

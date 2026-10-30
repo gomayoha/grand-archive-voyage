@@ -45,7 +45,11 @@ export function initCards(){
  const f=follower(120),look={x:0,y:0};let front=-1,bandNow=-1,loaded=new Set();
  const sOf=p=>clamp((p-0.06)/0.84)*(N-1);
  const pOf=s=>0.06+s/(N-1)*0.84;
+ // phones keep the light thumbnails for the turns of the spiral, and the cards at the front get the full-size face (Oct 31 2026: he found them blurry)
+ const sharp=new Set();
  const load=i=>{if(i<0||i>=N||loaded.has(i))return;loaded.add(i);imgs[i].src=src(cards[i]);};
+ const sharpen=x=>{if(src===big)return;for(let i=Math.floor(x)-2;i<=Math.ceil(x)+2;i++)if(i>=0&&i<N&&!sharp.has(i)){sharp.add(i);const im=imgs[i],b=new Image();b.onload=()=>{if(sharp.has(i))im.src=b.src;};b.src=big(cards[i]);}
+  for(const i of sharp)if(Math.abs(i-x)>4){sharp.delete(i);if(loaded.has(i))imgs[i].src=small(cards[i]);}};
  function render(p){
   const x=sOf(p),out=smooth(clamp((p-0.9)/0.09)),phone=view.vw<=820,io=1-smooth(clamp(p/0.05));
   // at the top the camera backs away to show the whole tower (and keeps it turning)
@@ -63,7 +67,7 @@ export function initCards(){
   if(out>0.05)for(let i=0;i<N;i+=1)load(i);
   else for(const i of loaded)if(Math.abs(i-x)>26){loaded.delete(i);imgs[i].classList.remove('ok');imgs[i].removeAttribute('src');}
   const k=Math.round(x);
-  if(k!==front){front=k;els.forEach((el,i)=>el.classList.toggle('front',i===k));const c=cards[k];
+  if(k!==front){front=k;sharpen(k);els.forEach((el,i)=>el.classList.toggle('front',i===k));const c=cards[k];
    info.innerHTML=`<b>${esc(c.name)}</b><span>${esc(label(c))}</span><small>${String(k+1).padStart(2,'0')} / ${N}${c.set&&c.kind!=='DON'?' · '+esc(c.set):''}</small>`;
    sec.style.setProperty('--hue',hue(c));
    const b=band(c);if(b!==bandNow){bandNow=b;word.textContent=BANDS[b].replace('!!','');word.style.setProperty('--hue',HUE[BANDS[b]]);word.classList.remove('swap');void word.offsetWidth;word.classList.add('swap');rungs.forEach(r=>r.classList.toggle('now',+r.dataset.vt===first[b]));}}

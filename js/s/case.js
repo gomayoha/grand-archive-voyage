@@ -3,7 +3,7 @@
 // the Secret Rares on top under their own spotlights (they sway, slowly), then the Leaders, then the Super Rares by
 // colour. The light follows the mouse across the foil; tap a slab to hold the card up close (js/tcg.js).
 import {$,esc,data,coarse,onSight} from '../core.js';
-import {COLORS,face,big,small,light,inspect,picturesOf,RNAME} from '../tcg.js';
+import {COLORS,face,big,light,inspect,picturesOf,RNAME} from '../tcg.js';
 
 export function initCase(){
  const sec=$('#case'),T=data.tcg;if(!sec||!T){if(sec)sec.hidden=true;return;}
@@ -11,7 +11,8 @@ export function initCase(){
  const by=r=>T.cards.filter(c=>c.rarity===r).sort((a,b)=>col(a)-col(b)||a.no.localeCompare(b.no));
  const SH=[['SEC','Secret Rares','The rarest in the binder',by('SEC')],['L','Leaders','The ones a deck is built around',by('L')],['SR','Super Rares','Holo, every one of them',by('SR')]].filter(s=>s[3].length);
  if(!SH.length){sec.hidden=true;return;}
- const all=SH.flatMap(s=>s[3]),src=coarse||innerWidth<=820?small:big;
+ // the full-size faces everywhere (the slabs are held up to be looked at); they load as the shelves come near
+ const all=SH.flatMap(s=>s[3]),src=big;
  $('#cs-count').innerHTML=SH.map(s=>`<b>${s[3].length}</b> ${s[3].length===1?s[1].replace(/s$/,''):s[1]}`).join(' · ');
  const slab=(c,k)=>`<button class="cs-slab r-${c.rarity.toLowerCase()}" data-k="${all.indexOf(c)}" style="--d:${k*55}ms" aria-label="${esc(c.name)}, ${esc(RNAME[c.rarity]||c.rarity)}">
    <span class="cs-plate"><b>${esc(c.rarity==='L'?'LEADER':c.rarity)}</b><span>${esc(c.name.replace(/\./g,'. ').replace(/"/g,'“').replace(/\s+/g,' '))}</span><small>${esc(c.no)}${c.print?' · '+esc(c.print):''} · ${esc(c.set||'')}</small></span>
