@@ -1,77 +1,61 @@
 // 01 · The characters who left something behind.
-// Ten full-screen records stacked like cards: each one slides up over the last (native sticky, no JS
-// scrolling), the outgoing one sinks back into the dark. Each record carries the one word he says the
-// character left behind, his line about it, and a pull quote, all from his notes, word for word.
-// "Read everything I wrote" opens the full note in a reader; nothing is ever shortened.
-import {$,$$,esc,pad,clamp,smooth,ease,view,part,absTop,motion,data,remeasure,TH} from '../core.js';
+// Since Oct 30 2026 the records no longer roll past on the way down the page (he found scrolling through
+// every one of them tiring): they wait here tied up like a present, a bundle of their portraits with a gold
+// ribbon and a wax seal. Break the seal (or tap a face) and the Character Log opens as a room of its own
+// (js/charlog.js): pick a record, read everything he wrote, turn over a first impression, or watch them all.
+// Everything shown is from his notes, word for word; "Read everything I wrote" opens the full note.
+import {$,esc,pad,data,motion,TH} from '../core.js';
 import {openDialog,registerCollection} from '../dialogs.js';
+import {openCharLog} from '../bounty.js';
 
-const CI=id=>`assets/chars/${id}.webp`,CM=id=>`assets/chars/m/${id}.webp`;
+export const CI=id=>`assets/chars/${id}.webp`,CM=id=>`assets/chars/m/${id}.webp`;
 // Pull lines: his ==highlight== when he made one; otherwise a sentence lifted verbatim from his note.
 const LINES={luffy:"People's dreams never end",zoro:'always aim higher as possible that one day after looking back you won’t even believe how far you’ve come','all-might':'the hope he represent is more than enough reason to like him as a character',guts:'no matter what he has to face he always prevails',ayanakoji:'emotional control, overall awareness and the ability to handle most complex scenarios','subaru-natsuki':'no matter how hard you wanna be someone you can’t change the fact about who you are as a person',rudeus:"we need to face them head on while accepting who we're and living life with no regrets at all",sanji:'how precious the food on the table is','sung-jinwoo':'He chose to become human again'};
 // Sung Jinwoo isn't in the "left something behind" list of the Anime Journey note yet; this word is a placeholder.
 const WORD_FALLBACK={'sung-jinwoo':'Sacrifice'};
+// What he told me in chat that his note doesn't say yet (his words, Oct 30 2026). Shown as an update on the record.
+export const UPDATES={'violet-evergarden':{when:'October 2026 · after the rewatch',text:"I rewatched the entire show again with my family. My opinion of it became very good, even more positive, a lot more, and it increased my understanding of the character. She's one of the best characters I've ever seen. Simple, but more than enough for a human, and very realistic. As a character she also has some really good thoughtfulness."}};
+
+export const word=c=>c.word||WORD_FALLBACK[c.id]||'';
+export const lineFor=c=>{const t=c.paras.join(' '),l=LINES[c.id];return (c.quotes[0]||(l&&t.includes(l)?l:c.paras[0].split(/(?<=[.!?])\s/)[0])).replace(/^["“\s]+|["”\s]+$/g,'');};
+export const photosFor=c=>{const k=c.name.toLowerCase().slice(0,4);return (data.media.characters||[]).find(a=>a.home.toLowerCase().slice(0,4)===k)||null;};
+// The ones without a full record yet, who still left something (his One Piece table and Asta), word for word.
+// their pictures: his Bon Clay / Corazon folders (media.supporting), Kuma's poster collection, Asta's cover
+export const supCol=n=>(data.media.supporting||[]).find(x=>x.name===n)||(data.media.crew||[]).find(x=>x.name===n);
+export const supArt=c=>{const col=supCol(c.name);return col&&col.cover?TH(col.cover):c.name==='Asta'?data.posters?.['anime:Black Clover']?.img:null;};
 
 export function initCharacters(){
- const CH=data.characters.characters,{media}=data,N=CH.length;
- const lineFor=c=>{const t=c.paras.join(' '),l=LINES[c.id];return (c.quotes[0]||(l&&t.includes(l)?l:c.paras[0].split(/(?<=[.!?])\s/)[0])).replace(/^["“\s]+|["”\s]+$/g,'');};
- const photosFor=c=>{const k=c.name.toLowerCase().slice(0,4);return media.characters.find(a=>a.home.toLowerCase().slice(0,4)===k)||null;};
+ const CH=data.characters.characters,N=CH.length,SUP=data.characters.supporting||[];
  registerCollection('char',i=>{const c=CH[+i],m=photosFor(c);return{title:c.name,eyebrow:'Character Log',ids:m?m.all:[]};});
- const word=c=>c.word||WORD_FALLBACK[c.id]||'';
+ registerCollection('sup',n=>{const c=supCol(n);return{title:n,eyebrow:'They still left something',ids:c?c.all:[]};});
 
  // the intro counts the records, so it stays right as his note grows
  const NUM=['Zero','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen','Seventeen','Eighteen','Nineteen','Twenty'];
- const lede=$('#characters .section-lede');if(lede)lede.innerHTML=lede.innerHTML.replace(/\b[A-Z][a-z]+ records, in my own words/,`${NUM[N]||N} records, in my own words`);
- const cast=$('#cast');
- cast.innerHTML=CH.map((c,i)=>{const ph=photosFor(c),im=c.image;return `<article class="role" id="c-${c.id}" data-i="${i}" data-wg="${esc(c.name)}" style="--tint:${im.color}">
-  <div class="role-bg" aria-hidden="true"><img src="${CM(im.id)}" alt="" loading="lazy" decoding="async"></div>
-  <div class="role-in">
-   <figure class="role-pic" style="--ar:${im.w}/${im.h}"><img src="${CM(im.id)}" srcset="${CM(im.id)} 1000w, ${CI(im.id)} ${im.w}w" sizes="(max-width:820px) 92vw, 46vw" width="${im.w}" height="${im.h}" alt="${esc(c.name)}" loading="lazy" decoding="async"></figure>
-   <div class="role-copy">
-    <p class="role-no k"><b>${pad(i+1)}</b> / ${pad(N)}${c.series?` · ${esc(c.series)}`:''}</p>
-    <h3 class="role-name k">${esc(c.name)}</h3>
-    ${word(c)?`<p class="role-word k"><small>Left behind</small><span data-w="char.${c.id}.word" data-wl="Left behind">${esc(word(c))}</span></p>`:''}
-    ${c.left?`<p class="role-left k" data-w="char.${c.id}.left" data-wl="What it means">${esc(c.left)}</p>`:''}
-    <div class="role-actions k"><button class="pill small" data-read="${i}">Read everything I wrote</button>${ph&&ph.all.length>1?`<button class="link" data-collection="char:${i}">${ph.all.length} photos →</button>`:''}</div>
-    <blockquote class="role-quote k">“${esc(lineFor(c))}”</blockquote>
-    ${c.first?`<button class="judge k" aria-pressed="false" aria-label="First impression versus current opinion"><span class="judge-face judge-f"><small>First impression</small><b>“${esc(c.first)}”</b><i>Tap for the verdict</i></span><span class="judge-face judge-b"><small>Current opinion</small><b>${esc(c.now.slice(0,3).join(' '))}</b></span></button>`:''}
+ const lede=$('#characters .cl-e-lede');if(lede)lede.innerHTML=lede.innerHTML.replace(/\b[A-Z][a-z]+ records/,`${NUM[N]||N} records`);
 
-   </div>
-  </div>
-  <i class="role-shade" aria-hidden="true"></i>
- </article><div class="dwell" aria-hidden="true"></div>`;}).join('');
- // The ones without a full record yet, who still left something (his One Piece table and Asta), word for word.
- // their pictures: his Bon Clay / Corazon folders (media.supporting), Kuma's poster collection, Asta's cover
- const SUP=data.characters.supporting||[],supCol=n=>(media.supporting||[]).find(x=>x.name===n)||media.crew.find(x=>x.name===n);
- const SUPART=c=>{const col=supCol(c.name);return col&&col.cover?TH(col.cover):c.name==='Asta'?data.posters?.['anime:Black Clover']?.img:null;};
- registerCollection('sup',n=>{const c=supCol(n);return{title:n,eyebrow:'They still left something',ids:c?c.all:[]};});
- if(SUP.length){const also=document.createElement('div');also.className='also wrap';also.innerHTML=`<p class="eyebrow rv">Not full records yet</p><h3 class="rv" data-w="chars.also">They still left <em>something.</em></h3><div class="also-row">${SUP.map((c,i)=>{const art=SUPART(c),col=supCol(c.name);const k=c.name.toLowerCase().replace(/[^a-z]+/g,'-');return `<article class="also-card rv${art?' has-art':''}" style="--d:${(i*0.08).toFixed(2)}s" data-wg="${esc(c.name)}">${art?`<img src="${esc(art)}" alt="" loading="lazy" decoding="async">`:`<span class="also-mark" aria-hidden="true">${esc(c.name[0])}</span>`}<div class="also-copy"><small>${esc(c.series||'Black Clover')}</small><b>${esc(c.name)}</b>${c.word?`<span class="also-word" data-w="also.${k}.word" data-wl="Left behind">${esc(c.word)}</span>`:''}<p data-w="also.${k}.line" data-wl="What stayed with me">${esc(c.line)}</p>${col&&col.all.length?`<button class="link also-more" data-collection="sup:${esc(c.name)}">${col.all.length} ${col.all.length===1?'picture':'pictures'} →</button>`:''}</div></article>`;}).join('')}</div>`;
-  $('#characters').append(also);}
- const roles=$$('.role'),slides=roles.map(r=>({el:r,pic:r.querySelector('.role-pic img'),shade:r.querySelector('.role-shade')}));
- cast.addEventListener('click',e=>{const j=e.target.closest('.judge');if(j)j.setAttribute('aria-pressed',String(j.getAttribute('aria-pressed')!=='true'));});
+ // the bundle: every portrait stacked a little askew, tied with a ribbon, sealed
+ const pack=$('#cl-pack'),faces=$('#cl-faces');
+ pack.querySelector('.cl-stack').innerHTML=CH.slice().reverse().map((c,k)=>{const i=N-1-k,r=((i*37)%11-5)*1.15;return `<span class="cl-sc" style="--r:${r.toFixed(2)}deg;--k:${i};--tint:${c.image.color}"><img src="${CM(c.image.id)}" alt="" loading="lazy" decoding="async"></span>`;}).join('');
+ faces.innerHTML=CH.map((c,i)=>`<button class="cl-face" data-charlog="${i}" style="--tint:${c.image.color}" aria-label="Open ${esc(c.name)}'s record"><img src="${CM(c.image.id)}" alt="" loading="lazy" decoding="async"><span>${esc(c.name.split(' ')[0])}</span></button>`).join('')+(SUP.length?`<span class="cl-face-more">+${SUP.length} more</span>`:'');
 
- // Each record is a sticky full-screen slide followed by a transparent "dwell" spacer, so it holds
- // still while you read before the next one slides over it.
- let dwell=0;
- part({el:cast,measure(){const d=cast.querySelector('.dwell');dwell=d?d.offsetHeight:0;this.tops=roles.map((_,i)=>absTop(cast)+i*(view.vh+dwell));},update(s){
-  const vh=view.vh,red=motion.reduced;
-  const enter=this.tops.map(t=>clamp((s-(t-vh))/vh));
-  slides.forEach((sl,i)=>{
-   const e=red?1:enter[i],c=red?0:(enter[i+1]??0),gone=(enter[i+2]??0)>=1;
-   if(gone!==sl.gone){sl.gone=gone;sl.el.style.visibility=gone?'hidden':'';}
-   if(gone)return;
-   // the portrait keeps settling while you read, so the record never feels frozen
-   const q=ease(e),hold=red?0:clamp((s-this.tops[i])/(vh*0.42+dwell)),z=1.14-0.14*q-0.05*hold;
-   if(sl.z!==z){sl.z=z;sl.el.style.setProperty('--e',q.toFixed(4));sl.el.style.setProperty('--hold',hold.toFixed(4));sl.pic.style.transform=`scale(${z.toFixed(4)})`;}
-   sl.el.style.transform=c>0?`scale(${(1-0.07*smooth(c)).toFixed(4)})`:'';
-   sl.shade.style.opacity=(smooth(c)*0.75).toFixed(3);
-  });
- }});
+ let opening=false;
+ // breaking the seal: the ribbon snaps, the seal drops, the portraits lift off the stack, then the room opens
+ async function unwrap(at){
+  if(opening)return;opening=true;
+  try{
+   if(!motion.reduced&&at==null){
+    pack.classList.add('open');
+    await new Promise(r=>setTimeout(r,620));
+   }
+   await openCharLog(at);
+  }finally{opening=false;setTimeout(()=>pack.classList.remove('open'),900);}
+ }
+ document.addEventListener('click',e=>{if(e.target.closest('[data-charlog-watch]')){openCharLog(0,{watch:true});return;}const b=e.target.closest('[data-charlog]');if(!b)return;e.preventDefault();const v=b.dataset.charlog;unwrap(v===''?null:+v);});
 
  /* ---------------- the reader: everything he wrote, untouched ---------------- */
  const mark=(p,qs)=>{let h=esc(p);qs.forEach(q=>{const e=esc(q);if(e&&h.includes(e))h=h.replace(e,`<mark>${e}</mark>`);});return h;};
  function reader(i){
-  const c=CH[i],im=c.image,prev=CH[(i-1+N)%N],next=CH[(i+1)%N];
+  const c=CH[i],im=c.image,prev=CH[(i-1+N)%N],next=CH[(i+1)%N],up=UPDATES[c.id];
   openDialog(`<div class="reader" style="--tint:${im.color}">
    <figure class="reader-pic"><img src="${CI(im.id)}" width="${im.w}" height="${im.h}" alt="${esc(c.name)}"></figure>
    <div class="reader-text">
@@ -79,6 +63,7 @@ export function initCharacters(){
     <h2 id="dialog-title">${esc(c.name)}</h2>
     ${word(c)?`<p class="reader-word">${esc(word(c))}</p>`:''}
     <div class="reader-body">${c.paras.map(p=>`<p>${mark(p,c.quotes)}</p>`).join('')}</div>
+    ${up?`<div class="reader-box"><small>${esc(up.when)}</small><p>${esc(up.text)}</p></div>`:''}
     ${c.changed?`<div class="reader-box"><small>How he changed me</small><h3>${esc(c.changed[0])}</h3>${c.changed.slice(1).map(p=>`<p>${esc(p)}</p>`).join('')}</div>`:''}
     ${c.first?`<div class="reader-box"><small>First impression</small><p class="reader-first">“${esc(c.first)}”</p><small>Current opinion</small>${c.now.map(p=>`<p>${esc(p)}</p>`).join('')}</div>`:''}
     <nav class="reader-nav"><button class="link" data-read="${(i-1+N)%N}">← ${esc(prev.name)}</button><button class="link" data-read="${(i+1)%N}">${esc(next.name)} →</button></nav>

@@ -10,11 +10,12 @@ import {initWriter} from './writer.js';
 import {bindTexts} from './texts.js';
 import {initToday} from './s/today.js';
 import {initHelm} from './s/helm.js';
-import {initBounty,openTreasure,openGames} from './bounty.js';
+import {initBounty,openTreasure,openGames,openCharLog} from './bounty.js';
 // The original opening (s/opening.js, "Anime is for losers.") is kept for later; #origin stays hidden.
 import {initCharacters} from './s/characters.js';
 import {initCrew} from './s/crew.js';
 import {initStrawHats} from './s/strawhats.js';
+import {initCloser} from './s/closer.js';
 import {initVoyage} from './s/voyage.js';
 import {initDepths} from './s/depths.js';
 import {initSpreads} from './s/spreads.js';
@@ -26,6 +27,7 @@ import {initTop10} from './s/top10.js';
 import {initShelf} from './s/shelf.js';
 import {initTimeMachine} from './s/timemachine.js';
 import {initWorlds,initLibrary} from './s/worlds.js';
+import {initOrv} from './s/orv.js';
 import {initCards} from './s/cards.js';
 import {initTable} from './s/table.js';
 import {collectionFor} from './tcg.js';
@@ -41,6 +43,7 @@ run('today',initToday);
 run('helm',initHelm);
 run('characters',initCharacters);
 run('strawhats',initStrawHats);
+run('closer',initCloser);
 run('crew',initCrew);
 run('depths',initDepths);
 const voy=run('voyage',initVoyage);
@@ -53,6 +56,7 @@ run('top10',initTop10);
 run('shelf',initShelf);
 run('timemachine',()=>initTimeMachine().catch(e=>console.error('[timemachine]',e)));
 run('worlds',initWorlds);
+run('orv',initOrv);
 run('cards',initCards);
 run('table',initTable);
 registerCollection('tcgc',collectionFor);
@@ -71,10 +75,10 @@ run('bounty',()=>initBounty({chars:data.characters?.characters}));
 lookAhead();
 
 /* ---------------- header: clear over full-screen scenes, frosted over reading sections ---------------- */
-const bar=$('#bar'),navLinks=$$('.bar-nav a');
-const clearOver=['#home','#helm','#strawhats','#depths','#voyage','#moments','#spreads','#story-show','#top','#scenes','#sky','#outro'].map(s=>$(s)).filter(Boolean);
+const bar=$('#bar'),navLinks=$$('.bar-nav a'),prog=$('#bar-prog');
+const clearOver=['#home','#helm','#strawhats','#closer','#depths','#voyage','#moments','#spreads','#story-show','#top','#scenes','#sky','#outro'].map(s=>$(s)).filter(Boolean);
 part({always:true,measure(){this.zones=clearOver.map(el=>[absTop(el)-10,absTop(el)+el.offsetHeight-view.vh*0.9]);const ink=$('#panels');this.ink=[absTop(ink)-30,absTop(ink)+ink.offsetHeight-60];},update(s){
- const clear=this.zones.some(([a,b])=>s>=a&&s<b);bar.classList.toggle('solid',!clear);bar.classList.toggle('paper',s>this.ink[0]&&s<this.ink[1]);
+ const clear=this.zones.some(([a,b])=>s>=a&&s<b);prog.style.transform=`scaleX(${(s/Math.max(1,document.documentElement.scrollHeight-view.vh)).toFixed(4)})`;bar.classList.toggle('solid',!clear);bar.classList.toggle('paper',s>this.ink[0]&&s<this.ink[1]);
 }});
 ['characters','strawhats','crew','voyage','moments','spreads','panels','journey','top','vault','library','life'].forEach(id=>{const el=document.getElementById(id);if(el)new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)navLinks.forEach(a=>a.getAttribute('href')==='#'+id?a.setAttribute('aria-current','true'):a.removeAttribute('aria-current'));}),{rootMargin:'-45% 0px -50% 0px'}).observe(el);});
 document.addEventListener('click',e=>{const a=e.target.closest('[data-jump]');if(!a)return;e.preventDefault();closeDialog();const id=a.getAttribute('href').slice(1);jumpTo(id==='home'?0:absTop(document.getElementById(id)));});
@@ -97,6 +101,7 @@ let crossing=false;try{crossing=sessionStorage.getItem('grand-archive:cross')===
 if(crossing&&!$('#life').hidden)requestAnimationFrame(()=>{measureAll();jumpTo(absTop($('#life')));});
 else if(location.hash==='#treasure')openTreasure();
 else if(location.hash==='#games')openGames();
+else if(location.hash.startsWith('#charlog')){const id=decodeURIComponent(location.hash.split(':')[1]||''),i=(data.characters?.characters||[]).findIndex(c=>c.id===id);openCharLog(i>=0?i:null);}
 else if(location.hash&&location.hash!=='#home'){const t=document.getElementById(location.hash.slice(1));if(t)requestAnimationFrame(()=>jumpTo(absTop(t)));}
 requestAnimationFrame(()=>document.body.classList.add('ready'));
 initGear5({button:$('#gear5'),isReduced:()=>motion.reduced});

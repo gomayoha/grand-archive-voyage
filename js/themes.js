@@ -32,6 +32,7 @@ export const THEMES={
  m:{name:'Manga',a:'#ffffff',b:'#9a9a9a',e:'#ffffff',k:'tone',card:'m'},
  rm:{name:'Red Manga',a:'#ff3b47',b:'#ffd27a',e:'#c8101e',k:'tone',card:'rm'},
  sun:{name:'Sun God',a:'#ffffff',b:'#d7c2ff',e:'#efe4ff',k:'clouds',card:'sun'},
+ mos:{name:'Mosaic',a:'#7fd9ff',b:'#ffd36b',e:'#ff8fb5',k:'edges',card:'mos'},
  conq:{name:'Conqueror',a:'#ff2a3a',b:'#ffb3b8',e:'#b0000f',k:'haki',card:'conq'}
 };
 // what's on now: 'auto' follows the fruit you ate, 'none' is the archive's own gold

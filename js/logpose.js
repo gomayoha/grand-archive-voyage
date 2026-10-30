@@ -6,7 +6,7 @@ import {$,esc,data,part,absTop,jumpTo,TH,motion,setReduced,view} from './core.js
 import {poneglyphsFound} from './poneglyph.js';
 import {tilt,setTilt,resumeTilt,tiltSupported,recentre} from './tilt.js';
 import {startAuto} from './autovoyage.js';
-import {B,chests,money,title,openTreasure,openGames} from './bounty.js';
+import {B,chests,money,title,openTreasure,openGames,openCharLog} from './bounty.js';
 
 const poster=k=>{const p=data.posters&&data.posters[k];return p&&p.img;};
 // [section id, number, kicker, title (the section's own heading), thumbnail]
@@ -15,6 +15,7 @@ const CHAPTERS=[
  ['helm','✦','The helm','Where to, captain?',()=>TH('3358de4cd87c')],
  ['characters','01','The Character Log','They each left something behind.',()=>{const c=data.characters?.characters?.[0];return c&&`assets/chars/m/${c.image.id}.webp`;}],
  ['strawhats','✦','The Straw Hat Pirates','Ten dreams. One ship. A walk down the deck.',()=>data.media?.img?.['9fdfff7bb2ea']&&TH('9fdfff7bb2ea')],
+ ['closer','✦','Look closer','Behind every Straw Hat, a hundred more.',()=>data.media?.collages?.[5]&&TH(data.media.collages[5].id)],
  ['crew','02','The Crew','Everyone with a price on their head.',()=>data.media?.crew?.[0]&&TH(data.media.crew[0].cover)],
  ['depths','✦','Between the sky and the sea','Ten thousand metres up. Ten thousand down.',()=>TH('6ec6b336fb55')],
  ['voyage','03','The Voyage','They sailed ten seas.',()=>data.media?.journey?.[0]&&TH(data.media.journey[0])],
@@ -28,6 +29,7 @@ const CHAPTERS=[
  ['records','✦','The Shelf','Rated, preserved as written.',()=>poster('anime:Death Note')],
  ['logbook','✦','The Logbook','How far I’ve come.',()=>poster('anime:Frieren')],
  ['worlds','✦','Beyond the Grand Line','Other worlds that stayed.',()=>data.media?.worlds?.[0]&&TH(data.media.worlds[0].cover)],
+ ['orv','✦','The Star Stream','Omniscient Reader’s Viewpoint, a webtoon that reads itself.',()=>{const w=data.media?.worlds?.find(x=>x.name==='Omniscient Reader');return w&&TH(w.cover);}],
  ['vault','08','The Card Vault','My kind of treasure.',()=>'assets/tcg/s/OP09-061_p2.webp'],
  ['table','✦','The Card Table','Now lay them all out.',()=>'assets/tcg/s/OP14-031.webp'],
  ['scenes','09','Scenes that stay','“Come on, heartbeat. Beat louder.”',()=>'assets/media/luffy_poster.jpg'],
@@ -56,8 +58,10 @@ export function initLogPose(){
  // the new ways to sail sit above the islands: Auto voyage and the two rooms
  const rooms=$('#lp-rooms');
  function buildRooms(){const c=chests();rooms.innerHTML=[
-  ['auto',TH('6ec6b336fb55'),'Auto voyage','The archive sails itself'],
-  ['games','assets/media/luffy_poster.jpg','The Game Room','Four games, all paying berries'],
+  ['chars',`assets/chars/m/${data.characters?.characters?.[0]?.image.id}.webp`,'The Character Log','Sealed until you open it'],
+ ['auto',TH('6ec6b336fb55'),'Auto voyage','The archive sails itself'],
+ ['trivia',TH('5b4d8ea99809'),'Grand Line Trivia','Five levels. Play alone or face to face'],
+  ['games','assets/media/luffy_poster.jpg','The Game Room','Seven games, all paying berries'],
   ['treasure',TH('c95409fbc40a'),'The Treasure Room',`฿${money(B.b)} · ${title()[1]}${c.waiting?` · ${c.waiting} ${c.waiting>1?'chests':'chest'} waiting`:''}`]
  ].map(([k,src,t,sub])=>`<button class="lp-room${k==='treasure'&&c.waiting?' glow':''}" data-room="${k}"><img src="${esc(src)}" alt="" decoding="async"><span><b>${esc(t)}</b><small>${esc(sub)}</small></span></button>`).join('');}
  function mark(){list.querySelectorAll('.lp-isle').forEach(b=>b.classList.toggle('now',b.dataset.to===sections[cur]?.id));}
@@ -74,7 +78,7 @@ export function initLogPose(){
  dlg.addEventListener('close',()=>{document.documentElement.style.overflow='';});
  dlg.addEventListener('click',e=>{
   if(e.target.closest('#lp-close')||e.target===dlg){dlg.close();return;}
-  const room=e.target.closest('[data-room]');if(room){dlg.close();const k=room.dataset.room;if(k==='auto')startAuto();else if(k==='games')openGames();else openTreasure();return;}
+  const room=e.target.closest('[data-room]');if(room){dlg.close();const k=room.dataset.room;if(k==='auto')startAuto();else if(k==='games')openGames();else if(k==='chars')openCharLog();else if(k==='trivia')location.href='trivia.html';else openTreasure();return;}
   const b=e.target.closest('.lp-isle');if(!b||b.classList.contains('lp-page'))return;
   dlg.close();btn.focus({preventScroll:true});
   const el=document.getElementById(b.dataset.to);if(el)jumpTo(b.dataset.to==='home'?0:absTop(el));

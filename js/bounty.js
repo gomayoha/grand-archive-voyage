@@ -96,10 +96,11 @@ function chestToast(n){
 /* ---------------------------------------------------------------- the rooms (loaded only when opened) */
 const onIndex=()=>!!document.getElementById('home');
 export function openTreasure(tab){if(!onIndex()){location.href='index.html#treasure';return;}import('./treasure.js').then(m=>m.openTreasure(tab));}
+export function openCharLog(at,o){if(!onIndex()){location.href='index.html#charlog';return Promise.resolve();}return import('./charlog.js').then(m=>m.openCharLog(at,o));}
 export function openGames(game){if(!onIndex()){location.href='index.html#games';return;}import('./games.js').then(m=>m.openGames(game));}
 
 /* ---------------------------------------------------------------- the bounty board */
-const CH_NAMES={helm:'The helm',characters:'The Character Log',strawhats:'The Straw Hat Pirates',crew:'The Crew',depths:'Between the sky and the sea',voyage:'The Voyage',moments:'Moments',spreads:'Colour spreads',panels:'Favourite panels','story-show':'The Story of One Piece',journey:'The Anime Journey',top:'My top 10',records:'The Shelf',logbook:'The Logbook',worlds:'Other worlds',vault:'The Card Vault',table:'The Card Table',scenes:'Scenes that stay',library:'The Ohara Library',sky:'The night sky',outro:'The last page'};
+const CH_NAMES={helm:'The helm',characters:'The Character Log',strawhats:'The Straw Hat Pirates',closer:'Look closer',crew:'The Crew',depths:'Between the sky and the sea',voyage:'The Voyage',moments:'Moments',spreads:'Colour spreads',panels:'Favourite panels','story-show':'The Story of One Piece',journey:'The Anime Journey',top:'My top 10',records:'The Shelf',logbook:'The Logbook',worlds:'Other worlds',orv:'The Star Stream',vault:'The Card Vault',table:'The Card Table',scenes:'Scenes that stay',library:'The Ohara Library',sky:'The night sky',outro:'The last page'};
 const PG=['zou','crew','panels','library'];
 const pgFound=()=>{try{const v=JSON.parse(localStorage.getItem('grand-archive:poneglyphs')||'[]');return Array.isArray(v)?v.filter(x=>PG.includes(x)):[];}catch{return[];}};
 const ODD=['g5','write','dive','shuffle','scene'];
@@ -118,6 +119,10 @@ export const QUESTS=[
  {id:'quiz',t:'Know the captain',d:'A perfect round of the Archive Quiz.',n:()=>[min(B.best.quiz||0,10),10],pay:'฿30,000,000'},
  {id:'wind',t:'Gone with the wind',d:'Catch 25 wanted posters in one gust.',n:()=>[min(B.best.wind||0,25),25],pay:'฿20,000,000'},
  {id:'haki',t:'Observation Haki',d:'Reach level 8.',n:()=>[min(B.best.haki||0,8),8],pay:'฿20,000,000'},
+ {id:'who',t:'Who’s that pirate?',d:'Score 800 points in one game.',n:()=>[min(B.best.who||0,800),800],pay:'฿20,000,000'},
+ {id:'mem',t:'Memory log',d:'Find all eight pairs in 12 turns or fewer.',n:()=>[(B.best.memx||0)>=48?1:0,1],pay:'฿20,000,000'},
+ {id:'puz',t:'Put the poster back',d:'Solve the 4 × 4 puzzle.',n:()=>[(B.best.puz||0)>=4?1:0,1],pay:'฿20,000,000'},
+ {id:'trivia',t:'Grand Line Trivia',d:'Clear every level of the trivia, all the way to Laugh Tale.',n:()=>{let k=0;try{k=(JSON.parse(localStorage.getItem('grand-archive:trivia')||'{}').cleared||[]).length;}catch{}return[min(k,5),5];},pay:'฿10,000,000 a level · ฿100,000,000 at Laugh Tale'},
  {id:'col',t:'Collector',d:'Open ten photo collections.',n:()=>[min(marked('col:'),10),10],pay:'฿1,000,000 each'},
  {id:'gold',t:'Pockets full of gold',d:'Earn 5,000 gold in total: scroll, like pictures, catch the coins that float by, keep a streak, find the day’s hidden treasure.',n:()=>[Math.min(B.goldEver||0,5000),5000],pay:'Spend it in the Black Market'},
  {id:'chest',t:'Treasure hunter',d:'Open ten chests.',n:()=>[min(B.opened,10),10],pay:'A gold chest'},
@@ -162,7 +167,7 @@ export function initBounty({chars=null}={}){
   const t=e.target;if(!(t instanceof Element))return;
   const r=t.closest('[data-read]');
   if(r&&chars){const c=chars[+r.dataset.read];if(c&&once('read:'+c.id,3*M,`Read · ${c.name}`)&&marked('read:')>=chars.length){once('quest:read',30*M,'Every record, read');unlockRelic('origin','Where it began');}}
-  const j=t.closest('.judge');if(j){const i=j.closest('.role')?.dataset.i;if(i!=null)once('judge:'+i,2*M,'First impression, then the verdict');}
+  const j=t.closest('.judge');if(j){const i=j.dataset.i??j.closest('.role')?.dataset.i;if(i!=null)once('judge:'+i,2*M,'First impression, then the verdict');}
   const c=t.closest('[data-collection]');if(c&&c.dataset.collection)once('col:'+c.dataset.collection,M,'Opened a collection');
   if(t.closest('[data-dive],#ar-dive'))once('dive',5*M,'Dived into a collection in 3D');
   if(t.closest('#ar-shuffle'))once('shuffle',M,'Shuffled the wall');

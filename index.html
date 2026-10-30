@@ -30,10 +30,10 @@
 <body>
 <a class="skip" href="#characters">Skip the opening</a>
 
-<header class="bar" id="bar">
+<header class="bar" id="bar"><i class="bar-prog" id="bar-prog" aria-hidden="true"></i>
  <a class="brand" href="#home" data-jump><span class="brand-mark"><img src="assets/img/ui/icon-o4-192.png" alt="" width="30" height="30" decoding="async" draggable="false"><b aria-hidden="true">G</b></span><span>Grand Archive</span></a>
  <nav class="bar-nav" aria-label="Sections">
-  <a href="#characters" data-jump>Characters</a><a href="#strawhats" data-jump>Straw Hats</a><a href="#crew" data-jump>Crew</a><a href="#voyage" data-jump>Voyage</a><a href="#moments" data-jump>Moments</a><a href="#spreads" data-jump>Spreads</a><a href="#panels" data-jump>Panels</a><a href="#journey" data-jump>Journey</a><a href="#top" data-jump>Top 10</a><a href="#vault" data-jump>Cards</a><a href="#library" data-jump>Library</a><a href="#life" data-jump id="nav-life" hidden>Book II</a>
+  <a href="#characters" data-jump>Characters</a><a href="#strawhats" data-jump>Straw Hats</a><a href="#crew" data-jump>Crew</a><a href="#voyage" data-jump>Voyage</a><a href="#moments" data-jump>Moments</a><a href="#spreads" data-jump>Spreads</a><a href="#panels" data-jump>Panels</a><a href="#journey" data-jump>Journey</a><a href="#top" data-jump>Top 10</a><a href="#vault" data-jump>Cards</a><a href="#library" data-jump>Library</a><a href="trivia.html" class="nav-tv">Trivia</a><a href="#life" data-jump id="nav-life" hidden>Book II</a>
  </nav>
  <div class="bar-toggles"><button class="logpose-btn" id="logpose-btn" aria-haspopup="dialog" aria-label="Log Pose: every chapter" title="Log Pose: every chapter"><svg class="lp-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="10.5" r="7.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8.6 17.6 7.6 21h8.8l-1-3.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><g class="lp-needle"><path d="M12 4.6 13.5 10.5H10.5Z" fill="#e3342f"/><path d="M12 16.4 13.5 10.5H10.5Z" fill="currentColor" opacity=".55"/></g><circle cx="12" cy="10.5" r="1" fill="currentColor"/></svg><span>Log Pose</span></button><button class="write-toggle" id="write" aria-pressed="false" title="Writer's mode: edit the words, keep a diary"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 4.5l5 5L9 20H4v-5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12.5 6.5l5 5" stroke="currentColor" stroke-width="1.6"/></svg><span>Write</span></button><button class="gear-toggle" id="gear5" aria-pressed="false" title="Gear 5: bouncy mode + the Drums of Liberation"><span class="g5-sun" aria-hidden="true"></span>Gear 5 <b>Off</b></button><button class="motion-toggle" id="motion" aria-pressed="false">Motion <b>On</b></button></div>
 </header>
@@ -93,16 +93,24 @@
   </div>
  </section>
 
- <!-- 01 · THE CHARACTERS WHO LEFT SOMETHING BEHIND -->
- <section id="characters" class="cast-sec" aria-label="The characters who left something behind">
-  <header class="cast-head wrap">
-   <p class="eyebrow rv" data-w="chars.eyebrow">01 · The Character Log</p>
-   <h2 class="rv" data-w="chars.title">They each left<br>something <em>behind.</em></h2>
-   <p class="section-lede rv" data-w="chars.lede">Some inspired me. Some made me rethink myself. Some showed me traits I want, and some showed me traits I don't. Ten records, in my own words.</p>
-  </header>
-  <div class="cast" id="cast"></div>
+ <!-- 01 · THE CHARACTER LOG: tied up like a present; it opens as a room of its own only when you choose to (s/characters.js, js/charlog.js) -->
+ <section id="characters" class="cl-entry" aria-label="The Character Log">
+  <div class="cl-e-in wrap">
+   <div class="cl-e-copy">
+    <p class="eyebrow" data-w="chars.eyebrow">01 · The Character Log</p>
+    <h2 data-w="chars.title">They each left<br>something <em>behind.</em></h2>
+    <p class="cl-e-lede" data-w="chars.lede">Some inspired me. Some made me rethink myself. Some showed me traits I want, and some showed me traits I don't. Eleven records, in my own words, kept sealed until you want them.</p>
+    <div class="cl-e-acts"><button class="pill cl-e-open" data-charlog="">Break the seal <i aria-hidden="true">→</i></button><button class="pill ghost small" data-charlog-watch>Watch them all ▶</button></div>
+    <div class="cl-faces" id="cl-faces" aria-label="Or go straight to one"></div>
+   </div>
+   <button class="cl-pack" id="cl-pack" data-charlog="" aria-label="Break the seal and open the Character Log">
+    <span class="cl-stack" aria-hidden="true"></span>
+    <span class="cl-ribbon v" aria-hidden="true"><i></i><i></i></span><span class="cl-ribbon h" aria-hidden="true"><i></i><i></i></span>
+    <span class="cl-seal" aria-hidden="true"><b>G</b></span>
+    <span class="cl-tag" aria-hidden="true">Open when ready</span>
+   </button>
+  </div>
  </section>
-
 
  <!-- THE STRAW HAT PIRATES: a walk down the deck in 3D, one crew member at a time -->
  <section id="strawhats" class="sh" aria-label="The Straw Hat Pirates">
@@ -124,6 +132,19 @@
    </div>
   </div>
   <ol class="sh-static" id="sh-static" hidden></ol>
+ </section>
+
+ <!-- LOOK CLOSER: his Pinterest collages; the camera starts deep inside the wall of covers behind each Straw Hat and pulls back (s/closer.js) -->
+ <section id="closer" class="lc" aria-label="Look closer">
+  <div class="pin">
+   <div class="lc-glow" aria-hidden="true"></div>
+   <div class="lc-intro" id="lc-intro"><p class="eyebrow" data-w="closer.eyebrow">Look closer</p><h2 data-w="closer.title">Behind every Straw Hat,<br><em>a hundred more.</em></h2><p data-w="closer.lede">Every cover and colour page Oda ever gave them, tiled into one picture with the character standing in front. The best part is the small stuff in the back.</p></div>
+   <div class="lc-stage" id="lc-stage"></div>
+   <div class="lc-caps" id="lc-caps"></div>
+   <div class="lc-dots" id="lc-dots" aria-hidden="true"></div>
+   <div class="lc-end"><div class="lc-grid" id="lc-grid"></div><p class="lc-endline">Each one is a <b>Mosaic</b> card in the Treasure Room. <button class="link" data-collection="closer">See them all →</button></p></div>
+  </div>
+  <div class="lc-lens" id="lc-lens" aria-hidden="true"></div>
  </section>
 
  <!-- 02 · THE CREW: wanted posters -->
@@ -301,6 +322,24 @@
   </div>
  </section>
 
+ <!-- THE STAR STREAM: Omniscient Reader's Viewpoint; the webtoon reads itself inside a system window (s/orv.js) -->
+ <section id="orv" class="orv" aria-label="Omniscient Reader's Viewpoint">
+  <div class="orv-sky" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="orv-in wrap">
+   <div class="orv-copy">
+    <p class="eyebrow" data-w="orv.eyebrow">Another world · the Star Stream</p>
+    <h2 data-w="orv.title">Omniscient Reader's <em>Viewpoint.</em></h2>
+    <p class="orv-now" id="orv-now"></p>
+    <p class="orv-lede" data-w="orv.lede">The only reader who knows how the story ends. The panels that stopped me, read the way a webtoon reads.</p>
+    <div class="orv-acts"><button class="pill small" id="orv-open">Every panel →</button><button class="pill small ghost" id="orv-dive">Fly through them ✦</button></div>
+   </div>
+   <div class="orv-win">
+    <div class="orv-frame"><div class="orv-strip" id="orv-strip"></div><i class="orv-scan" aria-hidden="true"></i></div>
+    <div class="orv-msgs" id="orv-msgs" aria-hidden="true"></div>
+   </div>
+  </div>
+ </section>
+
  <!-- 08 · CARD VAULT: every card on one spiral that turns and climbs as you scroll (js/s/cards.js) -->
  <section id="vault" class="vault" aria-label="Card Vault">
   <div class="pin">
@@ -471,6 +510,7 @@
  <span>Grand Archive · Goma</span>
  <a href="https://gomayoha.github.io/my-grand-archive/" target="_blank" rel="noopener">Original V1 ↗</a>
  <a href="story.html">The Story of One Piece</a>
+ <a href="trivia.html">Grand Line Trivia</a>
  <a href="#desk" data-desk>✎ Captain's Desk</a>
  <a href="#home" data-jump>Back to the beginning ↑</a>
 </footer>

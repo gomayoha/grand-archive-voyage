@@ -6,6 +6,10 @@
 //  - Know the captain: a quiz about Goma, written from his own notes and lists (the word each character
 //    left behind, his top 10, his ratings, when he watched what, the crew he loves).
 //  - Observation Haki: one picture, then a wall of them. Find it again before time runs out.
+// Oct 30 2026: the posters had stopped showing (the gold purse took over their class name, .gp; they are .gpost
+// now), and three more games joined: Who's that pirate? (a picture blurred into blocks that sharpens, name them
+// fast), Memory log (pairs of his pictures) and Put the poster back (a picture cut into squares, swap them home).
+// The menu leads with Grand Line Trivia, the hard One Piece quiz on a page of its own (trivia.html).
 import {esc,data,TH,FU,clamp,motion,coarse} from './core.js';
 import {B,money,earn,once,best} from './bounty.js';
 import {roomsCSS,pool} from './treasure.js';
@@ -31,14 +35,17 @@ const BOUNTIES=[
 const COL={luffy:['characters','Luffy'],zoro:['characters','Zoro'],robin:['characters','Robin'],sanji:['characters','Sanji'],nami:['crew','Nami'],usopp:['crew','Usopp'],chopper:['crew','Chopper'],franky:['crew','Franky'],brook:['crew','Brook'],jinbe:['crew','Jinbe'],hancock:['crew','Hancock'],law:['crew','Law'],kuma:['crew','Kuma'],garp:['crew','Garp']};
 const photosOf=who=>{const [k,n]=COL[who]||[],m=data.media||{};const c=k==='characters'?(m.characters||[]).find(x=>x.home===n):(m.crew||[]).find(x=>x.name===n);return c?c.all.filter(id=>m.img?.[id]):[];};
 const photo=who=>{const p=photosOf(who);return p.length?rnd(p):null;};
-const posterHTML=(e,shown,id=photo(e.who),cls='')=>`<div class="wanted gp ${cls}" style="--r:0deg"><span class="w-top">WANTED</span><span class="w-photo">${id?`<img src="${TH(id)}" alt="" decoding="async">`:''}</span><span class="w-dead">DEAD OR ALIVE</span><b class="w-name">${esc(e.name.toUpperCase())}</b><span class="w-bounty"><i>฿</i><span class="gp-v">${shown?money(e.b):'?,???,???,???'}</span><small>-</small></span><span class="w-line">${esc(e.when)}</span></div>`;
+const posterHTML=(e,shown,id=photo(e.who),cls='')=>`<div class="wanted gpost ${cls}" style="--r:0deg"><span class="w-top">WANTED</span><span class="w-photo">${id?`<img src="${TH(id)}" alt="" decoding="async">`:''}</span><span class="w-dead">DEAD OR ALIVE</span><b class="w-name">${esc(e.name.toUpperCase())}</b><span class="w-bounty"><i>฿</i><span class="gp-v">${shown?money(e.b):'?,???,???,???'}</span><small>-</small></span><span class="w-line">${esc(e.when)}</span></div>`;
 
 /* ---------------------------------------------------------------- the room */
 const GAMES=[
  {id:'hl',t:'Higher or <em>lower</em>',k:'Bounties',line:'Two wanted posters, one bounty hidden. Every Straw Hat at every point of the story. How long can your streak go?',art:'fcf118f387b7',best:()=>`Best streak ${B.best.hl||0}`},
  {id:'wind',t:'Gone with the <em>wind</em>',k:'Arcade',line:'After Enies Lobby the new posters blew across the world. Catch them in thirty seconds. Keep your hands off the Marines.',art:'a352eedbb5a9',best:()=>`Best ${B.best.wind||0} caught`},
  {id:'quiz',t:'Know the <em>captain</em>',k:'Quiz',line:'Ten questions about me, straight from my notes: the words they left behind, my top 10, my ratings, my crew.',art:'373131619907',best:()=>`Best ${B.best.quiz||0} / 10`},
- {id:'haki',t:'Observation <em>Haki</em>',k:'Memory',line:'One picture, then a wall of them. Find it again before time runs out. It gets harder every level.',art:'f0e0f1f0e2f4',best:()=>`Best level ${B.best.haki||0}`}
+ {id:'haki',t:'Observation <em>Haki</em>',k:'Memory',line:'One picture, then a wall of them. Find it again before time runs out. It gets harder every level.',art:'f0e0f1f0e2f4',best:()=>`Best level ${B.best.haki||0}`},
+ {id:'who',t:'Who’s that <em>pirate?</em>',k:'Speed',line:'A picture from the archive, broken into blocks. It sharpens second by second. Name them before it’s clear.',art:'9fdfff7bb2ea',best:()=>`Best ${B.best.who||0} points`,fresh:1},
+ {id:'mem',t:'Memory <em>log</em>',k:'Pairs',line:'Sixteen cards face down, eight pairs of pictures. Find every pair in as few turns as you can.',art:'297876935b5a',best:()=>B.best.memx?`Best ${60-B.best.memx} turns`:'Not played yet',fresh:1},
+ {id:'puz',t:'Put the poster <em>back</em>',k:'Puzzle',line:'A picture cut into squares and shuffled. Tap two squares to swap them. Three by three, then four, then five.',art:'9903097351d2',best:()=>B.best.puz?`Solved up to ${B.best.puz} × ${B.best.puz}`:'Not played yet',fresh:1}
 ];
 let dlg=null,stop=()=>{};
 const $g=s=>dlg.querySelector(s);
@@ -58,14 +65,16 @@ export async function openGames(game){
 function head(k,t){$g('#gr-k').innerHTML=k;$g('#gr-title').innerHTML=t;}
 function menu(){
  stop();stop=()=>{};head('The Game Room','Pick a <em>game.</em>');
- $g('#gr-body').innerHTML=`<div class="gm-grid">${GAMES.map(g=>`<button class="gm" data-game="${g.id}"><span class="gm-art"><img src="${FU(g.art)}" alt="" decoding="async"></span><span class="gm-copy"><small>${g.k}</small><b>${g.t}</b><span>${esc(g.line)}</span><i>${esc(g.best())}</i></span><span class="gm-go">Play</span></button>`).join('')}</div><p class="tr-fine">Every game pays into your bounty in the Treasure Room.</p>`;
+ const tv=(()=>{try{return JSON.parse(localStorage.getItem('grand-archive:trivia')||'{}');}catch{return{};}})(),cl=(tv.cleared||[]).length;
+ $g('#gr-body').innerHTML=`<a class="gm-hero" href="trivia.html"><span class="gm-hero-art"><img src="${FU('5b4d8ea99809')}" alt="" decoding="async"></span><span class="gm-hero-copy"><small>New · a page of its own</small><b>Grand Line <em>Trivia</em></b><span>Five levels, from hard to impossible, with pictures from the archive as clues. Play alone, or face to face with a friend on one phone.</span><i>${cl?`${cl} of 5 levels cleared`:'No levels cleared yet'}</i></span><span class="gm-go">Play ↗</span></a>
+  <div class="gm-grid">${GAMES.map((g,i)=>`<button class="gm" data-game="${g.id}" style="--d:${i*60}ms"><span class="gm-art"><img src="${FU(g.art)}" alt="" decoding="async"></span><span class="gm-copy"><small>${g.k}${g.fresh?' · <b class="gm-new">New</b>':''}</small><b>${g.t}</b><span>${esc(g.line)}</span><i>${esc(g.best())}</i></span><span class="gm-go">Play</span></button>`).join('')}</div><p class="tr-fine">Every game pays into your bounty in the Treasure Room.</p>`;
  dlg.scrollTop=0;
 }
 function play(id){
  stop();stop=()=>{};const g=GAMES.find(x=>x.id===id);if(!g)return menu();
  head(`<button class="link gr-back" data-menu>← All games</button>`,g.t);
  const root=$g('#gr-body');root.innerHTML='';dlg.scrollTop=0;
- ({hl,wind,quiz,haki})[id](root);
+ ({hl,wind,quiz,haki,who,mem,puz})[id](root);
 }
 function over(root,{title,line,score,pay,again}){
  const el=document.createElement('div');el.className='gx';
@@ -109,7 +118,7 @@ function wind(root){
  function spawn(){
   const marine=garp.length&&Math.random()<0.13,e=marine?{who:'garp',b:0,name:'Monkey D. Garp',when:'Vice Admiral'}:rnd(BOUNTIES);
   const el=document.createElement('button');el.className='gw-p'+(marine?' marine':'');
-  el.innerHTML=marine?`<div class="wanted gp dread" style="--r:0deg"><span class="w-top">MARINE</span><span class="w-photo"><img src="${TH(rnd(garp))}" alt="" decoding="async"></span><b class="w-name">GARP</b><span class="w-bounty unknown">HANDS OFF</span></div>`:posterHTML(e,true);
+  el.innerHTML=marine?`<div class="wanted gpost dread" style="--r:0deg"><span class="w-top">MARINE</span><span class="w-photo"><img src="${TH(rnd(garp))}" alt="" decoding="async"></span><b class="w-name">GARP</b><span class="w-bounty unknown">HANDS OFF</span></div>`:posterHTML(e,true);
   const H=field.clientHeight,W=field.clientWidth,z=0.62+Math.random()*0.5;
   const p={el,e,marine,x:-150,y:H*(0.08+Math.random()*0.7),vx:(110+Math.random()*150)*(1+t/30*0.9)*(W/1100+0.5),ph:Math.random()*6.28,f:1.2+Math.random()*1.6,amp:20+Math.random()*50,z,rot:0,dead:false};
   el.style.zIndex=Math.round(z*100);el.addEventListener('pointerdown',ev=>{ev.preventDefault();grab(p);});
@@ -236,4 +245,99 @@ function haki(root){
  }
  round();
  stop=()=>{alive=false;clearTimeout(timer);cancelAnimationFrame(raf);};
+}
+
+/* ---------------------------------------------------------------- the archive's people, for the new games */
+const isCollage=id=>(data.media?.collages||[]).some(x=>x.id===id);
+function people(){
+ const m=data.media||{},seen=new Set(),out=[];
+ const add=(n,ids)=>{if(!n||seen.has(n)||/straw hats|omniscient/i.test(n))return;const l=(ids||[]).filter(id=>m.img?.[id]&&!isCollage(id));if(l.length>=2){seen.add(n);out.push({n,ids:l});}};
+ (m.characters||[]).forEach(c=>add(c.home,c.all));(m.crew||[]).forEach(c=>add(c.name,c.all));(m.supporting||[]).forEach(c=>add(c.name,c.all));(m.worlds||[]).forEach(w=>add(w.name,w.all));
+ return out;
+}
+
+/* ---------------------------------------------------------------- Who's that pirate? */
+// a picture drawn at a handful of pixels and scaled up with hard edges; the blocks halve as the seconds pass
+function who(root){
+ const P=people(),ROUNDS=10,T=9;let r=0,score=0,raf=0,alive=true;
+ root.innerHTML=`<div class="wp"><div class="wp-top"><span>Round <b class="wp-r">1</b> / ${ROUNDS}</span><span class="wp-pts">+<b>0</b></span><span>Score <b class="wp-s">0</b></span></div><div class="wp-main"><figure class="wp-frame"><canvas></canvas><figcaption class="wp-name"></figcaption></figure><div class="wp-opts"></div></div></div>`;
+ const cv=root.querySelector('canvas'),ctx=cv.getContext('2d'),opts=root.querySelector('.wp-opts'),pts=root.querySelector('.wp-pts b'),frame=root.querySelector('.wp-frame'),nm=root.querySelector('.wp-name');
+ const small=document.createElement('canvas'),sx=small.getContext('2d');
+ const draw=(img,block)=>{const W=cv.width,H=cv.height;
+  // cover-crop into the frame (a little above centre, where faces usually are)
+  const s2=Math.min(img.naturalWidth/W,img.naturalHeight/H),w2=W*s2,h2=H*s2,x2=(img.naturalWidth-w2)/2,y2=(img.naturalHeight-h2)/3;
+  if(block<=1){ctx.imageSmoothingEnabled=true;ctx.drawImage(img,x2,y2,w2,h2,0,0,W,H);return;}
+  const sw=Math.max(2,Math.round(W/block)),sh=Math.max(2,Math.round(H/block));small.width=sw;small.height=sh;sx.imageSmoothingEnabled=true;sx.drawImage(img,x2,y2,w2,h2,0,0,sw,sh);
+  ctx.imageSmoothingEnabled=false;ctx.drawImage(small,0,0,sw,sh,0,0,W,H);};
+ async function round(){
+  if(!alive)return;if(r>=ROUNDS)return finish();
+  root.querySelector('.wp-r').textContent=r+1;frame.classList.remove('shown','ok','no');nm.textContent='';
+  const who=rnd(P),id=rnd(who.ids),names=shuffle([who.n,...shuffle(P.filter(x=>x.n!==who.n)).slice(0,3).map(x=>x.n)]);
+  const img=new Image();img.src=FU(id);try{await img.decode();}catch{}if(!alive)return;
+  const b=frame.getBoundingClientRect();cv.width=Math.round(b.width*Math.min(2,devicePixelRatio||1));cv.height=Math.round(b.height*Math.min(2,devicePixelRatio||1));
+  opts.innerHTML=names.map(n=>`<button class="gq-o" data-n="${esc(n)}">${esc(n)}</button>`).join('');
+  const START=Math.max(cv.width,cv.height)/5;let t0=performance.now(),last=-1,done=false;
+  const tick=now=>{if(!alive||done)return;const t=(now-t0)/1000,q=Math.min(1,t/T),block=Math.max(1,Math.round(START*Math.pow(1/START,q)));if(block!==last){last=block;draw(img,block);}pts.textContent=Math.max(20,Math.round(100*(1-q))+20);if(q<1)raf=requestAnimationFrame(tick);};
+  raf=requestAnimationFrame(tick);
+  const pick=await new Promise(res=>{opts.onclick=e=>{const o=e.target.closest('[data-n]');if(o)res(o);};});
+  done=true;cancelAnimationFrame(raf);const ok=pick.dataset.n===who.n,t=(performance.now()-t0)/1000,got=ok?Math.max(20,Math.round(100*(1-Math.min(1,t/T)))+20):0;score+=got;
+  draw(img,1);frame.classList.add('shown',ok?'ok':'no');nm.innerHTML=`${esc(who.n)}${ok?` <b>+${got}</b>`:''}`;
+  opts.querySelectorAll('[data-n]').forEach(o=>{o.disabled=true;if(o.dataset.n===who.n)o.classList.add('right');else if(o===pick)o.classList.add('wrong');});
+  root.querySelector('.wp-s').textContent=score;
+  await wait(ok?1100:1700);r++;round();
+ }
+ function finish(){
+  const pay=score*2e4;best('who',score);if(pay)earn(pay,`Who’s that pirate? · ${score} points`);
+  if(score>=800)once('quest:who',20*M,'Who’s that pirate? · 800 points');
+  over(root,{title:'Who’s that pirate?',score:`${score} points`,line:score>=900?'You see them coming from a mile away.':score>=600?'Sharp eyes.':'They’ll be clearer next time.',pay,again:()=>who(root)});
+ }
+ round();
+ stop=()=>{alive=false;cancelAnimationFrame(raf);};
+}
+
+/* ---------------------------------------------------------------- Memory log */
+function mem(root){
+ const pics=shuffle(pool().filter(p=>!isCollage(p.id))).slice(0,8),deck=shuffle([...pics,...pics].map((p,i)=>({id:p.id,k:i})));
+ let open=[],turns=0,found=0,lock=false,t0=0,tm=0;
+ root.innerHTML=`<div class="mm"><div class="mm-top"><span>Turns <b class="mm-t">0</b></span><span class="mm-time">0:00</span><span>Pairs <b class="mm-p">0</b> / 8</span></div><div class="mm-grid">${deck.map((c,i)=>`<button class="mm-c" data-i="${i}" style="--i:${i}" aria-label="A card, face down"><span class="mm-in"><span class="mm-b"><i></i></span><span class="mm-f"><img src="${TH(c.id)}" alt="" decoding="async"></span></span></button>`).join('')}</div></div>`;
+ const cards=[...root.querySelectorAll('.mm-c')],tEl=root.querySelector('.mm-t'),pEl=root.querySelector('.mm-p'),clock=root.querySelector('.mm-time');
+ const fmt=s=>`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
+ root.querySelector('.mm-grid').addEventListener('click',async e=>{
+  const b=e.target.closest('.mm-c');if(!b||lock||b.classList.contains('up'))return;
+  if(!t0){t0=performance.now();tm=setInterval(()=>{clock.textContent=fmt((performance.now()-t0)/1000);},500);}
+  b.classList.add('up');open.push(b);if(open.length<2)return;
+  turns++;tEl.textContent=turns;const [a,c]=open;open=[];
+  if(deck[+a.dataset.i].id===deck[+c.dataset.i].id){a.classList.add('done');c.classList.add('done');found++;pEl.textContent=found;
+   if(found===8){clearInterval(tm);const secs=(performance.now()-t0)/1000;await wait(700);
+    const pay=Math.max(2,14-Math.max(0,turns-8))*M;best('memx',60-turns);earn(pay,`Memory log · ${turns} turns`);
+    if(turns<=12)once('quest:mem',20*M,'Memory log in 12 turns');
+    over(root,{title:'Memory log',score:`${turns} turns`,line:`Every pair in ${fmt(secs)}. ${turns<=10?'A photographic memory.':turns<=14?'Robin would be proud.':'Every pair found.'}`,pay,again:()=>mem(root)});}
+   return;}
+  lock=true;await wait(820);a.classList.remove('up');c.classList.remove('up');lock=false;
+ });
+ stop=()=>clearInterval(tm);
+}
+
+/* ---------------------------------------------------------------- Put the poster back */
+function puz(root,n=3){
+ const P=pool().filter(p=>{const d=data.media.img[p.id];return d&&d[1]/d[0]>1.1&&d[1]/d[0]<1.6&&Math.max(...d)>=1000;}),p=rnd(P.length?P:pool()),[w,h]=data.media.img[p.id];
+ const N=n*n;let order;do{order=shuffle([...Array(N).keys()]);}while(order.every((v,i)=>v===i));
+ let sel=null,moves=0,t0=performance.now(),done=false;
+ root.innerHTML=`<div class="pz"><div class="pz-top"><span>${n} × ${n}</span><span>Moves <b class="pz-m">0</b></span><button class="link pz-peek">Hold to peek</button></div><div class="pz-board" style="--n:${n};--ar:${w}/${h}">${order.map((v,slot)=>`<button class="pz-t" data-v="${v}" style="--x:${slot%n};--y:${Math.floor(slot/n)};background-image:url('${FU(p.id)}');background-position:${(v%n)/(n-1)*100}% ${Math.floor(v/n)/(n-1)*100}%"></button>`).join('')}<img class="pz-full" src="${FU(p.id)}" alt="" decoding="async"></div></div>`;
+ const board=root.querySelector('.pz-board'),tiles=[...board.querySelectorAll('.pz-t')],mEl=root.querySelector('.pz-m'),slotOf=t=>+t.style.getPropertyValue('--x')+n*+t.style.getPropertyValue('--y');
+ const place=(t,slot)=>{t.style.setProperty('--x',slot%n);t.style.setProperty('--y',Math.floor(slot/n));t.classList.toggle('home',+t.dataset.v===slot);};
+ tiles.forEach(t=>place(t,slotOf(t)));
+ board.addEventListener('click',async e=>{
+  const t=e.target.closest('.pz-t');if(!t||done)return;
+  if(!sel){sel=t;t.classList.add('sel');return;}
+  if(sel===t){t.classList.remove('sel');sel=null;return;}
+  const a=slotOf(sel),b=slotOf(t);place(sel,b);place(t,a);sel.classList.remove('sel');sel=null;moves++;mEl.textContent=moves;
+  if(tiles.every(x=>+x.dataset.v===slotOf(x))){done=true;board.classList.add('solved');await wait(1100);
+   const secs=Math.round((performance.now()-t0)/1000),pay=(n===3?3:n===4?8:15)*M;best('puz',n);earn(pay,`Put the poster back · ${n} × ${n}`);
+   if(n>=4)once('quest:puz',20*M,'A 4 × 4 poster, back together');
+   over(root,{title:'Put the poster back',score:`${n} × ${n} solved`,line:`${moves} moves in ${Math.floor(secs/60)}:${String(secs%60).padStart(2,'0')}. ${p.col}, No. ${p.i}.${n<5?` Ready for ${n+1} × ${n+1}?`:''}`,pay,again:()=>puz(root,Math.min(5,n<5?n+1:5))});
+   const ag=root.querySelector('[data-again]');if(ag&&n<5)ag.textContent=`Try ${n+1} × ${n+1}`;}
+ });
+ const peek=root.querySelector('.pz-peek'),pk=v=>board.classList.toggle('peek',v);
+ peek.addEventListener('pointerdown',()=>pk(true));['pointerup','pointerleave','pointercancel'].forEach(k=>peek.addEventListener(k,()=>pk(false)));
 }

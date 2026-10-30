@@ -1,0 +1,1212 @@
+{
+ "about": "Grand Line Trivia (trivia.html). Written for the archive, Oct 30 2026: only facts from the manga and official numbers. Each question: q, a (right answer), w (three wrong), note (optional). Photo rounds are made from the archive's own pictures at play time.",
+ "levels": [
+  {
+   "id": 1,
+   "name": "East Blue",
+   "tag": "Hard",
+   "line": "Where it all began. If you read it, you should know it. Most people don't.",
+   "time": 25,
+   "zoom": 1.9,
+   "qs": [
+    {
+     "q": "Before Shanks, whose head did Luffy's straw hat sit on?",
+     "a": "Gol D. Roger",
+     "w": [
+      "Silvers Rayleigh",
+      "Monkey D. Garp",
+      "Edward Newgate"
+     ],
+     "note": "Shanks was a cabin boy on Roger's ship."
+    },
+    {
+     "q": "Who was the first person Luffy met after he set out to sea?",
+     "a": "Coby",
+     "w": [
+      "Roronoa Zoro",
+      "Alvida",
+      "Helmeppo"
+     ],
+     "note": "Coby was the cabin boy on Alvida's ship."
+    },
+    {
+     "q": "What was Arlong's bounty?",
+     "a": "฿20,000,000",
+     "w": [
+      "฿17,000,000",
+      "฿30,000,000",
+      "฿15,000,000"
+     ]
+    },
+    {
+     "q": "What was Buggy's bounty when Luffy first met him?",
+     "a": "฿15,000,000",
+     "w": [
+      "฿20,000,000",
+      "฿10,000,000",
+      "฿17,000,000"
+     ]
+    },
+    {
+     "q": "What was Don Krieg's bounty?",
+     "a": "฿17,000,000",
+     "w": [
+      "฿15,000,000",
+      "฿20,000,000",
+      "฿16,000,000"
+     ]
+    },
+    {
+     "q": "What was Captain Kuro's bounty before he faked his death?",
+     "a": "฿16,000,000",
+     "w": [
+      "฿17,000,000",
+      "฿15,000,000",
+      "฿12,000,000"
+     ]
+    },
+    {
+     "q": "What name did Kuro use while he worked as Kaya's butler?",
+     "a": "Klahadore",
+     "w": [
+      "Merry",
+      "Jango",
+      "Kuroobi"
+     ]
+    },
+    {
+     "q": "What was the name of Makino's bar in Foosha Village?",
+     "a": "Party's Bar",
+     "w": [
+      "Baratie",
+      "Shakky's Rip-off Bar",
+      "Mermaid Café"
+     ]
+    },
+    {
+     "q": "Which of these was NOT one of the Usopp Pirates?",
+     "a": "Kaya",
+     "w": [
+      "Ninjin",
+      "Piiman",
+      "Tamanegi"
+     ]
+    },
+    {
+     "q": "Which Marine captain had an axe for a hand?",
+     "a": "Morgan",
+     "w": [
+      "Nezumi",
+      "Fullbody",
+      "Hina"
+     ]
+    },
+    {
+     "q": "Which Marine captain was on Arlong's payroll?",
+     "a": "Nezumi",
+     "w": [
+      "Morgan",
+      "Fullbody",
+      "Smoker"
+     ]
+    },
+    {
+     "q": "Who was Zoro's childhood rival at the dojo?",
+     "a": "Kuina",
+     "w": [
+      "Tashigi",
+      "Hiyori",
+      "Kaya"
+     ]
+    },
+    {
+     "q": "Which cursed sword did Zoro test by throwing it in the air over his own arm?",
+     "a": "Sandai Kitetsu",
+     "w": [
+      "Yubashiri",
+      "Shusui",
+      "Wado Ichimonji"
+     ]
+    },
+    {
+     "q": "Which of Zoro's swords was destroyed at Enies Lobby?",
+     "a": "Yubashiri",
+     "w": [
+      "Sandai Kitetsu",
+      "Wado Ichimonji",
+      "Shusui"
+     ]
+    },
+    {
+     "q": "Who saved Luffy from Smoker in Loguetown?",
+     "a": "Monkey D. Dragon",
+     "w": [
+      "Shanks",
+      "Monkey D. Garp",
+      "Silvers Rayleigh"
+     ]
+    },
+    {
+     "q": "What kind of fish-man is Arlong?",
+     "a": "A sawshark",
+     "w": [
+      "A hammerhead shark",
+      "A great white shark",
+      "A tiger shark"
+     ]
+    },
+    {
+     "q": "Who raised Nami and Nojiko?",
+     "a": "Bell-mère",
+     "w": [
+      "Makino",
+      "Kureha",
+      "Genzo"
+     ]
+    },
+    {
+     "q": "What devil fruit did Alvida eat after Luffy beat her?",
+     "a": "Sube Sube no Mi",
+     "w": [
+      "Mero Mero no Mi",
+      "Bara Bara no Mi",
+      "Noro Noro no Mi"
+     ]
+    },
+    {
+     "q": "Which of Don Krieg's men did Sanji feed when he was starving?",
+     "a": "Gin",
+     "w": [
+      "Pearl",
+      "Patty",
+      "Carne"
+     ]
+    },
+    {
+     "q": "What is the title of Chapter 1?",
+     "a": "Romance Dawn",
+     "w": [
+      "I'm Luffy!",
+      "The Great Pirate Era",
+      "Dawn Island"
+     ]
+    },
+    {
+     "q": "Who is Usopp's father?",
+     "a": "Yasopp",
+     "w": [
+      "Ben Beckman",
+      "Lucky Roux",
+      "Rockstar"
+     ]
+    },
+    {
+     "q": "What did Shanks lose saving Luffy from the Sea King?",
+     "a": "His left arm",
+     "w": [
+      "His right arm",
+      "His left eye",
+      "His sword"
+     ]
+    },
+    {
+     "q": "Who ends up training Coby and Helmeppo?",
+     "a": "Monkey D. Garp",
+     "w": [
+      "Smoker",
+      "Kizaru",
+      "Tashigi"
+     ]
+    },
+    {
+     "q": "Who is the head chef of the Baratie?",
+     "a": "Zeff",
+     "w": [
+      "Patty",
+      "Carne",
+      "Gin"
+     ]
+    },
+    {
+     "q": "Where was Gol D. Roger executed?",
+     "a": "Loguetown",
+     "w": [
+      "Marineford",
+      "Foosha Village",
+      "Impel Down"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "name": "Paradise",
+   "tag": "Very hard",
+   "line": "The first half of the Grand Line. Names, numbers and fruits nobody remembers.",
+   "time": 22,
+   "zoom": 2.5,
+   "qs": [
+    {
+     "q": "Which crew is Laboon waiting for at Reverse Mountain?",
+     "a": "The Rumbar Pirates",
+     "w": [
+      "The Roger Pirates",
+      "The Sun Pirates",
+      "The Rolling Pirates"
+     ]
+    },
+    {
+     "q": "Who looks after Laboon at the Twin Cape lighthouse?",
+     "a": "Crocus",
+     "w": [
+      "Kureha",
+      "Zeff",
+      "Hiriluk"
+     ]
+    },
+    {
+     "q": "What is Mr. 1's real name?",
+     "a": "Daz Bonez",
+     "w": [
+      "Galdino",
+      "Bentham",
+      "Gem"
+     ]
+    },
+    {
+     "q": "What is Mr. 3's real name?",
+     "a": "Galdino",
+     "w": [
+      "Daz Bonez",
+      "Bentham",
+      "Babe"
+     ]
+    },
+    {
+     "q": "What is Bon Clay's real name?",
+     "a": "Bentham",
+     "w": [
+      "Galdino",
+      "Gem",
+      "Daz Bonez"
+     ]
+    },
+    {
+     "q": "What was Crocodile's bounty before he became a Warlord?",
+     "a": "฿81,000,000",
+     "w": [
+      "฿96,000,000",
+      "฿79,000,000",
+      "฿100,000,000"
+     ]
+    },
+    {
+     "q": "Which two giants have been fighting on Little Garden for a hundred years?",
+     "a": "Dorry and Brogy",
+     "w": [
+      "Oars and Hajrudin",
+      "Gerd and Stansen",
+      "Lovely and Lily"
+     ]
+    },
+    {
+     "q": "Which doctor gave Chopper his hat and his dream?",
+     "a": "Dr. Hiriluk",
+     "w": [
+      "Dr. Kureha",
+      "Dalton",
+      "Crocus"
+     ]
+    },
+    {
+     "q": "What devil fruit did Wapol eat?",
+     "a": "Baku Baku no Mi",
+     "w": [
+      "Bari Bari no Mi",
+      "Doru Doru no Mi",
+      "Mane Mane no Mi"
+     ]
+    },
+    {
+     "q": "How long does one of Chopper's Rumble Balls last?",
+     "a": "3 minutes",
+     "w": [
+      "1 minute",
+      "5 minutes",
+      "30 seconds"
+     ]
+    },
+    {
+     "q": "What is the name of Vivi's giant duck?",
+     "a": "Karoo",
+     "w": [
+      "Pell",
+      "Chaka",
+      "Lassoo"
+     ]
+    },
+    {
+     "q": "What is Pell's devil fruit?",
+     "a": "Tori Tori no Mi, Model: Falcon",
+     "w": [
+      "Inu Inu no Mi, Model: Jackal",
+      "Tori Tori no Mi, Model: Phoenix",
+      "Ushi Ushi no Mi, Model: Bison"
+     ]
+    },
+    {
+     "q": "What is the name of Enel's flying ship?",
+     "a": "Maxim",
+     "w": [
+      "Bilka",
+      "Shandora",
+      "Ark Merry"
+     ]
+    },
+    {
+     "q": "Which descendant of Montblanc Noland do the Straw Hats meet in Jaya?",
+     "a": "Montblanc Cricket",
+     "w": [
+      "Bellamy",
+      "Masira",
+      "Shoujou"
+     ]
+    },
+    {
+     "q": "Who did Luffy knock out with a single punch in Mock Town?",
+     "a": "Bellamy",
+     "w": [
+      "Sarquiss",
+      "Masira",
+      "Shoujou"
+     ]
+    },
+    {
+     "q": "What devil fruit does Foxy have?",
+     "a": "Noro Noro no Mi",
+     "w": [
+      "Sube Sube no Mi",
+      "Supa Supa no Mi",
+      "Toge Toge no Mi"
+     ]
+    },
+    {
+     "q": "Who designed the Going Merry?",
+     "a": "Merry, Kaya's butler",
+     "w": [
+      "Franky",
+      "Tom",
+      "Iceburg"
+     ]
+    },
+    {
+     "q": "What does Rob Lucci turn into?",
+     "a": "A leopard",
+     "w": [
+      "A jaguar",
+      "A tiger",
+      "A wolf"
+     ],
+     "note": "Neko Neko no Mi, Model: Leopard."
+    },
+    {
+     "q": "What does Kaku turn into?",
+     "a": "A giraffe",
+     "w": [
+      "An ox",
+      "A wolf",
+      "An elephant"
+     ]
+    },
+    {
+     "q": "Who built the sea train Puffing Tom?",
+     "a": "Tom",
+     "w": [
+      "Iceburg",
+      "Franky",
+      "Kokoro"
+     ]
+    },
+    {
+     "q": "What did Spandam accidentally call down on Enies Lobby?",
+     "a": "A Buster Call",
+     "w": [
+      "Admiral Aokiji",
+      "The Gates of Justice closing",
+      "The Sea Train"
+     ]
+    },
+    {
+     "q": "What was Franky's first bounty?",
+     "a": "฿44,000,000",
+     "w": [
+      "฿33,000,000",
+      "฿77,000,000",
+      "฿80,000,000"
+     ]
+    },
+    {
+     "q": "What devil fruit did Brook eat?",
+     "a": "Yomi Yomi no Mi",
+     "w": [
+      "Kage Kage no Mi",
+      "Horo Horo no Mi",
+      "Suke Suke no Mi"
+     ]
+    },
+    {
+     "q": "What was Gecko Moria's bounty?",
+     "a": "฿320,000,000",
+     "w": [
+      "฿296,000,000",
+      "฿340,000,000",
+      "฿250,000,000"
+     ]
+    },
+    {
+     "q": "After Kuma, what did Zoro tell Sanji happened?",
+     "a": "“Nothing happened.”",
+     "w": [
+      "“It's nothing.”",
+      "“Don't worry about it.”",
+      "“I'm fine.”"
+     ]
+    },
+    {
+     "q": "How many Supernovas were on the Sabaody Archipelago?",
+     "a": "11",
+     "w": [
+      "9",
+      "12",
+      "10"
+     ]
+    },
+    {
+     "q": "What is Silvers Rayleigh's epithet?",
+     "a": "The Dark King",
+     "w": [
+      "Hawk-Eye",
+      "The Pirate Hunter",
+      "The Surgeon of Death"
+     ]
+    },
+    {
+     "q": "Which Celestial Dragon did Luffy punch in the auction house?",
+     "a": "Saint Charlos",
+     "w": [
+      "Saint Roswald",
+      "Saint Shalria",
+      "Saint Mjosgard"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "name": "New World",
+   "tag": "Super hard",
+   "line": "Emperors, bounties in the billions, and swords with names.",
+   "time": 20,
+   "zoom": 3.1,
+   "qs": [
+    {
+     "q": "Who forged Wado Ichimonji?",
+     "a": "Shimotsuki Kozaburo",
+     "w": [
+      "Shimotsuki Ryuma",
+      "Tenguyama Hitetsu",
+      "Kozuki Oden"
+     ]
+    },
+    {
+     "q": "Whose sword was Shusui before Zoro?",
+     "a": "Shimotsuki Ryuma",
+     "w": [
+      "Kozuki Oden",
+      "Kozuki Sukiyaki",
+      "Dracule Mihawk"
+     ]
+    },
+    {
+     "q": "Which sword was Zoro given in Wano?",
+     "a": "Enma",
+     "w": [
+      "Ame no Habakiri",
+      "Murasame",
+      "Yoru"
+     ]
+    },
+    {
+     "q": "What was the prize of the Corrida Colosseum in Dressrosa?",
+     "a": "The Mera Mera no Mi",
+     "w": [
+      "The Ope Ope no Mi",
+      "The Gura Gura no Mi",
+      "The Yami Yami no Mi"
+     ]
+    },
+    {
+     "q": "Who turned the people of Dressrosa into toys?",
+     "a": "Sugar",
+     "w": [
+      "Baby 5",
+      "Trebol",
+      "Diamante"
+     ]
+    },
+    {
+     "q": "What was Doflamingo's bounty?",
+     "a": "฿340,000,000",
+     "w": [
+      "฿320,000,000",
+      "฿500,000,000",
+      "฿296,000,000"
+     ]
+    },
+    {
+     "q": "What is Big Mom's real name?",
+     "a": "Charlotte Linlin",
+     "w": [
+      "Charlotte Smoothie",
+      "Charlotte Lola",
+      "Charlotte Pudding"
+     ]
+    },
+    {
+     "q": "How many children does Big Mom have?",
+     "a": "85",
+     "w": [
+      "46",
+      "39",
+      "100"
+     ],
+     "note": "46 sons and 39 daughters."
+    },
+    {
+     "q": "What is Charlotte Katakuri's bounty?",
+     "a": "฿1,057,000,000",
+     "w": [
+      "฿932,000,000",
+      "฿1,111,000,000",
+      "฿860,000,000"
+     ]
+    },
+    {
+     "q": "Which of these is NOT a Vinsmoke?",
+     "a": "Goji",
+     "w": [
+      "Ichiji",
+      "Niji",
+      "Yonji"
+     ]
+    },
+    {
+     "q": "What was Kaido's bounty?",
+     "a": "฿4,611,100,000",
+     "w": [
+      "฿4,388,000,000",
+      "฿5,046,000,000",
+      "฿4,048,900,000"
+     ]
+    },
+    {
+     "q": "What was Big Mom's bounty?",
+     "a": "฿4,388,000,000",
+     "w": [
+      "฿4,611,100,000",
+      "฿3,996,000,000",
+      "฿3,189,000,000"
+     ]
+    },
+    {
+     "q": "How long did Kozuki Oden hold his retainers up while he was boiled in oil?",
+     "a": "One hour",
+     "w": [
+      "Ten minutes",
+      "Three hours",
+      "A whole night"
+     ]
+    },
+    {
+     "q": "Who leads the Nine Red Scabbards?",
+     "a": "Kin'emon",
+     "w": [
+      "Denjiro",
+      "Ashura Doji",
+      "Kawamatsu"
+     ]
+    },
+    {
+     "q": "Who does Yamato say they are?",
+     "a": "Kozuki Oden",
+     "w": [
+      "Kaido",
+      "Shimotsuki Ryuma",
+      "Momonosuke"
+     ]
+    },
+    {
+     "q": "What is the true name of Luffy's devil fruit?",
+     "a": "Hito Hito no Mi, Model: Nika",
+     "w": [
+      "Gomu Gomu no Mi, Model: Sun God",
+      "Uo Uo no Mi, Model: Seiryu",
+      "Hito Hito no Mi, Model: Daibutsu"
+     ]
+    },
+    {
+     "q": "In which chapter does Gear 5 first appear?",
+     "a": "1044",
+     "w": [
+      "1000",
+      "1049",
+      "1037"
+     ]
+    },
+    {
+     "q": "Who brought Big Mom down on Onigashima?",
+     "a": "Law and Kid",
+     "w": [
+      "Zoro and Sanji",
+      "Luffy and Yamato",
+      "Marco and Jinbe"
+     ]
+    },
+    {
+     "q": "What devil fruit does Eustass Kid have?",
+     "a": "Jiki Jiki no Mi",
+     "w": [
+      "Ito Ito no Mi",
+      "Bari Bari no Mi",
+      "Kira Kira no Mi"
+     ]
+    },
+    {
+     "q": "What is Shanks's bounty?",
+     "a": "฿4,048,900,000",
+     "w": [
+      "฿4,611,100,000",
+      "฿3,996,000,000",
+      "฿5,046,000,000"
+     ]
+    },
+    {
+     "q": "What is Blackbeard's bounty?",
+     "a": "฿3,996,000,000",
+     "w": [
+      "฿3,189,000,000",
+      "฿4,048,900,000",
+      "฿3,000,000,000"
+     ]
+    },
+    {
+     "q": "What is Buggy's bounty as an Emperor?",
+     "a": "฿3,189,000,000",
+     "w": [
+      "฿3,000,000,000",
+      "฿2,189,000,000",
+      "฿3,996,000,000"
+     ]
+    },
+    {
+     "q": "What was Jinbe's bounty as a Warlord?",
+     "a": "฿250,000,000",
+     "w": [
+      "฿438,000,000",
+      "฿296,000,000",
+      "฿320,000,000"
+     ]
+    },
+    {
+     "q": "Who ate the Mera Mera no Mi after Ace?",
+     "a": "Sabo",
+     "w": [
+      "Koala",
+      "Marco",
+      "Rebecca"
+     ]
+    },
+    {
+     "q": "What turned Momonosuke into a dragon?",
+     "a": "A fruit Vegapunk made, modelled on Kaido's",
+     "w": [
+      "Kaido's own fruit",
+      "A SMILE from Caesar",
+      "Orochi's fruit"
+     ]
+    },
+    {
+     "q": "What is Kaido's devil fruit?",
+     "a": "Uo Uo no Mi, Model: Seiryu",
+     "w": [
+      "Hebi Hebi no Mi, Model: Yamata no Orochi",
+      "Tori Tori no Mi, Model: Phoenix",
+      "Ryu Ryu no Mi, Model: Pteranodon"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "name": "Emperor's Waters",
+   "tag": "Insane",
+   "line": "Ships, swords, admirals and the people behind the curtain.",
+   "time": 17,
+   "zoom": 3.8,
+   "qs": [
+    {
+     "q": "Who built the Oro Jackson?",
+     "a": "Tom",
+     "w": [
+      "Iceburg",
+      "Franky",
+      "Kokoro"
+     ]
+    },
+    {
+     "q": "What is the name of Shanks's sword?",
+     "a": "Gryphon",
+     "w": [
+      "Yoru",
+      "Ace",
+      "Murakumogiri"
+     ]
+    },
+    {
+     "q": "What is the name of Mihawk's sword?",
+     "a": "Yoru",
+     "w": [
+      "Gryphon",
+      "Enma",
+      "Murakumogiri"
+     ]
+    },
+    {
+     "q": "What devil fruit does Sengoku have?",
+     "a": "Hito Hito no Mi, Model: Daibutsu",
+     "w": [
+      "Hito Hito no Mi, Model: Nika",
+      "Hebi Hebi no Mi, Model: Yamata no Orochi",
+      "Mori Mori no Mi"
+     ]
+    },
+    {
+     "q": "What is Fujitora's real name?",
+     "a": "Issho",
+     "w": [
+      "Aramaki",
+      "Borsalino",
+      "Kuzan"
+     ]
+    },
+    {
+     "q": "What devil fruit does Ryokugyu have?",
+     "a": "Mori Mori no Mi",
+     "w": [
+      "Zushi Zushi no Mi",
+      "Moku Moku no Mi",
+      "Numa Numa no Mi"
+     ]
+    },
+    {
+     "q": "Who is the World Government's Commander-in-Chief, above the Fleet Admiral?",
+     "a": "Kong",
+     "w": [
+      "Sengoku",
+      "Akainu",
+      "Garp"
+     ]
+    },
+    {
+     "q": "Who became Fleet Admiral after Marineford?",
+     "a": "Akainu",
+     "w": [
+      "Aokiji",
+      "Kizaru",
+      "Fujitora"
+     ]
+    },
+    {
+     "q": "Where did Rocks D. Xebec fall to Roger and Garp?",
+     "a": "God Valley",
+     "w": [
+      "Ohara",
+      "Marineford",
+      "Hachinosu"
+     ]
+    },
+    {
+     "q": "Who is Ace's mother?",
+     "a": "Portgas D. Rouge",
+     "w": [
+      "Ginny",
+      "Olvia",
+      "Bell-mère"
+     ]
+    },
+    {
+     "q": "Who raised Luffy, Ace and Sabo in the mountains?",
+     "a": "Curly Dadan",
+     "w": [
+      "Makino",
+      "Kureha",
+      "Woop Slap"
+     ]
+    },
+    {
+     "q": "Who founded the Sun Pirates?",
+     "a": "Fisher Tiger",
+     "w": [
+      "Jinbe",
+      "Arlong",
+      "King Neptune"
+     ]
+    },
+    {
+     "q": "What is Jewelry Bonney's real devil fruit?",
+     "a": "Toshi Toshi no Mi",
+     "w": [
+      "Nikyu Nikyu no Mi",
+      "Modo Modo no Mi",
+      "Horo Horo no Mi"
+     ]
+    },
+    {
+     "q": "Who is Bonney's mother?",
+     "a": "Ginny",
+     "w": [
+      "Portgas D. Rouge",
+      "Olvia",
+      "Charlotte Linlin"
+     ]
+    },
+    {
+     "q": "Which kingdom did Kuma come from?",
+     "a": "Sorbet Kingdom",
+     "w": [
+      "Goa Kingdom",
+      "Lulusia Kingdom",
+      "Germa Kingdom"
+     ]
+    },
+    {
+     "q": "How many satellites does Vegapunk have (not counting Stella)?",
+     "a": "Six",
+     "w": [
+      "Four",
+      "Five",
+      "Seven"
+     ]
+    },
+    {
+     "q": "Which of Vegapunk's satellites betrayed the others?",
+     "a": "York",
+     "w": [
+      "Lilith",
+      "Edison",
+      "Atlas"
+     ]
+    },
+    {
+     "q": "What is the seat in Mary Geoise that no one may sit on?",
+     "a": "The Empty Throne",
+     "w": [
+      "The Holy Seat",
+      "The Sun Throne",
+      "The Twenty Thrones"
+     ]
+    },
+    {
+     "q": "What is the name of Whitebeard's flagship?",
+     "a": "Moby Dick",
+     "w": [
+      "Oro Jackson",
+      "Queen Mama Chanter",
+      "Red Force"
+     ]
+    },
+    {
+     "q": "What is the name of Shanks's ship?",
+     "a": "Red Force",
+     "w": [
+      "Moby Dick",
+      "Saber of Xebec",
+      "Polar Tang"
+     ]
+    },
+    {
+     "q": "What is the name of Law's submarine?",
+     "a": "Polar Tang",
+     "w": [
+      "Red Force",
+      "Victoria Punk",
+      "Saber of Xebec"
+     ]
+    },
+    {
+     "q": "Who led the scholars of Ohara?",
+     "a": "Professor Clover",
+     "w": [
+      "Nico Olvia",
+      "Jaguar D. Saul",
+      "Dr. Vegapunk"
+     ]
+    },
+    {
+     "q": "Which giant saved young Robin on Ohara?",
+     "a": "Jaguar D. Saul",
+     "w": [
+      "Oars",
+      "Hajrudin",
+      "Dorry"
+     ]
+    },
+    {
+     "q": "Whose ship is the Queen Mama Chanter?",
+     "a": "Big Mom's",
+     "w": [
+      "Kaido's",
+      "Blackbeard's",
+      "Whitebeard's"
+     ]
+    },
+    {
+     "q": "What is Kizaru's real name?",
+     "a": "Borsalino",
+     "w": [
+      "Sakazuki",
+      "Kuzan",
+      "Issho"
+     ]
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "name": "Laugh Tale",
+   "tag": "Impossible",
+   "line": "Chapter numbers, exact bounties, the corner where Oda answers letters. Only true nakama reach the end.",
+   "time": 15,
+   "zoom": 4.6,
+   "qs": [
+    {
+     "q": "In which chapter does Portgas D. Ace die?",
+     "a": "574",
+     "w": [
+      "581",
+      "556",
+      "590"
+     ]
+    },
+    {
+     "q": "What is the title of Chapter 1000?",
+     "a": "Straw Hat Luffy",
+     "w": [
+      "Romance Dawn",
+      "Warrior of Liberation",
+      "The Dawn of the World"
+     ]
+    },
+    {
+     "q": "In which anime episode does Gear 5 debut?",
+     "a": "1071",
+     "w": [
+      "1044",
+      "1062",
+      "1085"
+     ]
+    },
+    {
+     "q": "In which year did One Piece start in Weekly Shōnen Jump?",
+     "a": "1997",
+     "w": [
+      "1996",
+      "1999",
+      "1998"
+     ]
+    },
+    {
+     "q": "What does SBS, Oda's question corner, stand for?",
+     "a": "Shitsumon wo Boshū Suru: “I'm taking questions”",
+     "w": [
+      "Shōnen Bōken Shinbun",
+      "Straw-hat Boys' Society",
+      "Super Big Secrets"
+     ]
+    },
+    {
+     "q": "What is the Straw Hats' combined bounty after Wano?",
+     "a": "฿8,816,001,000",
+     "w": [
+      "฿8,813,001,000",
+      "฿7,816,001,000",
+      "฿8,816,000,050"
+     ]
+    },
+    {
+     "q": "What was Robin's bounty when she was eight years old?",
+     "a": "฿79,000,000",
+     "w": [
+      "฿80,000,000",
+      "฿70,000,000",
+      "฿100,000,000"
+     ]
+    },
+    {
+     "q": "Whose bounty after Wano is exactly ฿394,000,000?",
+     "a": "Franky",
+     "w": [
+      "Brook",
+      "Nami",
+      "Usopp"
+     ]
+    },
+    {
+     "q": "Whose bounty after Wano is exactly ฿383,000,000?",
+     "a": "Brook",
+     "w": [
+      "Franky",
+      "Nami",
+      "Robin"
+     ]
+    },
+    {
+     "q": "What was Sanji's bounty after Whole Cake Island?",
+     "a": "฿330,000,000",
+     "w": [
+      "฿177,000,000",
+      "฿320,000,000",
+      "฿1,032,000,000"
+     ]
+    },
+    {
+     "q": "What is Chopper's bounty after Wano?",
+     "a": "฿1,000",
+     "w": [
+      "฿100",
+      "฿50",
+      "฿10,000"
+     ]
+    },
+    {
+     "q": "Counting Luffy, which member of the crew is Jinbe?",
+     "a": "The tenth",
+     "w": [
+      "The ninth",
+      "The eighth",
+      "The eleventh"
+     ]
+    },
+    {
+     "q": "Who named the last island Laugh Tale?",
+     "a": "Gol D. Roger",
+     "w": [
+      "Joy Boy",
+      "Silvers Rayleigh",
+      "Kozuki Oden"
+     ],
+     "note": "Raftel was its name before."
+    },
+    {
+     "q": "Which is the last island a Log Pose can lead to?",
+     "a": "Lodestar",
+     "w": [
+      "Raftel",
+      "Elbaph",
+      "Zou"
+     ]
+    },
+    {
+     "q": "What was Luffy's very first bounty?",
+     "a": "฿30,000,000",
+     "w": [
+      "฿10,000,000",
+      "฿50,000,000",
+      "฿100,000,000"
+     ]
+    },
+    {
+     "q": "What was Zoro's bounty after Dressrosa?",
+     "a": "฿320,000,000",
+     "w": [
+      "฿300,000,000",
+      "฿120,000,000",
+      "฿500,000,000"
+     ]
+    },
+    {
+     "q": "What was Brook's bounty with the Rumbar Pirates?",
+     "a": "฿33,000,000",
+     "w": [
+      "฿44,000,000",
+      "฿38,000,000",
+      "฿83,000,000"
+     ]
+    },
+    {
+     "q": "In which chapter is the Wano Country Arc's first page?",
+     "a": "909",
+     "w": [
+      "900",
+      "952",
+      "1000"
+     ]
+    },
+    {
+     "q": "What is the title of Volume 1?",
+     "a": "Romance Dawn",
+     "w": [
+      "I'm Luffy!",
+      "The Great Pirate Era Begins",
+      "Enter Zoro"
+     ]
+    },
+    {
+     "q": "What was Usopp's bounty after Dressrosa?",
+     "a": "฿200,000,000",
+     "w": [
+      "฿300,000,000",
+      "฿150,000,000",
+      "฿500,000,000"
+     ]
+    },
+    {
+     "q": "What was Nami's bounty after Dressrosa?",
+     "a": "฿66,000,000",
+     "w": [
+      "฿16,000,000",
+      "฿99,000,000",
+      "฿366,000,000"
+     ]
+    },
+    {
+     "q": "What was Robin's bounty after Dressrosa?",
+     "a": "฿130,000,000",
+     "w": [
+      "฿80,000,000",
+      "฿930,000,000",
+      "฿160,000,000"
+     ]
+    },
+    {
+     "q": "What was Luffy's bounty after Whole Cake Island?",
+     "a": "฿1,500,000,000",
+     "w": [
+      "฿500,000,000",
+      "฿1,000,000,000",
+      "฿3,000,000,000"
+     ]
+    },
+    {
+     "q": "What was Gol D. Roger's bounty?",
+     "a": "฿5,564,800,000",
+     "w": [
+      "฿5,046,000,000",
+      "฿4,611,100,000",
+      "฿6,000,000,000"
+     ]
+    }
+   ]
+  }
+ ]
+}

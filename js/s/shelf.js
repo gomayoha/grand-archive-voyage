@@ -43,12 +43,15 @@ $('#search').addEventListener('input',renderShelf);$('#sort').addEventListener('
 $('#chips').addEventListener('click',e=>{const b=e.target.closest('[data-filter]');if(!b)return;filter=b.dataset.filter;$$('#chips [data-filter]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));renderShelf();});
 $$('[data-tab]').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tab)));
 ['anime','manga','tv'].forEach(k=>$('#n-'+k).textContent=SHELF[k].items.filter(SHELF[k].main).length);
-$('#rewatches').innerHTML=SH.rewatches.map(r=>`<article><h3>${esc(r.title)} · ${esc(r.count)}</h3><p>${esc(r.body)}</p></article>`).join('');
+// rewatches he told me about in chat that his notes don't list yet (his words); the notes win once they do
+const RW_ADD=[{title:'Violet Evergarden',count:'2×',body:'Rewatched the entire show again with my family (October 2026). It increased my understanding of the character.'}];
+const RW=[...SH.rewatches,...RW_ADD.filter(a=>!SH.rewatches.some(r=>r.title===a.title))];
+$('#rewatches').innerHTML=RW.map(r=>`<article><h3>${esc(r.title)} · ${esc(r.count)}</h3><p>${esc(r.body)}</p></article>`).join('');
 setTab('anime');
 function openRecord(i){const a=shown[i];if(!a)return;const p=posterOf(a),n=scoreNum(a.s);
  const kind={anime:'Anime',manga:'Manga',tv:'Live action'}[a.k]||'Record';
  const extra=(a.extra||[]).map(t=>`<span>${esc(t)}</span>`).join('');
- openDialog(`<div class="rec-layout rec-poster">${p?`<img src="${esc(p.img)}" alt="${esc(a.t)} cover" style="aspect-ratio:auto">`:''}<div><p class="eyebrow">${kind} · ${esc(a.rank?'Personal top ten #'+a.rank:a.tag||'Personal record')}</p><h2 id="dialog-title">${esc(a.t)}</h2>${a.s?`<p class="big-score">${esc(a.s)}${n!==null?' <small>/ 10</small>':''}</p>`:''}${a.tagline?`<p class="rec-tagline">“${esc(a.tagline)}”</p>`:''}${a.why?`<p><strong>${esc(a.why)}</strong></p>`:''}${a.b?`<p>${esc(a.b)}</p>`:''}${a.ratingNote?`<p class="subtle">${esc(a.ratingNote)}</p>`:''}${extra?`<div class="tags">${extra}</div>`:''}<p class="subtle">From my notes${SH.updated?', last synced '+new Date(SH.updated).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}):''}.${p?' Cover art: AniList / TVmaze.':''}</p></div></div>`);}
+ openDialog(`<div class="rec-layout rec-poster">${p?`<img src="${esc(p.img)}" alt="${esc(a.t)} cover" style="aspect-ratio:auto">`:''}<div><p class="eyebrow">${kind} · ${esc(a.rank?'Personal top ten #'+a.rank:a.tag||'Personal record')}</p><h2 id="dialog-title">${esc(a.t)}</h2>${a.s?`<p class="big-score">${esc(a.s)}${n!==null?' <small>/ 10</small>':''}</p>`:''}${a.tagline?`<p class="rec-tagline">“${esc(a.tagline)}”</p>`:''}${a.why?`<p><strong>${esc(a.why)}</strong></p>`:''}${a.b?String(a.b).split(/\n\s*\n/).map(t=>`<p>${esc(t)}</p>`).join(''):''}${a.ratingNote?`<p class="subtle">${esc(a.ratingNote)}</p>`:''}${extra?`<div class="tags">${extra}</div>`:''}<p class="subtle">From my notes${SH.updated?', last synced '+new Date(SH.updated).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}):''}.${p?' Cover art: AniList / TVmaze.':''}</p></div></div>`);}
 
 /* ------------------------------------------------------------------ the logbook */
 const fmtDate=d=>new Date(d+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});

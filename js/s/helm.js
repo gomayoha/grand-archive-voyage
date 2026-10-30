@@ -9,7 +9,7 @@
 import {$,esc,clamp,smooth,view,part,pinned,follower,motion,data,absTop,jumpTo,pic,FU,dims,loadNear,coarse,warm,kick} from '../core.js';
 import {onTilt} from '../tilt.js';
 import {G5} from '../gear5.js';
-import {B,chests,title,money,onBounty,openTreasure,openGames} from '../bounty.js';
+import {B,chests,title,money,onBounty,openTreasure,openGames,openCharLog} from '../bounty.js';
 import {startAuto} from '../autovoyage.js';
 
 const STEP=0.36;          // screens of scrolling per option
@@ -20,16 +20,16 @@ const detent=u=>{const i=Math.floor(u),f=u-i;return i+f-0.8*Math.sin(2*Math.PI*f
 function items(){
  const m=data.media||{},n=data.characters?.characters?.length||11,spread=m.spreads?.wall?.[31]||m.spreads?.wall?.[0];
  return [
-  {to:'characters',id:'3358de4cd87c',k:`01 · ${n} records`,t:'The Character <em>Log</em>',line:'They each left something behind. The one word, and everything I wrote about them.',subs:[['characters','The records'],['crew','The Crew']]},
-  {to:'strawhats',id:'9fdfff7bb2ea',k:'Ten dreams, one ship',t:'The Straw Hat <em>Pirates</em>',line:'A walk down the deck, one crew member at a time, in the order they joined.',subs:[['strawhats','The deck'],['crew','Every wanted poster']]},
+  {room:'chars',to:'characters',id:'3358de4cd87c',k:`01 · ${n} sealed records`,t:'The Character <em>Log</em>',line:'They each left something behind. Kept sealed until you want them: pick one, read everything I wrote, or watch them all.',cta:'Break the seal'},
+  {to:'strawhats',id:'9fdfff7bb2ea',k:'Ten dreams, one ship',t:'The Straw Hat <em>Pirates</em>',line:'A walk down the deck, one crew member at a time, in the order they joined.',subs:[['strawhats','The deck'],['closer','Look closer'],['crew','Every wanted poster']]},
   {to:'depths',id:'5b4d8ea99809',k:'03 · Sky, sea, ten paintings',t:'The <em>Voyage</em>',line:'A fall from Skypiea to Fish-Man Island, then ten seas hidden inside each other.',subs:[['depths','Between the sky and the sea'],['voyage','The ten seas'],['moments','Moments']]},
   {to:'spreads',id:spread,k:'04 · 05 · Ink and colour',t:'The <em>Manga</em>',line:'Oda’s colour spreads, then a volume of my favourite panels, read right to left.',subs:[['spreads','Colour spreads'],['panels','Favourite panels']]},
   {page:'story.html',id:'695560c960c1',k:'A page of its own',t:'The Story of <em>One Piece</em>',line:'The whole manga, arc by arc, from Roger’s execution to the chapter I’m reading now.',cta:'Open the story ↗'},
   {to:'journey',id:'b9638d43c913',k:'06 · 07 · Every anime, in order',t:'The Anime <em>Journey</em>',line:'A sea chart of every story I’ve watched, my top 10, every rating and the logbook.',subs:[['journey','The sea chart'],['top','Top 10'],['records','The Shelf'],['logbook','The Logbook']]},
-  {to:'worlds',id:'e76799f07af1',k:'08 · 09 · 10 · Beyond the Grand Line',t:'Other <em>worlds</em>',line:'The stories that stayed, my cards, the scene I can’t stop replaying, the Ohara Library.',subs:[['worlds','Other worlds'],['vault','Card Vault'],['table','Card Table'],['scenes','Scenes'],['library','Ohara Library']]},
+  {to:'worlds',id:'e76799f07af1',k:'08 · 09 · 10 · Beyond the Grand Line',t:'Other <em>worlds</em>',line:'The stories that stayed, my cards, the scene I can’t stop replaying, the Ohara Library.',subs:[['worlds','Other worlds'],['orv','The Star Stream'],['vault','Card Vault'],['table','Card Table'],['scenes','Scenes'],['library','Ohara Library']]},
   {to:'sky',id:'3024e75b52de',k:'Every one of them',t:'The night <em>sky</em>',line:'Every character a constellation, every star something they taught me.',subs:[['sky','The night sky']]},
   {mode:'auto',id:'6ec6b336fb55',k:'New · a way to sail',t:'Auto <em>voyage</em>',line:'Sit back. The archive sails itself, chapter by chapter, all the way to the last page.',cta:'Start sailing ▸'},
-  {room:'games',src:'assets/media/luffy_poster.jpg',k:'New · four games',t:'The Game <em>Room</em>',line:'Higher or lower, a gust of wanted posters, a quiz about me, and Observation Haki.',cta:'Play'},
+  {room:'games',src:'assets/media/luffy_poster.jpg',k:'Seven games · and the trivia',t:'The Game <em>Room</em>',line:'Who’s that pirate, a memory log, a puzzle, a gust of wanted posters, and Grand Line Trivia for two.',cta:'Play'},
   {room:'treasure',id:'c95409fbc40a',k:'New · your bounty',t:'The Treasure <em>Room</em>',line:'Every minute here and everything you learn earns berries. Milestones wash chests ashore.',cta:'Open'},
   {mode:'surprise',id:null,k:'Can’t decide?',t:'Surprise <em>me</em>',line:'Spin the wheel and let the sea decide where we go.',cta:'Spin the wheel'}
  ];
@@ -162,7 +162,7 @@ export function initHelm(){
   if(it.mode==='auto'){startAuto({from:'helm'});return;}
   sailing=true;const el=els[i].el;
   try{
-   if(it.room){await fly(it,el,async()=>{(it.room==='treasure'?openTreasure:openGames)();await new Promise(r=>setTimeout(r,250));});}
+   if(it.room){await fly(it,el,async()=>{(it.room==='treasure'?openTreasure:it.room==='chars'?openCharLog:openGames)();await new Promise(r=>setTimeout(r,250));});}
    else if(it.page){await fly(it,el,async()=>{location.href=it.page;await new Promise(r=>setTimeout(r,1500));});}
    else await fly(it,el,async()=>land(sub||it.to));
   }finally{sailing=false;}

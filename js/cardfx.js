@@ -6,7 +6,7 @@
 // Every card turns over on a tap: the back says when you unlocked it, where you found it, and its odds.
 // Each one also has a full-screen opening that plays in the chest ceremony, the moment the card turns up.
 // (Prototype that was approved first: the "Special Card Lab" artifact. Same moves, same numbers.)
-import {motion,clamp,esc} from './core.js';
+import {motion,clamp,esc,data} from './core.js';
 import {B,save,once} from './bounty.js';
 
 const $=(s,r=document)=>r.querySelector(s);
@@ -16,7 +16,7 @@ const PAN=['05f6434eeb9b','2af29ff1fb9a','0a982390dc21','0d6e7d7accc5','1d5957ea
 export const preload=()=>PAN.forEach(p=>{const i=new Image();i.src=`assets/panels/${p}.webp`;});
 const fmt=ms=>new Date(ms).toLocaleString('en-GB',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}).replace(',',' ·');
 const cx=id=>((B.cx||(B.cx={}))[id]||(B.cx[id]={}));
-const ODDS={sun:'0.4% of cards',rm:'0.8% of cards',m:'1.8% of cards',sec:'3% of cards',sr:'9% of cards',r:'23% of cards',c:'62% of cards',conq:'1 of 1'};
+const ODDS={sun:'0.4% of cards',mos:'1.2% of cards · only his collages',rm:'0.8% of cards',m:'1.8% of cards',sec:'3% of cards',sr:'9% of cards',r:'23% of cards',c:'62% of cards',conq:'1 of 1'};
 
 /* ---------------------------------------------------------------- the back of a card */
 const rows=a=>'<div class="cb-rows">'+a.map(([k,v])=>`<div><span>${k}</span><b>${v}</b></div>`).join('')+'</div>';
@@ -26,6 +26,7 @@ export function backHTML(r,p,name){
  const col=`${esc(p.col)} · No. ${p.i} of ${p.of}`;
  if(r==='conq')return `<div class="cb cb-conq"><div class="cb-ring"><span>G</span></div><h4>Conqueror · 1 of 1</h4><div class="cb-big">It chose you.</div><p>The only one in the archive. It can’t be bought or rolled.</p>${rows([['Conquered',when],['Found in',found],['Picture',col],['Print','1 / 1']])}</div>`;
  if(r==='sun')return `<div class="cb cb-sun"><div class="cb-ring"><span>☀</span></div><h4>Sun God · the rarest</h4><div class="cb-big">It has a heartbeat.</div><p>Pull the card. It’s rubber.</p><svg class="cb-hb" viewBox="0 0 250 46" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M0 26H70L80 8L94 40L106 16L114 26H250"/></svg>${rows([['Awakened',when],['Found in',found],['Picture',col],['Odds',ODDS.sun]])}</div>`;
+ if(r==='mos')return `<div class="cb cb-mos"><div class="cb-tiles" aria-hidden="true">${'<i></i>'.repeat(24)}</div><h4>Mosaic · his pick</h4><div class="cb-big">Look closer.</div><p>Every little square is another cover. Drag across the front to hold a lens to it.</p>${rows([['Unlocked',when],['Found in',found],['Picture',col],['Odds',ODDS.mos]])}</div>`;
  if(r==='rm')return `<div class="cb cb-rm"><div class="cb-last">— Last page —</div><div class="cb-stamp">開封</div><h4>Red Manga · colophon</h4><div class="cb-big">Printed in red ink.</div><p>Stamped with the moment you opened it, like the last page of a volume.</p>${rows([['Unsealed',when],['Found in',found],['Picture',col],['Under the ink',c.peeled?'Peeled '+fmt(c.peeled):'Full colour']])}</div>`;
  if(r==='m')return `<div class="cb cb-m"><div class="cb-last">— Inked by hand —</div><div class="cb-hk">完</div><h4>Manga · colophon</h4><div class="cb-big">Black ink on white paper.</div><p>The page is signed the moment you finish inking it.</p>${rows([['Unlocked',when],['Inked',c.inked?fmt(c.inked):'Not yet. Draw on it.'],['Found in',found],['Picture',col]])}</div>`;
  const nm={sec:'Secret',sr:'Super rare',r:'Rare',c:'Common'}[r]||'';
@@ -41,7 +42,7 @@ function tapper(card,skip=()=>false){
  const end=(e,ok)=>{if(!on)return;on=false;if(ok&&!moved&&performance.now()-t0<450&&!skip(e))flip(card);};
  card.addEventListener('pointerup',e=>end(e,true));card.addEventListener('pointercancel',e=>end(e,false));
 }
-export const hint={conq:'Hold your finger on it until the ring closes · tap to turn it over',sun:'Grab it anywhere and pull · tap to turn it over',rm:'Drag the curled corner, like a page · tap to turn it over',m:'Draw on it with your finger · tap to turn it over'};
+export const hint={mos:'Drag across it to look closer · tap to turn it over',conq:'Hold your finger on it until the ring closes · tap to turn it over',sun:'Grab it anywhere and pull · tap to turn it over',rm:'Drag the curled corner, like a page · tap to turn it over',m:'Draw on it with your finger · tap to turn it over'};
 
 /* ---------------------------------------------------------------- Conqueror: Haki cracks the screen */
 const NS='http://www.w3.org/2000/svg';
@@ -186,12 +187,29 @@ export function mount(card,p,r,host){
  if(r==='sun')return mountSun(card,p,host);
  if(r==='rm')return mountRed(card,p,host);
  if(r==='m')return mountInk(card,p,host);
+ if(r==='mos')return mountMos(card,p,host);
  tapper(card);return()=>{};
 }
 
+/* ---------------------------------------------------------------- Mosaic: a lens over the hundred covers */
+function mountMos(card,p,host){
+ const front=$('.tc-front',card),img=$('img',front),lens=document.createElement('i');lens.className='cx-lens';front.appendChild(lens);
+ let on=false,moved=false,sx=0,sy=0;
+ const put=e=>{const r=img.getBoundingClientRect(),u=clamp((e.clientX-r.left)/r.width),v=clamp((e.clientY-r.top)/r.height),M=3,S=lens.offsetWidth||120;
+  lens.style.backgroundImage=`url("${img.currentSrc||img.src}")`;lens.style.backgroundSize=`${r.width*M}px ${r.height*M}px`;
+  lens.style.backgroundPosition=`${(-u*r.width*M+S/2).toFixed(1)}px ${(-v*r.height*M+S/2).toFixed(1)}px`;
+  lens.style.left=(u*100).toFixed(2)+'%';lens.style.top=(v*100).toFixed(2)+'%';};
+ card.addEventListener('pointerdown',e=>{if(e.button>0||card.classList.contains('flipped'))return;on=true;moved=false;sx=e.clientX;sy=e.clientY;try{card.setPointerCapture(e.pointerId);}catch{}});
+ card.addEventListener('pointermove',e=>{if(!on)return;if(!moved&&Math.hypot(e.clientX-sx,e.clientY-sy)>8){moved=true;card.classList.add('lensed');}if(moved)put(e);});
+ const up=()=>{if(!on)return;on=false;if(moved){card.classList.remove('lensed');once('cx:mosaic',1e6,'Looked closer at a Mosaic card');}};
+ card.addEventListener('pointerup',up);card.addEventListener('pointercancel',up);
+ tapper(card,()=>moved);
+ return()=>{lens.remove();};
+}
+
 /* ---------------------------------------------------------------- the openings (played in the chest ceremony) */
-const NAMES={conq:['CONQUEROR','One of one · it chose you'],sun:['SUN GOD','Gear 5 · the drums of liberation'],rm:['RED MANGA','Printed in red ink'],m:['MANGA','Inked in black, signed 完']};
-const LEN={conq:3600,sun:4400,rm:4400,m:5400};
+const NAMES={mos:['MOSAIC','A hundred covers · one Straw Hat'],conq:['CONQUEROR','One of one · it chose you'],sun:['SUN GOD','Gear 5 · the drums of liberation'],rm:['RED MANGA','Printed in red ink'],m:['MANGA','Inked in black, signed 完']};
+const LEN={mos:4200,conq:3600,sun:4400,rm:4400,m:5400};
 // resolves when the person taps to carry on (or the ceremony is closed under it)
 export function opening(L,p,r,cardHTML){
  if(motion.reduced||!NAMES[r])return Promise.resolve();
@@ -201,6 +219,9 @@ export function opening(L,p,r,cardHTML){
   if(r==='conq')inner=`<div class="o-bgl"></div><i class="o-wave" style="--wd:1.7s"></i><i class="o-wave" style="--wd:1.95s"></i><i class="o-wave" style="--wd:2.2s"></i><div class="o-shut t"></div><div class="o-shut b"></div>`;
   if(r==='rm')inner=`<div class="o-page">${PAN.map((id,i)=>`<div style="--pd:${(i*.12).toFixed(2)}s;--fx:${i%2?'70px':'-70px'}"><img src="assets/panels/${id}.webp" alt=""></div>`).join('')}${PAN.slice(0,3).map((id,i)=>`<div style="--pd:${(.7+i*.1).toFixed(2)}s;--fx:${i%2?'-70px':'70px'}"><img src="assets/panels/${id}.webp" alt=""></div>`).join('')}</div><div class="o-sfx">ドォン</div>`;
   if(r==='sun')inner=`<div class="o-sky"></div><i class="o-drum" style="--wd:.5s"></i><i class="o-drum" style="--wd:.95s"></i><i class="o-drum" style="--wd:1.4s"></i><i class="o-drum" style="--wd:1.85s"></i><div class="o-cl" style="left:-10vw;top:-10vh"></div><div class="o-cl" style="right:-20vw;top:0"></div><div class="o-cl" style="left:10vw;top:20vh"></div><div class="o-wf"></div>`;
+  // Mosaic: the covers of that Straw Hat fly in from everywhere and lock into a wall, then the card steps out of it
+  if(r==='mos'){const own=(data.media?.characters||[]).concat(data.media?.crew||[]).find(c=>c.all?.includes(p.id)),ids=(own?.all||[]).filter(x=>x!==p.id&&!(data.media.collages||[]).some(c=>c.id===x)),n=48;
+   inner=`<div class="o-mos">${Array.from({length:n},(_,i)=>{const id=ids.length?ids[i%ids.length]:p.id;return `<i style="--tx:${R(-120,120).toFixed(0)}vw;--ty:${R(-120,120).toFixed(0)}vh;--tr:${R(-90,90).toFixed(0)}deg;--td:${(R(0,.9)).toFixed(2)}s;--sd:${((i%8)*.06+Math.floor(i/8)*.05).toFixed(2)}s"><img src="assets/img/t/${id}.webp" alt="" decoding="async"></i>`;}).join('')}</div><div class="o-sweep"></div>`;}
   if(r==='m')inner=`<div class="o-pg">${['a','b','c','d','e'].map((a,i)=>`<div class="o-pn" style="grid-area:${a};--pd:${(i*.22).toFixed(2)}s"><img src="assets/panels/${PAN[i]}.webp" alt=""></div>`).join('')}</div><div class="o-speed"></div><div class="o-sfx">バァン</div><div class="o-curt"></div>`;
   ov.innerHTML=`${inner}<div class="o-stage"><div class="o-card">${cardHTML}</div><div class="o-lbl"><b>${NAMES[r][0]}</b><small>${NAMES[r][1]}</small></div></div><div class="o-tip">Tap to continue</div>`;
   L.appendChild(ov);

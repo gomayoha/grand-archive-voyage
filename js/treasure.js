@@ -55,12 +55,15 @@ const byId=id=>pool().find(p=>p.id===id);
 // and a few pictures he chose himself (Oct 22): the one-of-one Conqueror is his Sanji in the sun with the red
 // lightning of Conqueror's Haki, drawn as red-and-black manga ink; one Robin is a Manga card.
 const FIXED={'47b69db1012b':'conq','12b3e69a60d3':'m'};
+// Mosaic (Oct 30 2026): his Pinterest collages, a Straw Hat in front of every cover they ever had (media.collages,
+// s/closer.js). Every collage is one, and only they are; they sit just under the Sun God.
+const isMos=id=>(data.media?.collages||[]).some(x=>x.id===id);
 export const CONQ='47b69db1012b',CONQ_AT=11;
-export const rarity=id=>{if(FIXED[id])return FIXED[id];const v=parseInt(id.slice(-5),16)%1000;return v<30?'sec':v<34?'sun':v<42?'rm':v<60?'m':v<150?'sr':v<380?'r':'c';};
-export const RNAME={conq:'Conqueror',sun:'Sun God',rm:'Red Manga',m:'Manga',sec:'Secret',sr:'Super rare',r:'Rare',c:'Common'};
-const RSHORT={conq:'CONQUEROR',sun:'SUN GOD',rm:'RED MANGA',m:'MANGA',sec:'SEC',sr:'SR',r:'R',c:'C'};
-const TIERS=['conq','sun','rm','m','sec','sr','r','c'],SPECIAL=new Set(['conq','sun','rm','m','sec']);
-const ODDS=[['sun',0.4],['rm',0.8],['m',1.8],['sec',3],['sr',9],['r',23],['c',62]];
+export const rarity=id=>{if(FIXED[id])return FIXED[id];if(isMos(id))return 'mos';const v=parseInt(id.slice(-5),16)%1000;return v<30?'sec':v<34?'sun':v<42?'rm':v<60?'m':v<150?'sr':v<380?'r':'c';};
+export const RNAME={conq:'Conqueror',sun:'Sun God',mos:'Mosaic',rm:'Red Manga',m:'Manga',sec:'Secret',sr:'Super rare',r:'Rare',c:'Common'};
+const RSHORT={conq:'CONQUEROR',sun:'SUN GOD',mos:'MOSAIC',rm:'RED MANGA',m:'MANGA',sec:'SEC',sr:'SR',r:'R',c:'C'};
+const TIERS=['conq','sun','mos','rm','m','sec','sr','r','c'],SPECIAL=new Set(['conq','sun','mos','rm','m','sec']);
+const ODDS=[['sun',0.4],['mos',1.2],['rm',0.8],['m',1.8],['sec',3],['sr',9],['r',23],['c',60.8]];
 const tier=()=>{let x=Math.random()*100;for(const [t,w] of ODDS){if((x-=w)<0)return t;}return 'c';};
 
 /* ---------------------------------------------------------------- fruits and relics */
@@ -134,7 +137,7 @@ const PLANKS=8;
 export const chestHTML=(cls='')=>`<div class="ch ${cls}"><div class="ch-float"><div class="ch-rot"><div class="ch-body"><i class="ch-f ch-back"></i><i class="ch-f ch-left"></i><i class="ch-f ch-right"></i><i class="ch-f ch-bottom"></i><i class="ch-glow"></i><i class="ch-f ch-front"><i class="ch-lock"><i></i></i></i></div><div class="ch-lid">${Array.from({length:PLANKS},(_,k)=>{const a=(k+0.5)*Math.PI/PLANKS,sh=(0.62-0.55*Math.sin(a)+(a>Math.PI/2?0.18:0)).toFixed(2);return `<i class="ch-pl" style="--k:${k};--sh:${sh}"></i>`;}).join('')}<i class="ch-cap ch-cl"></i><i class="ch-cap ch-cr"></i><i class="ch-hasp"></i></div></div></div><i class="ch-shadow"></i></div>`;
 // the Conqueror wears the picture he made himself (his Sanji over the manga panels); the rest are the archive's own
 const cardImg=(id,big)=>id===CONQ?`assets/cards/conqueror${big?'':'-t'}.webp`:big?FU(id):TH(id);
-const cardHTML=(p,{back=true,big=false,lazy=false}={})=>{const r=rarity(p.id);return `<div class="tc r-${r}${big?' big':''}" data-id="${p.id}"><div class="tc-in"><div class="tc-front"><img src="${cardImg(p.id,big)}" alt="" decoding="async"${lazy?' loading="lazy"':''}>${r==='m'||r==='rm'?'<i class="tc-ink" aria-hidden="true"></i><i class="tc-tone" aria-hidden="true"></i>':''}${r==='sun'?'<i class="tc-cloud" aria-hidden="true"></i><i class="tc-cloud b" aria-hidden="true"></i>':''}${r==='conq'?`<i class="tc-tone" aria-hidden="true"></i><i class="tc-haki" aria-hidden="true">${HAKI}</i>`:''}<i class="tc-foil" aria-hidden="true"></i><i class="tc-glare" aria-hidden="true"></i><span class="tc-meta"><b>${esc(p.col)}</b><small>No. ${p.i} / ${p.of}</small></span><span class="tc-r">${RSHORT[r]}</span>${p.dup?'<span class="tc-dup">Duplicate · ฿2,000,000</span>':''}</div>${big?`<div class="tc-bk" aria-hidden="true">${backHTML(r,p)}</div>`:back?'<div class="tc-back" aria-hidden="true"><i></i><b>Grand Archive</b></div>':''}</div></div>`;};
+const cardHTML=(p,{back=true,big=false,lazy=false}={})=>{const r=rarity(p.id);return `<div class="tc r-${r}${big?' big':''}" data-id="${p.id}"><div class="tc-in"><div class="tc-front"><img src="${cardImg(p.id,big)}" alt="" decoding="async"${lazy?' loading="lazy"':''}>${r==='m'||r==='rm'?'<i class="tc-ink" aria-hidden="true"></i><i class="tc-tone" aria-hidden="true"></i>':''}${r==='sun'?'<i class="tc-cloud" aria-hidden="true"></i><i class="tc-cloud b" aria-hidden="true"></i>':''}${r==='mos'?'<i class="tc-mos" aria-hidden="true"></i>':''}${r==='conq'?`<i class="tc-tone" aria-hidden="true"></i><i class="tc-haki" aria-hidden="true">${HAKI}</i>`:''}<i class="tc-foil" aria-hidden="true"></i><i class="tc-glare" aria-hidden="true"></i><span class="tc-meta"><b>${esc(p.col)}</b><small>No. ${p.i} / ${p.of}</small></span><span class="tc-r">${RSHORT[r]}</span>${p.dup?'<span class="tc-dup">Duplicate · ฿2,000,000</span>':''}</div>${big?`<div class="tc-bk" aria-hidden="true">${backHTML(r,p)}</div>`:back?'<div class="tc-back" aria-hidden="true"><i></i><b>Grand Archive</b></div>':''}</div></div>`;};
 // Conqueror's Haki: black lightning with a red core, crackling across the card
 const bolt=(x,y,len,a,seg=12)=>{let d=`M${x} ${y}`,br='';for(let i=1;i<=seg;i++){x+=Math.cos(a)*len/seg+(Math.random()-.5)*11;y+=Math.sin(a)*len/seg+(Math.random()-.5)*11;d+=`L${x.toFixed(1)} ${y.toFixed(1)}`;
   if(i%4===2){let bx=x,by=y,ba=a+(Math.random()<.5?-1:1)*(0.6+Math.random()*.5);br+=`M${bx.toFixed(1)} ${by.toFixed(1)}`;for(let j=0;j<4;j++){bx+=Math.cos(ba)*6+(Math.random()-.5)*6;by+=Math.sin(ba)*6+(Math.random()-.5)*6;br+=`L${bx.toFixed(1)} ${by.toFixed(1)}`;}}}return d+br;};
@@ -172,7 +175,7 @@ function build(){
   </section>
   <section class="cs" id="tr-case" aria-label="Your showcase"></section>
   <nav class="tr-tabs" role="tablist" aria-label="The Treasure Room">
-   <button role="tab" data-tab="log">Treasure Log</button><button role="tab" data-tab="market">Black Market</button><button role="tab" data-tab="fruits">Devil Fruits</button><button role="tab" data-tab="themes">Themes</button><button role="tab" data-tab="relics">Relics</button><button role="tab" data-tab="board">Bounty board</button>
+   <button role="tab" data-tab="log">Treasure Log</button><button role="tab" data-tab="market">Black Market</button><button role="tab" data-tab="fruits">Devil Fruits</button><button role="tab" data-tab="themes">Themes</button><button role="tab" data-tab="relics">Relics</button><button role="tab" data-tab="board">Bounty board</button><button role="tab" data-tab="backup">Backup</button>
   </nav>
   <div class="tr-panel" id="tr-panel" role="tabpanel"></div>
   <p class="tr-fine">Your bounty, chests and cards live in this browser only. Every picture is one of Goma’s; the cards are just a new way to look at them.</p>
@@ -185,6 +188,7 @@ function build(){
  dlg.addEventListener('close',()=>{fx.stop();document.documentElement.style.overflow='';document.documentElement.classList.remove('room-open');moreIO?.disconnect();moreIO=null;if(location.hash==='#treasure')history.replaceState(null,'',location.pathname+location.search);});
  dlg.addEventListener('cancel',e=>{if(nameEdit||$d('.tr-door')){e.preventDefault();return;}const film=$d('.tr-film');if(film){e.preventDefault();film.querySelector('[data-film-close]').click();return;}if(!$d('#tr-cer').hidden||!$d('#tr-insp').hidden){e.preventDefault();closeLayers();}});
  dlg.addEventListener('click',onClick);
+ dlg.addEventListener('click',e=>{if(e.target.closest('[data-bk-save]'))onBackup(e);});dlg.addEventListener('change',e=>{if(e.target.closest('[data-bk-load]'))onBackup(e);});
  onBounty(()=>{if(dlg.open&&$d('#tr-cer').hidden){renderHero();if(tab==='board'||tab==='market')renderPanel();}});
  // the chest and the inspected card lean toward the mouse, or the way the phone is held
  const rot=$d('.tr-chest .ch-rot');
@@ -231,6 +235,13 @@ function startName(){
  i.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();fin(true);}else if(e.key==='Escape'){e.preventDefault();e.stopPropagation();fin(false);}});
  i.addEventListener('blur',()=>fin(true));
 }
+// Backup: everything you've earned lives in this browser; save it to a file, load it back anywhere (js/backup.js)
+function backupHTML(i){
+ const when=i.last?new Date(i.last).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}):null;
+ return `<div class="bk"><div class="bk-copy"><p class="tf-lede">Your bounty, cards, Devil Fruits, gold, relics, poneglyphs and trivia levels live only in this browser. Clear it, or change phones, and they’re gone. Keep a copy.</p><p class="bk-n"><b>${i.cards}</b> cards · ${i.n} things remembered${when?` · last saved ${when}`:' · never backed up'}</p></div>
+  <div class="bk-acts"><button class="pill" data-bk-save>Save a backup file</button><label class="pill ghost bk-load">Restore from a file<input type="file" accept="application/json,.json" data-bk-load hidden></label></div>
+  <p class="bk-msg" id="bk-msg" aria-live="polite"></p><p class="tr-fine">On iPhone the file goes to Files. Restoring replaces what this browser has now with what the file holds.</p></div>`;
+}
 function renderPanel(){
  const P=$d('#tr-panel');moreIO?.disconnect();moreIO=null;
  if(tab==='log')P.innerHTML=logHTML();
@@ -239,6 +250,7 @@ function renderPanel(){
  if(tab==='board')P.innerHTML=boardHTML();
  if(tab==='market')P.innerHTML=marketHTML();
  if(tab==='themes')P.innerHTML=themesHTML();
+ if(tab==='backup')import('./backup.js').then(m=>{if(tab==='backup')P.innerHTML=backupHTML(m.backupInfo());});
  if(tab==='log')logWatch();
 }
 /* ---------------------------------------------------------------- the Black Market: gold buys time */
@@ -336,6 +348,11 @@ function boardHTML(){
 
 /* ---------------------------------------------------------------- clicks */
 function closeLayers(){const c=$d('#tr-cer'),i=$d('#tr-insp');if(!i.hidden){unmount?.();unmount=null;i.hidden=true;i.innerHTML='';return;}if(!c.hidden){c.hidden=true;c.innerHTML='';render();count();}}
+async function onBackup(e){
+ const m=await import('./backup.js'),msg=$d('#bk-msg');
+ if(e.type==='click'&&e.target.closest('[data-bk-save]')){m.saveBackup();if(msg)msg.textContent='Saved. Keep the file somewhere safe.';setTimeout(renderPanel,1200);}
+ const inp=e.target.closest('[data-bk-load]');if(e.type==='change'&&inp?.files?.[0]){try{const r=await m.loadBackup(inp.files[0]);if(msg)msg.textContent=`Restored ${r.n} things${r.saved?` from ${new Date(r.saved).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}`:''}. Reloading…`;setTimeout(()=>location.reload(),1200);}catch(err){if(msg)msg.textContent=err.message;}}
+}
 async function onClick(e){
  const t=e.target;
  if(t.closest('[data-tr-close]')||t===dlg){if(!$d('#tr-cer').hidden||!$d('#tr-insp').hidden)closeLayers();else dlg.close();return;}
@@ -373,7 +390,7 @@ function inspect(id){
 
 /* ---------------------------------------------------------------- the ceremony */
 // the four top rarities open with a full-screen scene of their own (js/cardfx.js)
-const OPENS=new Set(['conq','sun','rm','m']);
+const OPENS=new Set(['conq','sun','mos','rm','m']);
 let busy=false;
 async function ceremony(){
  if(busy)return;const roll=openOne();if(!roll)return;busy=true;
@@ -412,7 +429,7 @@ async function stage(roll){
  await wait(900+items.length*130);
  // they turn over one by one; tap one to turn it sooner
  const flip=i=>{const s=slots[i];if(!s||s.classList.contains('up'))return;s.classList.add('up');const it=items[i];
-  if(it.p){const r=rarity(it.p.id);if(r==='sr'||SPECIAL.has(r))flash(s,r);if(r==='sun'||r==='rm'||r==='conq')callout(r,s);s.setAttribute('aria-label',`${it.p.col}, ${RNAME[r]}`);}
+  if(it.p){const r=rarity(it.p.id);if(r==='sr'||SPECIAL.has(r))flash(s,r);if(r==='sun'||r==='rm'||r==='conq'||r==='mos')callout(r,s);s.setAttribute('aria-label',`${it.p.col}, ${RNAME[r]}`);}
   else{flash(s,'special');name(it.s);}};
  L.querySelector('.tc-row').addEventListener('click',e=>{const s=e.target.closest('.tc-slot');if(s)flip(+s.dataset.i);});
  for(let i=0;i<items.length;i++){const it=items[i];if(it.p&&!it.p.dup&&OPENS.has(rarity(it.p.id)))await playOpening(L,it.p,rarity(it.p.id),cardHTML(it.p,{back:false,big:true}));flip(i);await wait(it.s?700:420);}
@@ -434,7 +451,7 @@ function name(s){
 // the rarest ones announce themselves
 function callout(r,slot){const el=$d('#tc-name');if(!el)return;
  if(r==='conq'){el.innerHTML='<p class="eyebrow">Conqueror’s Haki</p><h3>The one and only.</h3><p>There is a single Conqueror card in the whole archive, and it chose you. Everything else in the chest just fainted.</p>';el.classList.add('in');haki(slot);return;}
- if(el.classList.contains('in'))return;el.innerHTML=r==='sun'?'<p class="eyebrow">Don don don don</p><h3>A Sun God card.</h3><p>The rarest card in the archive. Listen to it: it has a heartbeat.</p>':'<p class="eyebrow">Red ink</p><h3>A Red Manga card.</h3><p>Printed in red and gold, like the rarest manga cards in the real game.</p>';el.classList.add('in');}
+ if(el.classList.contains('in'))return;el.innerHTML=r==='sun'?'<p class="eyebrow">Don don don don</p><h3>A Sun God card.</h3><p>The rarest card in the archive. Listen to it: it has a heartbeat.</p>':r==='mos'?'<p class="eyebrow">A hundred covers</p><h3>A Mosaic card.</h3><p>One of his collages: a Straw Hat in front of every cover they ever had. Hold it up close and look at the small things.</p>':'<p class="eyebrow">Red ink</p><h3>A Red Manga card.</h3><p>Printed in red and gold, like the rarest manga cards in the real game.</p>';el.classList.add('in');}
 // the Conqueror arrives like Haki does: a black-and-red shockwave, the room shakes, the other cards faint
 function haki(slot){
  if(motion.reduced)return;const L=$d('#tr-cer');

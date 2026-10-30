@@ -1939,3 +1939,162 @@ dialog.ef[open]{animation:efIn .6s var(--ease)}
 .ef-end .eyebrow{color:var(--h2)}
 .ef-acts{margin-top:14px}
 .ef.still .ef-wave{clip-path:circle(150% at 50% 44%);opacity:.22}
+
+/* ---------- 01 · The Character Log, sealed (Oct 30 2026): a bundle of portraits tied with a ribbon; opens a room (css/charlog.css) ---------- */
+.cl-entry{position:relative;overflow:hidden;padding:clamp(110px,12vw,170px) 0 clamp(80px,10vw,140px);background:radial-gradient(70% 60% at 78% 48%,rgba(243,201,105,.10),transparent 70%),radial-gradient(60% 50% at 10% 90%,rgba(120,40,30,.18),transparent 70%),#000}
+.cl-e-in{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(30px,6vw,96px);align-items:center}
+.cl-e-copy h2{font-size:clamp(48px,6.6vw,108px);margin:16px 0 22px}
+.cl-e-lede{font-size:clamp(17px,1.45vw,21px);line-height:1.5;color:#c9c9ce;max-width:44ch}
+.cl-e-acts{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:30px 0 34px}
+.cl-e-open i{font-style:normal;transition:transform .5s var(--ease)}.cl-e-open:hover i{transform:translateX(4px)}
+.cl-faces{display:flex;flex-wrap:wrap;align-items:center;gap:0;padding-left:10px}
+.cl-face{position:relative;width:52px;height:52px;margin-left:-10px;border-radius:50%;overflow:visible;transition:transform .45s var(--ease),z-index 0s}
+.cl-face img{width:100%;height:100%;object-fit:cover;object-position:50% 22%;border-radius:50%;box-shadow:0 0 0 2.5px #000,0 0 0 4px color-mix(in srgb,var(--tint) 70%,#fff 30%)}
+.cl-face span{position:absolute;left:50%;top:calc(100% + 8px);transform:translate(-50%,-4px);font-size:11px;font-weight:600;white-space:nowrap;opacity:0;transition:.35s var(--ease);pointer-events:none}
+.cl-face:hover,.cl-face:focus-visible{transform:translateY(-8px) scale(1.12);z-index:2}.cl-face:hover span,.cl-face:focus-visible span{opacity:1;transform:translate(-50%,0)}
+.cl-face-more{margin-left:14px;font-size:13px;color:var(--mute)}
+.cl-pack{position:relative;justify-self:center;width:min(430px,100%);aspect-ratio:4/5;perspective:1400px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.cl-stack{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .9s var(--ease)}
+.cl-sc{position:absolute;inset:0;border-radius:20px;overflow:hidden;background:var(--tint);box-shadow:0 1px 0 rgba(255,255,255,.18) inset,0 30px 60px -30px rgba(0,0,0,.95),0 0 0 1px rgba(255,255,255,.08);transform:rotate(var(--r)) translate3d(calc(var(--k)*1px),calc(var(--k)*-2px),0);transition:transform .8s var(--ease),filter .8s}
+.cl-sc img{width:100%;height:100%;object-fit:cover;object-position:50% 25%}
+.cl-sc:not(:last-child) img{filter:brightness(.7) saturate(.9)}
+.cl-sc:last-child{transform:none}
+.cl-pack:hover .cl-sc{transform:rotate(calc(var(--r)*2.4)) translate3d(calc(var(--r)*5px),calc(var(--k)*-4px),0)}
+.cl-pack:hover .cl-sc:last-child{transform:translate3d(0,-10px,0) rotate(-1deg)}
+/* the ribbon: satin gold, crossed, under a wax seal */
+.cl-ribbon{position:absolute;z-index:3;pointer-events:none;display:flex}
+.cl-ribbon i{flex:1;background:linear-gradient(90deg,#8a6420,#f6d98a 30%,#fff3c9 46%,#d9ad4f 62%,#7a5418);box-shadow:0 6px 16px rgba(0,0,0,.55);transition:transform .7s cubic-bezier(.5,0,.75,0),opacity .7s}
+.cl-ribbon.v{left:calc(50% - 17px);width:34px;top:-3%;bottom:-3%;flex-direction:column}
+.cl-ribbon.h{top:calc(58% - 15px);height:30px;left:-4%;right:-4%}
+.cl-ribbon.h i{background:linear-gradient(180deg,#8a6420,#f6d98a 30%,#fff3c9 46%,#d9ad4f 62%,#7a5418)}
+.cl-seal{position:absolute;z-index:4;left:50%;top:58%;width:92px;height:92px;margin:-46px 0 0 -46px;border-radius:47% 53% 50% 50%/52% 48% 52% 48%;background:radial-gradient(circle at 38% 32%,#d9443b,#9c1a17 55%,#5e0b0a);box-shadow:inset 0 -6px 12px rgba(0,0,0,.45),inset 0 4px 8px rgba(255,170,150,.35),0 10px 24px rgba(0,0,0,.6);display:grid;place-items:center;transition:transform .8s var(--ease),opacity .6s}
+.cl-seal:before{content:"";position:absolute;inset:12px;border-radius:50%;border:2px solid rgba(255,190,170,.28);box-shadow:inset 0 2px 4px rgba(0,0,0,.4)}
+.cl-seal b{font-family:var(--serif);font-style:italic;font-size:38px;color:#f3c969;text-shadow:0 1px 0 rgba(0,0,0,.5),0 0 12px rgba(243,201,105,.35)}
+.cl-pack:hover .cl-seal{transform:scale(1.06) rotate(-6deg)}
+.cl-tag{position:absolute;z-index:5;right:-6%;top:62%;padding:10px 14px 10px 22px;background:#efe6d2;color:#3a2a16;font-family:var(--serif);font-style:italic;font-size:14px;border-radius:4px 10px 10px 4px;transform:rotate(8deg);box-shadow:0 10px 20px rgba(0,0,0,.5);clip-path:polygon(12px 0,100% 0,100% 100%,12px 100%,0 50%)}
+.cl-tag:before{content:"";position:absolute;left:10px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:#000}
+/* breaking the seal */
+.cl-pack.open .cl-ribbon.v i:first-child{transform:translate3d(-30px,-140%,0) rotate(-24deg);opacity:0}
+.cl-pack.open .cl-ribbon.v i:last-child{transform:translate3d(30px,140%,0) rotate(24deg);opacity:0}
+.cl-pack.open .cl-ribbon.h i:first-child{transform:translate3d(-130%,-20px,0) rotate(12deg);opacity:0}
+.cl-pack.open .cl-ribbon.h i:last-child{transform:translate3d(130%,30px,0) rotate(-12deg);opacity:0}
+.cl-pack.open .cl-seal{transform:translate3d(0,140px,0) rotate(70deg) scale(.6);opacity:0;transition-timing-function:cubic-bezier(.5,0,.75,0)}
+.cl-pack.open .cl-tag{transform:translate3d(30px,80px,0) rotate(40deg);opacity:0;transition:.7s cubic-bezier(.5,0,.75,0)}
+.cl-pack.open .cl-sc{transform:rotate(calc(var(--r)*3)) translate3d(calc(var(--r)*9px),calc(-30px - var(--k)*5px),0) scale(1.04);transition-delay:calc(var(--k)*25ms)}
+.cl-pack.open .cl-stack{transform:translate3d(0,-20px,60px)}
+@media(max-width:820px){
+ .cl-entry{padding:96px 0 80px}
+ .cl-e-in{grid-template-columns:1fr;gap:44px}
+ .cl-e-copy h2{font-size:13vw}
+ .cl-pack{width:min(300px,78vw)}
+ .cl-tag{right:-10%;font-size:12px}
+ .cl-face{width:44px;height:44px}
+}
+body.reduced .cl-sc,body.reduced .cl-seal,body.reduced .cl-ribbon i{transition:none}
+
+/* ---------- Look closer (Oct 30 2026): his collages; dive out of one little cover to the whole picture (s/closer.js) ---------- */
+.lc{position:relative;height:calc((var(--n,10) * 92 + 130) * 1svh);background:#050505}
+.lc-glow{position:absolute;inset:0;background:radial-gradient(60% 60% at 68% 50%,rgba(243,201,105,.09),transparent 70%)}
+.lc-stage{position:absolute;right:clamp(20px,4vw,64px);top:clamp(70px,10svh,96px);bottom:clamp(40px,7svh,70px);width:min(60vw,980px)}
+.lc-f{position:absolute;left:50%;top:50%;margin:0;translate:-50% -50%;border-radius:22px;overflow:hidden;background:#111;box-shadow:0 70px 130px -50px rgba(0,0,0,.95),0 0 0 1px rgba(255,255,255,.1);visibility:hidden;cursor:zoom-in}
+.lc-art{position:absolute;inset:0;transform-origin:0 0;will-change:transform}
+.lc-art img{width:100%;height:100%;object-fit:cover}
+.lc-ring{position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);pointer-events:none}
+.lc-f.deep{cursor:default}
+.lc-f.deep .lc-ring{box-shadow:inset 0 0 120px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.12)}
+.lc-intro{position:absolute;left:clamp(20px,5vw,80px);top:50%;transform:translateY(-50%);width:min(520px,34vw);z-index:4}
+.lc-intro h2{font-size:clamp(44px,5.2vw,86px);margin:14px 0 20px}
+.lc-intro p:not(.eyebrow){font-size:clamp(16px,1.3vw,19px);line-height:1.5;color:#c9c9ce}
+.lc-caps{position:absolute;left:clamp(20px,5vw,80px);top:50%;transform:translateY(-50%);width:min(440px,30vw);z-index:4}
+.lc-cap{position:absolute;left:0;top:50%;width:100%;transform:translate3d(0,-40%,0);opacity:0;visibility:hidden;transition:opacity .6s var(--ease),transform .8s var(--ease),visibility 0s .6s}
+.lc-cap.on{opacity:1;visibility:visible;transform:translate3d(0,-50%,0);transition:opacity .7s var(--ease) .1s,transform .9s var(--ease) .1s}
+.lc-k{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.lc-cap h3{font-size:clamp(56px,6.6vw,118px);line-height:.9;letter-spacing:-.055em;margin:12px 0 18px}
+.lc-cap h3 em{font-family:var(--serif);font-style:italic;font-weight:400}
+.lc-l{font-size:clamp(16px,1.3vw,19px);line-height:1.5;color:#c9c9ce;max-width:32ch}
+.lc-full{margin-top:18px;font-size:13px;font-weight:600;padding:9px 14px;border-radius:999px;background:rgba(255,255,255,.1)}
+.lc-dots{position:absolute;left:clamp(20px,5vw,80px);bottom:clamp(30px,6svh,56px);display:flex;gap:6px;z-index:4}
+.lc-dots i{width:18px;height:3px;border-radius:3px;background:rgba(255,255,255,.2);transition:background .5s}.lc-dots i.on{background:var(--gold)}
+.lc-end{position:absolute;inset:0;z-index:6;display:grid;place-content:center;justify-items:center;gap:26px;padding:80px 24px;background:rgba(5,5,5,.94);opacity:0;visibility:hidden;transition:visibility 0s .5s}
+.lc-done .lc-end{visibility:visible;transition:none}
+.lc-end{opacity:var(--o,0)}
+.lc-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;width:min(1000px,92vw);opacity:inherit}
+.lc-g{position:relative;aspect-ratio:3/4;border-radius:14px;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.12);transform:translate3d(0,30px,0);opacity:0;transition:transform .9s var(--ease),opacity .7s,box-shadow .3s}
+.lc-grid.on .lc-g{transform:none;opacity:1;transition-delay:var(--d)}
+.lc-g:hover{box-shadow:0 0 0 2px var(--gold)}
+.lc-g img{width:100%;height:100%;object-fit:cover}
+.lc-g span{position:absolute;left:10px;bottom:8px;font-size:13px;font-weight:600;text-shadow:0 1px 6px #000}
+.lc-endline{font-size:15px;color:#c9c9ce}.lc-endline b{color:var(--gold)}
+.lc-lens{position:fixed;left:0;top:0;z-index:50;width:clamp(150px,16vw,220px);aspect-ratio:1;border-radius:50%;pointer-events:none;background:#000 no-repeat;box-shadow:0 0 0 3px rgba(255,255,255,.9),0 0 0 6px rgba(243,201,105,.6),0 24px 50px rgba(0,0,0,.6);opacity:0;scale:.6;transition:opacity .25s,scale .35s var(--ease)}
+.lc-lens.on{opacity:1;scale:1}
+.lensing{touch-action:none}
+@media(max-width:820px){
+ .lc{height:calc((var(--n,10) * 88 + 120) * 1svh)}
+ .lc-stage{left:16px;right:16px;top:70px;bottom:190px;width:auto}
+ .lc-intro{left:20px;right:20px;width:auto;top:auto;bottom:40px;transform:none;background:linear-gradient(to top,#050505 70%,transparent);padding-top:40px}
+ .lc-intro h2{font-size:11vw}
+ .lc-caps{left:20px;right:20px;width:auto;top:auto;bottom:34px;height:150px;transform:none}
+ .lc-cap{top:auto;bottom:0;transform:translate3d(0,14px,0)}.lc-cap.on{transform:none}
+ .lc-cap h3{font-size:12vw;margin:6px 0 8px}.lc-l{font-size:14px}.lc-full{display:none}
+ .lc-dots{left:auto;right:20px;bottom:auto;top:62px}
+ .lc-dots i{width:10px}
+ .lc-grid{gap:6px}.lc-g{border-radius:8px}.lc-g span{display:none}
+}
+
+/* ---------- The Star Stream (Oct 30 2026): Omniscient Reader's Viewpoint, a webtoon that reads itself (s/orv.js) ---------- */
+.orv{position:relative;overflow:hidden;padding:clamp(100px,12vw,160px) 0;background:radial-gradient(70% 70% at 70% 50%,#0d1d3d,#03060e 70%);color:#eaf2ff;--blue:#7fb8ff}
+.orv-sky{position:absolute;inset:0;pointer-events:none}
+.orv-sky i{position:absolute;inset:-50%;background-image:radial-gradient(1.2px 1.2px at 20px 30px,#fff,transparent),radial-gradient(1px 1px at 120px 80px,#cfe3ff,transparent),radial-gradient(1.4px 1.4px at 200px 160px,#fff,transparent),radial-gradient(1px 1px at 60px 190px,#9ec8ff,transparent);background-size:240px 220px;opacity:.5;animation:orvDrift 120s linear infinite}
+.orv-sky i:nth-child(2){background-size:330px 290px;opacity:.35;animation-duration:180s;animation-direction:reverse}
+.orv-sky i:nth-child(3){background-size:510px 470px;opacity:.7;animation-duration:260s}
+@keyframes orvDrift{to{transform:translate3d(-240px,-220px,0)}}
+.orv:not(.live) .orv-sky i,.orv:not(.live) .orv-run,.orv:not(.live) .orv-m{animation-play-state:paused}
+.orv-in{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(30px,6vw,90px);align-items:center}
+.orv-copy h2{font-size:clamp(44px,5.6vw,92px);margin:14px 0 18px}
+.orv-copy h2 em{color:var(--blue)}
+.orv-now{font-size:14px;letter-spacing:.06em;color:#9fb6d9;margin-bottom:14px}.orv-now b{color:#fff;font-size:18px}
+.orv-lede{font-size:clamp(16px,1.3vw,19px);line-height:1.5;color:#c3d0e6;max-width:40ch}
+.orv-acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.orv .eyebrow{color:var(--blue)}
+.orv-win{position:relative;justify-self:center;width:min(400px,100%)}
+.orv-frame{position:relative;height:min(78svh,720px);border-radius:18px;overflow:hidden;background:#000;box-shadow:0 0 0 1px rgba(127,184,255,.6),0 0 0 6px rgba(127,184,255,.08),0 0 60px rgba(80,150,255,.35),0 60px 110px -40px #000}
+.orv-strip{position:absolute;inset:0 0 auto}
+.orv-run{animation:orvRead var(--dur,110s) linear infinite}
+.orv-run img{width:100%;height:auto}
+.orv-win:hover .orv-run,.orv-win:active .orv-run{animation-play-state:paused}
+@keyframes orvRead{to{transform:translate3d(0,-100%,0)}}
+.orv-scan{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,rgba(3,6,14,.75),transparent 14%,transparent 86%,rgba(3,6,14,.8)),repeating-linear-gradient(0deg,rgba(127,184,255,.035) 0 1px,transparent 1px 3px)}
+.orv-msgs{position:absolute;inset:0;pointer-events:none}
+.orv-m{position:absolute;left:var(--x,-38%);top:calc(8% + var(--i) * 11%);max-width:300px;opacity:0;animation:orvMsg calc(var(--nm) * 3s) var(--ease) infinite;animation-delay:calc(var(--i) * 3s)}
+.orv-m:nth-child(even){--x:62%}
+.orv-m span{display:inline-block;padding:10px 14px;border-radius:6px;background:rgba(6,16,38,.86);border:1px solid rgba(127,184,255,.75);box-shadow:0 0 18px rgba(80,150,255,.35),inset 0 0 18px rgba(80,150,255,.12);font-size:13.5px;line-height:1.4;color:#dfeaff;letter-spacing:.01em}
+.orv-m b{color:#fff;font-weight:700}
+.orv-m.mine span{border-color:rgba(243,201,105,.8);box-shadow:0 0 18px rgba(243,201,105,.3)}.orv-m.mine b{color:var(--gold)}
+@keyframes orvMsg{0%{opacity:0;transform:translate3d(0,12px,0) scale(.96)}3%{opacity:1;transform:none}26%{opacity:1;transform:none}31%,100%{opacity:0;transform:translate3d(0,-8px,0)}}
+@media(max-width:820px){
+ .orv-in{grid-template-columns:1fr}
+ .orv-copy h2{font-size:12vw}
+ .orv-win{width:min(340px,88vw)}
+ .orv-frame{height:64svh}
+ .orv-m{left:4%!important;right:4%;max-width:none;top:calc(4% + var(--i) * 10%)}.orv-m span{font-size:12.5px}
+}
+body.reduced .orv-run,body.reduced .orv-sky i{animation:none}
+body.reduced .orv-m{animation:none;opacity:1;position:relative;left:auto!important;top:auto;margin-top:8px}
+
+/* ---------- the new frame (Oct 30 2026): a floating glass bar with the voyage drawn along its edge, gold hairlines, film grain ---------- */
+.bar{top:10px;left:10px;right:10px;height:52px;border-radius:18px;padding:0 10px 0 12px;box-shadow:0 0 0 1px transparent;transition:background .6s var(--ease),box-shadow .6s var(--ease),backdrop-filter .6s var(--ease),-webkit-backdrop-filter .6s var(--ease),transform .6s var(--ease)}
+.bar.solid{box-shadow:0 0 0 1px rgba(243,201,105,.16),0 18px 40px -20px rgba(0,0,0,.8)}
+.bar-prog{position:absolute;left:18px;right:18px;bottom:0;height:1.5px;border-radius:2px;background:linear-gradient(90deg,rgba(243,201,105,0),#f3c969 30%,#ffe7a8);transform-origin:0 50%;transform:scaleX(0);opacity:.85;pointer-events:none}
+.bar:not(.solid) .bar-prog{opacity:.55}
+.bar-nav a{position:relative}
+.bar-nav a[aria-current]:after{content:"";position:absolute;left:50%;bottom:-8px;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--gold)}
+.bar-nav .nav-tv{color:var(--gold)}
+.eyebrow:before{content:"";display:inline-block;width:18px;height:1px;margin-right:10px;vertical-align:.32em;background:currentColor;opacity:.7}
+.ar-copy .eyebrow:before,.tc-k:before,.gx-in .eyebrow:before{display:none}
+.pill{box-shadow:0 10px 30px -14px rgba(243,201,105,.55)}
+.pill.ghost{box-shadow:inset 0 0 0 1px rgba(243,201,105,.45);background:rgba(243,201,105,.04)}
+.pill.ghost:hover{background:rgba(243,201,105,.1)}
+.foot{border-top:1px solid rgba(243,201,105,.14)}
+@media(pointer:fine){body:after{content:"";position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:.045;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}}
+@media(max-width:820px){.bar{top:max(6px,env(safe-area-inset-top));left:8px;right:8px;height:48px;border-radius:16px;padding:0 6px 0 8px}}
+html.ink body:after{display:none}
