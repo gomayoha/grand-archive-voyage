@@ -32,6 +32,7 @@ const CHAPTERS=[
  ['worlds','✦','Beyond the Grand Line','Other worlds that stayed.',()=>data.media?.worlds?.[0]&&TH(data.media.worlds[0].cover)],
  ['orv','✦','The Star Stream','Omniscient Reader’s Viewpoint, a webtoon that reads itself.',()=>{const w=data.media?.worlds?.find(x=>x.name==='Omniscient Reader');return w&&TH(w.cover);}],
  ['vault','08','The Card Vault','My kind of treasure.',()=>'assets/tcg/s/OP09-061_p2.webp'],
+ ['case','✦','The display case','The ones I keep behind glass.',()=>'assets/tcg/s/OP09-119.webp'],
  ['table','✦','The Card Table','Now lay them all out.',()=>'assets/tcg/s/OP14-031.webp'],
  ['scenes','09','Scenes that stay','“Come on, heartbeat. Beat louder.”',()=>'assets/media/luffy_poster.jpg'],
  ['library','10','The Ohara Library','Stories leave traces.',()=>data.media?.wall?.[0]&&TH(data.media.wall[0])],

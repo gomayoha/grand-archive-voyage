@@ -1,8 +1,15 @@
 {
- "about": "His physical manga collection (the books on his real shelf). Add a book: copy an entry; cover = a picture path (a photo of his own copy is best: assets/img/f/<id>.webp after the gallery imports it), spine/ink = the spine's colours, added = YYYY-MM. 'slots' = empty places kept on the shelf for what's still to come.",
- "books": [
-  {"id": "20cb-perfect-finale", "title": "20th Century Boys", "edition": "Perfect Edition", "vol": "The finale", "author": "Naoki Urasawa", "cover": "assets/posters/5b25bc3608.webp", "spine": "#f1e6c8", "band": "#c8241c", "ink": "#151515", "added": "2026-10", "shelf": "20th Century Boys"},
-  {"id": "vagabond-deluxe-1", "title": "Vagabond", "edition": "Deluxe Edition", "vol": "Volume 1", "author": "Takehiko Inoue", "cover": "assets/posters/vagabond.webp", "spine": "#1b1a17", "band": "#b8945a", "ink": "#efe7d6", "added": "2026-10", "shelf": "Vagabond"}
- ],
- "slots": 7
+ "about": "His physical manga collection (the books on his real shelf), shelf by shelf. A book: title, edition, vol, author, cover (a photo of his own copy is best; null = a plain printed cover), spine/band/ink = the spine's colours, added = YYYY-MM, note = his words, shelf = its title on the Shelf (shelf.json) for reading progress. A set: 'set': {from, to, colors: one spine colour per volume}. 'slots' = empty places kept for what's still to come.",
+ "shelves": [
+  {"name": "One Piece", "slots": 2, "books": [
+   {"id": "op-eastblue-01", "title": "One Piece", "edition": "East Blue 01 · Japanese special edition", "vol": "516 pages", "author": "Eiichiro Oda", "cover": "assets/posters/op-eastblue-01.webp", "spine": "#d8322b", "band": "#f3d36b", "ink": "#fff6e6", "thick": 1.5, "added": "2026-10", "note": "Japanese and original, from the very start until after the Baratie and Nami's story. It's in Japanese, but I bought it because it felt special.", "shelf": "One Piece"},
+   {"id": "op-viz-1-24", "title": "One Piece", "edition": "English edition (VIZ)", "vol": "Volumes 1 to 24", "author": "Eiichiro Oda", "cover": "assets/posters/op-viz-1-24.webp", "set": {"from": 1, "to": 24, "colors": ["#efe6cf","#c9d64a","#f2b8b8","#8fa2e6","#f2efea","#1a1a1a","#d9343a","#f0b440","#2f8f7c","#2e5bb8","#ee6f9a","#e08a3a","#c9b0c4","#a9cbe8","#d6336f","#f5dd4a","#f3b8c4","#b07a3e","#6fb8a0","#c49a5e","#b99be0","#ece4ea","#3f73c9","#f2a640"]}, "added": "2026-10", "shelf": "One Piece"},
+   {"id": "op-egghead", "title": "One Piece", "edition": "Egghead Arc", "vol": "Luffy and everyone, jumping into the sky", "author": "Eiichiro Oda", "cover": null, "spine": "#f4f0e6", "band": "#ff6fa8", "ink": "#151515", "added": "2026-10", "shelf": "One Piece"},
+   {"id": "op-gear5", "title": "One Piece", "edition": "The Gear 5 awakening", "vol": "Wano", "author": "Eiichiro Oda", "cover": null, "spine": "#f7f3ea", "band": "#9b6bd6", "ink": "#151515", "added": "2026-10", "shelf": "One Piece"}
+  ]},
+  {"name": "Beyond One Piece", "slots": 5, "books": [
+   {"id": "20cb-perfect-finale", "title": "20th Century Boys", "edition": "Perfect Edition", "vol": "The finale", "author": "Naoki Urasawa", "cover": "assets/posters/5b25bc3608.webp", "spine": "#f1e6c8", "band": "#c8241c", "ink": "#151515", "added": "2026-10", "shelf": "20th Century Boys"},
+   {"id": "vagabond-deluxe-1", "title": "Vagabond", "edition": "Deluxe Edition", "vol": "Volume 1", "author": "Takehiko Inoue", "cover": "assets/posters/vagabond.webp", "spine": "#1b1a17", "band": "#b8945a", "ink": "#efe7d6", "added": "2026-10", "shelf": "Vagabond"}
+  ]}
+ ]
 }

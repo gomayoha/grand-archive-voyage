@@ -5,14 +5,14 @@
 //   out of the cards themselves, Set → which box each one came from.
 // Tap a pile (or a row's name) and you pick it up: the table dims and the cards fan out in your hand,
 // with the name written huge behind them; ‹ › walks to the next character. Tap a card to hold it up close
-// (js/tcg.js). "Draw a hand" deals five at random. The table remembers how many you've held.
+// (js/tcg.js). The table remembers how many you've held. ("Draw a hand" was taken out Oct 31 2026: he never used it.)
 // Cards are absolutely placed on the mat and only ever move by transform (one transition each).
 import {$,esc,clamp,view,motion,coarse,data,remeasure} from '../core.js';
 import {COLORS,HUE,RNAME,face,big,rank,tier,hue,label,light,inspect,picturesOf,onSeen} from '../tcg.js';
 import {once} from '../bounty.js';
 
 const CREWS=['Straw Hat Pirates','The Emperors’ crews','The Warlords','The Worst Generation','Revolutionary Army','The World Government','Dressrosa','Thriller Bark','Across the Grand Line','From the films','DON!!'];
-const TIERS=[['alt','Parallels & special frames'],['lead','Leaders'],['sr','Super Rares'],['r','Rares & promos'],['c','Uncommons & commons'],['don','DON!!']];
+const TIERS=[['sec','Secret Rares'],['alt','Parallels & special frames'],['lead','Leaders'],['sr','Super Rares'],['r','Rares & promos'],['c','Uncommons & commons'],['don','DON!!']];
 const ALT_T=Object.fromEntries(TIERS);
 const MODES=[
  {id:'char',l:'Character',type:'piles',key:c=>c.char},
@@ -135,7 +135,7 @@ export function initTable(){
    place(i,{x,y,s:hw/BASE,r:ang,z:200+k},{delay:motion.reduced?0:k*26});});
   const pics=list.length&&gi!=null&&mode.id==='char'?picturesOf(list[0].char):null;
   hh.innerHTML=`<p class="eyebrow">${esc(eyebrow)}</p><p class="tb-hname" style="--hue:${hue(list[0])}">${esc(title)}</p><p class="tb-hsub">${esc(gsub({cards:list}))}</p>
-   <div class="tb-hacts">${gi!=null&&groups.length>1?'<button class="tb-hbtn" data-hstep="-1" aria-label="Previous">‹</button><button class="tb-hbtn" data-hstep="1" aria-label="Next">›</button>':''}${gi==null?'<button class="pill small" data-redraw>Draw again</button>':''}${pics?`<button class="link" data-collection="${pics.key}">My pictures of ${esc(pics.name)} →</button>`:''}<button class="tb-hbtn tb-hx" data-hclose aria-label="Put them down">×</button></div>`;
+   <div class="tb-hacts">${gi!=null&&groups.length>1?'<button class="tb-hbtn" data-hstep="-1" aria-label="Previous">‹</button><button class="tb-hbtn" data-hstep="1" aria-label="Next">›</button>':''}${pics?`<button class="link" data-collection="${pics.key}">My pictures of ${esc(pics.name)} →</button>`:''}<button class="tb-hbtn tb-hx" data-hclose aria-label="Put them down">×</button></div>`;
   sec.classList.add('holding');hand.hidden=false;veil.hidden=false;document.documentElement.style.overflow='hidden';
   requestAnimationFrame(()=>{hand.classList.add('in');veil.classList.add('in');});
  }
@@ -147,15 +147,6 @@ export function initTable(){
   els.forEach((el,i)=>place(i,pos[i],{delay:0}));
  }
  const openGroup=gi=>{const g=groups[gi];if(!g)return;once('tcg:hand',2e6,'Picked up a hand');openHand(g.cards,{title:gname(g),eyebrow:`${mode.l} · ${gi+1} of ${groups.length}`,gi});};
- function draw(){
-  // five at random, never two of the same character if it can help it
-  const pool=[...cards].sort(()=>Math.random()-0.5),pick=[],who=new Set();
-  for(const c of pool){if(pick.length===5)break;if(!who.has(c.char)){pick.push(c);who.add(c.char);}}
-  pick.sort((a,b)=>rank(b)-rank(a));
-  once('tcg:draw',2e6,'Drew an opening hand');
-  if(held)els.forEach((el,i)=>{if(el.classList.contains('held'))place(i,pos[i]);});
-  openHand(pick,{title:'Your hand',eyebrow:'Five cards, drawn at random'});
- }
 
  /* ---------------- touch ---------------- */
  stage.addEventListener('click',e=>{
@@ -169,7 +160,6 @@ export function initTable(){
  hand.addEventListener('click',e=>{
   if(e.target.closest('[data-hclose]'))closeHand();
   const s=e.target.closest('[data-hstep]');if(s&&held&&held.gi!=null){const gi=(held.gi+ +s.dataset.hstep+groups.length)%groups.length;els.forEach((el,i)=>{if(el.classList.contains('held')){el.classList.remove('held');place(i,pos[i]);}});openGroup(gi);}
-  if(e.target.closest('[data-redraw]'))draw();
  });
  veil.addEventListener('click',closeHand);
  addEventListener('keydown',e=>{if(!held||document.querySelector('#dialog[open]'))return;if(e.key==='Escape'){e.preventDefault();closeHand();}if(held.gi!=null&&(e.key==='ArrowRight'||e.key==='ArrowLeft'))hand.querySelector(`[data-hstep="${e.key==='ArrowRight'?1:-1}"]`)?.click();});
@@ -178,7 +168,6 @@ export function initTable(){
   sortBox.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
   once('tcg:sort:'+m.id,1e6,`Sorted the cards by ${m.l.toLowerCase()}`);
   if(dealt)apply();else{group();layout();}});
- $('#tb-draw').addEventListener('click',()=>{if(!dealt)deal();setTimeout(draw,dealt?0:600);});
  if(!coarse)stage.addEventListener('pointermove',e=>{const b=e.target.closest('.tg');if(b)light(b.querySelector('.tgf'),e.clientX,e.clientY);});
 
  /* ---------------- how many you've held ---------------- */

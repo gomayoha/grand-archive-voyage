@@ -12,6 +12,7 @@ import {COLORS,HUE,face,big,small,hue,rank,label,light,inspect,picturesOf} from 
 export function initCards(){
  const sec=$('#vault'),T=data.tcg;
  if(!T||!sec){if(sec)sec.hidden=true;return;}
+ globalThis.gaTcgCount=T.cards.length;// the bounty board's "Hold every card" counts the binder as it is
  const band=c=>c.kind==='DON'?0:COLORS.indexOf(c.colors[0])+1;
  const cards=[...T.cards].sort((a,b)=>band(a)-band(b)||rank(a)-rank(b)||a.no.localeCompare(b.no));
  const N=cards.length,BANDS=['DON!!',...COLORS];

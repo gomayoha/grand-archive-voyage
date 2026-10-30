@@ -310,7 +310,7 @@
    <p class="mc-count" id="mc-count"></p>
   </div>
   <div class="wrap mc-body">
-   <div class="mc-case"><div class="mc-shelf" id="mc-shelf"></div><i class="mc-plank" aria-hidden="true"></i></div>
+   <div class="mc-cases" id="mc-cases"></div>
    <div class="mc-info" id="mc-info" aria-live="polite"></div>
   </div>
  </section>
@@ -367,13 +367,23 @@
   <ul class="vt-static wrap" id="vt-static" hidden></ul>
  </section>
 
+ <!-- THE DISPLAY CASE: every Secret Rare, Leader and Super Rare in a graded slab, on the shelves of a velvet cabinet (s/case.js) -->
+ <section id="case" class="cs" aria-label="The display case">
+  <div class="wrap cs-head">
+   <p class="eyebrow" data-w="case.eyebrow">The display case</p>
+   <h2 data-w="case.title">The ones I keep <em>behind glass.</em></h2>
+   <p class="cs-count" id="cs-count"></p>
+  </div>
+  <div class="cs-cab wrap" id="cs-cab"></div>
+ </section>
+
  <!-- 08½ · THE CARD TABLE: every card dealt onto a mat, sorted any way you like (js/s/table.js) -->
  <section id="table" class="table-sec" aria-label="The Card Table">
   <div class="wrap tb-head">
    <p class="eyebrow" data-w="table.eyebrow">The Card Table</p>
    <h2 data-w="table.title">Now lay them all <em>out.</em></h2>
    <p class="tb-lede" data-w="table.lede">Sort them any way you like. Tap a pile to pick it up, tap a card to hold it.</p>
-   <div class="tb-bar"><div class="chips tb-sort" id="tb-sort" role="group" aria-label="Sort the cards by"></div><button class="pill small tb-draw" id="tb-draw">Draw a hand</button></div>
+   <div class="tb-bar"><div class="chips tb-sort" id="tb-sort" role="group" aria-label="Sort the cards by"></div></div>
    <div class="tb-meter" id="tb-meter"></div>
   </div>
   <div class="tb-mat"><div class="tb-stage" id="tb-stage"></div></div>

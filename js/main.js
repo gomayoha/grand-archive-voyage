@@ -31,6 +31,7 @@ import {initWorlds,initLibrary} from './s/worlds.js';
 import {initOrv} from './s/orv.js';
 import {initCards} from './s/cards.js';
 import {initTable} from './s/table.js';
+import {initCase} from './s/case.js';
 import {collectionFor} from './tcg.js';
 import {registerCollection} from './dialogs.js';
 import {initScenes} from './s/scenes.js';
@@ -60,6 +61,7 @@ run('timemachine',()=>initTimeMachine().catch(e=>console.error('[timemachine]',e
 run('worlds',initWorlds);
 run('orv',initOrv);
 run('cards',initCards);
+run('case',initCase);
 run('table',initTable);
 registerCollection('tcgc',collectionFor);
 run('scenes',initScenes);

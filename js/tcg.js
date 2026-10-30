@@ -10,10 +10,10 @@ import {once,earn} from './bounty.js';
 export const big=c=>`assets/tcg/${c.id}.webp`,small=c=>`assets/tcg/s/${c.id}.webp`;
 export const COLORS=['Red','Green','Blue','Purple','Black','Yellow'];
 export const HUE={Red:'#e2412f',Green:'#1f9a6a',Blue:'#2b86d6',Purple:'#8b4fc4',Black:'#6d7178',Yellow:'#f0c531','DON!!':'#c8922f'};
-export const RNAME={L:'Leader',SR:'Super Rare',R:'Rare',UC:'Uncommon',C:'Common',P:'Promo',DON:'DON!!'};
-// how the foil behaves: parallels and special frames are full rainbow, leaders and SRs holo, Rares a silver sheen
-export const tier=c=>c.kind==='DON'?'don':c.print?'alt':c.rarity==='L'?'lead':c.rarity==='SR'?'sr':c.rarity==='R'||c.rarity==='P'?'r':'c';
-const RANK={alt:6,lead:5,sr:4,r:3,c:1,don:0};
+export const RNAME={SEC:'Secret Rare',L:'Leader',SR:'Super Rare',R:'Rare',UC:'Uncommon',C:'Common',P:'Promo',DON:'DON!!'};
+// how the foil behaves: Secret Rares gold-and-rainbow, parallels and special frames full rainbow, leaders and SRs holo, Rares a silver sheen
+export const tier=c=>c.kind==='DON'?'don':c.rarity==='SEC'?'sec':c.print?'alt':c.rarity==='L'?'lead':c.rarity==='SR'?'sr':c.rarity==='R'||c.rarity==='P'?'r':'c';
+const RANK={sec:7,alt:6,lead:5,sr:4,r:3,c:1,don:0};
 export const rank=c=>RANK[tier(c)]*10+(c.rarity==='UC'?1:0);
 export const hue=c=>HUE[c.colors[0]]||HUE['DON!!'];
 export const label=c=>c.kind==='DON'?'DON!!':`${c.no} · ${RNAME[c.rarity]||c.rarity}${c.print?' · '+c.print:''}`;
