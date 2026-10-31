@@ -23,7 +23,7 @@ export function initVoyage(){
  const voyage=createJourney({section:sec,layerHost:$('#voyage-layers'),config:cfg,caption,onChange:i=>rb.forEach((b,k)=>k===i?b.setAttribute('aria-current','step'):b.removeAttribute('aria-current'))});
  new IntersectionObserver(([e],io)=>{if(e.isIntersecting){voyage.preload();io.disconnect();}},{rootMargin:'250% 0px'}).observe(sec);
  rail.addEventListener('click',e=>{const b=e.target.closest('button');if(b){jumpTo(voyage.scrollYFor(+b.dataset.seg));f.v=null;}});
- $('#voyage-static').innerHTML=cfg.layers.map((l,i)=>`<li><img src="${esc(l.image)}" alt="" loading="lazy" decoding="async"><p class="eyebrow">${pad(i+1)} · ${esc(l.kicker)}</p><h3>${esc(l.title)}</h3><p>${esc(l.line)}</p><a class="link" href="${islandHref(i)}">Land on this island →</a></li>`).join('');
+ $('#voyage-static').innerHTML=cfg.layers.map((l,i)=>`<li><img data-vs="${esc(l.image)}" alt="" decoding="async"><p class="eyebrow">${pad(i+1)} · ${esc(l.kicker)}</p><h3>${esc(l.title)}</h3><p>${esc(l.line)}</p><a class="link" href="${islandHref(i)}">Land on this island →</a></li>`).join('');
  const f=follower(120);
  part({el:sec,measure(){voyage.measure();},update(s){
   if(motion.reduced)return;
@@ -51,6 +51,8 @@ export function initVoyage(){
 
  const applyMotion=r=>{
   sec.querySelector('.pin').hidden=r;$('#voyage-static').hidden=!r;
+  // the list's paintings load only when the list is shown (they were all decoding unseen on phones)
+  if(r)$$('#voyage-static img[data-vs]').forEach(i=>{i.src=i.dataset.vs;i.removeAttribute('data-vs');});
   if(r){sec.style.height='auto';oSec.style.height='auto';oSec.querySelector('.pin').style.position='relative';outro.renderStatic();}
   else{voyage.rebuild();outro.rebuild();oSec.querySelector('.pin').style.position='';}
  };

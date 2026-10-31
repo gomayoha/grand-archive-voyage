@@ -3,7 +3,7 @@
 // scroll step turns a page over to the right (3D rotate, compositor only). Read the right page, then
 // the left. The chapter ruler follows the page you're on. Phones turn one page at a time.
 // Other series sit on a shelf below; each opens its pages in the viewer with his notes as captions.
-import {$,esc,pad,clamp,smooth,view,part,pinned,motion,data,onSight} from '../core.js';
+import {$,esc,pad,clamp,smooth,view,part,pinned,motion,data,onSight,lite} from '../core.js';
 import {registerCollection} from '../dialogs.js';
 
 const PM=id=>`assets/panels/m/${id}.webp`,PF=id=>`assets/panels/${id}.webp`;
@@ -46,7 +46,9 @@ export function initPanels(){
   sec.style.height=`${Math.round(100+(spread?L:L-1)*55)}svh`;
  }
  build();
- const load=lf=>{if(lf&&lf.imgs.length){lf.imgs.forEach(i=>{i.src=i.dataset.src;i.removeAttribute('data-src');i.decode?.().catch(()=>{});});lf.imgs=[];}};
+ const load=lf=>{if(lf&&!lf.on){lf.on=true;lf.imgs.forEach(i=>{i.src=i.dataset.src;i.decode?.().catch(()=>{});});}};
+ // phones put pages far behind or ahead back down (each page holds a few big panels)
+ const drop=lf=>{if(lf.on){lf.on=false;lf.imgs.forEach(i=>i.removeAttribute('src'));}};
  onSight(sec,()=>[0,1,2].forEach(k=>load(leaves[k])),'150% 0px');
 
  const chNow=$('#ch-now'),chFill=$('#ch-fill'),chTrack=$('#ch-track'),pageLbl=$('#book-page');
@@ -58,6 +60,7 @@ export function initPanels(){
    const t=smooth(clamp((x-lf.k)*1.2-0.08));
    const near=lf.k>=Math.floor(x)-1&&lf.k<=Math.floor(x)+2;
    if(near){load(lf);load(leaves[lf.k+1]);load(leaves[lf.k+2]);}
+   else if(lite&&(lf.k<Math.floor(x)-2||lf.k>Math.floor(x)+4))drop(lf);
    if(near!==lf.near){lf.near=near;lf.el.style.visibility=near?'':'hidden';}
    if(!near||lf.t===t)return;lf.t=t;
    if(spread){lf.el.style.transform=`rotateY(${(t*180).toFixed(2)}deg)`;lf.el.style.zIndex=t>0&&t<1?L+2:t>=1?lf.k+1:L-lf.k;}

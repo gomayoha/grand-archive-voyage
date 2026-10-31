@@ -6,7 +6,7 @@
 // the whole crew is waiting. On a desktop the mouse lets you look around a little.
 // It is one CSS 3D scene: a single transform on the world per frame (the camera), plus fog (opacity) on
 // the pieces near the edge of sight. Pieces behind the camera are hidden. Scrubbing eases like the Voyage.
-import {$,esc,pad,clamp,smooth,lerp,view,part,pinned,follower,motion,data,coarse,FU,TH,jumpTo,absTop,kick} from '../core.js';
+import {$,esc,pad,clamp,smooth,lerp,view,part,pinned,follower,motion,data,coarse,lite,FU,TH,jumpTo,absTop,kick} from '../core.js';
 import {G5} from '../gear5.js';
 import {onTilt} from '../tilt.js';
 import {registerCollection} from '../dialogs.js';
@@ -28,7 +28,7 @@ export function initStrawHats(){
 
  /* ---------------- the scene ---------------- */
  world.innerHTML=crew.map((c,i)=>`
-  <figure class="sh-panel" data-i="${i}" style="--tint:${c.tint}"><img alt="${esc(c.short)}" decoding="async" data-src="${FU(c.art)}"><figcaption>${esc(c.role)}</figcaption></figure>
+  <figure class="sh-panel" data-i="${i}" style="--tint:${c.tint}"><img alt="${esc(c.short)}" decoding="async" data-src="${lite?TH(c.art):FU(c.art)}"><figcaption>${esc(c.role)}</figcaption></figure>
   <figure class="sh-refl" data-i="${i}" aria-hidden="true"><img alt="" decoding="async" data-src="${TH(c.art)}"></figure>
   <i class="sh-pool" data-i="${i}" style="--tint:${c.tint}" aria-hidden="true"></i>
   <b class="sh-num" data-i="${i}" aria-hidden="true"><span>${pad(i+1)}</span></b>
@@ -105,7 +105,9 @@ export function initStrawHats(){
  const f=follower(130),look={x:0,y:0,tx:0,ty:0};
  let cur=-2,loaded=new Set();
  const show=im=>{im.onload=()=>im.classList.add('ok');im.src=im.dataset.src;if(im.complete&&im.naturalWidth)im.classList.add('ok');};
- const load=i=>{if(i<0||i>=N||loaded.has(i))return;loaded.add(i);[panels[i],refls[i]].forEach(el=>show(el.querySelector('img')));};
+ // phones: smaller pictures, no reflections, and only the portraits right around the camera
+ const load=i=>{if(i<0||i>=N||loaded.has(i))return;loaded.add(i);(lite?[panels[i]]:[panels[i],refls[i]]).forEach(el=>show(el.querySelector('img')));};
+ const NEAR=lite?1:2,FAR=lite?2.2:4.2;
  const sOf=p=>clamp((p-0.02)/0.96)*(N+1);
  const pOf=s=>0.02+s/(N+1)*0.96;
  function cam(s){
@@ -140,9 +142,9 @@ export function initStrawHats(){
   const eo=smooth(clamp((s-N-0.45)/0.4));end.style.opacity=eo.toFixed(3);end.style.visibility=eo<0.01?'hidden':'visible';end.classList.toggle('live',eo>0.6);
   rail.style.opacity=(Math.min(1-io,1-eo)).toFixed(3);
   if(k!==cur){cur=k;railBtns.forEach((b,i)=>b.classList.toggle('now',i===k));}
-  for(let i=Math.floor(s)-2;i<=Math.floor(s)+2;i++)load(i);
+  for(let i=Math.floor(s)-NEAR;i<=Math.floor(s)+NEAR;i++)load(i);
   // keep only the portraits near the camera decoded (phones run out of memory otherwise)
-  for(const i of loaded)if(Math.abs(i+1-s)>4.2){loaded.delete(i);[panels[i],refls[i]].forEach(el=>{const im=el.querySelector('img');im.classList.remove('ok');im.removeAttribute('src');});}
+  for(const i of loaded)if(Math.abs(i+1-s)>FAR){loaded.delete(i);[panels[i],refls[i]].forEach(el=>{const im=el.querySelector('img');im.classList.remove('ok');im.removeAttribute('src');});}
   if(s>N-1.5&&!final._l){final._l=1;show(final.querySelector('img'));}
  }
 

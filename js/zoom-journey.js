@@ -38,7 +38,8 @@ export function createJourney({section,layerHost,config,reverse=false,caption=nu
  // mid-zoom (that was the stutter). Phones drop layers far behind to save memory; desktops keep them.
  const lowMem=matchMedia('(pointer: coarse)').matches;
  function load(i){const el=els[i];if(!el||el.getAttribute('src'))return;el.src=layers[i].image;el.decode?.().catch(()=>{});}
- function keepLoaded(seg){for(let i=seg-1;i<=seg+3;i++)load(i);if(lowMem)els.forEach((el,i)=>{if((i<seg-2||i>seg+4)&&el.getAttribute('src'))el.removeAttribute('src');});}
+ // (Oct 31 2026: phones keep only four paintings, the one behind, this one and two ahead: each is ~29 MB decoded and iOS reloaded the page)
+ function keepLoaded(seg){const ahead=lowMem?2:3;for(let i=seg-1;i<=seg+ahead;i++)load(i);if(lowMem)els.forEach((el,i)=>{if((i<seg-1||i>seg+ahead)&&el.getAttribute('src'))el.removeAttribute('src');});}
  function preload(){keepLoaded(Math.max(0,lastSeg));}
  function show(el,on){if(el._on===on)return;el._on=on;el.style.visibility=on?'visible':'hidden';el.style.willChange=on?'transform,opacity':'auto';}
  function setMask(el,f){const m=f>0.05?`linear-gradient(to right,transparent,#000 ${f.toFixed(1)}px,#000 calc(100% - ${f.toFixed(1)}px),transparent),linear-gradient(to bottom,transparent,#000 ${f.toFixed(1)}px,#000 calc(100% - ${f.toFixed(1)}px),transparent)`:'none';if(el._mask!==m){el._mask=m;el.style.webkitMaskImage=m;el.style.maskImage=m;}}

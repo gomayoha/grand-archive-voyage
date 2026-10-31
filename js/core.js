@@ -14,6 +14,11 @@ export const lerp=(a,b,t)=>a+(b-a)*t;
 // Fade in over [a,a+f], out over [b,b+f].
 export const band=(p,a,b,f=0.08)=>smooth(clamp((p-a)/f))*(1-smooth(clamp((p-b)/f)));
 export const coarse=matchMedia('(pointer: coarse)').matches;
+// Phones get the light version (Oct 31 2026): iOS reloads a page that holds too much at once (he saw the home-screen
+// app "refresh itself" around the Straw Hats). html.lite drops the costly 3D extras in CSS, and keepLight() below
+// hands back the pictures of sections far from the screen.
+export const lite=coarse&&Math.min(screen.width,screen.height)<=820;
+if(lite)document.documentElement.classList.add('lite');
 
 /* ---------------------------------------------------------------- motion preference */
 const PREF='grand-archive-voyage:reduced';
@@ -106,7 +111,14 @@ export const warm=root=>root.querySelectorAll('img[loading="lazy"]').forEach(i=>
 // Every section starts loading its pictures two screens before it arrives, and a jump (nav, Log Pose)
 // warms its target first, so nobody lands on empty frames.
 const sectionAt=y=>[...document.querySelectorAll('main>section')].find(s=>!s.hidden&&y<absTop(s)+s.offsetHeight);
-export function lookAhead(){document.querySelectorAll('main>section').forEach(s=>onSight(s,warm,'0px 0px 200% 0px'));}
+export function lookAhead(){document.querySelectorAll('main>section').forEach(s=>onSight(s,warm,'0px 0px 200% 0px'));keepLight();}
+// On phones a section more than ~2.5 screens away swaps its pictures for an empty one, so iOS can free them, and
+// puts them back on the way in (the browser cache makes that quick). Only pictures it blanked are put back: a
+// section that changed a picture meanwhile keeps its own.
+const BLANK='data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+function release(sec){sec.querySelectorAll('img').forEach(i=>{const s=i.getAttribute('src');if(!s||s===BLANK||s.startsWith('data:'))return;i.dataset.gaSrc=s;if(i.hasAttribute('srcset')){i.dataset.gaSet=i.getAttribute('srcset');i.removeAttribute('srcset');}i.src=BLANK;});}
+function restore(sec){sec.querySelectorAll('img[data-ga-src]').forEach(i=>{if(i.getAttribute('src')===BLANK){if(i.dataset.gaSet)i.srcset=i.dataset.gaSet;i.src=i.dataset.gaSrc;}delete i.dataset.gaSrc;delete i.dataset.gaSet;});}
+function keepLight(){if(!lite)return;const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?restore(e.target):release(e.target)),{rootMargin:'250% 0px'});document.querySelectorAll('main>section').forEach(s=>io.observe(s));}
 // Pictures fade in as they arrive instead of popping (the zoom paintings and the viewer handle their own).
 const arrived=new WeakSet();
 document.addEventListener('load',e=>{const t=e.target;if(t.tagName!=='IMG'||arrived.has(t)||t.closest('.jl-host,.viewer-stage'))return;arrived.add(t);if(!motion.reduced)t.classList.add('img-in');},true);

@@ -2244,3 +2244,12 @@ body.reduced .s-sec .cs-slab{animation:none}
 .sg-orv .sg-badge{color:#bff6ff;background:rgba(6,24,46,.8);border:1px solid rgba(127,232,255,.5);border-radius:6px}
 .sg-orv .sg-copy small{color:#7fe8ff}
 @media(max-width:820px){.sg-row{grid-template-columns:1fr}.sg{min-height:68svh}}
+
+/* ---------- phones: the light version (Oct 31 2026; html.lite from core.js). iOS reloaded the page when it held too
+   much: no standing compositor layers (will-change), no glass blur behind bars and panels, the Straw Hat deck without
+   floor reflections, the home wall as one flat plane that still folds back. Every section keeps its idea. ---------- */
+html.lite *{will-change:auto!important}
+html.lite *{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+html.lite .bar{background:rgba(0,0,0,.94)}
+html.lite .sh-refl{display:none}
+html.lite .ar-wall{transform-style:flat}

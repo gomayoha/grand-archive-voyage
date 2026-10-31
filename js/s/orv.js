@@ -2,7 +2,7 @@
 // a glowing system window by themselves, the way a webtoon reads (one CSS animation, only while it's on
 // screen; hover or touch to hold it still), while system messages in the style of the story pop up around it.
 // The last two are his: where he's up to, and his rating, from his Manga Tracker.
-import {$,esc,FU,dims,data,onSight} from '../core.js';
+import {$,esc,FU,TH,dims,data,onSight,lite} from '../core.js';
 
 export function initOrv(){
  const sec=$('#orv');if(!sec)return;
@@ -11,10 +11,11 @@ export function initOrv(){
  const rec=(data.shelf?.manga||[]).find(r=>/omniscient/i.test(r.t))||{};
  const rating=(String(rec.b||'').match(/^([\d.]+)\/10,?\s*([^.]*)/)||[]);
  const strip=$('#orv-strip'),msgs=$('#orv-msgs');
- const one=w.all.map(id=>{const [a,b]=dims(id);return `<img src="${FU(id)}" width="${a}" height="${b}" alt="" loading="lazy" decoding="async">`;}).join('');
+ // the webtoon strip keeps his own ORV pictures (the first 15; his Pinterest board lives in the ORV space), small files on phones
+ const one=w.all.slice(0,15).map(id=>{const [a,b]=dims(id);return `<img src="${lite?TH(id):FU(id)}" width="${a}" height="${b}" alt="" loading="lazy" decoding="async">`;}).join('');
  // twice over, so it can run forever without a seam
  strip.innerHTML=`<div class="orv-run">${one}</div><div class="orv-run" aria-hidden="true">${one}</div>`;
- strip.style.setProperty('--dur',`${Math.round(w.all.length*7.5)}s`);
+ strip.style.setProperty('--dur',`${Math.round(Math.min(15,w.all.length)*7.5)}s`);
  const M=[
   ['The main scenario has begun.'],
   ['Main Scenario #1, Proof of Value.'],
