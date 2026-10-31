@@ -48,7 +48,9 @@ const RW_ADD=[{title:'Violet Evergarden',count:'2×',body:'Rewatched the entire 
 const RW=[...SH.rewatches,...RW_ADD.filter(a=>!SH.rewatches.some(r=>r.title===a.title))];
 $('#rewatches').innerHTML=RW.map(r=>`<article><h3>${esc(r.title)} · ${esc(r.count)}</h3><p>${esc(r.body)}</p></article>`).join('');
 setTab('anime');
-function openRecord(i){const a=shown[i];if(!a)return;const p=posterOf(a),n=scoreNum(a.s);
+function openRecord(i){openItem(shown[i]);}
+// a record by kind and title (the anime spaces' "Read everything I wrote", js/spaces.js)
+function openItem(a){if(!a)return;const p=posterOf(a),n=scoreNum(a.s);
  const kind={anime:'Anime',manga:'Manga',tv:'Live action'}[a.k]||'Record';
  const extra=(a.extra||[]).map(t=>`<span>${esc(t)}</span>`).join('');
  openDialog(`<div class="rec-layout rec-poster">${p?`<img src="${esc(p.img)}" alt="${esc(a.t)} cover" style="aspect-ratio:auto">`:''}<div><p class="eyebrow">${kind} · ${esc(a.rank?'Personal top ten #'+a.rank:a.tag||'Personal record')}</p><h2 id="dialog-title">${esc(a.t)}</h2>${a.s?`<p class="big-score">${esc(a.s)}${n!==null?' <small>/ 10</small>':''}</p>`:''}${a.tagline?`<p class="rec-tagline">“${esc(a.tagline)}”</p>`:''}${a.why?`<p><strong>${esc(a.why)}</strong></p>`:''}${a.b?String(a.b).split(/\n\s*\n/).map(t=>`<p>${esc(t)}</p>`).join(''):''}${a.ratingNote?`<p class="subtle">${esc(a.ratingNote)}</p>`:''}${extra?`<div class="tags">${extra}</div>`:''}<p class="subtle">From my notes${SH.updated?', last synced '+new Date(SH.updated).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}):''}.${p?' Cover art: AniList / TVmaze.':''}</p></div></div>`);}
@@ -79,6 +81,7 @@ if(LOG&&LOG.entries.length){
 
 document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
  if(b.dataset.rec!==undefined)openRecord(+b.dataset.rec);
+ if(b.dataset.shelfOpen){const [k,...t]=b.dataset.shelfOpen.split(':');openItem(SHELF[k]?.items.find(x=>x.t===t.join(':')));}
  if(b.dataset.shelf){setTab(b.dataset.shelf);jumpTo(absTop($('#records'))-20);}
 });
 }

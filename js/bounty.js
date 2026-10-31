@@ -97,10 +97,12 @@ function chestToast(n){
 const onIndex=()=>!!document.getElementById('home');
 export function openTreasure(tab){if(!onIndex()){location.href='index.html#treasure';return;}import('./treasure.js').then(m=>m.openTreasure(tab));}
 export function openCharLog(at,o){if(!onIndex()){location.href='index.html#charlog';return Promise.resolve();}return import('./charlog.js').then(m=>m.openCharLog(at,o));}
+// the anime spaces (Oct 31 2026): violet / rezero / orv
+export function openSpace(k){if(!onIndex()){location.href='index.html#space:'+k;return Promise.resolve();}return import('./spaces.js').then(m=>m.openSpace(k));}
 export function openGames(game){if(!onIndex()){location.href='index.html#games';return;}import('./games.js').then(m=>m.openGames(game));}
 
 /* ---------------------------------------------------------------- the bounty board */
-const CH_NAMES={helm:'The helm',characters:'The Character Log',strawhats:'The Straw Hat Pirates',closer:'Look closer',crew:'The Crew',depths:'Between the sky and the sea',voyage:'The Voyage',moments:'Moments',spreads:'Colour spreads',panels:'Favourite panels','story-show':'The Story of One Piece',journey:'The Anime Journey',top:'My top 10',records:'The Shelf',collection:'My manga collection',logbook:'The Logbook',worlds:'Other worlds',orv:'The Star Stream',vault:'The Card Vault',case:'The display case',table:'The Card Table',scenes:'Scenes that stay',library:'The Ohara Library',sky:'The night sky',outro:'The last page'};
+const CH_NAMES={helm:'The helm',spaces:'Worlds of their own',characters:'The Character Log',strawhats:'The Straw Hat Pirates',closer:'Look closer',crew:'The Crew',depths:'Between the sky and the sea',voyage:'The Voyage',moments:'Moments',spreads:'Colour spreads',panels:'Favourite panels','story-show':'The Story of One Piece',journey:'The Anime Journey',top:'My top 10',records:'The Shelf',collection:'My manga collection',logbook:'The Logbook',worlds:'Other worlds',orv:'The Star Stream',vault:'The Card Vault',case:'The display case',table:'The Card Table',scenes:'Scenes that stay',library:'The Ohara Library',sky:'The night sky',outro:'The last page'};
 const PG=['zou','crew','panels','library'];
 const pgFound=()=>{try{const v=JSON.parse(localStorage.getItem('grand-archive:poneglyphs')||'[]');return Array.isArray(v)?v.filter(x=>PG.includes(x)):[];}catch{return[];}};
 const ODD=['g5','write','dive','shuffle','scene'];

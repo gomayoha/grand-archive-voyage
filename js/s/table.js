@@ -7,8 +7,8 @@
 // with the name written huge behind them; ‹ › walks to the next character. Tap a card to hold it up close
 // (js/tcg.js). The table remembers how many you've held. ("Draw a hand" was taken out Oct 31 2026: he never used it.)
 // Cards are absolutely placed on the mat and only ever move by transform (one transition each).
-import {$,esc,clamp,view,motion,coarse,data,remeasure} from '../core.js';
-import {COLORS,HUE,RNAME,face,big,rank,tier,hue,label,light,inspect,picturesOf,onSeen} from '../tcg.js';
+import {$,esc,clamp,view,motion,data,remeasure} from '../core.js';
+import {COLORS,HUE,RNAME,face,big,rank,tier,hue,label,inspect,picturesOf,onSeen} from '../tcg.js';
 import {once} from '../bounty.js';
 
 const CREWS=['Straw Hat Pirates','The Emperors’ crews','The Warlords','The Worst Generation','Revolutionary Army','The World Government','Dressrosa','Thriller Bark','Across the Grand Line','From the films','DON!!'];
@@ -168,7 +168,6 @@ export function initTable(){
   sortBox.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
   once('tcg:sort:'+m.id,1e6,`Sorted the cards by ${m.l.toLowerCase()}`);
   if(dealt)apply();else{group();layout();}});
- if(!coarse)stage.addEventListener('pointermove',e=>{const b=e.target.closest('.tg');if(b)light(b.querySelector('.tgf'),e.clientX,e.clientY);});
 
  /* ---------------- how many you've held ---------------- */
  onSeen(s=>{const n=[...s].filter(id=>cards.some(c=>c.id===id)).length;

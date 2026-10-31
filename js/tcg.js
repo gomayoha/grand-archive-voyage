@@ -1,6 +1,6 @@
 // His One Piece cards (data/tcg.json): shared by the Card Vault spiral (s/cards.js) and the Card Table
-// (s/table.js). Faces are the official card images (DON!! cards: his own photos); the foil on each one
-// follows the card's real rarity. Opening a card shows it big, tilting under the mouse or the
+// (s/table.js). Faces are the official card images (DON!! cards: his own photos), shown as printed: he
+// asked for no foil or glow over them (Oct 31 2026). Opening a card shows it big, tilting under the mouse or the
 // phone, with everything printed on it; the archive remembers which cards you've held up close.
 import {esc,clamp,coarse,motion,data} from './core.js';
 import {openDialog,dialogBody} from './dialogs.js';
@@ -13,17 +13,15 @@ export const hd=c=>c.kind==='DON'?null:`assets/tcg/hd/${c.id}.webp`;
 export const COLORS=['Red','Green','Blue','Purple','Black','Yellow'];
 export const HUE={Red:'#e2412f',Green:'#1f9a6a',Blue:'#2b86d6',Purple:'#8b4fc4',Black:'#6d7178',Yellow:'#f0c531','DON!!':'#c8922f'};
 export const RNAME={SEC:'Secret Rare',L:'Leader',SR:'Super Rare',R:'Rare',UC:'Uncommon',C:'Common',P:'Promo',DON:'DON!!'};
-// how the foil behaves: Secret Rares gold-and-rainbow, parallels and special frames full rainbow, leaders and SRs holo, Rares a silver sheen
+// rarity tier (badges, sorting): Secret Rares, parallels and special frames, leaders, SRs, Rares
 export const tier=c=>c.kind==='DON'?'don':c.rarity==='SEC'?'sec':c.print?'alt':c.rarity==='L'?'lead':c.rarity==='SR'?'sr':c.rarity==='R'||c.rarity==='P'?'r':'c';
 const RANK={sec:7,alt:6,lead:5,sr:4,r:3,c:1,don:0};
 export const rank=c=>RANK[tier(c)]*10+(c.rarity==='UC'?1:0);
 export const hue=c=>HUE[c.colors[0]]||HUE['DON!!'];
 export const label=c=>c.kind==='DON'?'DON!!':`${c.no} · ${RNAME[c.rarity]||c.rarity}${c.print?' · '+c.print:''}`;
 
-// one card face: the picture, a foil layer and a glare that follow the light (--mx/--my)
-export const face=(c,{src=small,lazy=true}={})=>`<span class="tgf t-${tier(c)}" style="--hue:${hue(c)}"><img${src(c)?` src="${src(c)}"`:''} alt="" decoding="async"${lazy?' loading="lazy"':''}><i class="tgf-foil" aria-hidden="true"></i><i class="tgf-glare" aria-hidden="true"></i></span>`;
-// point the light at (x,y) on a face element
-export function light(el,x,y){const r=el.getBoundingClientRect();if(!r.width)return;el.style.setProperty('--mx',(clamp((x-r.left)/r.width)*100).toFixed(1)+'%');el.style.setProperty('--my',(clamp((y-r.top)/r.height)*100).toFixed(1)+'%');}
+// one card face: just the picture
+export const face=(c,{src=small,lazy=true}={})=>`<span class="tgf t-${tier(c)}" style="--hue:${hue(c)}"><img${src(c)?` src="${src(c)}"`:''} alt="" decoding="async"${lazy?' loading="lazy"':''}></span>`;
 
 /* ---------------------------------------------------------------- held up close */
 const SEEN='grand-archive:tcg-seen';
@@ -67,12 +65,12 @@ function render(){
    <p class="fine ti-note">Card ${no} of ${all.length} in my binder${c.kind==='DON'?', from my own photo':' · official card image'}.</p>
   </div></div>`,'is-card');
  dialogBody.parentElement.style.setProperty('--hue',hue(c));
- const card=dialogBody.querySelector('.ti-card'),f=card.querySelector('.tgf');
+ const card=dialogBody.querySelector('.ti-card');
  // the sharp version slips in once it has arrived (and quietly doesn't if it isn't there)
  if(hd(c)){const im=card.querySelector('img'),h=new Image();h.onload=()=>{if(im.isConnected)im.src=h.src;};h.src=hd(c);}
  // it arrives with a half turn, like a card being flipped into your hand
  if(!motion.reduced){card.classList.add('in');setTimeout(()=>card.classList.remove('in'),900);}
- const tilt=(mx,my)=>{card.style.setProperty('--rx',((mx-0.5)*24).toFixed(2)+'deg');card.style.setProperty('--ry',((0.5-my)*18).toFixed(2)+'deg');f.style.setProperty('--mx',(mx*100).toFixed(1)+'%');f.style.setProperty('--my',(my*100).toFixed(1)+'%');};
+ const tilt=(mx,my)=>{card.style.setProperty('--rx',((mx-0.5)*24).toFixed(2)+'deg');card.style.setProperty('--ry',((0.5-my)*18).toFixed(2)+'deg');};
  tilt(0.62,0.3);
  if(!coarse)dialogBody.querySelector('.ti-stage').onpointermove=e=>{const r=card.getBoundingClientRect();tilt(clamp((e.clientX-r.left)/r.width),clamp((e.clientY-r.top)/r.height));};
  ctx.tilt=tilt;

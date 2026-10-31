@@ -29,6 +29,7 @@ const CHAPTERS=[
  ['records','✦','The Shelf','Rated, preserved as written.',()=>poster('anime:Death Note')],
  ['collection','✦','My manga collection','Books I can hold.',()=>'assets/posters/vagabond.webp'],
  ['logbook','✦','The Logbook','How far I’ve come.',()=>poster('anime:Frieren')],
+ ['spaces','✦','Worlds of their own','Violet Evergarden, Re:Zero, Omniscient Reader.',()=>{const w=data.media?.characters?.find(x=>x.home==='Violet');return w&&TH(w.all[w.all.length-1]);}],
  ['worlds','✦','Beyond the Grand Line','Other worlds that stayed.',()=>data.media?.worlds?.[0]&&TH(data.media.worlds[0].cover)],
  ['orv','✦','The Star Stream','Omniscient Reader’s Viewpoint, a webtoon that reads itself.',()=>{const w=data.media?.worlds?.find(x=>x.name==='Omniscient Reader');return w&&TH(w.cover);}],
  ['vault','08','The Card Vault','My kind of treasure.',()=>'assets/tcg/s/OP09-061_p2.webp'],

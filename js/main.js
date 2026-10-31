@@ -10,7 +10,7 @@ import {initWriter} from './writer.js';
 import {bindTexts} from './texts.js';
 import {initToday} from './s/today.js';
 import {initHelm} from './s/helm.js';
-import {initBounty,openTreasure,openGames,openCharLog} from './bounty.js';
+import {initBounty,openTreasure,openGames,openCharLog,openSpace} from './bounty.js';
 // The original opening (s/opening.js, "Anime is for losers.") is kept for later; #origin stays hidden.
 import {initCharacters} from './s/characters.js';
 import {initCrew} from './s/crew.js';
@@ -29,6 +29,7 @@ import {initCollection} from './s/collection.js';
 import {initTimeMachine} from './s/timemachine.js';
 import {initWorlds,initLibrary} from './s/worlds.js';
 import {initOrv} from './s/orv.js';
+import {initSpaces} from './s/spacegate.js';
 import {initCards} from './s/cards.js';
 import {initTable} from './s/table.js';
 import {initCase} from './s/case.js';
@@ -58,6 +59,7 @@ run('top10',initTop10);
 run('shelf',initShelf);
 run('collection',()=>initCollection().catch(e=>console.error('[collection]',e)));
 run('timemachine',()=>initTimeMachine().catch(e=>console.error('[timemachine]',e)));
+run('spaces',initSpaces);
 run('worlds',initWorlds);
 run('orv',initOrv);
 run('cards',initCards);
@@ -105,6 +107,7 @@ let crossing=false;try{crossing=sessionStorage.getItem('grand-archive:cross')===
 if(crossing&&!$('#life').hidden)requestAnimationFrame(()=>{measureAll();jumpTo(absTop($('#life')));});
 else if(location.hash==='#treasure')openTreasure();
 else if(location.hash==='#games')openGames();
+else if(location.hash.startsWith('#space:'))openSpace(location.hash.slice(7));
 else if(location.hash.startsWith('#charlog')){const id=decodeURIComponent(location.hash.split(':')[1]||''),i=(data.characters?.characters||[]).findIndex(c=>c.id===id);openCharLog(i>=0?i:null);}
 else if(location.hash&&location.hash!=='#home'){const t=document.getElementById(location.hash.slice(1));if(t)requestAnimationFrame(()=>jumpTo(absTop(t)));}
 requestAnimationFrame(()=>document.body.classList.add('ready'));

@@ -1,9 +1,9 @@
 // The display case (Oct 31 2026): after the spiral, the cards he keeps behind glass. Every Secret Rare, Leader and
 // Super Rare in his binder stands in a clear graded slab with a label plate, on three shelves of a velvet cabinet:
 // the Secret Rares on top under their own spotlights (they sway, slowly), then the Leaders, then the Super Rares by
-// colour. The light follows the mouse across the foil; tap a slab to hold the card up close (js/tcg.js).
+// colour. The slab leans toward the mouse; tap a slab to hold the card up close (js/tcg.js).
 import {$,esc,data,coarse,onSight} from '../core.js';
-import {COLORS,face,big,light,inspect,picturesOf,RNAME} from '../tcg.js';
+import {COLORS,face,big,inspect,picturesOf,RNAME} from '../tcg.js';
 
 export function initCase(){
  const sec=$('#case'),T=data.tcg;if(!sec||!T){if(sec)sec.hidden=true;return;}
@@ -22,7 +22,7 @@ export function initCase(){
  sec.querySelectorAll('.cs-shelf').forEach(s=>onSight(s,()=>s.classList.add('lit'),'0px 0px -15% 0px'));
  const cab=$('#cs-cab');
  cab.addEventListener('click',e=>{const b=e.target.closest('.cs-slab');if(b)inspect(all,+b.dataset.k,{group:'The display case',col:c=>picturesOf(c.char)});});
- if(!coarse)cab.addEventListener('pointermove',e=>{const b=e.target.closest('.cs-slab');if(!b)return;light(b.querySelector('.tgf'),e.clientX,e.clientY);
+ if(!coarse)cab.addEventListener('pointermove',e=>{const b=e.target.closest('.cs-slab');if(!b)return;
   const r=b.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;b.style.setProperty('--ry',(x*16).toFixed(2)+'deg');b.style.setProperty('--rx',(-y*12).toFixed(2)+'deg');});
  cab.addEventListener('pointerout',e=>{const b=e.target.closest('.cs-slab');if(b&&!b.contains(e.relatedTarget)){b.style.removeProperty('--ry');b.style.removeProperty('--rx');}});
 }

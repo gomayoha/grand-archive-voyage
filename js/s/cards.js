@@ -7,7 +7,7 @@
 import {$,esc,clamp,smooth,lerp,view,part,pinned,follower,motion,data,coarse,jumpTo,absTop,kick} from '../core.js';
 import {G5} from '../gear5.js';
 import {onTilt} from '../tilt.js';
-import {COLORS,HUE,face,big,small,hue,rank,label,light,inspect,picturesOf} from '../tcg.js';
+import {COLORS,HUE,face,big,small,hue,rank,label,inspect,picturesOf} from '../tcg.js';
 
 export function initCards(){
  const sec=$('#vault'),T=data.tcg;
@@ -88,10 +88,10 @@ export function initCards(){
  const tick=()=>{lraf=0;look.x+=(tgt.x-look.x)*0.12;look.y+=(tgt.y-look.y)*0.12;render(f.v??0);if(Math.abs(tgt.x-look.x)+Math.abs(tgt.y-look.y)>0.004)lraf=requestAnimationFrame(tick);};
  const lookAt=(x,y)=>{tgt.x=x;tgt.y=y;if(!lraf&&!motion.reduced)lraf=requestAnimationFrame(tick);};
  if(!coarse){
-  pin.addEventListener('pointermove',e=>{lookAt((e.clientX/view.vw-0.5)*2,(e.clientY/view.vh-0.5)*-2);const el=e.target.closest('.vt-card.front');if(el)light(el.querySelector('.tgf'),e.clientX,e.clientY);});
+  pin.addEventListener('pointermove',e=>lookAt((e.clientX/view.vw-0.5)*2,(e.clientY/view.vh-0.5)*-2));
   pin.addEventListener('pointerleave',()=>lookAt(0,0));
  }
- onTilt(t=>{const r=sec.getBoundingClientRect();if(r.bottom>0&&r.top<view.vh){lookAt(t.x,-t.y);const el=els[front];if(el){const b=el.getBoundingClientRect();light(el.querySelector('.tgf'),b.left+b.width*(0.5+t.x*0.5),b.top+b.height*(0.5+t.y*0.5));}}});
+ onTilt(t=>{const r=sec.getBoundingClientRect();if(r.bottom>0&&r.top<view.vh){lookAt(t.x,-t.y);}});
  const goTo=i=>{const h=sec.offsetHeight-view.vh;jumpTo(absTop(sec)+pOf(i)*h);};
  helix.addEventListener('click',e=>{const b=e.target.closest('[data-card]');if(!b)return;const i=+b.dataset.card;
   if(i===front||motion.reduced)inspect(cards,i,{group:'The Card Vault',col:c=>picturesOf(c.char)});else goTo(i);});
