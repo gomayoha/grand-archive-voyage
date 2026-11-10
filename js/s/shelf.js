@@ -32,7 +32,7 @@ function renderShelf(){
  $('#record-count').textContent=`${shown.length} record${shown.length===1?'':'s'}`;
  $('#record-grid').innerHTML=shown.length?shown.map((a,i)=>{const p=posterOf(a),n=scoreNum(a.s);
   const big=a.rank?'#'+a.rank:n!==null?String(a.s).replace('*',''):a.status==='watching'&&a.progress?a.progress:a.s||({want:'Soon',next:'Next',dropped:'Dropped',finished:'Read',paused:'Paused'}[a.status]||'—');
-  return `<button class="pc${a.status==='want'||a.status==='next'?' is-want':''}" style="--i:${Math.min(i,30)};${p&&p.color?`--c:${p.color}`:''}" data-rec="${i}">
+  return `<button class="pc${a.status==='want'||a.status==='next'?' is-want':''}" style="--i:${Math.min(i,30)};${p&&p.color?`--c:${p.color}`:''}" data-rec="${i}"${a.tagline?` data-say="${esc(a.tagline)}"`:''}>
    <figure>${p?`<img src="${esc(p.img)}" alt="" loading="lazy" decoding="async">`:`<span class="pc-ph">${esc(a.t)}</span>`}<span class="pc-score${n===null&&!a.rank?' small':''}">${esc(big)}${String(a.s).includes('*')?'<sup>*</sup>':''}${n!==null&&!a.rank?'<small>/10</small>':''}</span></figure>
    <span class="pc-meta"><strong>${esc(a.t)}</strong><small>${esc(a.rank?'Personal top ten':a.tag||'')}</small></span>
   </button>`;}).join(''):'<p class="count">No records match that search.</p>';
