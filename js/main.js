@@ -38,11 +38,6 @@ import {registerCollection} from './dialogs.js';
 import {initScenes} from './s/scenes.js';
 import {initBook2} from './s/book2.js';
 import {initSky} from './s/sky.js';
-import {initV6} from './v6.js';
-import {initLake} from './s/lake.js';
-import {initBountyFall} from './s/bountyfall.js';
-import {initDepartures} from './s/departures.js';
-import {initScreens} from './s/screens.js';
 
 await Promise.all([loadData(),loadVault()]);
 // One broken section must never take the rest of the page down with it.
@@ -53,7 +48,6 @@ run('characters',initCharacters);
 run('strawhats',initStrawHats);
 run('closer',initCloser);
 run('crew',initCrew);
-run('bountyfall',initBountyFall);
 run('depths',initDepths);
 const voy=run('voyage',initVoyage);
 run('moments',initMoments);
@@ -63,12 +57,10 @@ run('showcase',()=>initShowcase().catch(e=>console.error('[showcase]',e)));
 run('route',initRoute);
 run('top10',initTop10);
 run('shelf',initShelf);
-run('screens',initScreens);
 run('collection',()=>initCollection().catch(e=>console.error('[collection]',e)));
 run('timemachine',()=>initTimeMachine().catch(e=>console.error('[timemachine]',e)));
 run('spaces',initSpaces);
 run('worlds',initWorlds);
-run('departures',initDepartures);
 run('orv',initOrv);
 run('cards',initCards);
 run('case',initCase);
@@ -76,7 +68,6 @@ run('table',initTable);
 registerCollection('tcgc',collectionFor);
 run('scenes',initScenes);
 run('library',initLibrary);
-run('lake',initLake);
 run('sky',initSky);
 run('book2',initBook2);
 run('gate',initGate);
@@ -87,8 +78,6 @@ run('texts',()=>bindTexts(document));
 run('writer',initWriter);
 // your bounty: berries for the time spent here and everything learned on the way (js/bounty.js)
 run('bounty',()=>initBounty({chars:data.characters?.characters}));
-// V6 chrome: catalogue numbers, the chapter named in the bar, the book rail (js/v6.js)
-run('v6',initV6);
 lookAhead();
 
 /* ---------------- header: clear over full-screen scenes, frosted over reading sections ---------------- */

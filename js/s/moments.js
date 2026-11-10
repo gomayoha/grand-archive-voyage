@@ -43,7 +43,7 @@ export function initMoments(){
  const chars=data.characters.characters,crew=data.media.crew;
  const src=p=>{if(typeof p==='string')return ART+p;if(p.ch){const c=chars.find(x=>x.id===p.ch);return c&&`assets/chars/m/${c.image.id}.webp`;}if(p.crew){const c=crew.find(x=>x.name===p.crew);return c&&FU(c.cover);}if(p.img)return FU(p.img);return null;};
  const N=list.length;
- sec.style.height=`${Math.round(190+N*58)}svh`;
+ sec.style.height=`${Math.round(120+N*58)}svh`;
  const pics=[];
  stage.innerHTML=list.map((m,i)=>{
   const key=`${m.series}-${m.n}`,art=(PICK[key]||[]).map(src).filter(Boolean);art.forEach(a=>pics.push(a));
@@ -58,11 +58,7 @@ export function initMoments(){
  const load=it=>{if(it&&it.imgs.length){it.imgs.forEach(im=>{im.src=im.dataset.src;im.removeAttribute('data-src');im.decode?.().catch(()=>{});});it.imgs=[];}};
  new IntersectionObserver(([e],io)=>{if(e.isIntersecting){load(items[0]);load(items[1]);io.disconnect();}},{rootMargin:'150% 0px'}).observe(sec);
  let cur=-1;
- const paw=$('#mo-paw'),pawCap=$('#mo-pawcap');
- const LX=[-0.17,0.05,-0.2,0.02],LY=[-0.2,0.32,0.27,-0.22],PX=[0.34,-0.34,0.3,-0.3],PY=[-0.02,-0.04,-0.07,-0.05];
- const setBub=()=>sec.classList.toggle('bub',!motion.reduced);motion.listeners.push(()=>{setBub();items.forEach(it=>{it.v=0;it.el.style.visibility='hidden';it.art.style.transform='';it.art.style.opacity='';});});setBub();
  part({el:sec,update(s){
-  if(!motion.reduced){bubbles(pinned(this,s));return;}
   const p=motion.reduced?0:pinned(this,s),x=clamp(p*1.05-0.02)*(N-1),vw=view.vw,vh=view.vh,phone=vw<=820;
   items.forEach((it,i)=>{
    const d=i-x,a=Math.abs(d);
@@ -79,31 +75,6 @@ export function initMoments(){
   });
   const k=Math.round(x);if(k!==cur){cur=k;idx.textContent=`${pad(k+1)} / ${pad(N)}`;bg.style.setProperty('--h',items[k].el.style.getPropertyValue('--h'));}
  }});
-// Memory bubbles (Nov 2026). Kuma pushed every memory he had into one paw-shaped bubble; Bonney walked into it.
- // You push into the paw, then each moment floats up out of the depth as a glass bubble, holds beside his words,
- // and slips past the camera as the next one arrives. The next two or three are always visible further in.
- function bubbles(p){
-  const vw=view.vw,vh=view.vh,phone=vw<=820;
-  const xr=(p-0.085)/0.9*(N-1),x=clamp(xr,-1,N-1),intro=clamp(p/0.085);
-  if(paw){const g=smooth(intro),o=1-smooth(clamp((intro-0.45)/0.5));
-   if(o<0.01){if(paw._v!==0){paw._v=0;paw.style.visibility='hidden';pawCap.style.visibility='hidden';}}
-   else{if(paw._v!==1){paw._v=1;paw.style.visibility='visible';pawCap.style.visibility='visible';}paw.style.transform=`translate3d(0,${(g*vh*0.1).toFixed(1)}px,0) scale(${(1+g*g*7).toFixed(3)})`;paw.style.opacity=o.toFixed(3);pawCap.style.opacity=(1-smooth(clamp(intro/0.4))).toFixed(3);}}
-  items.forEach((it,i)=>{
-   const d=i-x,a=Math.abs(d);
-   if(d>3.1||d<-0.75){if(it.v){it.v=0;it.el.style.visibility='hidden';}return;}
-   if(!it.v){it.v=1;it.el.style.visibility='visible';load(it);load(items[i+1]);}
-   let tx,ty,sc,op;
-   if(d>=0){const m=smooth(clamp(d))+Math.max(0,d-1)*0.22;sc=1000/(1000+d*1150);tx=(phone?PX:LX)[i%4]*vw*m;ty=(phone?PY:LY)[i%4]*vh*m;op=(1-smooth(clamp((d-2.3)/0.8)))*(d>0.5?0.82:1)*(xr<-0.999?smooth(intro*1.4):1);}
-   else{const k=-d;sc=1+k*k*5+k*0.9;tx=-k*vw*(phone?0.2:0.42);ty=-k*vh*0.08;op=1-smooth(clamp(k/0.55));}
-   it.art.style.transform=`translate3d(${tx.toFixed(1)}px,${ty.toFixed(1)}px,0) scale(${sc.toFixed(4)})`;
-   it.art.style.opacity=op.toFixed(3);
-   it.art.style.pointerEvents=a<0.3?'auto':'none';
-   const o=1-smooth(clamp((a-0.06)/0.3));it.copy.style.opacity=o.toFixed(3);it.copy.style.transform=`translate3d(0,${(d*60).toFixed(1)}px,0)`;it.copy.style.pointerEvents=o>0.5?'auto':'none';
-   it.el.style.zIndex=String(100-Math.round(d*10));
-  });
-  const k=Math.round(Math.max(0,x));if(k!==cur){cur=k;idx.textContent=`${pad(k+1)} / ${pad(N)}`;bg.style.setProperty('--h',items[k].el.style.getPropertyValue('--h'));}
-  idx.style.opacity=intro>=1?'':'0';
- }
  registerCollection('moments',()=>({title:'Moments that live in my head',eyebrow:'Anime Journey',ids:[...new Set(pics)],src:x=>x}));
  stage.addEventListener('click',e=>{const more=e.target.closest('[data-more]');if(more){const m=list[+more.dataset.more];openDialog(`<p class="eyebrow">${esc(m.series)} · ${esc(m.n)}</p><h2 id="dialog-title">${esc(m.title)}</h2><div class="mo-read" style="--h:${HUE[m.emotion]||'#f3c969'}">${m.emotion?`<p class="mo-emotion">${esc(m.emotion)}</p>`:''}<div class="mo-text">${textHTML(m)}</div></div>`);return;}const f=e.target.closest('.mo-pic');if(!f)return;const im=f.querySelector('img');openViewer('moments',im.getAttribute('src')||im.dataset.src);});
 }
