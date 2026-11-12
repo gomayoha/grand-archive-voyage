@@ -1,13 +1,13 @@
 // Today: a new edition every day. The date decides what is dealt (the same day always shows the same edition),
 // so it is worth coming back tomorrow: a picture, a character, one of his lines, a moment, a question, a pack.
-import {$,$$,esc,data,S,TH,FU,TODAY,rng,pick,shuffle,pool,poster,day,finish,givePack,earn,PARTS,onChange,rarity,RNAME} from './store.js';
+import {$,$$,esc,data,S,TH,FU,TODAY,dayKey,rng,pick,shuffle,pool,poster,day,finish,givePack,earn,PARTS,onChange,rarity,RNAME} from './store.js';
 import {rise,openSheet} from './ui.js';
 import {charImg,momentArt} from './stories.js';
 
 const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
-const dayNo=()=>Math.floor((new Date(TODAY+'T12:00:00')-new Date('2026-01-01T12:00:00'))/864e5);
-export function edition(){
- const r=rng('ga:'+TODAY),n=dayNo(),m=data.media;
+const dayNo=k=>Math.round((new Date(k+'T12:00:00')-new Date('2026-01-01T12:00:00'))/864e5);
+export function edition(key=TODAY){
+ const r=rng('ga:'+key),n=dayNo(key),m=data.media;
  // the picture: an upright one, so it fills the tall card
  const tall=pool().filter(p=>{const [w,h]=m.img[p.id];return h/w>1.15&&h/w<1.9&&Math.min(w,h)>=700;});
  const picture=pick(tall.length?tall:pool(),r);
@@ -43,7 +43,9 @@ export function renderToday(root){
   <div class="card c-q" id="c-q" data-rise>${questionHTML()}</div>
   <button class="card c-pack press" data-open="pack" data-rise><span class="pk-art"><span class="pack sm"><img src="${TH(p.id)}" alt=""><i></i><b>Grand Archive</b></span></span><span class="pk-t"><span class="eyebrow">Your packs</span><b id="pk-n"></b><small>Five pictures from the archive in each. One arrives every day.</small></span>${tick('pack')}</button>
  </div>
- <div class="today-end" id="today-end" data-rise>${endHTML()}</div>`;
+ <div class="today-end" id="today-end" data-rise>${endHTML()}</div>
+ <section class="row"><div class="row-head" data-rise><h2>Earlier. <span>The last six editions.</span></h2></div>
+  <div class="rail-wrap"><div class="rail">${past().map(x=>`<button class="pc col press" data-open="edition:${x.key}"><img src="${TH(x.e.picture.id)}" alt="" loading="lazy" decoding="async"><span class="pc-t"><b>${x.label}</b><small>${esc(x.e.character.name)} · ${esc(x.e.picture.col)}</small></span></button>`).join('')}</div></div></section>`;
  const sync=()=>{const n=$('#pk-n',root);if(n)n.textContent=S.packs>0?`${S.packs} pack${S.packs===1?'':'s'} waiting`:'No packs left today';
   $$('[data-tick]',root).forEach(t=>t.classList.toggle('on',!!day().done[t.dataset.tick]));const e=$('#today-end',root);if(e){const n2=String(PARTS.filter(x=>day().done[x]).length);if(e.dataset.n!==n2){e.dataset.n=n2;e.innerHTML=endHTML();cd();}}};
  // the countdown to midnight
@@ -56,6 +58,19 @@ export function renderToday(root){
   $('#c-q',root).innerHTML=questionHTML();
  });
  rise(root);
+}
+// the six days before today, newest first
+function past(){return Array.from({length:6},(_,i)=>{const d=new Date(TODAY+'T12:00:00');d.setDate(d.getDate()-i-1);const key=dayKey(d);return {key,e:edition(key),label:i?`${DAYS[d.getDay()]}`:'Yesterday',date:`${DAYS[d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth()]}`};});}
+// an earlier edition, to look back at (nothing to earn there)
+export function openEdition(key,from){
+ const x=past().find(p=>p.key===key);if(!x)return;const e=x.e,art=momentArt(e.moment)[0],wp=poster(e.words.k,e.words.t);
+ const row=(img,k,t,s,open)=>`<button class="sr press" data-open="${esc(open)}">${img?`<img src="${img}" alt="" loading="lazy">`:'<i></i>'}<span><small>${k}</small><b>${esc(t)}</b>${s?`<small>${esc(s)}</small>`:''}</span></button>`;
+ openSheet(`<header class="sh-head"><p class="eyebrow">An earlier edition</p><h2 class="sh-title">${x.date}</h2></header><div class="ed-rows">
+  ${row(TH(e.picture.id),'Picture of the day',e.picture.col,`No. ${e.picture.i} of ${e.picture.of}`,`pic:${e.picture.id}`)}
+  ${row(charImg(e.character),'Character of the day',e.character.name,e.character.word?`Left behind: ${e.character.word}`:e.character.series,`char:${e.character.id}`)}
+  ${row(wp?.img,'In my words',`“${e.words.tagline}”`,e.words.t,`record:${e.words.k}:${e.words.t}`)}
+  ${row(art,'A moment that lives in my head',e.moment.title,e.moment.series,`moment:${e.mi}`)}
+ </div>`,{from});
 }
 // the picture of the day, opened
 export function openPicture(from){

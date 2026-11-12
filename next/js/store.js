@@ -13,7 +13,7 @@ export const data={};
 const J=(u,tries=3)=>fetch(ROOT+u).then(r=>{if(!r.ok)throw r;return r.json();}).catch(()=>tries>1?new Promise(res=>setTimeout(res,400*(4-tries))).then(()=>J(u,tries-1)):null);
 const FIELDS=['status','s','tagline','b','progress','chapter','genre'];
 export async function loadData(){
- const keys=['media','characters','posters','shelf','route','strawhats','tcg','trivia','edits'];
+ const keys=['media','characters','posters','shelf','route','strawhats','tcg','trivia','edits','collection'];
  (await Promise.all(keys.map(k=>J(`data/${k}.json`)))).forEach((v,i)=>data[keys[i]]=v);
  // the same overlay the classic site applies: his edits win while the note still says what it said then
  const sh=data.shelf,e=data.edits;
@@ -53,7 +53,7 @@ export const RWORTH={c:1e6,r:3e6,sr:8e6,sec:20e6,m:35e6,rm:60e6,mos:60e6,sun:120
 
 /* ------------------------------------------------------------------ saved progress */
 const KEY='grand-archive:next';
-const blank=()=>({v:1,b:0,cards:{},packs:2,opened:0,streak:{n:0,last:null,best:0},days:{},name:'',best:{},seen:{},calm:null,imported:false});
+const blank=()=>({v:1,b:0,cards:{},packs:2,opened:0,streak:{n:0,last:null,best:0},days:{},name:'',best:{},seen:{},likes:{},q:{},fullDays:0,calm:null,imported:false});
 export const S=(()=>{try{const v=JSON.parse(localStorage.getItem(KEY)||'null');if(v&&v.v===1)return Object.assign(blank(),v);}catch{}return blank();})();
 export const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S));}catch{}};
 // first visit: carry over what was already earned in the classic archive (cards found, bounty, name)
@@ -84,6 +84,8 @@ export function touchStreak(){
  const ks=Object.keys(S.days).sort();while(ks.length>40)delete S.days[ks.shift()];
  changed();return true;
 }
+// a story was opened (quests count them)
+export const see=k=>{if(!S.seen[k]){S.seen[k]=Date.now();changed();}};
 export function earn(n,why){S.b+=n;changed();toastFn?.(`+฿${money(n)}`,why);}
 export function givePack(n,why){S.packs+=n;changed();toastFn?.(n===1?'+1 pack':`+${n} packs`,why);}
 let toastFn=null;export const setToast=f=>{toastFn=f;};
@@ -91,6 +93,6 @@ let toastFn=null;export const setToast=f=>{toastFn=f;};
 export const PARTS=['picture','character','words','moment','question','pack'];
 export function finish(part){
  const d=day();if(d.done[part])return false;d.done[part]=Date.now();changed();
- if(PARTS.every(p=>d.done[p])&&!d.bonus){d.bonus=true;S.packs+=1;S.b+=5*M;changed();toastFn?.('Today is complete','+1 pack · +฿5,000,000');}
+ if(PARTS.every(p=>d.done[p])&&!d.bonus){d.bonus=true;S.fullDays=(S.fullDays||0)+1;S.packs+=1;S.b+=5*M;changed();toastFn?.('Today is complete','+1 pack · +฿5,000,000');}
  return true;
 }

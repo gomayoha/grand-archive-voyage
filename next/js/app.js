@@ -1,9 +1,11 @@
 // Boot, the five screens and moving between them.
 import {$,$$,loadData,S,changed,onChange,touchStreak,setToast,finish,reduced} from './store.js';
 import {toast,rise} from './ui.js';
-import {renderToday,openPicture} from './today.js';
+import {renderToday,openPicture,openEdition} from './today.js';
 import {renderStories,open as openThing} from './stories.js';
-import {renderCollect,onShowCollect,openPack} from './collect.js';
+import {renderCollect,onShowCollect,openPack,openTcg} from './collect.js';
+import {openSearch} from './search.js';
+import {readyCount} from './quests.js';
 import {renderPlay} from './play.js';
 import {renderMe} from './me.js';
 
@@ -38,6 +40,9 @@ document.addEventListener('click',e=>{
  if(what.startsWith('tab:'))go(what.slice(4));
  else if(what==='pack')openPack();
  else if(what==='today:picture')openPicture(o);
+ else if(what==='search')openSearch(null);
+ else if(what.startsWith('tcg:'))openTcg(what.slice(4),o);
+ else if(what.startsWith('edition:'))openEdition(what.slice(8),o);
  else openThing(what,o);
 });
 addEventListener('hashchange',()=>go(location.hash.slice(1)||'today'));
@@ -48,6 +53,8 @@ async function boot(){
  const fresh=touchStreak();
  renderToday(view('today'));renderStories(view('stories'));renderCollect(view('collect'));playDraw=renderPlay(view('play'));renderMe(view('me'));
  const packs=()=>{const n=$('#bar-packs-n');n.textContent=S.packs;$('#bar-packs').classList.toggle('has',S.packs>0);};packs();onChange(packs);
+ // a dot on Collect when a quest is waiting to be claimed
+ const dot=()=>{const n=readyCount();$$('[data-tab=collect]').forEach(a=>a.classList.toggle('dot',n>0));};dot();onChange(dot);
  $('#bar-title').textContent=NAME.today;$$('[data-tab=today]').forEach(a=>a.setAttribute('aria-current',''));
  const h=location.hash.slice(1);if(TABS.includes(h)&&h!=='today')go(h,{instant:true});
  window.__booted=true;try{sessionStorage.removeItem('ga-retry');}catch{}

@@ -1,7 +1,7 @@
 // Stories: everything he wrote and kept, as rails you swipe and full-screen stories you tap through.
 // His words are shown exactly as his notes have them; only labels and buttons are written here.
-import {$,$$,esc,data,ROOT,TH,FU,poster,findRecord,collections,money} from './store.js';
-import {openSheet,openStory,openGallery,openViewer,rise} from './ui.js';
+import {$,$$,esc,data,S,ROOT,TH,FU,poster,findRecord,collections,money,see,onChange} from './store.js';
+import {openSheet,openStory,openGallery,openViewer,rise,toast} from './ui.js';
 
 const ART=ROOT+'assets/moments/';
 // which picture goes with which moment (same map as the classic site)
@@ -68,12 +68,27 @@ export function openCrew(c,from){
   ${mine?`<p class="rec-say">“${esc(mine)}”</p>`:''}
   <div class="row-btns">${c.record&&chars().some(x=>x.id===c.record)?`<button class="btn" data-open="char:${esc(c.record)}">Read their story</button>`:''}${ids.length?`<button class="btn ghost" data-open="gallery:${esc(c.photos?.char||c.photos?.crew||c.short)}">${ids.length} pictures</button>`:''}</div></div></div>`,{from});
 }
+// the ones outside the Character Log who "still left something" (his line, word for word)
+const supportArt=c=>{const m=data.media,s=(m.supporting||[]).find(x=>x.name===c.name);if(s)return {img:FU(s.cover),col:s.name};const k=(m.crew||[]).find(x=>x.name===c.name);if(k)return {img:FU(k.cover),col:k.name};const p=c.name==='Asta'&&poster('anime','Black Clover');return {img:p?p.img:null,col:null};};
+export function openSupport(c,from){
+ const a=supportArt(c),n=a.col?idsOf(a.col).length:0;
+ openSheet(`<div class="rec crew"><div class="rec-pic sh-hero">${a.img?`<img src="${a.img}" alt="${esc(c.name)}">`:''}</div><div class="rec-txt"><p class="eyebrow">${esc(c.series||'Black Clover')}</p><h2 class="sh-title">${esc(c.name)}</h2>${c.word?`<p class="rec-score small"><b>${esc(c.word)}</b></p>`:''}<p class="rec-say">“${esc(c.line)}”</p><p class="fine">${esc(c.source||'From my notes')}</p>${n?`<div class="row-btns"><button class="btn ghost" data-open="gallery:${esc(a.col)}">${n} picture${n===1?'':'s'}</button></div>`:''}</div></div>`,{from});
+}
+const books=()=>(data.collection?.shelves||[]).flatMap(s=>s.books.map(b=>({...b,shelfName:s.name})));
+export function openBook(b,from){
+ const added=b.added?new Date(b.added+'-15').toLocaleDateString('en-GB',{month:'long',year:'numeric'}):'';
+ openSheet(`<div class="rec"><div class="rec-pic sh-hero" style="--c:${b.spine||'#333'}">${b.cover?`<img src="${ROOT}${b.cover}" alt="">`:`<span class="bk-plain" style="background:${b.spine||'#333'};color:${b.ink||'#fff'}">${esc(b.title)}</span>`}</div><div class="rec-txt"><p class="eyebrow">On my shelf · ${esc(b.shelfName)}</p><h2 class="sh-title">${esc(b.title)}</h2><p class="sh-sub">${esc(b.edition||'')}</p>
+ <dl class="facts">${b.vol?`<div><dt>Volume</dt><dd>${esc(b.vol)}</dd></div>`:''}${b.author?`<div><dt>Author</dt><dd>${esc(b.author)}</dd></div>`:''}${added?`<div><dt>Added</dt><dd>${added}</dd></div>`:''}</dl>${b.note?`<p class="rec-say">“${esc(b.note)}”</p>`:''}</div></div>`,{from});
+}
 // one address for everything that can be opened: "kind:argument" (cards carry it in data-open)
 export function open(what,from){
  const [k,...r]=what.split(':'),a=r.join(':'),m=data.media;
- if(k==='char'){const c=chars().find(x=>x.id===a);if(c)openCharacter(c,from);}
- else if(k==='moment'){const x=data.route.moments[+a];if(x)openMoment(x,from);}
- else if(k==='stop'){const x=data.route.stops[+a];if(x)openStop(x,from);}
+ if(k==='char'){const c=chars().find(x=>x.id===a);if(c){see(what);openCharacter(c,from);}}
+ else if(k==='moment'){const x=data.route.moments[+a];if(x){see(what);openMoment(x,from);}}
+ else if(k==='stop'){const x=data.route.stops[+a];if(x){see(what);openStop(x,from);}}
+ else if(k==='support'){const x=data.characters.supporting[+a];if(x)openSupport(x,from);}
+ else if(k==='book'){const x=books().find(b=>b.id===a);if(x)openBook(x,from);}
+ else if(what==='gallery:fav'){const ids=Object.keys(S.likes).sort((x,y)=>S.likes[y]-S.likes[x]);if(ids.length)openGallery('My favourites',ids,{from,sub:'Hearted'});else toast('No favourites yet','Tap the heart on any picture');}
  else if(k==='crew'){const x=data.strawhats.crew.find(c=>c.id===a);if(x)openCrew(x,from);}
  else if(k==='top'){const t=data.shelf.top10[+a];if(t)openRecord(findRecord(t.title)||{t:t.title,k:'anime'},from,{rank:+a+1,why:t.body});}
  else if(k==='record'){const [kk,...t]=a.split(':');openRecord(data.shelf[kk]?.find(x=>x.t===t.join(':')),from);}
@@ -93,6 +108,9 @@ function shelfHTML(){
  return `<div class="sf-grid">${show.map(a=>{const p=poster(a.k,a.t),n=score(a);return `<button class="sf press" data-open="record:${a.k}:${esc(a.t)}"><span class="sf-pic"${p?.color?` style="--c:${p.color}"`:''}>${p?`<img src="${p.img}" alt="" loading="lazy" decoding="async">`:`<i>${esc(a.t)}</i>`}</span><span class="sf-meta"><b>${esc(a.t)}</b><small>${n!==null?`${esc(String(a.s).replace('*',''))} / 10`:esc(a.chapter||a.progress||a.status||'')}</small></span></button>`;}).join('')||'<p class="fine">Nothing on the shelf matches that.</p>'}</div>${!all&&!q&&list.length>12?`<button class="btn ghost" id="sf-all">Show all ${list.length}</button>`:''}`;
 }
 export function renderStories(root){
+ // rewatches he told me about in chat that his notes don't list yet (his words; same line as the classic shelf)
+ const RW_ADD=[{title:'Violet Evergarden',count:'2×',body:'Rewatched the entire show again with my family (October 2026). It increased my understanding of the character.'}];
+ const RW=[...data.shelf.rewatches,...RW_ADD.filter(a=>!data.shelf.rewatches.some(r=>r.title===a.title))];
  const C=chars(),R=data.route,SH=data.shelf,cols=collections().sort((a,b)=>b.cards.length-a.cards.length);
  root.innerHTML=`
  <header class="lt"><p class="lt-date">${Object.keys(data.media.img).length.toLocaleString('en-US')} pictures · ${C.length} characters · ${SH.anime.length+SH.manga.length+SH.tv.length} records</p><h1 class="lt-title">Stories</h1></header>
@@ -104,13 +122,19 @@ export function renderStories(root){
   ${rail('r-mo',R.moments.map((m,i)=>{const a=momentArt(m)[0];return `<button class="wc press" data-open="moment:${i}">${a?`<img src="${a}" alt="" loading="lazy" decoding="async">`:''}<span class="wc-t"><small>${esc(m.series)} · ${esc(m.emotion||'')}</small><b>${esc(m.title)}</b></span></button>`;}).join(''))}</section>
  <section class="row">${head('The Straw Hats.','Ten dreams, one ship.',`฿${money(data.strawhats.total)}`)}
   ${rail('r-crew',data.strawhats.crew.map(c=>`<button class="cr press" data-open="crew:${c.id}" style="--c:${c.tint}"><span class="cr-pic"><img src="${TH(c.art)}" alt="" loading="lazy" decoding="async"></span><b>${esc(c.short)}</b><small>${esc(c.role)}</small></button>`).join(''))}</section>
+ <section class="row">${head('They still left something.','')}
+  ${rail('r-sup',data.characters.supporting.map((c,i)=>{const a=supportArt(c);return `<button class="wc press" data-open="support:${i}">${a.img?`<img src="${a.img}" alt="" loading="lazy" decoding="async">`:''}<span class="wc-t"><small>${esc(c.series||'Black Clover')}</small><b>${esc(c.name)}</b></span></button>`;}).join(''))}</section>
  <section class="row">${head('The journey.','How it started, phase by phase.')}
   ${rail('r-stops',R.stops.map((s,i)=>{const p=stopPoster(s);return `<button class="wc stop press" data-open="stop:${i}">${p?`<img src="${p.img}" alt="" loading="lazy" decoding="async">`:`<span class="wc-no">${esc(s.phase)}</span>`}<span class="wc-t"><small>Phase ${esc(s.phase)} · ${esc(s.when||'')}</small><b>${esc(s.name)}</b><i>${esc(s.title)}</i></span></button>`;}).join(''))}</section>
  <section class="row shelf">${head('The shelf.','Rated, preserved as written.')}
   <div class="sf-bar" data-rise><div class="seg" role="tablist">${[['anime','Anime'],['manga','Manga'],['tv','Live action']].map(([k,l])=>`<button role="tab" data-seg="${k}" aria-selected="${k===tab}">${l}</button>`).join('')}</div><input type="search" id="sf-q" placeholder="Find a story" aria-label="Search the shelf"></div>
   <div id="sf-out">${shelfHTML()}</div></section>
+ <section class="row">${head('Rewatches.','Some stories gained company.')}
+  ${rail('r-rw',RW.map(r=>{const a=findRecord(r.title),p=a&&poster(a.k,a.t);return `<button class="rw press"${a?` data-open="record:${a.k}:${esc(a.t)}"`:''}>${p?`<img src="${p.img}" alt="" loading="lazy" decoding="async">`:''}<span><b>${esc(r.count)}</b><strong>${esc(r.title)}</strong><small>${esc(r.body)}</small></span></button>`;}).join(''))}</section>
+ ${books().length?`<section class="row">${head('Books I can hold.','My manga collection.')}
+  ${rail('r-books',books().map(b=>`<button class="pc col bk press" data-open="book:${esc(b.id)}" style="--c:${b.spine||'#333'}">${b.cover?`<img src="${ROOT}${b.cover}" alt="" loading="lazy" decoding="async">`:''}<span class="pc-t"><b>${esc(b.title)}</b><small>${esc(b.edition||b.vol||'')}</small></span></button>`).join(''))}</section>`:''}
  <section class="row">${head('Pictures.','Every collection.',`${Object.keys(data.media.img).length.toLocaleString('en-US')} kept`)}
-  ${rail('r-cols',cols.map(c=>`<button class="pc col press" data-open="gallery:${esc(c.name)}"><img src="${TH(c.cards[0].id)}" alt="" loading="lazy" decoding="async"><span class="pc-t"><b>${esc(c.name)}</b><small>${c.cards.length} picture${c.cards.length===1?'':'s'}</small></span></button>`).join(''))}</section>
+  ${rail('r-cols',`<button class="pc col fav press" id="fav-card" data-open="gallery:fav" hidden><img alt="" decoding="async"><span class="pc-t"><b>My favourites</b><small></small></span></button>`+cols.map(c=>`<button class="pc col press" data-open="gallery:${esc(c.name)}"><img src="${TH(c.cards[0].id)}" alt="" loading="lazy" decoding="async"><span class="pc-t"><b>${esc(c.name)}</b><small>${c.cards.length} picture${c.cards.length===1?'':'s'}</small></span></button>`).join(''))}</section>
  <section class="row">${head('Pages of their own.','')}
   <div class="links" data-rise><a class="lk press" href="${ROOT}story.html"><b>The Story of One Piece</b><span>The whole manga, arc by arc</span></a><a class="lk press" href="${ROOT}index.html"><b>The classic archive</b><span>The long scroll, exactly as it was</span></a><a class="lk press" href="${ROOT}index.html#life"><b>Book II</b><span>Behind the magic words</span></a></div></section>`;
  const out=$('#sf-out',root),redo=()=>{out.innerHTML=shelfHTML();};
@@ -120,5 +144,6 @@ export function renderStories(root){
   const rb=e.target.closest('[data-rail]');if(rb){const r=rb.parentNode.querySelector('.rail');r.scrollBy({left:+rb.dataset.rail*r.clientWidth*.82,behavior:'smooth'});}
  });
  $('#sf-q',root).addEventListener('input',e=>{q=e.target.value.toLowerCase().trim();redo();});
+ const fav=()=>{const el=$('#fav-card',root),ids=Object.keys(S.likes).sort((x,y)=>S.likes[y]-S.likes[x]);el.hidden=!ids.length;if(ids.length){$('img',el).src=TH(ids[0]);$('small',el).textContent=`${ids.length} picture${ids.length===1?'':'s'}`;}};fav();onChange(fav);
  rise(root);
 }

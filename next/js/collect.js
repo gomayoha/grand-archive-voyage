@@ -2,6 +2,7 @@
 // rarity (the same rarity it has in the classic Treasure Room, so nothing found there is lost). New cards raise the bounty.
 import {$,$$,esc,data,S,ROOT,TH,FU,pool,collections,rarity,TIERS,RNAME,RWORTH,changed,onChange,title,nextTitle,money,pick,reduced,finish,TODAY} from './store.js';
 import {openSheet,openViewer,rise,countUp,toast} from './ui.js';
+import {questsHTML,claim,readyCount} from './quests.js';
 
 const byId=id=>pool().find(p=>p.id===id);
 export const cardHTML=(p,{big=false,back=false,tag=''}={})=>{const r=rarity(p.id);return `<div class="cd r-${r}${big?' big':''}" data-card="${p.id}"><div class="cd-in"><div class="cd-f"><img src="${big?FU(p.id):TH(p.id)}" alt="" decoding="async"${big?'':' loading="lazy"'}><i class="cd-fx" aria-hidden="true"></i><span class="cd-l"><b>${esc(p.col)}</b><small>No. ${p.i} / ${p.of}</small></span><span class="cd-r">${RNAME[r]}</span>${tag?`<span class="cd-tag">${tag}</span>`:''}</div>${back?'<div class="cd-b" aria-hidden="true"><i></i><b>Grand Archive</b></div>':''}</div></div>`;};
@@ -35,7 +36,7 @@ export function openPack(){
  const wait=ms=>new Promise(r=>setTimeout(r,reduced()?0:ms));
  function flip(k){
   const c=stage.children[k],r=rarity(R.res[k].p.id);if(!c)return;
-  c.classList.add('up');el.dataset.r=r;word.textContent=RNAME[r];word.classList.remove('in');void word.offsetWidth;word.classList.add('in');
+  c.classList.add('up');el.dataset.r=r;if(TIERS.indexOf(r)<=TIERS.indexOf('sr')){el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}word.textContent=RNAME[r];word.classList.remove('in');void word.offsetWidth;word.classList.add('in');
   hint.textContent=k<4?'Tap for the next card':'Tap to finish';
  }
  async function step(){
@@ -73,14 +74,22 @@ export function openCard(id,from){
  const p=byId(id);if(!p)return;const r=rarity(id),when=S.cards[id];
  openSheet(`<div class="card-sheet"><div class="cs-card sh-hero">${cardHTML(p,{big:true})}</div><div class="cs-txt"><p class="eyebrow r-t-${r}">${RNAME[r]}</p><h2 class="sh-title">${esc(p.col)}</h2><p class="sh-sub">No. ${p.i} of ${p.of}</p>
  <dl class="facts"><div><dt>Found</dt><dd>${when?new Date(when).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}):'Not yet'}</dd></div><div><dt>Worth</dt><dd>฿${money(RWORTH[r])}</dd></div></dl>
- <div class="row-btns"><button class="btn" data-open="pic:${id}">See the picture</button><button class="btn ghost" data-open="gallery:${esc(p.col)}">The collection</button></div></div></div>`,{from});
+ <div class="row-btns"><button class="btn" data-open="pic:${id}">See the picture</button><button class="btn ghost" data-open="gallery:${esc(p.col)}">The collection</button></div></div></div>`,{from,onOpen(el){tilt(el.querySelector('.cs-card'),r);}});
+}
+// held up close, a card leans toward your finger or the mouse, and light slides across it
+function tilt(box,r){
+ const cd=box?.querySelector('.cd');if(!cd||reduced())return;
+ if(r!=='c')cd.classList.add('shine');
+ const move=e=>{const b=box.getBoundingClientRect(),x=(e.clientX-b.left)/b.width,y=(e.clientY-b.top)/b.height;cd.classList.add('live');cd.style.setProperty('--ry',((x-.5)*22).toFixed(2)+'deg');cd.style.setProperty('--rx',((.5-y)*18).toFixed(2)+'deg');cd.style.setProperty('--mx',(x*100).toFixed(1)+'%');cd.style.setProperty('--my',(y*100).toFixed(1)+'%');};
+ const rest=()=>{cd.classList.remove('live');cd.style.setProperty('--ry','0deg');cd.style.setProperty('--rx','0deg');};
+ box.addEventListener('pointermove',move);box.addEventListener('pointerleave',rest);box.addEventListener('pointerup',e=>{if(e.pointerType!=='mouse')rest();});box.addEventListener('pointercancel',rest);
 }
 function openBinder(name,from){
  const col=collections().find(c=>c.name===name);if(!col)return;const got=col.cards.filter(p=>S.cards[p.id]).length;
  openSheet(`<header class="sh-head"><p class="eyebrow">Binder</p><h2 class="sh-title">${esc(name)}</h2><p class="sh-sub">${got} of ${col.cards.length} found</p><div class="bar"><i style="--p:${got/col.cards.length}"></i></div></header>
  <div class="bd-grid">${col.cards.map(p=>S.cards[p.id]?`<button class="press" data-card-open="${p.id}">${cardHTML(p)}</button>`:`<div class="bd-slot"><span>${p.i}</span></div>`).join('')}</div>`,{from,cls:'wide',onOpen(el){el.addEventListener('click',e=>{const c=e.target.closest('[data-card-open]');if(c)openCard(c.dataset.cardOpen,c);});}});
 }
-function openTcg(id,from){
+export function openTcg(id,from){
  const c=data.tcg.cards.find(x=>x.id===id);if(!c)return;
  openSheet(`<div class="card-sheet tcg"><div class="cs-card sh-hero"><img class="tcg-img" src="${ROOT}assets/tcg/${c.id}.webp" alt="${esc(c.name)}"></div><div class="cs-txt"><p class="eyebrow">${esc(c.rarity||'')} · ${esc(c.no||c.id)}</p><h2 class="sh-title">${esc(c.name)}</h2><p class="sh-sub">${esc(c.set||'')}</p>
  <dl class="facts">${c.kind?`<div><dt>Kind</dt><dd>${esc(c.kind)}</dd></div>`:''}${c.cost!=null&&c.cost!=='None'?`<div><dt>Cost</dt><dd>${esc(c.cost)}</dd></div>`:''}${c.power&&c.power!=='None'?`<div><dt>Power</dt><dd>${esc(c.power)}</dd></div>`:''}${(c.colors||[]).length?`<div><dt>Colour</dt><dd>${esc(c.colors.join(' / '))}</dd></div>`:''}</dl>
@@ -100,16 +109,19 @@ export function renderCollect(root){
    <div class="pk-side"><h2>${S.packs>0?`${S.packs} pack${S.packs===1?'':'s'} <span>waiting.</span>`:'No packs <span>right now.</span>'}</h2><p>Five pictures from the archive in every pack. New ones raise your bounty.</p>
    <button class="btn" data-open="pack"${S.packs>0?'':' disabled'}>Open a pack</button>
    <ul class="earn"><li><b>Every day</b><span>one pack, just for showing up</span></li><li><b>Question of the day</b><span>a right answer</span></li><li><b>Finish today’s edition</b><span>all six parts</span></li><li><b>Games</b><span>the first win of the day in each</span></li></ul></div></section>
+  <section class="row"><div class="row-head" data-rise><h2>Quests. <span>The long games.</span></h2></div>${questsHTML()}</section>
   ${best.length?`<section class="row"><div class="row-head" data-rise><h2>Rarest finds. <span>Your best ten.</span></h2></div><div class="rail-wrap"><div class="rail cards">${best.map(p=>`<button class="press" data-card-open="${p.id}">${cardHTML(p)}</button>`).join('')}</div></div></section>`:''}
   <section class="row"><div class="row-head" data-rise><h2>The binder. <span>Every collection.</span></h2></div>
    <div class="bd-list">${cols.map(c=>`<button class="bd press" data-binder="${esc(c.name)}" data-rise><img src="${TH(c.cards[0].id)}" alt="" loading="lazy"><span><b>${esc(c.name)}</b><small>${c.got} / ${c.cards.length}</small><span class="bar"><i style="--p:${c.got/c.cards.length}"></i></span></span></button>`).join('')}</div></section>
   ${tcg.length?`<section class="row"><div class="row-head" data-rise><h2>The real ones. <span>My One Piece cards.</span></h2><p>${tcg.length} cards</p></div><div class="rail-wrap"><div class="rail tcgs">${tcg.map(c=>`<button class="tcg-c press" data-tcg="${esc(c.id)}"><img src="${ROOT}assets/tcg/s/${c.id}.webp" alt="${esc(c.name)}" loading="lazy" decoding="async"></button>`).join('')}</div><button class="rail-btn prev" aria-label="Scroll back" data-rail="-1">‹</button><button class="rail-btn next" aria-label="Scroll on" data-rail="1">›</button></div></section>`:''}`;
   rise(root);
  };
- draw();let last=JSON.stringify([S.packs,S.opened,Object.keys(S.cards).length]);
- onChange(()=>{const now=JSON.stringify([S.packs,S.opened,Object.keys(S.cards).length]);if(now!==last){last=now;draw();}else{const n=$('#bn-n',root);if(n)n.textContent='฿'+money(S.b);}});
+ const sig=()=>JSON.stringify([S.packs,S.opened,Object.keys(S.cards).length,Object.keys(S.q).length,Object.keys(S.seen).length,Object.keys(S.likes).length,S.fullDays,S.streak.n,S.best,readyCount()]);
+ draw();let last=sig();
+ onChange(()=>{const now=sig();if(now!==last){last=now;draw();}else{const n=$('#bn-n',root);if(n)n.textContent='฿'+money(S.b);}});
  root.addEventListener('click',e=>{
   const c=e.target.closest('[data-card-open]');if(c){openCard(c.dataset.cardOpen,c);return;}
+  const cl=e.target.closest('[data-claim]');if(cl){claim(cl.dataset.claim,toast);return;}
   const b=e.target.closest('[data-binder]');if(b){openBinder(b.dataset.binder,b);return;}
   const t=e.target.closest('[data-tcg]');if(t){openTcg(t.dataset.tcg,t);return;}
   const rb=e.target.closest('[data-rail]');if(rb){const r=rb.parentNode.querySelector('.rail');r.scrollBy({left:+rb.dataset.rail*r.clientWidth*.82,behavior:'smooth'});}

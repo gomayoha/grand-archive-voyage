@@ -1,6 +1,6 @@
 // Shared pieces of the app: the morph between a card and its full screen, sheets, the story reader,
 // the picture viewer, toasts and the rise-in of text as it enters the screen.
-import {$,$$,esc,reduced,FU,TH,data} from './store.js';
+import {$,$$,esc,reduced,FU,TH,data,S,changed} from './store.js';
 
 /* ------------------------------------------------------------------ morph (View Transitions, with a plain fallback) */
 const canVT=()=>!!document.startViewTransition&&!reduced();
@@ -20,7 +20,7 @@ addEventListener('keydown',e=>{const top=stack[stack.length-1];if(!top)return;if
 // pull down from the top of a layer to close it (phones)
 function pullToClose(el,scroller,close){
  let y0=null,dy=0;
- el.addEventListener('touchstart',e=>{y0=(scroller?scroller.scrollTop:0)<=0?e.touches[0].clientY:null;dy=0;},{passive:true});
+ el.addEventListener('touchstart',e=>{y0=(scroller?scroller.scrollTop:0)<=0&&!e.target.closest('.cs-card,input')?e.touches[0].clientY:null;dy=0;},{passive:true});
  el.addEventListener('touchmove',e=>{if(y0===null)return;dy=e.touches[0].clientY-y0;if(dy>0&&(!scroller||scroller.scrollTop<=0))el.style.transform=`translate3d(0,${(dy*.55).toFixed(1)}px,0) scale(${(1-Math.min(dy,400)/4000).toFixed(4)})`;},{passive:true});
  el.addEventListener('touchend',()=>{if(y0===null)return;el.style.transition='transform .35s cubic-bezier(.32,.72,0,1)';const go=dy>130;el.style.transform='';setTimeout(()=>{el.style.transition='';},360);y0=null;if(go)close();});
 }
@@ -78,9 +78,10 @@ export function openStory(pages,{from=null,start=0,onEnd}={}){
 /* ------------------------------------------------------------------ pictures, full size */
 export function openViewer(ids,start=0,{caption}={}){
  if(!ids.length)return;const el=document.createElement('div');el.className='viewer';el.setAttribute('role','dialog');el.setAttribute('aria-modal','true');
- el.innerHTML=`<button class="sh-x vw-x" aria-label="Close"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></button><div class="vw-stage"><img alt="" decoding="async"></div><p class="vw-cap"></p><button class="vw-nav prev" aria-label="Previous picture">‹</button><button class="vw-nav next" aria-label="Next picture">›</button>`;
- const img=el.querySelector('img'),cap=el.querySelector('.vw-cap');let i=start,closed=false;
- const show=(n,dir=0)=>{i=(n+ids.length)%ids.length;img.src=FU(ids[i]);cap.textContent=`${caption?caption+' · ':''}${i+1} / ${ids.length}`;
+ el.innerHTML=`<button class="sh-x vw-x" aria-label="Close"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></button><div class="vw-stage"><img alt="" decoding="async"></div><p class="vw-cap"></p><button class="vw-like press" aria-label="Favourite" aria-pressed="false"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.300 4.300 0 0 1 7.500 2.700C19.500 15.900 12 20.500 12 20.500z"/></svg></button><button class="vw-nav prev" aria-label="Previous picture">‹</button><button class="vw-nav next" aria-label="Next picture">›</button>`;
+ const img=el.querySelector('img'),cap=el.querySelector('.vw-cap'),like=el.querySelector('.vw-like');let i=start,closed=false;
+ like.addEventListener('click',()=>{const id=ids[i];if(S.likes[id])delete S.likes[id];else S.likes[id]=Date.now();like.setAttribute('aria-pressed',String(!!S.likes[id]));if(S.likes[id]&&!reduced())like.animate([{transform:'scale(1)'},{transform:'scale(1.35)'},{transform:'scale(1)'}],{duration:420,easing:'cubic-bezier(.32,.72,0,1)'});changed();});
+ const show=(n,dir=0)=>{i=(n+ids.length)%ids.length;img.src=FU(ids[i]);cap.textContent=`${caption?caption+' · ':''}${i+1} / ${ids.length}`;like.setAttribute('aria-pressed',String(!!S.likes[ids[i]]));
   if(dir&&!reduced())img.animate([{opacity:0,transform:`translate3d(${dir*40}px,0,0) scale(.98)`},{opacity:1,transform:'none'}],{duration:380,easing:'cubic-bezier(.2,.8,.2,1)'});
   const nx=new Image();nx.src=FU(ids[(i+1)%ids.length]);};
  const layer={close(){if(closed)return;closed=true;pop(layer);el.classList.add('out');setTimeout(()=>el.remove(),reduced()?0:260);},key(e){if(e.key==='ArrowRight')show(i+1,1);if(e.key==='ArrowLeft')show(i-1,-1);}};
