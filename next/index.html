@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Grand Archive</title>
+<meta name="description" content="Grand Archive: a new edition every day.">
+<meta name="theme-color" content="#000000">
+<meta name="robots" content="noindex">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Archive">
+<link rel="apple-touch-icon" href="../assets/img/ui/apple-touch-icon-o4.png">
+<link rel="icon" href="../assets/img/ui/icon-o4-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="app.css">
+<link rel="modulepreload" href="js/app.js">
+<link rel="modulepreload" href="js/store.js">
+<link rel="modulepreload" href="js/ui.js">
+<link rel="modulepreload" href="js/today.js">
+<link rel="modulepreload" href="js/stories.js">
+<link rel="modulepreload" href="js/collect.js">
+<link rel="modulepreload" href="js/play.js">
+<link rel="modulepreload" href="js/me.js">
+</head>
+<body>
+<!-- Grand Archive, the app (Nov 2026): Today / Stories / Collect / Play / Me. Built beside the classic site (one folder up),
+     which it never changes; it reads the same data and pictures. Everything here is in next/. -->
+<header class="bar" id="bar">
+ <a class="brand" href="#today" data-tab="today" aria-label="Grand Archive, today"><img src="../assets/img/ui/icon-o4-192.png" alt="" width="28" height="28"><span>Grand Archive</span></a>
+ <p class="bar-title" id="bar-title" aria-hidden="true"></p>
+ <nav class="bar-nav" aria-label="Screens">
+  <a href="#today" data-tab="today">Today</a><a href="#stories" data-tab="stories">Stories</a><a href="#collect" data-tab="collect">Collect</a><a href="#play" data-tab="play">Play</a><a href="#me" data-tab="me">Me</a>
+ </nav>
+ <button class="bar-packs press" id="bar-packs" data-open="pack" aria-label="Open a pack"><i aria-hidden="true"></i><b id="bar-packs-n">0</b></button>
+</header>
+
+<main id="main">
+ <section class="view" id="v-today" aria-label="Today"></section>
+ <section class="view" id="v-stories" aria-label="Stories" hidden></section>
+ <section class="view" id="v-collect" aria-label="Collect" hidden></section>
+ <section class="view" id="v-play" aria-label="Play" hidden></section>
+ <section class="view" id="v-me" aria-label="Me" hidden></section>
+</main>
+
+<nav class="tabs" id="tabs" aria-label="Screens">
+ <a href="#today" data-tab="today"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3.5" width="16" height="17" rx="3.5"/><path d="M8 8.5h8M8 12.5h5"/></svg><span>Today</span></a>
+ <a href="#stories" data-tab="stories"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 6.2c2.6-1 5-.8 7.5.8v12c-2.5-1.6-4.9-1.8-7.5-.8zM19.5 6.2c-2.6-1-5-.8-7.5.8v12c2.5-1.6 4.9-1.8 7.5-.8z"/></svg><span>Stories</span></a>
+ <a href="#collect" data-tab="collect"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="3.5" width="12" height="16" rx="2.5" transform="rotate(8 13 11.5)"/><rect x="5" y="4.5" width="12" height="16" rx="2.5"/></svg><span>Collect</span></a>
+ <a href="#play" data-tab="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 5.2v13.6a.9.9 0 0 0 1.4.8l10.4-6.8a.9.9 0 0 0 0-1.6L8.9 4.4a.9.9 0 0 0-1.4.8z"/></svg><span>Play</span></a>
+ <a href="#me" data-tab="me"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20c.8-3.6 3.8-5.5 7.5-5.5s6.700 1.900 7.500 5.500"/></svg><span>Me</span></a>
+</nav>
+
+<div class="splash" id="splash"><img src="../assets/img/ui/icon-o4-192.png" alt="" width="72" height="72"><p>Grand Archive</p></div>
+<noscript><p style="padding:120px 24px;text-align:center">Grand Archive needs JavaScript. The <a href="../index.html">classic archive</a> does too.</p></noscript>
+<script type="module" src="js/app.js"></script>
+<script>/* if the app has not started after nine seconds (a file got lost on the way), load once more */
+setTimeout(function(){if(!window.__booted){try{if(sessionStorage.getItem('ga-retry'))return;sessionStorage.setItem('ga-retry','1');}catch(e){}location.reload();}},9000);</script>
+</body>
+</html>
