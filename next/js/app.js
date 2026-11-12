@@ -57,6 +57,9 @@ async function boot(){
  const dot=()=>{const n=readyCount();$$('[data-tab=collect]').forEach(a=>a.classList.toggle('dot',n>0));};dot();onChange(dot);
  $('#bar-title').textContent=NAME.today;$$('[data-tab=today]').forEach(a=>a.setAttribute('aria-current',''));
  const h=location.hash.slice(1);if(TABS.includes(h)&&h!=='today')go(h,{instant:true});
+ // the fruit in your stomach and the theme come back with you
+ if(S.eat)import('./fruits.js').then(m=>m.eat(S.eat,{quiet:true}));else import('./themes.js').then(m=>m.refreshTheme());
+ const hasFruit=()=>root.classList.toggle('has-fruit',!!S.eat);hasFruit();onChange(hasFruit);
  window.__booted=true;try{sessionStorage.removeItem('ga-retry');}catch{}
  $('#splash').classList.add('gone');setTimeout(()=>$('#splash').remove(),700);
  if(fresh)setTimeout(()=>toast(S.streak.n>1?`Day ${S.streak.n} in a row`:'Welcome aboard','Your daily pack has arrived'),900);

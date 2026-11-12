@@ -53,11 +53,13 @@ export const RWORTH={c:1e6,r:3e6,sr:8e6,sec:20e6,m:35e6,rm:60e6,mos:60e6,sun:120
 
 /* ------------------------------------------------------------------ saved progress */
 const KEY='grand-archive:next';
-const blank=()=>({v:1,b:0,cards:{},packs:2,opened:0,streak:{n:0,last:null,best:0},days:{},name:'',best:{},seen:{},likes:{},q:{},fullDays:0,calm:null,imported:false});
+const blank=()=>({v:1,b:0,cards:{},packs:2,opened:0,streak:{n:0,last:null,best:0},days:{},name:'',best:{},seen:{},likes:{},q:{},fullDays:0,fruits:[],eat:null,theme:'auto',fruitsIn:false,calm:null,imported:false});
 export const S=(()=>{try{const v=JSON.parse(localStorage.getItem(KEY)||'null');if(v&&v.v===1)return Object.assign(blank(),v);}catch{}return blank();})();
 export const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S));}catch{}};
 // first visit: carry over what was already earned in the classic archive (cards found, bounty, name)
 if(!S.imported){S.imported=true;try{const o=JSON.parse(localStorage.getItem('grand-archive:bounty')||'null');if(o){Object.assign(S.cards,o.cards||{});S.b=Math.max(S.b,o.b||0);S.name=S.name||o.name||'';}}catch{}save();}
+// fruits already found in the classic Treasure Room come along too (once)
+if(!S.fruitsIn){S.fruitsIn=true;try{const o=JSON.parse(localStorage.getItem('grand-archive:bounty')||'null');for(const f of o?.fruits||[])if(!S.fruits.includes(f))S.fruits.push(f);}catch{}save();}
 const subs=new Set();export const onChange=f=>{subs.add(f);return()=>subs.delete(f);};
 export const changed=()=>{save();subs.forEach(f=>{try{f(S);}catch(e){console.error(e);}});};
 

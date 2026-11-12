@@ -1,0 +1,59 @@
+/* Devil Fruit effects, the eating ceremony and the theme light: taken rule for rule from the classic site (css/site.css, css/rooms.css) so the powers look exactly as they did there. */
+.df-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:380;pointer-events:none}
+.df-word{position:fixed;z-index:381;pointer-events:none;display:flex;flex-direction:column;align-items:center;translate:-50% -50%;font:italic 400 clamp(26px,3.4vw,44px)/1 var(--serif);color:#fff;text-shadow:0 0 18px var(--c),0 0 4px var(--c),0 4px 20px rgba(0,0,0,.6);white-space:nowrap}
+.df-word small{font:700 11px var(--font);font-style:normal;letter-spacing:.24em;text-transform:uppercase;margin-top:8px;color:var(--c);text-shadow:0 2px 8px rgba(0,0,0,.8)}
+.df-badge{position:fixed;right:max(14px,env(safe-area-inset-right));top:calc(env(safe-area-inset-top) + 64px);z-index:96;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#fff 0,var(--h2) 10%,var(--h1) 44%,#000 120%);box-shadow:0 0 0 1px rgba(255,255,255,.25),0 0 22px var(--h1);opacity:0;transform:scale(.6);transition:opacity .5s var(--ease),transform .6s cubic-bezier(.3,1.6,.5,1)}
+.df-badge.in{opacity:1;transform:none}
+.df-badge.pulse{animation:dfPulse .5s ease-out}
+.df-badge span{font:600 9px var(--serif);color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.8)}
+.df-frozen{filter:saturate(.3) brightness(1.18) hue-rotate(-14deg) contrast(1.05)!important;transition:filter .25s!important}
+.df-stone{filter:grayscale(1) sepia(.25) contrast(1.15) brightness(.82)!important;transition:filter .35s!important}
+.df-shadow img{filter:brightness(0)}
+.df-piece{position:fixed;z-index:379;overflow:hidden;pointer-events:none;border-radius:2px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.df-piece img{position:absolute;max-width:none}
+.th-veil{position:fixed;inset:0;z-index:89;pointer-events:none;opacity:0;transition:opacity 1.2s var(--ease);
+ background:radial-gradient(130% 55% at 50% -12%,color-mix(in srgb,var(--t-e) 34%,transparent),transparent 62%),radial-gradient(130% 50% at 50% 112%,color-mix(in srgb,var(--t-e) 26%,transparent),transparent 60%)}
+.th-veil.on{opacity:1}
+.th-veil[data-k=above]{background:radial-gradient(90% 60% at 50% -18%,color-mix(in srgb,var(--t-e) 44%,transparent),transparent 65%),repeating-conic-gradient(from 160deg at 50% -20%,transparent 0 5deg,color-mix(in srgb,var(--t-e) 5%,transparent) 6deg 8deg,transparent 9deg 14deg)}
+.th-veil[data-k=below]{background:radial-gradient(140% 55% at 50% 115%,color-mix(in srgb,var(--t-e) 46%,transparent),transparent 62%),radial-gradient(60% 30% at 10% 105%,color-mix(in srgb,var(--t-b) 22%,transparent),transparent 70%)}
+.th-veil[data-k=dark]{background:radial-gradient(120% 90% at 50% 50%,transparent 45%,color-mix(in srgb,var(--t-e) 82%,transparent) 100%)}
+.th-veil[data-k=frost]{background:radial-gradient(110% 80% at 50% 50%,transparent 58%,color-mix(in srgb,var(--t-e) 34%,transparent) 92%),radial-gradient(40% 30% at 0 0,rgba(235,250,255,.22),transparent 70%),radial-gradient(40% 30% at 100% 100%,rgba(235,250,255,.18),transparent 70%)}
+.th-veil[data-k=room]{background:radial-gradient(closest-side at 50% 50%,transparent 82%,color-mix(in srgb,var(--t-e) 30%,transparent) 96%,transparent 100%),radial-gradient(130% 60% at 50% 110%,color-mix(in srgb,var(--t-e) 20%,transparent),transparent 60%)}
+.th-veil[data-k=bloom]{background:radial-gradient(60% 40% at 0 0,color-mix(in srgb,var(--t-e) 30%,transparent),transparent 70%),radial-gradient(60% 40% at 100% 0,color-mix(in srgb,var(--t-b) 26%,transparent),transparent 70%),radial-gradient(130% 50% at 50% 112%,color-mix(in srgb,var(--t-e) 22%,transparent),transparent 60%)}
+.th-veil[data-k=tone]{background:radial-gradient(circle,color-mix(in srgb,var(--t-e) 55%,transparent) 1px,transparent 1.6px) 0 0/7px 7px;-webkit-mask-image:radial-gradient(120% 90% at 50% 50%,transparent 55%,#000 100%);mask-image:radial-gradient(120% 90% at 50% 50%,transparent 55%,#000 100%)}
+.th-veil[data-k=clouds]{background:radial-gradient(120% 50% at 50% -14%,rgba(255,255,255,.26),transparent 62%),radial-gradient(50% 24% at 15% -4%,rgba(225,210,255,.3),transparent 70%),radial-gradient(50% 24% at 85% -4%,rgba(255,240,210,.28),transparent 70%),radial-gradient(130% 50% at 50% 112%,rgba(215,194,255,.16),transparent 60%)}
+.th-veil[data-k=haki]{background:radial-gradient(120% 90% at 50% 50%,transparent 50%,rgba(60,0,6,.7) 92%,rgba(0,0,0,.85) 100%),radial-gradient(130% 55% at 50% 112%,rgba(255,30,50,.22),transparent 60%)}
+dialog.ef{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;border-radius:0;background:radial-gradient(70% 55% at 50% 45%,color-mix(in srgb,var(--h1) 26%,#060506),#030303 75%);color:#fff;overflow:hidden;display:grid;place-items:center}
+dialog.ef::backdrop{background:#000}
+dialog.ef[open]{animation:efIn .6s var(--ease)}
+.ef-kana{position:absolute;inset:0;display:grid;place-items:center;font:700 clamp(90px,22vw,300px)/1 var(--serif);letter-spacing:.06em;color:var(--h1);opacity:.1;white-space:nowrap;pointer-events:none}
+.ef-stage{position:relative;display:grid;place-items:center;width:min(66vmin,380px);aspect-ratio:200/230;margin-top:-6vh}
+.ef-btn{position:relative;width:100%;height:100%;cursor:pointer;touch-action:manipulation;transition:filter .3s;filter:drop-shadow(0 30px 40px rgba(0,0,0,.6)) drop-shadow(0 0 40px color-mix(in srgb,var(--h1) 55%,transparent))}
+.ef-btn:hover{filter:drop-shadow(0 30px 40px rgba(0,0,0,.6)) drop-shadow(0 0 60px color-mix(in srgb,var(--h1) 80%,transparent))}
+.ef-svg{width:100%;height:100%;overflow:visible;animation:efFloat 3.6s ease-in-out infinite}
+.ef-aura{position:absolute;inset:-14%;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--h2) 40%,transparent),transparent);animation:efAura 2.4s ease-in-out infinite;pointer-events:none}
+.ef-aura.b{inset:-30%;background:repeating-conic-gradient(from 0deg,transparent 0 10deg,color-mix(in srgb,var(--h1) 14%,transparent) 12deg 14deg,transparent 16deg 24deg);-webkit-mask-image:radial-gradient(closest-side,#000 30%,transparent 75%);mask-image:radial-gradient(closest-side,#000 30%,transparent 75%);animation:efSpin 30s linear infinite}
+.ef-cap{position:absolute;left:0;right:0;bottom:clamp(60px,14vh,140px);text-align:center;font:italic 400 clamp(22px,3vw,34px) var(--serif);color:#fff;min-height:1.4em;transition:opacity .4s}
+.ef-crumbs i{position:fixed;width:9px;height:9px;border-radius:40% 60% 50% 45%;pointer-events:none;box-shadow:inset -2px -2px 3px rgba(0,0,0,.3)}
+.ef-wave{position:absolute;inset:0;pointer-events:none;clip-path:circle(0 at 50% 44%);background:radial-gradient(circle at 50% 44%,#fff 0,var(--h2) 14%,var(--h1) 48%,color-mix(in srgb,var(--h1) 45%,#000) 100%)}
+.ef-wave i{position:absolute;left:50%;top:44%;width:220vmax;height:220vmax;margin:-110vmax 0 0 -110vmax;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,0) 0 9deg,rgba(255,255,255,.16) 11deg 13deg,rgba(255,255,255,0) 15deg 24deg);-webkit-mask-image:radial-gradient(closest-side,#000,transparent);mask-image:radial-gradient(closest-side,#000,transparent);animation:efSpin 12s linear infinite}
+.ef.wave .ef-wave{animation:efWave 1.6s cubic-bezier(.5,0,.2,1) forwards}
+.ef.gulp .ef-cap,.ef.gulp .ef-kana{opacity:0}
+.ef-end{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;text-align:center;opacity:0;pointer-events:none}
+.ef.ended .ef-end{opacity:1;pointer-events:auto;transition:opacity .5s}
+.ef.ended .ef-stage{opacity:0;pointer-events:none}
+.ef-kana2{font:700 clamp(54px,11vw,130px)/1 var(--serif);letter-spacing:.08em;color:#fff;text-shadow:0 0 30px var(--h1),0 0 80px var(--h1)}
+.ef.ended .ef-kana2{animation:efStamp .7s cubic-bezier(.2,1.4,.4,1)}
+.ef-end h2{font-size:clamp(30px,4.6vw,56px)}
+.ef-pow{max-width:46ch;color:#e8e8ed;font-size:16px}
+.ef-sea{font:italic 400 16px var(--serif);color:color-mix(in srgb,var(--h2) 70%,#fff)}
+.ef-end .eyebrow{color:var(--h2)}
+.ef-acts{margin-top:14px}
+.ef.still .ef-wave{clip-path:circle(150% at 50% 44%);opacity:.22}
+@keyframes dfPulse{40%{transform:scale(1.25)}}
+@keyframes efIn{from{opacity:0}}
+@keyframes efFloat{50%{transform:translateY(-10px) rotate(2deg)}}
+@keyframes efAura{50%{transform:scale(1.1);opacity:.7}}
+@keyframes efSpin{to{transform:rotate(360deg)}}
+@keyframes efWave{0%{clip-path:circle(0 at 50% 44%)}45%{clip-path:circle(150% at 50% 44%);opacity:1}100%{clip-path:circle(150% at 50% 44%);opacity:.22}}
+@keyframes efStamp{from{transform:scale(1.8);opacity:0;letter-spacing:.4em}}
