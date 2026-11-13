@@ -1,6 +1,6 @@
 // Today: a new edition every day. The date decides what is dealt (the same day always shows the same edition),
 // so it is worth coming back tomorrow: a picture, a character, one of his lines, a moment, a question, a pack.
-import {$,$$,esc,data,S,TH,FU,TODAY,dayKey,rng,pick,shuffle,pool,poster,day,finish,givePack,earn,PARTS,onChange,rarity,RNAME} from './store.js';
+import {$,$$,esc,data,S,TH,FU,TODAY,dayKey,rng,pick,shuffle,pool,poster,day,finish,givePack,earn,PARTS,onChange,changed,rarity,RNAME} from './store.js';
 import {rise,openSheet} from './ui.js';
 import {charImg,momentArt} from './stories.js';
 import {mountFilm} from './film.js';
@@ -13,13 +13,16 @@ export function edition(key=TODAY){
  const tall=pool().filter(p=>{const [w,h]=m.img[p.id];return h/w>1.15&&h/w<1.9&&Math.min(w,h)>=700;});
  const picture=pick(tall.length?tall:pool(),r);
  const C=data.characters.characters,character=C[((n*7)%C.length+C.length)%C.length];
- const said=[...data.shelf.anime,...data.shelf.manga,...data.shelf.tv].filter(a=>a.tagline&&a.tagline.length>12);
- const words=pick(said,r);
+ // "In my words": only lines about stories he rated 8 or more (he found a line about a 5/10 show a poor pick), and he can deal another
+ const sc=a=>{const n=parseFloat(a.s);return /^\d/.test(String(a.s))&&!isNaN(n)?n:0;};
+ const said=[...data.shelf.anime,...data.shelf.manga,...data.shelf.tv].filter(a=>a.tagline&&a.tagline.length>12&&sc(a)>=8);
+ const wn=key===TODAY?(S.days[key]?.w||0):0;let words=pick(said,r);if(wn)words=pick(said,rng('ga:'+key+':w'+wn));
  const M=data.route.moments,moment=M[((n*5)%M.length+M.length)%M.length];
  const Q=data.trivia.levels.flatMap(l=>l.qs.map(q=>({...q,level:l.name}))),question=pick(Q,r);
  return {picture,character,words,moment,mi:M.indexOf(moment),question,answers:shuffle([question.a,...question.w],r)};
 }
 let E=null;
+const wordsInner=w=>{const wp=poster(w.k,w.t);return `<span class="eyebrow">In my words</span><span class="say">“${esc(w.tagline)}”</span><span class="say-of">${wp?`<img src="${wp.img}" alt="" loading="lazy" decoding="async">`:''}<span><b>${esc(w.t)}</b><small>${w.s?`${esc(String(w.s).replace('*',''))} / 10`:''}</small></span></span><span class="c-again" data-again role="button" aria-label="Another line"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M19 12a7 7 0 1 1-2.200-5.100M19 4.500V8h-3.500" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="round" stroke-linejoin="round"/></svg></span>${tick('words')}`;};
 const tick=p=>`<span class="tick${day().done[p]?' on':''}" data-tick="${p}" aria-hidden="true"><svg viewBox="0 0 24 24" width="12" height="12"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
 function questionHTML(){
  const d=day(),q=E.question,ans=d.answer;
@@ -40,7 +43,7 @@ export function renderToday(root){
  <div class="tg">
   <button class="card c-pic press" data-part="picture" data-open="today:picture" data-rise><img src="${FU(p.id)}" alt="" decoding="async" fetchpriority="high"><span class="card-t"><span class="eyebrow">Picture of the day</span><b>${esc(p.col)}</b><small>No. ${p.i} of ${p.of} · ${RNAME[r]} card</small></span>${tick('picture')}</button>
   <button class="card c-char press" data-part="character" data-open="char:${c.id}" data-rise style="--c:${c.image.color}"><img src="${charImg(c)}" alt="" loading="lazy" decoding="async"><span class="card-t"><span class="eyebrow">Character of the day</span><b>${esc(c.name)}</b><small>${c.word?`Left behind: ${esc(c.word)}`:esc(c.series)}</small></span>${tick('character')}</button>
-  <button class="card c-words press" data-part="words" data-open="record:${w.k}:${esc(w.t)}" data-rise${wp?.color?` style="--c:${wp.color}"`:''}><span class="eyebrow">In my words</span><span class="say">“${esc(w.tagline)}”</span><span class="say-of">${wp?`<img src="${wp.img}" alt="" loading="lazy" decoding="async">`:''}<span><b>${esc(w.t)}</b><small>${w.s?`${esc(String(w.s).replace('*',''))} / 10`:''}</small></span></span>${tick('words')}</button>
+  <button class="card c-words press" id="c-words" data-part="words" data-open="record:${w.k}:${esc(w.t)}" data-rise${wp?.color?` style="--c:${wp.color}"`:''}>${wordsInner(w)}</button>
   <button class="card c-mo press" data-part="moment" data-open="moment:${E.mi}" data-rise>${art?`<img src="${art}" alt="" loading="lazy" decoding="async">`:''}<span class="card-t"><span class="eyebrow">A moment that lives in my head</span><b>${esc(m.title)}</b><small>${esc(m.series)} · ${esc(m.emotion||'')}</small></span>${tick('moment')}</button>
   <div class="card c-q" id="c-q" data-rise>${questionHTML()}</div>
   <button class="card c-pack press" data-open="pack" data-rise><span class="pk-art"><span class="pack sm"><img src="${TH(p.id)}" alt=""><i></i><b>Grand Archive</b></span></span><span class="pk-t"><span class="eyebrow">Your packs</span><b id="pk-n"></b><small>Five pictures from the archive in each. One arrives every day.</small></span>${tick('pack')}</button>
@@ -54,6 +57,8 @@ export function renderToday(root){
  const cd=()=>{const el=document.getElementById('next-in');if(!el)return;const n=new Date(),t=new Date(n);t.setHours(24,0,0,0);const s=Math.max(0,Math.floor((t-n)/1000)),f=x=>String(x).padStart(2,'0');el.textContent=`${f(Math.floor(s/3600))}:${f(Math.floor(s/60)%60)}:${f(s%60)}`;};
  sync();onChange(sync);cd();setInterval(cd,1000);
  root.addEventListener('click',e=>{
+  // another of his lines: stop here, so the card underneath does not open
+  if(e.target.closest('[data-again]')){e.stopPropagation();e.preventDefault();day().w=(day().w||0)+1;changed();E=edition();const c=$('#c-words',root),w=E.words,wp=poster(w.k,w.t);c.dataset.open=`record:${w.k}:${w.t}`;c.style.setProperty('--c',wp?.color||'#3a3a40');c.innerHTML=wordsInner(w);if(!document.documentElement.classList.contains('calm'))c.querySelector('.say').animate([{opacity:0,transform:'translate3d(0,10px,0)'},{opacity:1,transform:'none'}],{duration:500,easing:'cubic-bezier(.2,.8,.2,1)'});return;}
   const a=e.target.closest('[data-answer]');if(!a||day().answer)return;
   const d2=day(),q=E.question;d2.answer=a.dataset.answer;finish('question');
   if(d2.answer===q.a){givePack(1,'Question of the day');earn(2e6,'Right answer');}

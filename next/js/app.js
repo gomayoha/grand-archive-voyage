@@ -1,9 +1,9 @@
 // Boot, the five screens and moving between them.
-import {$,$$,loadData,S,changed,onChange,touchStreak,setToast,finish,reduced} from './store.js';
+import {$,$$,loadData,S,save,changed,onChange,touchStreak,setToast,finish,reduced} from './store.js';
 import {toast,rise} from './ui.js';
 import {renderToday,openPicture,openEdition} from './today.js';
 import {renderStories,open as openThing} from './stories.js';
-import {renderCollect,onShowCollect,openPack,openTcg} from './collect.js';
+import {renderCollect,onShowCollect,openPack,openTcg,stayUI,STAY,GIFT} from './collect.js';
 import {openSearch} from './search.js';
 import {openSerial} from './serial.js';
 import {readyCount} from './quests.js';
@@ -63,6 +63,19 @@ async function boot(){
  // the fruit in your stomach and the theme come back with you
  if(S.eat)import('./fruits.js').then(m=>m.eat(S.eat,{quiet:true}));else import('./themes.js').then(m=>m.refreshTheme());
  const hasFruit=()=>root.classList.toggle('has-fruit',!!S.eat);hasFruit();onChange(hasFruit);
+ // packs for staying (he asked: every few minutes you stay should pay packs, or the binder can never be filled).
+ // Time counts while the app is on screen and in use: a touch, key or scroll in the last 90 s, or a story/film playing.
+ let lastAct=Date.now();['pointerdown','keydown','scroll','touchstart'].forEach(ev=>addEventListener(ev,()=>{lastAct=Date.now();},{passive:true,capture:true}));
+ setInterval(()=>{
+  if(document.hidden||(Date.now()-lastAct>90000&&!document.querySelector('.cvf,.story')))return;
+  S.stay=(S.stay||0)+5;
+  if(S.stay>=STAY){S.stay-=STAY;S.packs+=GIFT;changed();toast('Five minutes aboard',`+${GIFT} packs`);}else if(S.stay%30===0)save();
+  stayUI();
+ },5000);
+ // a newer version was published while the app sat open (a home-screen app can stay open for days): load it
+ const built=document.querySelector('meta[name=ga-version]')?.content||'';
+ const fresh2=async()=>{if(!built||document.documentElement.classList.contains('locked'))return;try{const v=(await (await fetch('version.txt?'+Date.now(),{cache:'no-store'})).text()).trim();if(v&&v!==built)location.reload();}catch{}};
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)fresh2();});setInterval(fresh2,20*60*1000);
  window.__booted=true;try{sessionStorage.removeItem('ga-retry');}catch{}
  $('#splash').classList.add('gone');setTimeout(()=>$('#splash').remove(),700);
  if(fresh)setTimeout(()=>toast(S.streak.n>1?`Day ${S.streak.n} in a row`:'Welcome aboard','Your daily pack has arrived'),900);

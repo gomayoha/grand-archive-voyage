@@ -131,7 +131,8 @@ export function renderCollect(root){
   <section class="packs" data-rise><button class="pk-stage press" data-open="pack" aria-label="Open a pack">${packHTML('big')}${S.packs>1?packHTML('big behind'):''}</button>
    <div class="pk-side"><h2>${S.packs>0?`${S.packs} pack${S.packs===1?'':'s'} <span>waiting.</span>`:'No packs <span>right now.</span>'}</h2><p>Five pictures from the archive in every pack. New ones raise your bounty.</p>
    <button class="btn" data-open="pack"${S.packs>0?'':' disabled'}>Open a pack</button>
-   <ul class="earn"><li><b>Every day</b><span>one pack, just for showing up</span></li><li><b>Question of the day</b><span>a right answer</span></li><li><b>Finish today’s edition</b><span>all six parts</span></li><li><b>Games</b><span>the first win of the day in each</span></li></ul></div></section>
+   <p class="stay"><span id="stay-t"></span><span class="bar"><i id="stay-b"></i></span></p>
+   <ul class="earn"><li><b>Every five minutes you stay</b><span>two packs</span></li><li><b>Every day</b><span>one pack, just for showing up</span></li><li><b>Question of the day</b><span>a right answer</span></li><li><b>Finish today’s edition</b><span>all six parts</span></li><li><b>Games</b><span>the first win of the day in each</span></li></ul></div></section>
   <section class="row"><div class="row-head" data-rise><h2>Quests. <span>The long games.</span></h2></div>${questsHTML()}</section>
   <section class="row"><div class="row-head" data-rise><h2>Devil Fruits. <span>One at a time.</span></h2><p>${S.fruits.length} of ${FRUITS.length}</p></div>
    <div class="rail-wrap"><div class="rail fruits">${FRUITS.map(f=>{const own=S.fruits.includes(f.id);return `<button class="fr press${own?'':' off'}${S.eat===f.id?' eaten':''}" ${own?`data-fruit="${f.id}"`:'disabled'} style="--h1:${f.hue};--h2:${f.hue2}">${orb(f,own)}<b>${own?esc(f.name.replace(' no Mi','')):'Not found'}</b><small>${own?(S.eat===f.id?'Eaten':esc(f.user)):`Pack No. ${f.at}`}</small></button>`;}).join('')}</div><button class="rail-btn prev" aria-label="Scroll back" data-rail="-1">‹</button><button class="rail-btn next" aria-label="Scroll on" data-rail="1">›</button></div></section>
@@ -139,7 +140,7 @@ export function renderCollect(root){
   <section class="row"><div class="row-head" data-rise><h2>The binder. <span>Every collection.</span></h2></div>
    <div class="bd-list">${cols.map(c=>`<button class="bd press" data-binder="${esc(c.name)}" data-rise><img src="${TH(c.cards[0].id)}" alt="" loading="lazy"><span><b>${esc(c.name)}</b><small>${c.got} / ${c.cards.length}</small><span class="bar"><i style="--p:${c.got/c.cards.length}"></i></span></span></button>`).join('')}</div></section>
   ${tcg.length?`<section class="row"><div class="row-head" data-rise><h2>The real ones. <span>My One Piece cards.</span></h2><p>${tcg.length} cards</p></div><div class="rail-wrap"><div class="rail tcgs">${tcg.map(c=>`<button class="tcg-c press" data-tcg="${esc(c.id)}"><img src="${ROOT}assets/tcg/s/${c.id}.webp" alt="${esc(c.name)}" loading="lazy" decoding="async"></button>`).join('')}</div><button class="rail-btn prev" aria-label="Scroll back" data-rail="-1">‹</button><button class="rail-btn next" aria-label="Scroll on" data-rail="1">›</button></div></section>`:''}`;
-  rise(root);
+  rise(root);stayUI();
  };
  const sig=()=>JSON.stringify([S.packs,S.opened,Object.keys(S.cards).length,Object.keys(S.q).length,Object.keys(S.seen).length,Object.keys(S.likes).length,S.fullDays,S.streak.n,S.best,readyCount(),S.fruits.length,S.eat]);
  draw();let last=sig();
@@ -153,4 +154,7 @@ export function renderCollect(root){
   const rb=e.target.closest('[data-rail]');if(rb){const r=rb.parentNode.querySelector('.rail');r.scrollBy({left:+rb.dataset.rail*r.clientWidth*.82,behavior:'smooth'});}
  });
 }
+// how long until the next packs for staying (app.js counts the time)
+export const STAY=300,GIFT=2;
+export function stayUI(){const t=document.getElementById('stay-t'),b=document.getElementById('stay-b');if(!t)return;const left=Math.max(0,STAY-(S.stay||0)),m=Math.floor(left/60),s=String(left%60).padStart(2,'0');t.textContent=`${GIFT} more packs in ${m}:${s} of staying`;b.style.setProperty('--p',Math.min(1,(S.stay||0)/STAY));}
 export const onShowCollect=root=>{const n=$('#bn-n',root);if(n)countUp(n,S.b,{from:S.b*.92,prefix:'฿',ms:900});};
