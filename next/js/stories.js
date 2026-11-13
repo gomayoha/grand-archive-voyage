@@ -2,6 +2,7 @@
 // His words are shown exactly as his notes have them; only labels and buttons are written here.
 import {$,$$,esc,data,S,ROOT,TH,FU,poster,findRecord,collections,money,see,onChange} from './store.js';
 import {openSheet,openStory,openGallery,openViewer,rise,toast} from './ui.js';
+import {serials,serialCover} from './serial.js';
 
 const ART=ROOT+'assets/moments/';
 // which picture goes with which moment (same map as the classic site)
@@ -120,6 +121,8 @@ export function renderStories(root){
   ${rail('r-top',SH.top10.map((t,i)=>{const a=findRecord(t.title),p=a&&poster(a.k,a.t);return `<button class="tt press" data-open="top:${i}"><span class="tt-n">${i+1}</span><span class="tt-pic">${p?`<img src="${p.img}" alt="" loading="lazy" decoding="async">`:''}</span><span class="tt-t">${esc(t.title)}</span></button>`;}).join(''))}</section>
  <section class="row">${head('Moments.','The ones that live in my head.',`${R.moments.length} moments`)}
   ${rail('r-mo',R.moments.map((m,i)=>{const a=momentArt(m)[0];return `<button class="wc press" data-open="moment:${i}">${a?`<img src="${a}" alt="" loading="lazy" decoding="async">`:''}<span class="wc-t"><small>${esc(m.series)} · ${esc(m.emotion||'')}</small><b>${esc(m.title)}</b></span></button>`;}).join(''))}</section>
+ ${serials().length?`<section class="row">${head('Cover stories.','The side adventures, as little films.',`${serials().length} serials`)}
+  ${rail('r-serials',serials().map(s=>`<button class="cv press" data-open="serial:${s.id}" style="--c:${s.color}"><span class="cv-pic"><img src="${serialCover(s)}" alt="" loading="lazy" decoding="async"></span><span class="cv-t"><b>${esc(s.title)}</b><small>${s.pages.length} parts${s.from?` · ch. ${s.from}–${s.to}`:''}${S.seen['serial:'+s.id]?' · watched':''}</small></span></button>`).join(''))}</section>`:''}
  <section class="row">${head('The Straw Hats.','Ten dreams, one ship.',`฿${money(data.strawhats.total)}`)}
   ${rail('r-crew',data.strawhats.crew.map(c=>`<button class="cr press" data-open="crew:${c.id}" style="--c:${c.tint}"><span class="cr-pic"><img src="${TH(c.art)}" alt="" loading="lazy" decoding="async"></span><b>${esc(c.short)}</b><small>${esc(c.role)}</small></button>`).join(''))}</section>
  <section class="row">${head('They still left something.','')}

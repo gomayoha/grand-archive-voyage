@@ -13,7 +13,7 @@ export const data={};
 const J=(u,tries=3)=>fetch(ROOT+u).then(r=>{if(!r.ok)throw r;return r.json();}).catch(()=>tries>1?new Promise(res=>setTimeout(res,400*(4-tries))).then(()=>J(u,tries-1)):null);
 const FIELDS=['status','s','tagline','b','progress','chapter','genre'];
 export async function loadData(){
- const keys=['media','characters','posters','shelf','route','strawhats','tcg','trivia','edits','collection'];
+ const keys=['media','characters','posters','shelf','route','strawhats','tcg','trivia','edits','collection','covers'];
  (await Promise.all(keys.map(k=>J(`data/${k}.json`)))).forEach((v,i)=>data[keys[i]]=v);
  // the same overlay the classic site applies: his edits win while the note still says what it said then
  const sh=data.shelf,e=data.edits;

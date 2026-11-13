@@ -5,6 +5,7 @@ import {renderToday,openPicture,openEdition} from './today.js';
 import {renderStories,open as openThing} from './stories.js';
 import {renderCollect,onShowCollect,openPack,openTcg} from './collect.js';
 import {openSearch} from './search.js';
+import {openSerial} from './serial.js';
 import {readyCount} from './quests.js';
 import {renderPlay} from './play.js';
 import {renderMe} from './me.js';
@@ -42,6 +43,7 @@ document.addEventListener('click',e=>{
  else if(what==='today:picture')openPicture(o);
  else if(what==='search')openSearch(null);
  else if(what.startsWith('tcg:'))openTcg(what.slice(4),o);
+ else if(what.startsWith('serial:'))openSerial(what.slice(7));
  else if(what.startsWith('edition:'))openEdition(what.slice(8),o);
  else openThing(what,o);
 });

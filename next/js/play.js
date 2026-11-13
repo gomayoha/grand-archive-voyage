@@ -36,7 +36,7 @@ function higher(body){
 }
 /* ------------------------------------------------------------------ 3. who is it (the picture pulls back) */
 function who(body){
- const m=data.media,groups=[...m.characters.map(c=>({name:c.home,ids:c.all})),...m.crew.filter(c=>!['Straw Hats','Imu','Rocks'].includes(c.name)).map(c=>({name:c.name,ids:c.all}))].filter(g=>g.ids.length>=2);
+ const m=data.media,groups=[...m.characters.map(c=>({name:c.home,ids:c.all})),...m.crew.filter(c=>!['Straw Hats','Imu','Rocks','Worst Generation','Yonko'].includes(c.name)).map(c=>({name:c.name,ids:c.all}))].filter(g=>g.ids.length>=2);
  let round=0,right=0;const N=6;
  const next=()=>{const g=pick(groups),id=pick(g.ids),opts=shuffle([g.name,...shuffle(groups.filter(x=>x.name!==g.name)).slice(0,3).map(x=>x.name)]),ox=20+Math.random()*60,oy=15+Math.random()*50;
   body.innerHTML=`<div class="g-top"><p class="eyebrow">Who is it · ${round+1} of ${N}</p><div class="bar"><i style="--p:${round/N}"></i></div></div><div class="who-pic"><img src="${FU(id)}" alt="" style="transform-origin:${ox}% ${oy}%"></div><div class="q-as big two">${opts.map(o=>`<button class="q-a press" data-a="${esc(o)}">${esc(o)}</button>`).join('')}</div>`;

@@ -6,8 +6,10 @@ import {registerCollection} from '../dialogs.js';
 
 // Latest canon bounties (as of the Egghead/Elbaf era). Characters with no confirmed bounty get a
 // redacted poster instead of a made-up number.
-const BOUNTY={'nami':366000000,'usopp':500000000,'chopper':1000,'franky':394000000,'brook':383000000,'jinbe':1100000000,'hancock':1659000000,'law':3000000000,'kuma':296000000,'straw hats':8816001000};
-const UNKNOWN={'imu':'CLASSIFIED','rocks':'ERASED FROM HISTORY','yamato':'NOT YET ISSUED','vivi':'A PRINCESS, NOT A PIRATE','garp':'HERO OF THE MARINES'};
+const BOUNTY={'nami':366000000,'usopp':500000000,'chopper':1000,'franky':394000000,'brook':383000000,'jinbe':1100000000,'hancock':1659000000,'law':3000000000,'kuma':296000000,'straw hats':8816001000,
+ // Nov 2026: his new folders. Canon bounties only; the rest stay unknown.
+ 'ace':550000000,'sabo':602000000,'shanks':4048900000,'mihawk':3590000000,'blackbeard':3996000000,'big mom':4388000000,'katakuri':1057000000,'bartolomeo':200000000};
+const UNKNOWN={'imu':'CLASSIFIED','rocks':'ERASED FROM HISTORY','yamato':'NOT YET ISSUED','vivi':'A PRINCESS, NOT A PIRATE','garp':'HERO OF THE MARINES','kuzan':'FORMER ADMIRAL','rob lucci':'CIPHER POL','reiju':'GERMA 66','shakky':'RETIRED','gunko':'HOLY KNIGHT','worst generation':'TWELVE NAMES','yonko':'FOUR EMPERORS'};
 
 function bountyHTML(name){
  const k=name.toLowerCase();

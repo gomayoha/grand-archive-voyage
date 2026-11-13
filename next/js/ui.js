@@ -16,6 +16,8 @@ const stack=[];
 const lock=()=>document.documentElement.classList.toggle('locked',stack.length>0);
 function push(layer){stack.push(layer);lock();}
 function pop(layer){const i=stack.indexOf(layer);if(i>=0)stack.splice(i,1);lock();}
+// other full-screen things (the cover story films) join the same stack
+export const pushLayer=l=>push(l),popLayer=l=>pop(l);
 addEventListener('keydown',e=>{const top=stack[stack.length-1];if(!top)return;if(e.key==='Escape'){e.preventDefault();top.close();}else top.key?.(e);});
 // pull down from the top of a layer to close it (phones)
 function pullToClose(el,scroller,close){
