@@ -4,6 +4,7 @@ import {$,$$,esc,data,S,TH,FU,TODAY,dayKey,rng,pick,shuffle,pool,poster,day,fini
 import {rise,openSheet} from './ui.js';
 import {charImg,momentArt} from './stories.js';
 import {mountFilm} from './film.js';
+import {todayExtras} from './worlds.js';
 
 const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const dayNo=k=>Math.round((new Date(k+'T12:00:00')-new Date('2026-01-01T12:00:00'))/864e5);
@@ -50,7 +51,8 @@ export function renderToday(root){
  </div>
  <div class="today-end" id="today-end" data-rise>${endHTML()}</div>
  <section class="row"><div class="row-head" data-rise><h2>Earlier. <span>The last six editions.</span></h2></div>
-  <div class="rail-wrap"><div class="rail">${past().map(x=>`<button class="pc col press" data-open="edition:${x.key}"><img src="${TH(x.e.picture.id)}" alt="" loading="lazy" decoding="async"><span class="pc-t"><b>${x.label}</b><small>${esc(x.e.character.name)} · ${esc(x.e.picture.col)}</small></span></button>`).join('')}</div></div></section>`;
+  <div class="rail-wrap"><div class="rail">${past().map(x=>`<button class="pc col press" data-open="edition:${x.key}"><img src="${TH(x.e.picture.id)}" alt="" loading="lazy" decoding="async"><span class="pc-t"><b>${x.label}</b><small>${esc(x.e.character.name)} · ${esc(x.e.picture.col)}</small></span></button>`).join('')}</div></div></section>
+ ${todayExtras()}`;
  const sync=()=>{const n=$('#pk-n',root);if(n)n.textContent=S.packs>0?`${S.packs} pack${S.packs===1?'':'s'} waiting`:'No packs left today';
   $$('[data-tick]',root).forEach(t=>t.classList.toggle('on',!!day().done[t.dataset.tick]));const e=$('#today-end',root);if(e){const n2=String(PARTS.filter(x=>day().done[x]).length);if(e.dataset.n!==n2){e.dataset.n=n2;e.innerHTML=endHTML();cd();}}};
  // the countdown to midnight

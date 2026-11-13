@@ -2,6 +2,7 @@
 import {$,esc,data,ROOT,TH,poster,collections,shuffle} from './store.js';
 import {openSheet} from './ui.js';
 import {charImg,momentArt} from './stories.js';
+import {wm} from './worlds.js';
 
 let INDEX=null;
 function build(){
@@ -13,11 +14,15 @@ function build(){
  data.route.moments.forEach((x,i)=>add('Moments',x.title,x.series,momentArt(x)[0],`moment:${i}`));
  data.route.stops.forEach((x,i)=>add('The journey',x.name,x.title||`Phase ${x.phase}`,null,`stop:${i}`));
  (data.covers?.serials||[]).forEach(s=>add('Cover stories',s.title,`${s.pages.length} parts`,`${ROOT}assets/covers/${s.id}/cover.webp`,`serial:${s.id}`));
+ (data.mysteries?.stories||[]).forEach(c=>add('Mysteries',String(c.title).replace(/\*/g,''),`Case file · ${c.year||''}`,wm(c.hero?.src,250),`case:${c.id}`));
+ (data.behold?.SAINTS||[]).forEach(x=>add('Behold',x.full||x.name,x.title||'Saint',wm(data.behold.ART?.[x.portrait]?.src,250),`saint:${x.id}`));
+ (data.behold?.APOSTLES||[]).forEach(x=>add('Behold',x.full||x.name,x.epithet||'Apostle',wm(data.behold.ART?.[x.portrait]?.src,250),`apostle:${x.id}`));
+ (data.behold?.ENCOUNTERS||[]).forEach(x=>add('Behold',x.name,x.role||'Encounter',null,`enc:${x.id}`));
  collections().forEach(c=>add('Pictures',c.name,`${c.cards.length} picture${c.cards.length===1?'':'s'}`,TH(c.cards[0].id),`gallery:${c.name}`));
  (data.tcg?.cards||[]).forEach(c=>add('My real cards',c.name,`${c.rarity||''} · ${c.no||c.id}`,`${ROOT}assets/tcg/s/${c.id}.webp`,`tcg:${c.id}`));
  return out;
 }
-const ORDER=['Characters','The Straw Hats','Cover stories','The shelf','Moments','The journey','Pictures','My real cards'];
+const ORDER=['Characters','The Straw Hats','Cover stories','Mysteries','Behold','The shelf','Moments','The journey','Pictures','My real cards'];
 const row=r=>`<button class="sr press" data-open="${esc(r.open)}">${r.img?`<img src="${r.img}" alt="" loading="lazy" decoding="async">`:`<i>${esc(r.t[0]||'')}</i>`}<span><b>${esc(r.t)}</b><small>${esc(r.s)}</small></span></button>`;
 function results(q){
  const tok=q.toLowerCase().split(/\s+/).filter(Boolean);if(!tok.length)return '';

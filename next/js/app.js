@@ -2,7 +2,9 @@
 import {$,$$,loadData,S,save,changed,onChange,touchStreak,setToast,finish,reduced} from './store.js';
 import {toast,rise} from './ui.js';
 import {renderToday,openPicture,openEdition} from './today.js';
-import {renderStories,open as openThing} from './stories.js';
+import {open as openThing} from './stories.js';
+import {renderWorlds,open as openWorld} from './worlds.js';
+import {unlock} from './gate.js';
 import {renderCollect,onShowCollect,openPack,openTcg,stayUI,STAY,GIFT} from './collect.js';
 import {openSearch} from './search.js';
 import {openSerial} from './serial.js';
@@ -44,17 +46,19 @@ document.addEventListener('click',e=>{
  else if(what==='search')openSearch(null);
  else if(what.startsWith('tcg:'))openTcg(what.slice(4),o);
  else if(what.startsWith('serial:'))openSerial(what.slice(7));
+ else if(openWorld(what,o)){if(what.startsWith('world:')&&cur!=='stories')go('stories');}
  else if(what.startsWith('edition:'))openEdition(what.slice(8),o);
  else openThing(what,o);
 });
-document.addEventListener('ga:open',e=>openThing(e.detail,null));
+document.addEventListener('ga:open',e=>{openWorld(e.detail,null)||openThing(e.detail,null);});
 addEventListener('hashchange',()=>go(location.hash.slice(1)||'today'));
 
 async function boot(){
+ await unlock();   // private: nothing is drawn until the magic words are given on this device
  await loadData();
  setToast(toast);
  const fresh=touchStreak();
- renderToday(view('today'));renderStories(view('stories'));renderCollect(view('collect'));playDraw=renderPlay(view('play'));renderMe(view('me'));
+ renderToday(view('today'));renderWorlds(view('stories'));renderCollect(view('collect'));playDraw=renderPlay(view('play'));renderMe(view('me'));
  const packs=()=>{const n=$('#bar-packs-n');n.textContent=S.packs;$('#bar-packs').classList.toggle('has',S.packs>0);};packs();onChange(packs);
  // a dot on Collect when a quest is waiting to be claimed
  const dot=()=>{const n=readyCount();$$('[data-tab=collect]').forEach(a=>a.classList.toggle('dot',n>0));};dot();onChange(dot);

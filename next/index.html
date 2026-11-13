@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="ga-version" content="20261113-144348">
-<script type="importmap">{"imports": {"./js/app.js": "./js/app.js?v=20261113-144348", "./js/collect.js": "./js/collect.js?v=20261113-144348", "./js/eatfx.js": "./js/eatfx.js?v=20261113-144348", "./js/film.js": "./js/film.js?v=20261113-144348", "./js/fruitlist.js": "./js/fruitlist.js?v=20261113-144348", "./js/fruits.js": "./js/fruits.js?v=20261113-144348", "./js/me.js": "./js/me.js?v=20261113-144348", "./js/play.js": "./js/play.js?v=20261113-144348", "./js/quests.js": "./js/quests.js?v=20261113-144348", "./js/search.js": "./js/search.js?v=20261113-144348", "./js/serial.js": "./js/serial.js?v=20261113-144348", "./js/store.js": "./js/store.js?v=20261113-144348", "./js/stories.js": "./js/stories.js?v=20261113-144348", "./js/themes.js": "./js/themes.js?v=20261113-144348", "./js/today.js": "./js/today.js?v=20261113-144348", "./js/ui.js": "./js/ui.js?v=20261113-144348"}}</script>
+<meta name="ga-version" content="20261113-145341">
+<script type="importmap">{"imports": {"./js/app.js": "./js/app.js?v=20261113-145341", "./js/collect.js": "./js/collect.js?v=20261113-145341", "./js/eatfx.js": "./js/eatfx.js?v=20261113-145341", "./js/film.js": "./js/film.js?v=20261113-145341", "./js/fruitlist.js": "./js/fruitlist.js?v=20261113-145341", "./js/fruits.js": "./js/fruits.js?v=20261113-145341", "./js/gate.js": "./js/gate.js?v=20261113-145341", "./js/me.js": "./js/me.js?v=20261113-145341", "./js/play.js": "./js/play.js?v=20261113-145341", "./js/quests.js": "./js/quests.js?v=20261113-145341", "./js/search.js": "./js/search.js?v=20261113-145341", "./js/serial.js": "./js/serial.js?v=20261113-145341", "./js/store.js": "./js/store.js?v=20261113-145341", "./js/stories.js": "./js/stories.js?v=20261113-145341", "./js/themes.js": "./js/themes.js?v=20261113-145341", "./js/today.js": "./js/today.js?v=20261113-145341", "./js/ui.js": "./js/ui.js?v=20261113-145341", "./js/worlds.js": "./js/worlds.js?v=20261113-145341"}}</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Grand Archive</title>
 <meta name="description" content="Grand Archive: a new edition every day.">
@@ -15,21 +15,23 @@
 <link rel="apple-touch-icon" href="../assets/img/ui/apple-touch-icon-o4.png">
 <link rel="icon" href="../assets/img/ui/icon-o4-192.png">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="stylesheet" href="app.css?v=20261113-144348">
-<link rel="stylesheet" href="fruits.css?v=20261113-144348">
-<link rel="modulepreload" href="js/app.js?v=20261113-144348">
-<link rel="modulepreload" href="js/collect.js?v=20261113-144348">
-<link rel="modulepreload" href="js/film.js?v=20261113-144348">
-<link rel="modulepreload" href="js/fruitlist.js?v=20261113-144348">
-<link rel="modulepreload" href="js/me.js?v=20261113-144348">
-<link rel="modulepreload" href="js/play.js?v=20261113-144348">
-<link rel="modulepreload" href="js/quests.js?v=20261113-144348">
-<link rel="modulepreload" href="js/search.js?v=20261113-144348">
-<link rel="modulepreload" href="js/serial.js?v=20261113-144348">
-<link rel="modulepreload" href="js/store.js?v=20261113-144348">
-<link rel="modulepreload" href="js/stories.js?v=20261113-144348">
-<link rel="modulepreload" href="js/today.js?v=20261113-144348">
-<link rel="modulepreload" href="js/ui.js?v=20261113-144348">
+<link rel="stylesheet" href="app.css?v=20261113-145341">
+<link rel="stylesheet" href="fruits.css?v=20261113-145341">
+<link rel="modulepreload" href="js/app.js?v=20261113-145341">
+<link rel="modulepreload" href="js/collect.js?v=20261113-145341">
+<link rel="modulepreload" href="js/film.js?v=20261113-145341">
+<link rel="modulepreload" href="js/fruitlist.js?v=20261113-145341">
+<link rel="modulepreload" href="js/gate.js?v=20261113-145341">
+<link rel="modulepreload" href="js/me.js?v=20261113-145341">
+<link rel="modulepreload" href="js/play.js?v=20261113-145341">
+<link rel="modulepreload" href="js/quests.js?v=20261113-145341">
+<link rel="modulepreload" href="js/search.js?v=20261113-145341">
+<link rel="modulepreload" href="js/serial.js?v=20261113-145341">
+<link rel="modulepreload" href="js/store.js?v=20261113-145341">
+<link rel="modulepreload" href="js/stories.js?v=20261113-145341">
+<link rel="modulepreload" href="js/today.js?v=20261113-145341">
+<link rel="modulepreload" href="js/ui.js?v=20261113-145341">
+<link rel="modulepreload" href="js/worlds.js?v=20261113-145341">
 </head>
 <body>
 <!-- Grand Archive, the app (Nov 2026): Today / Stories / Collect / Play / Me. Built beside the classic site (one folder up),
@@ -62,7 +64,7 @@
 
 <div class="splash" id="splash"><img src="../assets/img/ui/icon-o4-192.png" alt="" width="72" height="72"><p>Grand Archive</p></div>
 <noscript><p style="padding:120px 24px;text-align:center">Grand Archive needs JavaScript. The <a href="../index.html">classic archive</a> does too.</p></noscript>
-<script type="module" src="js/app.js?v=20261113-144348"></script>
+<script type="module" src="js/app.js?v=20261113-145341"></script>
 <script>/* if the app has not started after nine seconds (a file got lost on the way), load once more */
 setTimeout(function(){if(!window.__booted){try{if(sessionStorage.getItem('ga-retry'))return;sessionStorage.setItem('ga-retry','1');}catch(e){}location.reload();}},9000);</script>
 </body>

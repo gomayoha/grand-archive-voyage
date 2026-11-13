@@ -24,6 +24,9 @@ export function quests(){
   {id:'moments',t:'Every moment',d:'Open every moment.',n:[seen('moment:'),R.moments.length],packs:3},
   {id:'stops',t:'The whole journey',d:'Open every phase of the journey.',n:[seen('stop:'),R.stops.length],packs:2},
   {id:'serials',t:'Every cover story',d:'Watch every cover story to the end.',n:[seen('serial:'),(data.covers?.serials||[]).length||18],packs:5},
+  {id:'cases',t:'Every case file',d:'Open every file in Mysteries.',n:[seen('case:'),(data.mysteries?.stories||[]).length||25],packs:5},
+  {id:'solved',t:'Ten files closed',d:'Answer all three questions right in ten case files.',n:[seen('solved:'),10],packs:4},
+  {id:'saints',t:'A cloud of witnesses',d:'Read twenty saints in Behold.',n:[seen('saint:'),20],packs:4},
   {id:'games',t:'Three for three',d:'Win each of the three games at least once.',n:[(S.best.trivia>=6)+(S.best.hl>=5)+(S.best.who>=4),3],packs:2},
   {id:'perfect',t:'Eight out of eight',d:'A perfect round of quick trivia.',n:[S.best.trivia>=8?1:0,1],packs:2},
   {id:'likes',t:'Twenty favourites',d:'Heart twenty pictures.',n:[Object.keys(S.likes||{}).length,20],packs:1}

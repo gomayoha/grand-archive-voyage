@@ -2,6 +2,7 @@
 import {$,esc,data,S,ROOT,pool,changed,onChange,title,nextTitle,money} from './store.js';
 import {rise,openSheet} from './ui.js';
 import {rarity} from './store.js';
+import {lockAgain} from './gate.js';
 
 const cleanName=s=>String(s??'').replace(/[\u0000-\u001f<>]/g,'').replace(/\s+/g,' ').trim().slice(0,16).trim();
 export function renderMe(root){
@@ -21,6 +22,7 @@ export function renderMe(root){
   <section class="row"><div class="row-head" data-rise><h2>Settings.</h2></div>
    <div class="set" data-rise><button class="set-row" id="set-theme"><span><b>Theme</b><small id="set-theme-now"></small></span><i aria-hidden="true">›</i></button></div>
    <div class="set" data-rise><label><span><b>Calm motion</b><small>Turns off the big transitions</small></span><input type="checkbox" id="set-calm"${document.documentElement.classList.contains('calm')?' checked':''}></label></div>
+   <div class="set" data-rise><button class="set-row" id="set-lock"><span><b>Lock this device</b><small>Ask for the magic words again next time</small></span><i aria-hidden="true">›</i></button></div>
    <div class="links" data-rise><a class="lk press" href="${ROOT}index.html"><b>The classic archive</b><span>Everything as it was</span></a><a class="lk press" href="${ROOT}index.html#life"><b>Book II</b><span>Behind the magic words</span></a><a class="lk press" href="${ROOT}index.html#desk"><b>Captain’s Desk</b><span>Edit ratings and reviews</span></a></div></section>
   <p class="fine end">Grand Archive. Progress is kept in this browser only.</p>`;
   import('./themes.js').then(m=>{const id=m.themeNow(),el=$('#set-theme-now',root);if(el)el.textContent=(S.theme||'auto')==='auto'?(id?`Follows your fruit · ${m.THEMES[id].name}`:'Follows your fruit · none eaten yet'):id?m.THEMES[id].name:'Archive gold';});
@@ -29,6 +31,7 @@ export function renderMe(root){
  draw();onChange(draw);
  root.addEventListener('click',e=>{
   if(e.target.closest('#set-theme')){openThemes();return;}
+  if(e.target.closest('#set-lock')){if(confirm('Lock the archive on this device? You will need the magic words to open it again.'))lockAgain();return;}
   if(e.target.closest('#po-name')){const n=prompt('The name on your wanted poster (16 letters at most)',S.name||'');if(n!==null){S.name=cleanName(n);changed();}}
  });
  root.addEventListener('change',e=>{if(e.target.id==='set-calm'){S.calm=e.target.checked;document.documentElement.classList.toggle('calm',S.calm);changed();}});

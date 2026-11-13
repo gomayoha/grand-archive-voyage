@@ -13,7 +13,7 @@ export const data={};
 const J=(u,tries=3)=>fetch(ROOT+u).then(r=>{if(!r.ok)throw r;return r.json();}).catch(()=>tries>1?new Promise(res=>setTimeout(res,400*(4-tries))).then(()=>J(u,tries-1)):null);
 const FIELDS=['status','s','tagline','b','progress','chapter','genre'];
 export async function loadData(){
- const keys=['media','characters','posters','shelf','route','strawhats','tcg','trivia','edits','collection','covers'];
+ const keys=['media','characters','posters','shelf','route','strawhats','tcg','trivia','edits','collection','covers','mysteries','behold'];
  (await Promise.all(keys.map(k=>J(`data/${k}.json`)))).forEach((v,i)=>data[keys[i]]=v);
  // the same overlay the classic site applies: his edits win while the note still says what it said then
  const sh=data.shelf,e=data.edits;
@@ -53,7 +53,7 @@ export const RWORTH={c:1e6,r:3e6,sr:8e6,sec:20e6,m:35e6,rm:60e6,mos:60e6,sun:120
 
 /* ------------------------------------------------------------------ saved progress */
 const KEY='grand-archive:next';
-const blank=()=>({v:1,b:0,cards:{},packs:2,opened:0,streak:{n:0,last:null,best:0},days:{},name:'',best:{},seen:{},likes:{},q:{},fullDays:0,fruits:[],eat:null,theme:'auto',stay:0,fruitsIn:false,calm:null,imported:false});
+const blank=()=>({v:1,b:0,cards:{},packs:2,opened:0,streak:{n:0,last:null,best:0},days:{},name:'',best:{},seen:{},likes:{},q:{},fullDays:0,fruits:[],eat:null,theme:'auto',stay:0,world:'anime',fruitsIn:false,calm:null,imported:false});
 export const S=(()=>{try{const v=JSON.parse(localStorage.getItem(KEY)||'null');if(v&&v.v===1)return Object.assign(blank(),v);}catch{}return blank();})();
 export const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S));}catch{}};
 // first visit: carry over what was already earned in the classic archive (cards found, bounty, name)
