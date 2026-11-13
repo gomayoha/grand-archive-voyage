@@ -3,6 +3,7 @@
 import {$,$$,esc,data,S,TH,FU,TODAY,dayKey,rng,pick,shuffle,pool,poster,day,finish,givePack,earn,PARTS,onChange,rarity,RNAME} from './store.js';
 import {rise,openSheet} from './ui.js';
 import {charImg,momentArt} from './stories.js';
+import {mountFilm} from './film.js';
 
 const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const dayNo=k=>Math.round((new Date(k+'T12:00:00')-new Date('2026-01-01T12:00:00'))/864e5);
@@ -34,6 +35,7 @@ function endHTML(){
 export function renderToday(root){
  E=edition();const d=new Date(),{picture:p,character:c,words:w,moment:m}=E,art=momentArt(m)[0],wp=poster(w.k,w.t),r=rarity(p.id);
  root.innerHTML=`
+ <section class="film" id="film" aria-label="The opening"></section>
  <header class="lt"><p class="lt-date">${DAYS[d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth()]}</p><h1 class="lt-title">Today</h1><button class="streak press" data-open="tab:me" aria-label="Day streak"><b>${S.streak.n}</b><span>day${S.streak.n===1?'':'s'} in a row</span></button></header>
  <div class="tg">
   <button class="card c-pic press" data-part="picture" data-open="today:picture" data-rise><img src="${FU(p.id)}" alt="" decoding="async" fetchpriority="high"><span class="card-t"><span class="eyebrow">Picture of the day</span><b>${esc(p.col)}</b><small>No. ${p.i} of ${p.of} · ${RNAME[r]} card</small></span>${tick('picture')}</button>
@@ -58,6 +60,7 @@ export function renderToday(root){
   $('#c-q',root).innerHTML=questionHTML();
  });
  rise(root);
+ mountFilm($('#film',root),E);
 }
 // the six days before today, newest first
 function past(){return Array.from({length:6},(_,i)=>{const d=new Date(TODAY+'T12:00:00');d.setDate(d.getDate()-i-1);const key=dayKey(d);return {key,e:edition(key),label:i?`${DAYS[d.getDay()]}`:'Yesterday',date:`${DAYS[d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth()]}`};});}

@@ -45,6 +45,7 @@ document.addEventListener('click',e=>{
  else if(what.startsWith('edition:'))openEdition(what.slice(8),o);
  else openThing(what,o);
 });
+document.addEventListener('ga:open',e=>openThing(e.detail,null));
 addEventListener('hashchange',()=>go(location.hash.slice(1)||'today'));
 
 async function boot(){
